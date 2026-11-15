@@ -2,12 +2,15 @@
 
 ## Status
 
-**PLANNING.** The Master Blueprint is not yet approved by the owner. Do not start implementation, and do not change app code, Firebase, the database or the architecture, until the owner approves it. After approval, work proceeds one module at a time, each with tests and acceptance criteria.
+**Roadmap approved by the owner on 2026-11-15. Phase 1 (Foundation) is the current phase.** Work proceeds one phase at a time, in roadmap order; a phase is complete only when its gate is met, its commit is pushed and the owner has signed it off. Do not start a later phase early, and do not change Firebase, the database or production data without the step being in the current phase.
+
+- Git: private repository `mohdkasimqur/people-bridge`, branch `main`; baseline commit `912d74b`.
+- Phase 1 items still blocked on the owner: brand name and app IDs; Firebase console access or exports; whether live user data exists.
 
 ## Documents
 
 - [docs/people-bridge/03-master-blueprint.md](docs/people-bridge/03-master-blueprint.md) — requirements, architecture, data plan, modules, security, roadmap, open decisions, acceptance criteria. The source of truth for planning.
-- [docs/people-bridge/04-final-phase-roadmap.md](docs/people-bridge/04-final-phase-roadmap.md) — the only roadmap: phases 1–11 with scope, tests, gates and blocking decisions. Awaiting approval.
+- [docs/people-bridge/04-final-phase-roadmap.md](docs/people-bridge/04-final-phase-roadmap.md) — the only roadmap: phases 1–11 with scope, tests, gates and blocking decisions. Approved.
 - [docs/people-bridge/01-audit-report.md](docs/people-bridge/01-audit-report.md) — full read-only audit of the code, preserved verbatim.
 - [docs/people-bridge/02-architecture-roadmap-v1.md](docs/people-bridge/02-architecture-roadmap-v1.md) — first blueprint, superseded.
 

@@ -1,6 +1,6 @@
 # People Bridge — Final Phase Roadmap
 
-Version 1, 2026-11-14. **Status: PLANNING. Awaiting owner approval. Phase 1 must not start before approval.**
+Version 1, 2026-11-14. **Status: APPROVED by the owner on 2026-11-15. Current phase: 1 (Foundation).** Baseline commit `912d74b` is on the private GitHub repository `mohdkasimqur/people-bridge`.
 
 Requirements, architecture and decisions are in [03-master-blueprint.md](03-master-blueprint.md). Evidence for current defects is in [01-audit-report.md](01-audit-report.md); audit finding IDs (F1, H1, A2, L1 …) are cited instead of repeated.
 
