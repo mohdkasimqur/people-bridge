@@ -1652,6 +1652,7 @@ if (!otpVerified) {
   valid = false;
 }
 
+if (!privacyPolicyAccepted) {
   privacyPolicyError =
       'Please accept the Privacy Policy and Terms & Conditions.';
   valid = false;

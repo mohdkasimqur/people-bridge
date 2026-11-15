@@ -7,7 +7,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:jober_india/jober_indiaScreens.dart/location_backgrnd_servce.dart';
 import 'package:jober_india/jober_indiaScreens.dart/screen_home.dart';
 import 'package:jober_india/jober_indiaScreens.dart/screen_welcome.dart';
 import 'package:jober_india/owner_data.dart';
