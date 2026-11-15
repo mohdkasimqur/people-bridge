@@ -90,7 +90,6 @@ class _CompanyProfileScreenState
 
 String _aboutCompany = '';
 
-//bool _isLoadingCall = false;
   List<String> _categories = [];
 
   // ==============================================================
@@ -197,25 +196,6 @@ _secondaryMobile = (
   data['secondaryMobile'] ?? ''
 ).toString().trim();
 
-      // ------------------------------------------------------------
-      // EXPERIENCE
-      // ------------------------------------------------------------
-
-      // _experience =
-      //     (data['experience'] ?? '')
-      //         .toString()
-      //         .trim();
-
-      // // ------------------------------------------------------------
-      // // CATEGORIES
-      // // ------------------------------------------------------------
-
-      // _categories = _readCategories(
-      //   data['category'] ??
-      //       data['categories'],
-      // );
-      // Read categories as a list first.
-// Your Firestore data may contain both "categories" and "category".
 _categories = _readCategories(
   data['categories'] ?? data['category'],
 );
@@ -234,14 +214,6 @@ _aboutCompany = (
 
       _readLocation(data);
 
-      // ------------------------------------------------------------
-      // DISTANCE
-      // ------------------------------------------------------------
-
-      // if (widget.distanceKm != null) {
-      //   _distanceKm =
-      //       widget.distanceKm;
-      // }
       if (widget.distanceKm != null) {
   _distanceKm = widget.distanceKm;
 }
@@ -455,18 +427,6 @@ _aboutCompany = '';
         _longitude != null;
   }
 
-  // ==============================================================
-  // PHONE AVAILABLE
-  // ==============================================================
-
-  // bool get _hasPhone {
-  //   return _phoneNumber
-  //       .replaceAll(
-  //         RegExp(r'[^0-9+]'),
-  //         '',
-  //       )
-  //       .isNotEmpty;
-  // }
   bool get _hasPhone =>
     _secondaryMobile.replaceAll(RegExp(r'[^0-9+]'), '').isNotEmpty;
 
@@ -596,115 +556,6 @@ _aboutCompany = '';
     );
   }
 
-  // ==============================================================
-  // PROFILE
-  // ==============================================================
-
-  // Widget _buildProfile() {
-  //   return CustomScrollView(
-  //     slivers: [
-
-  //       // ----------------------------------------------------------
-  //       // APP BAR
-  //       // ----------------------------------------------------------
-
-  //       SliverAppBar(
-  //         pinned: true,
-  //         elevation: 0,
-  //         backgroundColor: Colors.white,
-
-  //         leading: IconButton(
-  //           onPressed: () {
-  //             Navigator.pop(context);
-  //           },
-  //           icon: const Icon(
-  //             Icons.arrow_back,
-  //             color: darkGreen,
-  //           ),
-  //         ),
-
-  //         title: const Text(
-  //           'Company Profile',
-  //           style: TextStyle(
-  //             color: darkGreen,
-  //             fontWeight: FontWeight.bold,
-  //           ),
-  //         ),
-
-  //         centerTitle: true,
-  //       ),
-
-  //       // ----------------------------------------------------------
-  //       // BODY
-  //       // ----------------------------------------------------------
-
-  //       SliverPadding(
-  //         padding: const EdgeInsets.fromLTRB(
-  //           16,
-  //           18,
-  //           16,
-  //           35,
-  //         ),
-  //         sliver: SliverList(
-  //           delegate: SliverChildListDelegate(
-  //             [
-
-  //               // --------------------------------------------------
-  //               // PROFILE HEADER
-  //               // --------------------------------------------------
-
-  //               _buildProfileHeader(),
-
-  //               const SizedBox(height: 18),
-
-  //               // --------------------------------------------------
-  //               // CATEGORY CARD
-  //               // --------------------------------------------------
-
-  //               _buildCategoryCard(),
-
-  //               const SizedBox(height: 14),
-
-  //               // --------------------------------------------------
-  //               // EXPERIENCE CARD
-  //               // --------------------------------------------------
-
-  //               _buildExperienceCard(),
-
-  //               const SizedBox(height: 14),
-
-  //               // --------------------------------------------------
-  //               // LOCATION CARD
-  //               // --------------------------------------------------
-
-  //               _buildLocationCard(),
-
-  //               const SizedBox(height: 22),
-
-  //               // --------------------------------------------------
-  //               // ACTION BUTTONS
-  //               //
-  //               // Created in Part 3
-  //               // --------------------------------------------------
-
-  //               _buildActionButtons(),
-
-  //               const SizedBox(height: 20),
-
-  //               // --------------------------------------------------
-  //               // INFORMATION CARD
-  //               //
-  //               // Created in Part 3
-  //               // --------------------------------------------------
-
-  //               _buildInformationCard(),
-  //             ],
-  //           ),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
   Widget _buildProfile() {
   return CustomScrollView(
     slivers: [
@@ -739,143 +590,6 @@ _aboutCompany = '';
   );
 }
 
-  // ==============================================================
-  // PROFILE HEADER
-  // ==============================================================
-
-  // Widget _buildProfileHeader() {
-  //   return Container(
-  //     width: double.infinity,
-  //     padding: const EdgeInsets.all(22),
-  //     decoration: BoxDecoration(
-  //       gradient: const LinearGradient(
-  //         begin: Alignment.topLeft,
-  //         end: Alignment.bottomRight,
-  //         colors: [
-  //           darkGreen,
-  //           green,
-  //         ],
-  //       ),
-  //       borderRadius: BorderRadius.circular(24),
-  //       boxShadow: [
-  //         BoxShadow(
-  //           color: darkGreen.withValues(
-  //             alpha: 0.20,
-  //           ),
-  //           blurRadius: 14,
-  //           offset: const Offset(0, 6),
-  //         ),
-  //       ],
-  //     ),
-  //     child: Column(
-  //       children: [
-
-  //         // --------------------------------------------------------
-  //         // COMPANY ICON
-  //         // --------------------------------------------------------
-
-  //         Container(
-  //           width: 92,
-  //           height: 92,
-  //           decoration: BoxDecoration(
-  //             color: Colors.white,
-  //             shape: BoxShape.circle,
-  //             border: Border.all(
-  //               color: Colors.white.withValues(
-  //                 alpha: 0.85,
-  //               ),
-  //               width: 3,
-  //             ),
-  //           ),
-  //           child: const Icon(
-  //             Icons.business,
-  //             size: 46,
-  //             color: darkGreen,
-  //           ),
-  //         ),
-
-  //         const SizedBox(height: 15),
-
-  //         // --------------------------------------------------------
-  //         // COMPANY NAME
-  //         // --------------------------------------------------------
-
-  //         Text(
-  //           _displayName,
-  //           textAlign: TextAlign.center,
-  //           maxLines: 2,
-  //           overflow: TextOverflow.ellipsis,
-  //           style: const TextStyle(
-  //             color: Colors.white,
-  //             fontSize: 24,
-  //             fontWeight: FontWeight.w800,
-  //           ),
-  //         ),
-
-  //         const SizedBox(height: 7),
-
-  //         // --------------------------------------------------------
-  //         // CATEGORY
-  //         // --------------------------------------------------------
-
-  //         Text(
-  //           _categoryText,
-  //           textAlign: TextAlign.center,
-  //           maxLines: 3,
-  //           overflow: TextOverflow.ellipsis,
-  //           style: TextStyle(
-  //             color: Colors.white.withValues(
-  //               alpha: 0.90,
-  //             ),
-  //             fontSize: 14,
-  //             fontWeight: FontWeight.w500,
-  //           ),
-  //         ),
-
-  //         const SizedBox(height: 15),
-
-  //         // --------------------------------------------------------
-  //         // DISTANCE
-  //         // --------------------------------------------------------
-
-  //         Container(
-  //           padding: const EdgeInsets.symmetric(
-  //             horizontal: 15,
-  //             vertical: 8,
-  //           ),
-  //           decoration: BoxDecoration(
-  //             color: Colors.white.withValues(
-  //               alpha: 0.14,
-  //             ),
-  //             borderRadius:
-  //                 BorderRadius.circular(30),
-  //           ),
-  //           child: Row(
-  //             mainAxisSize: MainAxisSize.min,
-  //             children: [
-  //               const Icon(
-  //                 Icons.location_on,
-  //                 size: 17,
-  //                 color: Colors.white,
-  //               ),
-
-  //               const SizedBox(width: 6),
-
-  //               Text(
-  //                 _distanceText,
-  //                 style: const TextStyle(
-  //                   color: Colors.white,
-  //                   fontWeight: FontWeight.w600,
-  //                   fontSize: 13,
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
   Widget _buildProfileHeader() {
   return Container(
     width: double.infinity,
@@ -1071,71 +785,6 @@ _aboutCompany = '';
     );
   }
 
-  // ==============================================================
-  // EXPERIENCE CARD
-  // ==============================================================
-
-  // Widget _buildExperienceCard() {
-  //   return Container(
-  //     width: double.infinity,
-  //     padding: const EdgeInsets.all(17),
-  //     decoration: _cardDecoration(),
-  //     child: Row(
-  //       children: [
-
-  //         Container(
-  //           width: 48,
-  //           height: 48,
-  //           decoration: BoxDecoration(
-  //             color: orange.withValues(
-  //               alpha: 0.12,
-  //             ),
-  //             borderRadius:
-  //                 BorderRadius.circular(14),
-  //           ),
-  //           child: const Icon(
-  //             Icons.workspace_premium_outlined,
-  //             color: orange,
-  //             size: 26,
-  //           ),
-  //         ),
-
-  //         const SizedBox(width: 13),
-
-  //         Expanded(
-  //           child: Column(
-  //             crossAxisAlignment:
-  //                 CrossAxisAlignment.start,
-  //             children: [
-
-  //               // const Text(
-  //               //   'Experience',
-  //               //   style: TextStyle(
-  //               //     color: Colors.grey,
-  //               //     fontSize: 13,
-  //               //   ),
-  //               // ),
-
-  //               const SizedBox(height: 4),
-
-  //               // Text(
-  //               //   _experienceText,
-  //               //   maxLines: 2,
-  //               //   overflow: TextOverflow.ellipsis,
-  //               //   style: const TextStyle(
-  //               //     color: darkGreen,
-  //               //     fontSize: 16,
-  //               //     fontWeight: FontWeight.bold,
-  //               //   ),
-  //               // ),
-  //             ],
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
 Widget _buildAboutCompanyCard() {
   final String aboutText = _aboutCompany.trim().isEmpty
       ? 'No company description has been provided yet.'
@@ -1283,81 +932,10 @@ Widget _buildAboutCompanyCard() {
             ),
           ),
 
-          // if (_hasLocation) ...[
-          //   const SizedBox(height: 12),
-
-          //   SizedBox(
-          //     width: double.infinity,
-          //     height: 47,
-          //     child: OutlinedButton.icon(
-          //       onPressed: _openDirections,
-          //       icon: const Icon(
-          //         Icons.directions,
-          //         color: green,
-          //       ),
-          //       label: const Text(
-          //         'Open Location in Maps',
-          //         style: TextStyle(
-          //           color: green,
-          //           fontWeight: FontWeight.bold,
-          //         ),
-          //       ),
-          //       style: OutlinedButton.styleFrom(
-          //         side: const BorderSide(
-          //           color: green,
-          //         ),
-          //         shape: RoundedRectangleBorder(
-          //           borderRadius:
-          //               BorderRadius.circular(12),
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          // ],
         ],
       ),
     );
   }
-  // ==============================================================
-  // ACTION BUTTONS
-  // ==============================================================
-
-  // Widget _buildActionButtons() {
-  //   return Row(
-  //     children: [
-
-  //       // ----------------------------------------------------------
-  //       // CALL BUTTON
-  //       // ----------------------------------------------------------
-
-  //       Expanded(
-  //         child: _buildActionButton(
-  //           icon: Icons.phone,
-  //           title: 'Call',
-  //           color: green,
-  //           onTap: _callCompany,
-  //           enabled: _hasPhone,
-  //         ),
-  //       ),
-
-  //       const SizedBox(width: 10),
-
-  //       // ----------------------------------------------------------
-  //       // CHAT BUTTON
-  //       // ----------------------------------------------------------
-
-  //       Expanded(
-  //         child: _buildActionButton(
-  //           icon: Icons.chat_bubble_outline,
-  //           title: 'Chat',
-  //           color: darkGreen,
-  //           onTap: _openChat,
-  //           enabled: true,
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
 
   // ==============================================================
   // ACTION BUTTON
@@ -1508,18 +1086,6 @@ Widget _buildActionButton({
             _categoryText,
           ),
 
-          // const Divider(height: 22),
-
-          // // --------------------------------------------------------
-          // // EXPERIENCE
-          // // --------------------------------------------------------
-
-          // _buildInfoRow(
-          //   Icons.workspace_premium_outlined,
-          //   'Experience',
-          //   _experienceText,
-          //  ),
-
           const Divider(height: 22),
 
           // --------------------------------------------------------
@@ -1616,63 +1182,6 @@ Widget _buildActionButton({
     );
   }
 
-  // ==============================================================
-  // CALL COMPANY
-  //
-  // The phone number stays hidden from the UI.
-  // It is only used when the user presses Call.
-  // ==============================================================
-
-  // Future<void> _callCompany() async {
-  //   if (!_hasPhone) {
-  //     _showMessage(
-  //       'Phone number is not available.',
-  //       isError: true,
-  //     );
-  //     return;
-  //   }
-
-  //   String phone = _phoneNumber.trim();
-
-  //   phone = phone.replaceAll(
-  //     RegExp(r'[^\d+]'),
-  //     '',
-  //   );
-
-  //   if (phone.isEmpty) {
-  //     _showMessage(
-  //       'Phone number is not available.',
-  //       isError: true,
-  //     );
-  //     return;
-  //   }
-
-  //   final Uri phoneUri = Uri(
-  //     scheme: 'tel',
-  //     path: phone,
-  //   );
-
-  //   try {
-  //     final bool launched =
-  //         await launchUrl(
-  //       phoneUri,
-  //       mode:
-  //           LaunchMode.externalApplication,
-  //     );
-
-  //     if (!launched) {
-  //       _showMessage(
-  //         'Unable to open phone dialer.',
-  //         isError: true,
-  //       );
-  //     }
-  //   } catch (e) {
-  //     _showMessage(
-  //       'Unable to open phone dialer.',
-  //       isError: true,
-  //     );
-  //   }
-  // }
   Future<void> _callCompany() async {
   final String phone = _secondaryMobile.trim().replaceAll(
     RegExp(r'[^\d+]'),

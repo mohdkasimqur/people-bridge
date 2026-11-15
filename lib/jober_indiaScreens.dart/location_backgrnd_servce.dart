@@ -118,9 +118,6 @@ Future<void> _updateLocation() async {
       const Duration(seconds: 20),
     );
 
-    // if (!_shouldUpload(position)) {
-    //   return;
-    // }
     final String? forceUpload =
     await FlutterForegroundTask.getData<String>(
   key: 'forceLiveLocationUpload',

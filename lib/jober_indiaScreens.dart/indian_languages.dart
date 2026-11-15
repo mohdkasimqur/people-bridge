@@ -1,28 +1,3 @@
-// const Map<String, String> indianLanguages = {
-//   'Hindi': 'hi',
-//   'Assamese': 'as',
-//   'Bengali': 'bn',
-//   'Bodo': 'brx',
-//   'Dogri': 'doi',
-//   'Gujarati': 'gu',
-//   'Kannada': 'kn',
-//   'Kashmiri': 'ks',
-//   'Konkani': 'kok',
-//   'Maithili': 'mai',
-//   'Malayalam': 'ml',
-//   'Manipuri (Meitei)': 'mni',
-//   'Marathi': 'mr',
-//   'Nepali': 'ne',
-//   'Odia': 'or',
-//   'Punjabi': 'pa',
-//   'Sanskrit': 'sa',
-//   'Santali': 'sat',
-//   'Sindhi': 'sd',
-//   'Tamil': 'ta',
-//   'Telugu': 'te',
-//   'Urdu': 'ur',
-// };
-
 const Map<String, String> indianLanguages = {
    'हिंदी': 'hi',
   'অসমীয়া': 'as',

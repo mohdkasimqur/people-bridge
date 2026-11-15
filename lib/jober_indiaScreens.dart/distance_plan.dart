@@ -1,12 +1,3 @@
-// import 'package:flutter/material.dart';
-// import 'package:hive/hive.dart';
-// your other imports
-
-
-// ==========================================================
-// DISTANCE PLAN
-// ==========================================================
-
 class DistancePlan {
   final double distance;
   final String duration;

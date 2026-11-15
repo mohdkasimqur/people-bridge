@@ -56,9 +56,6 @@ class _ScreenSelfBusinessLoginState
   static const Color green =
       Color(0xFF138808);
 
-  // static const Color submitGreen =
-  //     Color(0xFF159B16);
-
   static const Color darkText =
       Color(0xFF202124);
 
@@ -159,10 +156,6 @@ bool secondaryMobileError = false;
 bool categoryError = false;
 
 String? mobileErrorMessage;
-//    File? profilePhoto;
-//   String? profilePhotoUrl;
-// bool isUploadingPhoto = false;
-//   final ImagePicker _imagePicker = ImagePicker();
 File? profilePhoto;
 
 String? profilePhotoUrl;
@@ -174,26 +167,6 @@ double photoUploadProgress = 0.0;
 Future<void>? photoUploadFuture;
 
 final ImagePicker _imagePicker = ImagePicker();
-  // =============================================================
-  // OTP VARIABLES
-  // =============================================================
-
-//  String? verificationId;
-
-//   bool otpSent = false;
-//   bool otpVerified = false;
-
-//   bool isSendingOtp = false;
-//   bool isVerifying = false;
-//   bool isSubmitting = false;
-
-//   bool otpError = false;
-
-//   String otpErrorMessage = '';
-
-//   int secondsRemaining = 30;
-
-//   Timer? timer;
 
   String? verificationId;
 
@@ -225,14 +198,7 @@ int? resendToken;
   String? selectedCategory;
 
   bool isCustomCategory = false;
- // bool categoryError = false;
   bool isCategoryDropdownOpen = false;
-//  bool isStateDropdownOpen = false;
-
-
-  // =============================================================
-  // BUSINESS CATEGORY LIST
-  // =============================================================
 
   final List<String>
       businessCategories = [
@@ -256,12 +222,6 @@ int? resendToken;
   ];
 
 
-   // =============================================================
-// ERROR VARIABLES
-// =============================================================
-
-//bool categoryError = false;
-
 String secondaryMobileErrorMessage = '';
   // =============================================================
   // INIT STATE
@@ -280,136 +240,7 @@ String secondaryMobileErrorMessage = '';
      filteredStates = List<String>.from(indiaStates);
 
   loadDistricts();
-    // categorySearchController.addListener(
-    //   filterCategories,
-    // );
   }
-
-//        final TextEditingController nearestCityController =
-//     TextEditingController();
-// String stateError = '';
-// String districtError = '';
-// String nearestCityError = '';
-
-// String? selectedState;
-
-// final TextEditingController stateSearchController =
-//     TextEditingController();
-
-// List<String> filteredStates = [];
-
-// static const List<String> indiaStates = [
-//   'Andhra Pradesh',
-//   'Arunachal Pradesh',
-//   'Assam',
-//   'Bihar',
-//   'Chhattisgarh',
-//   'Goa',
-//   'Gujarat',
-//   'Haryana',
-//   'Himachal Pradesh',
-//   'Jharkhand',
-//   'Karnataka',
-//   'Keralam',
-//   'Madhya Pradesh',
-//   'Maharashtra',
-//   'Manipur',
-//   'Meghalaya',
-//   'Mizoram',
-//   'Nagaland',
-//   'Odisha',
-//   'Punjab',
-//   'Rajasthan',
-//   'Sikkim',
-//   'Tamil Nadu',
-//   'Telangana',
-//   'Tripura',
-//   'Uttar Pradesh',
-//   'Uttarakhand',
-//   'West Bengal',
-// ];
-
-// void filterStates(String value) {
-//   final String search = value.trim().toLowerCase();
-
-//   final List<String> result = indiaStates.where((state) {
-//     return search.isEmpty ||
-//         state.toLowerCase().contains(search);
-//   }).toList();
-
-//   if (!mounted) return;
-
-//   setState(() {
-//     filteredStates = result;
-//   });
-// }
-
-// String? selectedDistrict;
-
-// bool isDistrictDropdownOpen = false;
-
-// final TextEditingController districtSearchController =
-//     TextEditingController();
-
-// List<String> filteredDistricts = [];
-
-// Map<String, List<String>> indiaDistricts = {};
-
-// List<String> get availableDistricts {
-//   if (selectedState == null ||
-//       selectedState!.trim().isEmpty) {
-//     return indiaDistricts.values
-//         .expand((districts) => districts)
-//         .toSet()
-//         .toList();
-//   }
-
-//   return List<String>.from(
-//     indiaDistricts[selectedState!] ?? [],
-//   );
-// }
-
-// void filterDistricts(String value) {
-//   final search = value.trim().toLowerCase();
-
-//   final result = availableDistricts.where((district) {
-//     return search.isEmpty ||
-//         district.toLowerCase().contains(search);
-//   }).toList();
-
-//   if (!mounted) return;
-
-//   setState(() {
-//     filteredDistricts = result;
-//   });
-// }
-
-// Future<void> loadDistricts() async {
-//   final String jsonString = await rootBundle.loadString(
-//     'assets/data/india_districts.json',
-//   );
-
-//   final Map<String, dynamic> data =
-//       json.decode(jsonString);
-
-//   if (!mounted) return;
-
-//   setState(() {
-//     indiaDistricts = data.map(
-//       (key, value) => MapEntry(
-//         key,
-//         List<String>.from(value),
-//       ),
-//     );
-
-//     filteredDistricts =
-//         List<String>.from(availableDistricts);
-//   });
-// }
-
-// =============================================================
-// ALL CATEGORIES
-// =============================================================
 
 List<String> get allCategories {
   final List<String> result = [];
@@ -748,7 +579,6 @@ Future<void> sendOTP({bool isResend = false}) async {
 
   if (!RegExp(r'^[6-9][0-9]{9}$').hasMatch(phone)) {
     showMessage(AppLocalizations.of(context)!.enteradigitmobilenumber,
-     // 'Enter a valid 10-digit mobile number.'
       );
     return;
   }
@@ -1445,7 +1275,6 @@ Future<void> submitProfile() async {
   if (mobile.length != 10) {
     mobileError = true;
     mobileErrorMessage =AppLocalizations.of(context)!.enteradigitmobilenumber;
-      //  'Enter a valid 10-digit mobile number.';
     hasError = true;
   } else if (!otpVerified) {
     mobileError = true;
@@ -1811,8 +1640,6 @@ if (stateError.isNotEmpty ||
   }
 
      Widget mobileSection() {
-    // final bool verified =
-    //     otpVerified;
 
     return Column(
       crossAxisAlignment:
@@ -2065,18 +1892,6 @@ if (stateError.isNotEmpty ||
               ],
             ),
           ),
-  //         if (mobileError)
-  // const Padding(
-  //   padding: EdgeInsets.only(left: 12, top: 5),
-  //   child: Text(
-  //     'Enter a valid 10-digit mobile number.',
-  //     style: TextStyle(
-  //       color: Colors.red,
-  //       fontSize: 12,
-  //       fontWeight: FontWeight.w500,
-  //     ),
-  //   ),
-  // ),
   if (mobileError &&
     mobileErrorMessage != null)
   Padding(
@@ -2251,8 +2066,6 @@ if (stateError.isNotEmpty ||
             autofillHints: const [
   AutofillHints.oneTimeCode,
 ],
-            // enabled:
-            //     !isVerifying,
             enabled: !isVerifying &&
     !isSendingOtp &&
     secondsRemaining > 0,
@@ -2790,7 +2603,6 @@ Future<void> loadDistricts() async {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       sectionTitle( AppLocalizations.of(context)!.state
-       // 'State',
       ),
 
       AnimatedContainer(
@@ -2855,9 +2667,7 @@ Future<void> loadDistricts() async {
                         selectedState == null ||
                                 selectedState!.isEmpty
                             ? AppLocalizations.of(context)!.selectyourState
-                            // 'Select your State'
                             : localizedState(selectedState!, languageCode),
-                            //selectedState!,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -2909,7 +2719,6 @@ Future<void> loadDistricts() async {
                       controller: stateSearchController,
                       onChanged: filterStates,
                       decoration: InputDecoration(
-                       // hintText: 'Search state...',
                        hintText: AppLocalizations.of(context)!.searchState,
                         prefixIcon: const Icon(
                           Icons.search,
@@ -2964,7 +2773,6 @@ Future<void> loadDistricts() async {
                       child: filteredStates.isEmpty
                           ? Center(
                               child: Text( AppLocalizations.of(context)!.nostatefound,
-                              //  'No state found',
                                 style: TextStyle(
                                   color:
                                       Colors.grey.shade600,
@@ -2988,23 +2796,7 @@ Future<void> loadDistricts() async {
                                     10,
                                   ),
                                   onTap: () {
-                                    // setState(() {
-                                    //   selectedState = state;
 
-                                    //   categoryError =
-                                    //       false;
-
-                                    //   isCategoryDropdownOpen =
-                                    //       false;
-
-                                    //   stateSearchController
-                                    //       .clear();
-
-                                    //   filteredStates =
-                                    //       List<String>.from(
-                                    //     indiaStates,
-                                    //   );
-                                    // });
                                     setState(() {
   final bool stateChanged = selectedState != state;
 
@@ -3074,14 +2866,6 @@ Future<void> loadDistricts() async {
 
                                         Expanded(
                                           child:
-                                          //  Text(
-                                          //   state,
-                                          //   style:
-                                          //       const TextStyle(
-                                          //     color: darkText,
-                                          //     fontSize: 14,
-                                          //   ),
-                                          // ),
                                           Text(localizedState(state, languageCode) ,
                                           style:
                                                 const TextStyle(
@@ -3115,7 +2899,6 @@ Future<void> loadDistricts() async {
             top: 5,
           ),
           child: Text( AppLocalizations.of(context)!.pleaseSelectyourState,
-            //'Please select your state.',
             style: TextStyle(
               color: Colors.red,
               fontSize: 12,
@@ -3127,13 +2910,11 @@ Future<void> loadDistricts() async {
   );
 }
 
-//Widget districtSection() {
 Widget districtSection() {
   final languageCode = currentLanguageCode(context);
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      //sectionTitle('District'),
       sectionTitle(AppLocalizations.of(context)!.district),
 
       AnimatedContainer(
@@ -3201,8 +2982,6 @@ Widget districtSection() {
                       child: Text(
                         selectedDistrict == null ||
                                 selectedDistrict!.isEmpty
-                            // ? 'Select your District'
-                            // : selectedDistrict!,
                             ? AppLocalizations.of(context)!.selectyourDistrict
 : localizedDistrict(selectedDistrict!, languageCode),
                         maxLines: 1,
@@ -3265,8 +3044,6 @@ Widget districtSection() {
 
                       decoration:
                           InputDecoration(
-                        // hintText:
-                        //     'Search district...',
                         hintText: AppLocalizations.of(context)!.searchdistrict,
 
                         prefixIcon:
@@ -3450,16 +3227,6 @@ Widget districtSection() {
                                         ),
 
                                         Expanded(
-                                          // child: Text(
-                                          //   district,
-                                          //   style:
-                                          //       const TextStyle(
-                                          //     color:
-                                          //         darkText,
-                                          //     fontSize:
-                                          //         14,
-                                          //   ),
-                                          // ),
                                           child: Text(
   localizedDistrict(district, languageCode),
   style: const TextStyle(
@@ -3493,7 +3260,6 @@ Widget districtSection() {
             top: 5,
           ),
           child: Text( AppLocalizations.of(context)!.pleaseselectyourdistrict,
-          //  'Please select your district.',
             style: TextStyle(
               color: Colors.red,
               fontSize: 12,
@@ -3513,9 +3279,6 @@ Widget districtSection() {
       crossAxisAlignment:
           CrossAxisAlignment.start,
       children: [
-        // sectionTitle(
-        //   'Freelancer Categories',
-        // ),
 
         AnimatedContainer(
           duration:
@@ -4543,7 +4306,6 @@ Widget districtSection() {
 
               TextSpan(
                 text: AppLocalizations.of(context)!.registration,
-                   // ' Registration',
                 style:
                     TextStyle(
                  color: Colors.red,
@@ -4581,48 +4343,6 @@ Widget districtSection() {
                   CrossAxisAlignment.start,
 
               children: [
-
-                // ===============================================
-                // HEADER
-                // ==============================================
-
-                // const Center(
-
-                //   child: Icon(
-
-                //     Icons.business_center_rounded,
-
-                //     size: 70,
-
-                //     color: green,
-                //   ),
-                // ),
-
-                // const SizedBox(
-                //   height: 14,
-                // ),
-
-               // const Center(
-
-                  // child: Text(
-
-                  //   'Register Your Self Business',
-
-                  //   textAlign:
-                  //       TextAlign.center,
-
-                  //   style: TextStyle(
-
-                  //     fontSize: 22,
-
-                  //     fontWeight:
-                  //         FontWeight.w800,
-
-                  //     color:
-                  //         black,
-                  //   ),
-                  // ),
-               //),
 
                 const SizedBox(
                   height: 8,
@@ -4747,60 +4467,10 @@ if (companyNameError)
                 ),
 
 
-                // ===============================================
-                // MOBILE NUMBER
-                // ===============================================
-
-                // buildSectionTitle(
-                //   'Mobile Number',
-                //   required: true,
-                // ),
-
-                // const SizedBox(
-                //   height: 8,
-                // ),
                 sectionTitle('Mobile Number'),
               const SizedBox(height: 6),
 
                  mobileSection(),
-
-                // ==================================================
-                // MOBILE VALIDATION MESSAGE
-                // ==================================================
-// if (mobileError)
-//   buildErrorText(
-//     'Enter a valid 10-digit mobile number',
-//   ),
-                // if (!otpVerified &&
-                //     mobileController
-                //         .text
-                //         .isNotEmpty &&
-                //     mobileController
-                //             .text
-                //             .length !=
-                //         10)
-                  // const Padding(
-                  //   padding:
-                  //       EdgeInsets.only(
-                  //     top: 6,
-                  //     left: 5,
-                  //   ),
-
-                  //   child: Text(
-                  //     'Enter a valid 10-digit number',
-
-                  //     style:
-                  //         TextStyle(
-                  //       color:
-                  //           Colors.red,
-                  //       fontSize: 12,
-                  //     ),
-                  //   ),
-                  // ),
-
-                // ==================================================
-                // OTP
-                // ==================================================
 
                 otpSection(),
 
@@ -4913,20 +4583,6 @@ if (nearestCityError.isNotEmpty)
                     style:
                         ElevatedButton.styleFrom(
 
-                      // backgroundColor:
-                      //     orange,
-
-                      // elevation:
-                      //     0,
-
-                      // shape:
-                      //     RoundedRectangleBorder(
-
-                      //   borderRadius:
-                      //       BorderRadius.circular(
-                      //     14,
-                      //   ),
-                      // ),
                        backgroundColor:
                         const Color(
                       0xFF198B35,
@@ -5049,26 +4705,6 @@ if (nearestCityError.isNotEmpty)
         const SizedBox(
           width: 5,
         ),
-
-        // if (required)
-
-        //   const Text(
-
-        //     '*',
-
-        //     style:
-        //         TextStyle(
-
-        //       color:
-        //           Colors.red,
-
-        //       fontSize:
-        //           17,
-
-        //       fontWeight:
-        //           FontWeight.w700,
-        //     ),
-        //   ),
 
         if (optional)
 
@@ -5240,124 +4876,3 @@ if (nearestCityError.isNotEmpty)
     );
   }
 }
-
-  // =============================================================
-  // OTP BOX
-  // =============================================================
-
-  // Widget buildOtpBox({
-
-  //   required TextEditingController controller,
-  //   required FocusNode focusNode,
-
-  //   FocusNode? nextFocus,
-  //   bool isLast = false,
-
-  // }) {
-
-  //   return SizedBox(
-
-  //     width: 45,
-
-  //     height: 55,
-
-  //     child: TextField(
-
-  //       controller: controller,
-
-  //       focusNode: focusNode,
-
-  //       keyboardType: TextInputType.number,
-
-  //       textAlign:
-  //           TextAlign.center,
-
-  //       maxLength:
-  //           1,
-
-  //       style:
-  //           const TextStyle(
-
-  //         fontSize:
-  //             20,
-
-  //         fontWeight:
-  //             FontWeight.w700,
-  //       ),
-
-  //       decoration:
-  //           InputDecoration(
-
-  //         counterText:
-  //             '',
-
-  //         filled:
-  //             true,
-
-  //         fillColor:
-  //             Colors.white,
-
-  //         contentPadding:
-  //             EdgeInsets.zero,
-
-  //         border:
-  //             OutlineInputBorder(
-
-  //           borderRadius:
-  //               BorderRadius.circular(
-  //             10,
-  //           ),
-
-  //           borderSide:
-  //               BorderSide(
-  //             color:
-  //                 borderColor,
-  //           ),
-  //         ),
-
-  //         focusedBorder:
-  //             OutlineInputBorder(
-
-  //           borderRadius:
-  //               BorderRadius.circular(
-  //             10,
-  //           ),
-
-  //           borderSide:
-  //               const BorderSide(
-
-  //             color:
-  //                 green,
-
-  //             width:
-  //                 2,
-  //           ),
-  //         ),
-  //       ),
-
-  //       onChanged:
-  //           (value) {
-
-  //         if (value.isNotEmpty &&
-  //             !isLast &&
-  //             nextFocus != null) {
-
-  //           FocusScope.of(
-  //             context,
-  //           ).requestFocus(
-  //             nextFocus,
-  //           );
-  //         }
-
-  //         if (value.isNotEmpty &&
-  //             isLast) {
-
-  //           FocusScope.of(
-  //             context,
-  //           ).unfocus();
-  //         }
-  //       },
-  //     ),
-  //   );
-  // }
-

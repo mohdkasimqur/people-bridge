@@ -37,139 +37,6 @@ class _SplashScreenState extends State<SplashScreen>
 
   Timer? _timer;
 
-  // ==========================================================
-  // INIT
-  // ==========================================================
-
-  // @override
-  // void initState() {
-  //   super.initState();
-
-  //   _controller = AnimationController(
-  //     vsync: this,
-
-  //     duration: const Duration(
-  //       milliseconds: 1400,
-  //     ),
-  //   );
-
-  //   _scaleAnimation = Tween<double>(
-  //     begin: 0.70,
-  //     end: 1.0,
-  //   ).animate(
-  //     CurvedAnimation(
-  //       parent: _controller,
-
-  //       curve: Curves.easeOutBack,
-  //     ),
-  //   );
-
-  //   _fadeAnimation = CurvedAnimation(
-  //     parent: _controller,
-
-  //     curve: Curves.easeIn,
-  //   );
-
-  //   // Start logo animation.
-  //   _controller.forward();
-
-  //   // ========================================================
-  //   // SHOW SPLASH FOR 3 SECONDS
-  //   // ========================================================
-
-  //   _timer = Timer(
-  //     const Duration(
-  //       seconds: 3,
-  //     ),
-  //     () {
-  //       if (!mounted) return;
-
-  //       debugPrint(
-  //         'SPLASH TIMER FINISHED',
-  //       );
-
-  //       _checkLoginAndNavigate();
-  //     },
-  //   );
-  // }
-
-  // // ==========================================================
-  // // CHECK LOGIN STATUS
-  // // ==========================================================
-
-  // Future<void> _checkLoginAndNavigate() async {
-
-  //   try {
-
-  //     final User? user =
-  //         FirebaseAuth.instance.currentUser;
-
-  //     if (!mounted) return;
-
-  //     // ======================================================
-  //     // USER IS ALREADY LOGGED IN
-  //     // ======================================================
-
-  //     if (user != null) {
-
-  //       debugPrint(
-  //         'USER ALREADY LOGGED IN: ${user.uid}',
-  //       );
-
-  //       Navigator.pushReplacement(
-  //         context,
-
-  //         MaterialPageRoute(
-  //           builder: (_) => const ScreenHome(),
-  //         ),
-  //       );
-
-  //       return;
-  //     }
-
-  //     // ======================================================
-  //     // USER IS NOT LOGGED IN
-  //     // ======================================================
-
-  //     debugPrint(
-  //       'NO LOGGED-IN USER',
-  //     );
-
-  //     Navigator.pushReplacement(
-  //       context,
-
-  //       MaterialPageRoute(
-  //         builder: (_) =>
-  //             const ScreenUser(),
-  //       ),
-  //     );
-
-  //   } catch (e) {
-
-  //     debugPrint(
-  //       'SPLASH LOGIN CHECK ERROR: $e',
-  //     );
-
-  //     if (!mounted) return;
-
-  //     // If something goes wrong while checking Firebase,
-  //     // send the user to Choose Your Role rather than
-  //     // leaving the app stuck on the splash screen.
-
-  //     Navigator.pushReplacement(
-  //       context,
-
-  //       MaterialPageRoute(
-  //         builder: (_) =>
-  //             const ScreenUser(),
-  //       ),
-  //     );
-  //   }
-  // }
-  // ==========================================================
-// STARTUP PERMISSION KEY
-// ==========================================================
-
 static const String _permissionAskedKey =
     'startupLocationPermissionAsked';
 
@@ -381,24 +248,6 @@ void dispose() {
   super.dispose();
 }
 
-  // ==========================================================
-  // DISPOSE
-  // ==========================================================
-
-  // @override
-  // void dispose() {
-
-  //   _timer?.cancel();
-
-  //   _controller.dispose();
-
-  //   super.dispose();
-  // }
-
-  // ==========================================================
-  // BUILD
-  // ==========================================================
-
   @override
   Widget build(BuildContext context) {
 
@@ -525,7 +374,6 @@ void dispose() {
                       TextSpan(
 
                         text:  AppLocalizations.of(context)!.people,
-                        //'PEOPLE ',
 
                         style: TextStyle(
 
@@ -543,7 +391,6 @@ void dispose() {
                       TextSpan(
 
                         text:  AppLocalizations.of(context)!.bridge,
-                        //'BRIDGE',
 
                         style: TextStyle(
 

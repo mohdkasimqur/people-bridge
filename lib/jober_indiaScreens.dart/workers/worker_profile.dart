@@ -39,12 +39,6 @@ class _ScreenWorkerProfileState
 
   late String _selectedCategoryName;
 
- // late String _workerUid;
-
-  // ============================================================
-  // DISTANCE
-  // ============================================================
-
   double? _distanceKm;
 
   double? _distanceMeters;
@@ -633,8 +627,6 @@ void _addCategoriesFromValue(
 ) {
   if (value == null) return;
 
-  // Example:
-  // categories: ["Electrician", "Plumber"]
   if (value is List) {
     for (final item in value) {
       _addCategoriesFromValue(item, result);
@@ -642,8 +634,6 @@ void _addCategoriesFromValue(
     return;
   }
 
-  // Example:
-  // categories: {electrician: "Electrician", plumber: "Plumber"}
   if (value is Map) {
     final map = Map<String, dynamic>.from(value);
 
@@ -688,8 +678,6 @@ void _addCategoriesFromValue(
     return;
   }
 
-  // Example:
-  // categories: "Electrician, Plumber, Carpenter"
   if (value is String) {
     final text = value.trim();
 
@@ -1011,256 +999,3 @@ void _openChat() {
 // ============================================================
 
 }
-
-
-// Widget _buildProfileBody() {
-//   return SingleChildScrollView(
-//     padding: const EdgeInsets.fromLTRB(
-//       16,
-//       16,
-//       16,
-//       30,
-//     ),
-//     child: Column(
-//       crossAxisAlignment: CrossAxisAlignment.stretch,
-//       children: [
-//         // ------------------------------------------------------
-//         // PROFILE HEADER
-//         // ------------------------------------------------------
-
-//         _buildProfileHeader(),
-
-//         const SizedBox(height: 16),
-
-//         // ------------------------------------------------------
-//         // DISTANCE
-//         // ------------------------------------------------------
-
-//         _buildDistanceCard(),
-
-//         const SizedBox(height: 16),
-
-//         // ------------------------------------------------------
-//         // ALL CATEGORIES
-//         // ------------------------------------------------------
-
-//         _buildCategoriesSection(),
-
-//         const SizedBox(height: 20),
-
-//         // ------------------------------------------------------
-//         // CALL + CHAT
-//         // ------------------------------------------------------
-
-//         _buildActionButtons(),
-//       ],
-//     ),
-//   );
-// }
-
-// ============================================================
-// PROFILE HEADER
-// ============================================================
-
-// Widget _buildProfileHeader() {
-//   return Container(
-//     width: double.infinity,
-//     padding: const EdgeInsets.all(20),
-//     decoration: BoxDecoration(
-//       color: Colors.white,
-//       borderRadius: BorderRadius.circular(18),
-//       border: Border.all(
-//         color: Colors.grey.shade200,
-//       ),
-//       boxShadow: [
-//         BoxShadow(
-//           color: Colors.black.withOpacity(0.04),
-//           blurRadius: 10,
-//           offset: const Offset(0, 3),
-//         ),
-//       ],
-//     ),
-//     child: Column(
-//       children: [
-//         // Profile icon
-//         Container(
-//           width: 78,
-//           height: 78,
-//           decoration: BoxDecoration(
-//             color: Colors.red.shade50,
-//             shape: BoxShape.circle,
-//           ),
-//           child: Icon(
-//             Icons.person,
-//             size: 42,
-//             color: Colors.red.shade600,
-//           ),
-//         ),
-
-//         const SizedBox(height: 14),
-
-//         // Worker name
-//         Text(
-//           _workerName.isEmpty
-//               ? 'Worker'
-//               : _workerName,
-//           textAlign: TextAlign.center,
-//           style: const TextStyle(
-//             fontSize: 22,
-//             fontWeight: FontWeight.w700,
-//           ),
-//         ),
-
-//         const SizedBox(height: 8),
-
-//         // Selected category
-//         if (_selectedCategoryName.isNotEmpty)
-//           Container(
-//             padding: const EdgeInsets.symmetric(
-//               horizontal: 13,
-//               vertical: 7,
-//             ),
-//             decoration: BoxDecoration(
-//               color: Colors.red.shade50,
-//               borderRadius: BorderRadius.circular(20),
-//             ),
-//             child: Text(
-//               _selectedCategoryName,
-//               style: TextStyle(
-//                 color: Colors.red.shade700,
-//                 fontSize: 13,
-//                 fontWeight: FontWeight.w600,
-//               ),
-//             ),
-//           ),
-
-//         const SizedBox(height: 12),
-
-//         // Active status
-//         Row(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             Container(
-//               width: 9,
-//               height: 9,
-//               decoration: BoxDecoration(
-//                 color: _activeToday
-//                     ? Colors.green
-//                     : Colors.grey,
-//                 shape: BoxShape.circle,
-//               ),
-//             ),
-
-//             const SizedBox(width: 7),
-
-//             Text(
-//               _activeToday
-//                   ? 'Active Today'
-//                   : 'Not Active Today',
-//               style: TextStyle(
-//                 fontSize: 13,
-//                 fontWeight: FontWeight.w600,
-//                 color: _activeToday
-//                     ? Colors.green.shade700
-//                     : Colors.grey.shade600,
-//               ),
-//             ),
-//           ],
-//         ),
-//       ],
-//     ),
-//   );
-// }
-
-// ============================================================
-// DISTANCE CARD
-// ============================================================
-
-// Widget _buildDistanceCard() {
-//   return Container(
-//     width: double.infinity,
-//     padding: const EdgeInsets.all(16),
-//     decoration: BoxDecoration(
-//       color: Colors.white,
-//       borderRadius: BorderRadius.circular(16),
-//       border: Border.all(
-//         color: Colors.grey.shade200,
-//       ),
-//     ),
-//     child: Row(
-//       children: [
-//         Container(
-//           width: 44,
-//           height: 44,
-//           decoration: BoxDecoration(
-//             color: Colors.red.shade50,
-//             borderRadius: BorderRadius.circular(12),
-//           ),
-//           child: Icon(
-//             Icons.location_on_outlined,
-//             color: Colors.red.shade600,
-//             size: 24,
-//           ),
-//         ),
-
-//         const SizedBox(width: 12),
-
-//         Expanded(
-//           child: Column(
-//             crossAxisAlignment:
-//                 CrossAxisAlignment.start,
-//             children: [
-//               Text(
-//                 'Distance from you',
-//                 style: TextStyle(
-//                   fontSize: 12,
-//                   color: Colors.grey.shade600,
-//                 ),
-//               ),
-
-//               const SizedBox(height: 3),
-
-//               Text(
-//                 _distanceText(),
-//                 style: const TextStyle(
-//                   fontSize: 17,
-//                   fontWeight: FontWeight.w700,
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ],
-//     ),
-//   );
-// }
-
-// ============================================================
-// BUILD
-// ============================================================
-
-// @override
-// Widget build(BuildContext context) {
-//   return Scaffold(
-//     backgroundColor: const Color(0xFFF7F7F7),
-
-//     appBar: AppBar(
-//       elevation: 0,
-//       backgroundColor: Colors.white,
-//       foregroundColor: Colors.black,
-//       centerTitle: true,
-
-//       title: const Text(
-//         'Worker Profile',
-//         style: TextStyle(
-//           fontSize: 18,
-//           fontWeight: FontWeight.w700,
-//         ),
-//       ),
-//     ),
-
-//     body: SafeArea(
-//       child: _buildProfileBody(),
-//     ),
-//   );
-// }

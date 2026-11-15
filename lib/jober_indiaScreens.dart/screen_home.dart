@@ -75,8 +75,6 @@ class _ScreenHomeState extends State<ScreenHome> {
 
   bool searchingService = false;
 
-  //String? _workerError;
-
   List<Map<String, dynamic>>
       searchResults = [];
 // ==========================================================
@@ -323,9 +321,7 @@ if (!overlayPermission) {
     ScaffoldMessenger.of(context).showSnackBar(
        SnackBar(
         content: Text(
-        //  'Please allow Display over other apps '
          AppLocalizations.of(context)!.pleaseallowdisplayoverotherapps,
-          //'to use the LIVE bubble.',
         ),
       ),
     );
@@ -370,7 +366,6 @@ if (!overlayPermission) {
       ScaffoldMessenger.of(context).showSnackBar(
          SnackBar(
           content: Text(
-           // 'Could not start LIVE location.',
            AppLocalizations.of(context)!.couldnotstartlivelocation
           ),
         ),
@@ -382,15 +377,11 @@ if (!overlayPermission) {
     try {
   final bool bubbleShown =
       await OverlayPopUp.showOverlay(
-    // width: 280,
-    // height: 190,
       width: 300,
     height: 280,
     isDraggable: true,
     swipeToDismiss: false,
     closeWhenTapBackButton: false,
-    // entryPointMethodName:
-    //     'citizenLiveBubbleEntryPoint',
     entryPointMethodName: 'overlayMain',
     notificationIcon: 'ic_launcher',
     notificationTitle: 'Citizen India LIVE',
@@ -496,7 +487,6 @@ Future<List<String>> _getProviderCategories() async {
       ScaffoldMessenger.of(context).showSnackBar(
          SnackBar(
           content: Text(
-            //'Could not stop LIVE location.',
             AppLocalizations.of(context)!.couldnotstoplivelocation
           ),
         ),
@@ -747,9 +737,6 @@ Future<void> loadPaymentData() async {
   final savedExpiry =
       box.get('subscriptionExpiry');
 
-  // final savedStart =
-  //     box.get('subscriptionStart');
-
   if (savedDistance != null) {
 
     paidDistance =
@@ -878,7 +865,6 @@ Widget _activeSubscriptionCard() {
 
               Text(
                 '${paidDistance.round()} KM unlocked',
-                 // AppLocalizations.of(context)!.kmunlocked,
                 
                 style: const TextStyle(
                   fontWeight:
@@ -960,21 +946,6 @@ Future<void> startSubscriptionPayment(
   );
 }
 
-  // ==========================================================
-  // PAYMENT
-  // ==========================================================
-//    Future<void> startPayment() async {
-//   // Razorpay payment will be connected here later.
-
-//   ScaffoldMessenger.of(context).showSnackBar(
-//     const SnackBar(
-//       content: Text(
-//         'Payment gateway will be available soon.',
-//       ),
-//     ),
-//   );
-// }
-
   Future<void> payForDistance() async {
 
     final amount =
@@ -997,7 +968,6 @@ Future<void> startSubscriptionPayment(
 
           title:
                Text(
-           // 'Confirm Payment',
             AppLocalizations.of(context)!.confirmPayment
           ),
 
@@ -1023,7 +993,6 @@ Future<void> startSubscriptionPayment(
               child:
                    Text(
                     AppLocalizations.of(context)!.cancel
-               // 'Cancel',
               ),
             ),
 
@@ -1041,7 +1010,6 @@ Future<void> startSubscriptionPayment(
               child:
                    Text(
                 AppLocalizations.of(context)!.pay
-              //  'Pay',
               ),
             ),
           ],
@@ -1179,7 +1147,6 @@ final distances = <double>[
       children: [
          Text(
                           AppLocalizations.of(context)!.chooseyourdistance,
-        //  'Choose your distance',
           style: TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,
@@ -1190,7 +1157,6 @@ final distances = <double>[
 
          Text(
           AppLocalizations.of(context)!.showprofessionalswithinyourselecteddistance,
-        //  'Show professionals within your selected distance.',
           style: TextStyle(
             color: Colors.grey,
             fontSize: 15,
@@ -1220,7 +1186,6 @@ final distances = <double>[
               },
 
               child: Container(
-               // width: 145,
                width: (MediaQuery.of(context).size.width - 64) / 3,
                 padding: const EdgeInsets.symmetric(
                   vertical: 15,
@@ -1270,7 +1235,6 @@ final distances = <double>[
                       const SizedBox(width: 5),
                       Text(
 AppLocalizations.of(context)!.free,
-                       // 'FREE',
                         style: TextStyle(
                           fontSize: 8,
                           fontWeight: FontWeight.w500,
@@ -1604,23 +1568,6 @@ bool get hasActiveSubscription {
   );
 }
 
-// ==========================================================
-// RAZORPAY PAYMENT SUCCESS
-// ==========================================================
-// void _handlePaymentSuccess(
-//   PaymentSuccessResponse response,
-// ) {
-
-//   if (selectedPlan == null) {
-//     return;
-//   }
-
-//   onPaymentSuccess(
-//     response.paymentId ?? '',
-//     selectedPlan!,
-//   );
-// }
-
 Future<void> onPaymentSuccess(
   String paymentId,
   DistancePlan plan,
@@ -1729,7 +1676,6 @@ void showSubscriptionPopup(
 
                  Text(
                       AppLocalizations.of(context)!.chooseyourpaymentvalidity,
-                 // 'Choose your payment validity',
                   style: TextStyle(
                     color: Colors.grey,
                     fontSize: 15,
@@ -2129,7 +2075,6 @@ Widget _subscriptionPlanButton(
 
           hintText:
                      AppLocalizations.of(context)!.searchforaservice,
-            //  'Search for a service',
           prefixIcon:
               const Icon(
             Icons.search,
@@ -2277,7 +2222,6 @@ Widget categorySection() {
     {
        'id': 'recovery',
       'title': AppLocalizations.of(context)!.recovery,
-      // 'Recovery',
       'icon': Icons.car_repair,
       'iconColor': Colors.red,
       'backgroundColor': const Color(0xFFFFF7EF),
@@ -2295,7 +2239,6 @@ Widget categorySection() {
     {
       'id': 'foodDelivery',
       'title':  AppLocalizations.of(context)!.foodDelivery,
-      // 'Food Delivery',
       'icon': Icons.delivery_dining,
       'iconColor': Colors.red,
       'backgroundColor': const Color(0xFFFFF7EF),
@@ -2304,7 +2247,6 @@ Widget categorySection() {
     {
       'id': 'hotelTeaShops',
       'title': AppLocalizations.of(context)!.hotelTeaShops,
-      // 'Hotel / Tea Shops',
       'icon': Icons.restaurant,
       'iconColor': Colors.red,
       'backgroundColor': const Color(0xFFFFF7EF),
@@ -2317,7 +2259,6 @@ Widget categorySection() {
     {
       'id': 'workers',
       'title': AppLocalizations.of(context)!.worker,
-      //'Workers',
       'icon': Icons.engineering,
       'iconColor': Colors.red,
       'backgroundColor': const Color(0xFFFFF7EF),
@@ -2326,7 +2267,6 @@ Widget categorySection() {
     {
       'id': 'freelancers',
       'title': AppLocalizations.of(context)!.freelancers,
-      //'Freelancers',
       'icon': Icons.work_outline,
       'iconColor': Colors.red,
       'backgroundColor': const Color(0xFFFFF7EF),
@@ -2335,7 +2275,6 @@ Widget categorySection() {
     {
       'id': 'selfEmployed',
       'title': AppLocalizations.of(context)!.selfEmployed,
-      //'Self Employed',
       'icon': Icons.person_outline,
       'iconColor': Colors.red,
       'backgroundColor': const Color(0xFFFFF7EF),
@@ -2344,7 +2283,6 @@ Widget categorySection() {
     {
       'id': 'more',
       'title': AppLocalizations.of(context)!.more,
-      //'More',
       'icon': Icons.more_horiz,
       'iconColor': Colors.white,
       'backgroundColor': Color(0xFF138808),
@@ -2359,7 +2297,6 @@ Widget categorySection() {
       children: [
          Text(
           AppLocalizations.of(context)!.findaservice,
-         // 'Find a Service',
           style: TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,
@@ -2462,7 +2399,6 @@ onTap: () async {
        SnackBar(
         content: Text(
            AppLocalizations.of(context)!.liveLocationonButton
-         // 'Please turn Red ON LIVE location from this page first.',
         ),
       ),
     );
@@ -2478,9 +2414,7 @@ onTap: () async {
     return;
   }
 
-//_openHomeCategory(title);
 _openHomeCategory(categoryId);
- // _openHomeCategory(title);
 },
               child: Column(
                 children: [
@@ -2576,11 +2510,6 @@ _listenToOnlineCount(
   collection: 'ambulances',
   countKey: 'Ambulance',
 );
-
-// _listenToOnlineCount(
-//   collection: 'clinics',
-//   countKey: 'Clinic',
-// );
 
   _listenToOnlineCount(
   collection: 'foodDeliveryGuys',
@@ -2741,13 +2670,6 @@ void _listenToOnlineCount({
 }) {
   _onlineCountSubscriptions[countKey]?.cancel();
 
-  // const onlineCountCollections = {
-  //   'doctors',
-  //   'ambulances',
-  //   'clinics',
-  //   'freelancers',
-  //   'workers',
-  // };
   const onlineCountCollections = {
   'doctors',
   'ambulances',
@@ -2974,7 +2896,6 @@ Future<void> _openFreelancers() async {
          SnackBar(
           content: Text(
             AppLocalizations.of(context)!.pleaseenableyourphonelocation
-            //'Please enable your phone location.'
             ),
         ),
       );
@@ -3089,7 +3010,6 @@ Future<void> _openFreelancers() async {
               ),
 
               Text(AppLocalizations.of(context)!.logout,
-               // 'Logout',
                 style:
                     TextStyle(
                   fontWeight:
@@ -3101,7 +3021,6 @@ Future<void> _openFreelancers() async {
 
           content:
                Text(AppLocalizations.of(context)!.areyousureyouWantTologout
-           // 'Are you sure you want to logout?',
           ),
 
           actions: [
@@ -3117,7 +3036,6 @@ Future<void> _openFreelancers() async {
 
               child:
                    Text(AppLocalizations.of(context)!.cancel,
-               // 'Cancel',
                 style: TextStyle(color: Colors.green),
               ),
             ),
@@ -3146,7 +3064,6 @@ Future<void> _openFreelancers() async {
 
               child:
                    Text(AppLocalizations.of(context)!.logout
-               // 'Logout',
               ),
             ),
           ],
@@ -3154,687 +3071,6 @@ Future<void> _openFreelancers() async {
       },
     );
   }
-  // final String userBoxRole =
-//     (userBox.get('role') ?? '')
-//         .toString()
-//         .trim()
-//         .toLowerCase();
-
-// final String settingsRole =
-//     (settingsBox.get('userRole') ?? '')
-//         .toString()
-//         .trim()
-//         .toLowerCase();
-
-// final String role = userBoxRole.isNotEmpty
-//     ? userBoxRole
-//     : settingsRole;
-
-// Also check the rental registration saved for this UID.
-// final String rentalUid =
-//     (settingsBox.get('rentalUid') ?? '').toString();
-
-// final bool isRentalAccount =
-//     role == 'rental' ||
-//     role == 'rentals' ||
-//     (
-//       settingsBox.get('isRentalRegistered') == true &&
-//       rentalUid == (user?.uid ?? '')
-//     );
-
-// bulanceOnLogout(user.uid).timeout(
-//       const Duration(seconds: 15),
-//     );
-
-//     debugPrint('Ambulance logout cleanup completed.');
-//   } catch (e) {
-//     debugPrint('Ambulance logout cleanup failed: $e');
-//   }
-// }
-
-// // ========================================================
-// // RECOVERY DRIVER CLEANUP
-// // ========================================================
-
-// if (role == 'recovery' ||
-//     role == 'recoverydriver' ||
-//     role == 'recovery_driver' ||
-//     role == 'recoverydrivers') {
-//   try {
-//     await cleanupRecoveryOnLogout(user.uid).timeout(
-//       const Duration(seconds: 15),
-//     );
-
-//     debugPrint('Recovery Driver logout cleanup completed.');
-//   } catch (e) {
-//     debugPrint('Recovery Driver logout cleanup failed: $e');
-//   }
-// }
-
-// // ========================================================
-// // STUDENT CLEANUP
-// // ========================================================
-
-// if (role == 'student' || role == 'students') {
-//   try {
-//     await cleanupStudentOnLogout(user.uid).timeout(
-//       const Duration(seconds: 15),
-//     );
-
-//     debugPrint('Student logout cleanup completed.');
-//   } catch (e) {
-//     debugPrint('Student logout cleanup failed: $e');
-//   }
-// }
-
-// if (role == 'company' || role == 'companies') {
-//   try {
-//     await cleanupCompanyOnLogout(user.uid).timeout(
-//       const Duration(seconds: 15),
-//     );
-//   } catch (e) {
-//     debugPrint('Company logout cleanup failed: $e');
-//   }
-// }
-// // ========================================================
-// // CLINIC CATEGORY CLEANUP
-// // ========================================================
-// if (role == 'clinic') {
-//   try {
-//     await cleanupClinicOnLogout(user.uid).timeout(
-//       const Duration(seconds: 15),
-//     );
-//   } catch (e) {
-//     debugPrint('Clinic logout cleanup error: $e');
-//   }
-// }
-
-// // ========================================================
-// // LABORATORY PROFILE AND CATEGORY CLEANUP
-// // ========================================================
-
-// if (role == 'laboratory' ||
-//     role == 'laboratories') {
-//   try {
-//     await cleanupLaboratoryOnLogout(
-//       user.uid,
-//     ).timeout(
-//       const Duration(seconds: 15),
-//     );
-
-//     debugPrint(
-//       'Laboratory profile and category cleanup completed.',
-//     );
-//   } catch (e, stackTrace) {
-//     debugPrint(
-//       'Laboratory logout cleanup failed: $e',
-//     );
-
-//     debugPrint('$stackTrace');
-//   }
-// }
-
-// // if (role == 'clinic') {
-// //   try {
-// //     await cleanupClinicOnLogout(user.uid).timeout(
-// //       const Duration(seconds: 15),
-// //     );
-// //   } catch (e) {
-// //     debugPrint('Clinic logout cleanup error: $e');
-// //   }
-// // }
-
-// if (role == 'worker' || role == 'workers') {
-//   try {
-//     await cleanupWorkerOnLogout(user.uid).timeout(
-//       const Duration(seconds: 15),
-//     );
-
-//     debugPrint('Worker profile and category cleanup completed.');
-//   } catch (e, stackTrace) {
-//     debugPrint('Worker logout cleanup failed: $e');
-//     debugPrint('$stackTrace');
-//   }
-// }
-
-// // ========================================================
-// // AUTO SPARE PARTS PROFILE CLEANUP
-// // ========================================================
-
-// if (role == 'autospareparts' ||
-//     role == 'auto_spare_parts' ||
-//     role == 'auto spare parts') {
-//   try {
-//     await cleanupAutoSparePartsOnLogout(
-//       user.uid,
-//     ).timeout(
-//       const Duration(seconds: 20),
-//     );
-
-//     debugPrint(
-//       'Auto Spare Parts profile and local data cleanup completed.',
-//     );
-//   } catch (e, stackTrace) {
-//     debugPrint(
-//       'Auto Spare Parts logout cleanup failed: $e',
-//     );
-//     debugPrint('$stackTrace');
-//   }
-// }
-
-// // ========================================================
-//     // FOOD DELIVERY PROFILE AND CATEGORY CLEANUP
-//     // ========================================================
-
-//     if (role == 'food_delivery' ||
-//         role == 'fooddelivery' ||
-//         role == 'food delivery') {
-//       try {
-//         await cleanupFoodDeliveryOnLogout(user.uid).timeout(
-//           const Duration(seconds: 30),
-//         );
-
-//         debugPrint(
-//           'Food Delivery profile and category cleanup completed.',
-//         );
-//       } catch (e, stackTrace) {
-//         debugPrint('Food Delivery cleanup failed: $e');
-//         debugPrint('$stackTrace');
-//       }
-//     }
-
-//     // ==========================================================
-// // FISH DELIVERY CLEANUP
-// // ==========================================================
-
-// if (role == 'fish_delivery' ||
-//     role == 'fishdelivery' ||
-//     role == 'fish delivery') {
-//   try {
-//     await cleanupFishDeliveryOnLogout(user.uid).timeout(
-//       const Duration(seconds: 30),
-//     );
-
-//     debugPrint('Fish Delivery logout cleanup completed.');
-//   } catch (e, stackTrace) {
-//     debugPrint('Fish Delivery cleanup failed: $e');
-//     debugPrint('$stackTrace');
-//   }
-// }
-
-// if (role == 'freelancer' || role == 'freelancers') {
-//   try {
-//     await cleanupFreelancerOnLogout(user.uid).timeout(
-//       const Duration(seconds: 15),
-//     );
-
-//     debugPrint(
-//       'Freelancer profile cleanup completed.',
-//     );
-//   } catch (e, stackTrace) {
-//     debugPrint('Freelancer cleanup failed: $e');
-//     debugPrint('$stackTrace');
-//   }
-// }
-
-// // ========================================================
-// // BROKER PROFILE AND CATEGORY CLEANUP
-// // ========================================================
-
-// if (role == 'broker' || role == 'brokers') {
-//   try {
-//     await cleanupBrokerOnLogout(user.uid).timeout(
-//       const Duration(seconds: 15),
-//     );
-
-//     debugPrint(
-//       'Broker profile and category cleanup completed.',
-//     );
-//   } catch (e, stackTrace) {
-//     debugPrint('Broker logout cleanup failed: $e');
-//     debugPrint('$stackTrace');
-//   }
-// }
-
-// // ========================================================
-// // GARAGE PROFILE AND CATEGORY CLEANUP
-// // ========================================================
-
-// if (role == 'garage' || role == 'garages') {
-//   try {
-//     await cleanupGarageOnLogout(user.uid).timeout(
-//       const Duration(seconds: 20),
-//     );
-
-//     debugPrint(
-//       'Garage profile and category cleanup completed.',
-//     );
-
-//   } catch (e, stackTrace) {
-
-//     debugPrint('Garage logout cleanup failed: $e');
-//     debugPrint('$stackTrace');
-//   }
-// }
-
-// // ========================================================
-// // COURIER PROFILE AND CATEGORY CLEANUP
-// // ========================================================
-
-// if (role == 'courier' ||
-//     role == 'couriers') {
-//   try {
-//     await cleanupCourierOnLogout(user.uid).timeout(
-//       const Duration(seconds: 20),
-//     );
-
-//     debugPrint(
-//       'Courier profile and category cleanup completed.',
-//     );
-//   } catch (e, stackTrace) {
-//     debugPrint(
-//       'Courier logout cleanup failed: $e',
-//     );
-
-//     debugPrint('$stackTrace');
-//   }
-// }
-
-// // ========================================================
-//     // SELF EMPLOYEE PROFILE AND CATEGORY CLEANUP
-//     // ========================================================
-
-//     if (role == 'self_employee' ||
-//         role == 'self employed' ||
-//         role == 'self-employed') {
-//       try {
-//         await cleanupSelfEmployeeOnLogout(user.uid).timeout(
-//           const Duration(seconds: 15),
-//         );
-
-//         debugPrint(
-//           'Self-employed profile and local data cleanup completed.',
-//         );
-//       } catch (e, stackTrace) {
-//         debugPrint('Self-employed logout cleanup failed: $e');
-//         debugPrint('$stackTrace');
-//       }
-//     }
-
-// // ========================================================
-//     // TEA SHOP PROFILE AND CATEGORY CLEANUP
-//     // ========================================================
-
-//     if (role == 'tea_shop' ||
-//         role == 'tea shop' ||
-//         role == 'teashop') {
-//       try {
-//         await cleanupTeaShopOnLogout(user.uid).timeout(
-//           const Duration(seconds: 15),
-//         );
-
-//         debugPrint('Tea shop profile and category cleanup completed.');
-//       } catch (e, stackTrace) {
-//         debugPrint('Tea shop logout cleanup failed: $e');
-//         debugPrint('$stackTrace');
-//       }
-//     }
-//     // ========================================================
-//     // 2. FIND THE CORRECT PROFILE COLLECTION
-//     // ========================================================
-
-//     String? collection;
-
-//     switch (role) {
-
-//       case 'company':
-// case 'companies':
-//   collection = 'companies';
-//   break;
-
-// case 'recovery':
-// case 'recoverydriver':
-// case 'recovery_driver':
-// case 'recoverydrivers':
-//   collection = 'recoveryDrivers';
-//   break;
-
-//       case 'ambulance':
-//       case 'ambulances':
-//         collection = 'ambulances';
-//         break;
-
-//       case 'taxi':
-//       case 'taxi_commercial':
-//         collection = 'taxi_commercial';
-//         break;
-
-//     }
-
-//     // ========================================================
-//     // 3. MARK PROFILE OFFLINE
-//     // ========================================================
-
-//     if (collection != null) {
-//       try {
-//         await firestore
-//             .collection(collection)
-//             .doc(user.uid)
-//             .set({
-//           'isOnline': false,
-//           'onlineUpdatedAt': FieldValue.serverTimestamp(),
-//         }, SetOptions(merge: true))
-//             .timeout(const Duration(seconds: 5));
-
-//         debugPrint(
-//           'Provider marked offline: $role, ${user.uid}',
-//         );
-//       } catch (e) {
-//         debugPrint(
-//           'Failed to mark $role offline: $e',
-//         );
-//       }
-//     }
-
-//     // ========================================================
-//     // 4. DELETE LIVE LOCATION
-//     // ========================================================
-
-//     try {
-//       await firestore
-//           .collection('liveLocations')
-//           .doc(user.uid)
-//           .delete()
-//           .timeout(const Duration(seconds: 5));
-
-//       debugPrint('Live location deleted for ${user.uid}');
-//     } catch (e) {
-//       debugPrint('Live location cleanup failed: $e');
-//     }
-//   }
-// } catch (e) {
-//   debugPrint('Logout cleanup failed: $e');
-// }
-
-// bool _isLoggingOut = false;
-
-// Future<void> logoutUser() async {
-//   if (_isLoggingOut) return;
-//   _isLoggingOut = true;
-
-//   final user = FirebaseAuth.instance.currentUser;
-//   final userBox = Hive.box('userBox');
-
-
-// final Box settingsBox = Hive.isBoxOpen('appSettings')
-//     ? Hive.box('appSettings')
-//     : await Hive.openBox('appSettings');
-
-// final role = (
-//   userBox.get('role') ??
-//   settingsBox.get('userRole') ??
-//   ''
-// )
-//     .toString()
-//     .trim()
-//     .toLowerCase();
-
-
-// if (user != null) {
-//   await markCurrentProviderOfflineOnLogout(
-//     uid: user.uid,
-//     role: role,
-//   );
-// }
-
-// // Now navigate away from Home.
-// if (mounted) {
-//   setState(() {
-//     _liveLocationRequested = false;
-//     locationEnabled = false;
-//   });
-
-//   Navigator.of(context).pushAndRemoveUntil(
-//     MaterialPageRoute(
-//       builder: (_) => const ScreenChooseRole(),
-//     ),
-//     (route) => false,
-//   );
-// }
-
-//   // Continue cleanup without blocking navigation.
-
-// Future<void>(() async {
-
-//   // ========================================================
-//   // 1. CLOSE THE FLOATING LIVE BUBBLE
-//   // ========================================================
-
-//   try {
-//     await OverlayPopUp.closeOverlay();
-
-//     debugPrint('LIVE bubble closed during logout.');
-//   } catch (e) {
-//     debugPrint('Could not close LIVE bubble: $e');
-//   }
-
-//   // ========================================================
-//   // 2. STOP LIVE LOCATION BEFORE SIGNING OUT
-//   // ========================================================
-
-//   try {
-//     final bool stopped =
-//         await _liveLocationService.stop();
-
-//     debugPrint(
-//       'LIVE service stop during logout: $stopped',
-//     );
-//   } catch (e) {
-//     debugPrint(
-//       'Live-location service stop failed: $e',
-//     );
-//   }
-
-//   final firestore = FirebaseFirestore.instance;
-
-// try {
-//   if (user != null) {
-//     // ========================================================
-//     // 1. WORKER CATEGORY CLEANUP
-//     // ========================================================
-
-//     if (role == 'worker') {
-//       try {
-//         await removeWorkerCategoriesOnLogout(user.uid)
-//             .timeout(const Duration(seconds: 5));
-//       } catch (e) {
-//         debugPrint('Worker logout cleanup failed: $e');
-//       }
-//     }
-
-//     // ========================================================
-// // RENTAL PROFILE AND CATEGORY CLEANUP
-// // ========================================================
-
-// if (role == 'rental' ||
-//     role == 'rentals') {
-//   try {
-//     await cleanupRentalOnLogout(
-//       user.uid,
-//     ).timeout(
-//       const Duration(seconds: 20),
-//     );
-
-//     debugPrint(
-//       'Rental profile and category cleanup completed.',
-//     );
-//   } catch (e, stackTrace) {
-//     debugPrint(
-//       'Rental logout cleanup failed: $e',
-//     );
-
-//     debugPrint('$stackTrace');
-//   }
-// }
-
-//     // ========================================================
-// // COMPANY CATEGORY CLEANUP
-// // ========================================================
-
-// if (role == 'company' || role == 'companies') {
-//   try {
-//     await removeCompanyCategoriesOnLogout(user.uid)
-//         .timeout(const Duration(seconds: 5));
-//   } catch (e) {
-//     debugPrint(
-//       'Company category logout cleanup failed: $e',
-//     );
-//   }
-// }
-
-// // ========================================================
-// // RENTAL PROFILE AND CATEGORY CLEANUP
-// // ========================================================
-
-// // ========================================================
-// // OTHER BUSINESS PROFILE AND CATEGORY CLEANUP
-// // ========================================================
-
-// if (role == 'other_business' ||
-//     role == 'otherbusiness' ||
-//     role == 'other business') {
-//   try {
-//     await cleanupOtherBusinessOnLogout(
-//       user.uid,
-//     ).timeout(
-//       const Duration(seconds: 20),
-//     );
-
-//     debugPrint(
-//       'Other Business profile and category cleanup completed.',
-//     );
-//   } catch (e, stackTrace) {
-//     debugPrint(
-//       'Other Business logout cleanup failed: $e',
-//     );
-//     debugPrint('$stackTrace');
-//   }
-// }
-
-// // ========================================================
-// // DOCTOR PROFILE AND CATEGORY CLEANUP
-// // ========================================================
-
-// if (role == 'doctor' || role == 'doctors') {
-//   try {
-//     await cleanupDoctorOnLogout(user.uid).timeout(
-//       const Duration(seconds: 10),
-//     );
-//   } catch (e) {
-//     debugPrint(
-//       'Doctor logout cleanup failed: $e',
-//     );
-//   }
-// }
-
-// // ========================================================
-// // MEDICAL SHOP PROFILE CLEANUP
-// // ========================================================
-
-// if (role == 'medicalshop' ||
-//     role == 'medical_shop' ||
-//     role == 'medical shop') {
-//   try {
-//     await cleanupMedicalShopOnLogout(user.uid).timeout(
-//       const Duration(seconds: 20),
-//     );
-
-//     debugPrint(
-//       'Medical Shop profile and local data cleanup completed.',
-//     );
-//   } catch (e, stackTrace) {
-//     debugPrint('Medical Shop logout cleanup failed: $e');
-//     debugPrint('$stackTrace');
-//   }
-// }
-
-// // ========================================================
-// // HOUSE OWNER CLEANUP
-// // ========================================================
-
-// if (role == 'houseowner' ||
-//     role == 'house_owner' ||
-//     role == 'house owner') {
-//   try {
-//     await cleanupHouseOwnerOnLogout(user.uid).timeout(
-//       const Duration(seconds: 15),
-//     );
-
-//     debugPrint('House Owner logout cleanup completed.');
-//   } catch (e) {
-//     debugPrint('House Owner logout cleanup failed: $e');
-//   }
-// }
-
-// // ========================================================
-// // AMBULANCE CLEANUP
-// // ========================================================
-
-// if (role == 'ambulance' || role == 'ambulances') {
-//   try {
-//     await cleanupAm
-//     // Sign out of Firebase.
-//     try {
-//       await FirebaseAuth.instance.signOut();
-//     } catch (e) {
-//       debugPrint('Firebase sign-out failed: $e');
-//     }
-
-//     // Cancel subscriptions.
-//     try {
-//       await _liveLocationsSubscription?.cancel();
-//     } catch (_) {}
-//     _liveLocationsSubscription = null;
-
-//     try {
-//       await _doctorAvailabilitySubscription?.cancel();
-//     } catch (_) {}
-//     _doctorAvailabilitySubscription = null;
-
-//     try {
-//       await _taxiCommercialSubscription?.cancel();
-//     } catch (_) {}
-//     _taxiCommercialSubscription = null;
-
-//     try {
-//       await _ambulanceCountSubscription?.cancel();
-//     } catch (_) {}
-//     _ambulanceCountSubscription = null;
-
-//     for (final subscription
-//         in _onlineCountSubscriptions.values.toList()) {
-//       try {
-//         await subscription.cancel();
-//       } catch (_) {}
-//     }
-//     _onlineCountSubscriptions.clear();
-
-// // Live location has already been stopped above.
-// try {
-//   await speechService.speech.stop();
-// } catch (_) {}
-
-// try {
-//   await speech.stop();
-// } catch (_) {}
-
-//     try {
-//       await speech.stop();
-//     } catch (_) {}
-
-//     _isLoggingOut = false;
-//   });
-// }
 
 bool _isLoggingOut = false;
 
@@ -4153,16 +3389,6 @@ if (role == 'laboratory' ||
     debugPrint('$stackTrace');
   }
 }
-
-// if (role == 'clinic') {
-//   try {
-//     await cleanupClinicOnLogout(user.uid).timeout(
-//       const Duration(seconds: 15),
-//     );
-//   } catch (e) {
-//     debugPrint('Clinic logout cleanup error: $e');
-//   }
-// }
 
 if (role == 'worker' || role == 'workers') {
   try {
@@ -4489,162 +3715,6 @@ try {
   });
 }
 
-// Future<void> markCurrentProviderOfflineOnLogout({
-//   required String uid,
-//   required String? role,
-// }) async {
-//   final String normalizedRole =
-//       (role ?? '').trim().toLowerCase();
-
-//   final String? collection;
-
-//   switch (normalizedRole) {
-//     case 'doctor':
-//     case 'doctors':
-//       collection = 'doctors';
-//       break;
-
-//     case 'ambulance':
-//     case 'ambulances':
-//       collection = 'ambulances';
-//       break;
-
-//     case 'clinic':
-//     case 'clinics':
-//       collection = 'clinics';
-//       break;
-
-//     default:
-//       collection = null;
-//   }
-
-//   if (collection == null) return;
-
-//   try {
-//     await FirebaseFirestore.instance
-//         .collection(collection)
-//         .doc(uid)
-//         .set({
-//       'isOnline': false,
-//       'onlineUpdatedAt': FieldValue.serverTimestamp(),
-//     }, SetOptions(merge: true))
-//         .timeout(const Duration(seconds: 5));
-
-//     debugPrint(
-//       'Provider marked offline: $collection/$uid',
-//     );
-//   } catch (e) {
-//     debugPrint(
-//       'Could not mark provider offline: $collection/$e',
-//     );
-//   }
-// }
-
-// Future<void> cleanupOtherBusinessOnLogout(String uid) async {
-//   final FirebaseFirestore firestore =
-//       FirebaseFirestore.instance;
-
-//   final Box settingsBox = Hive.box('settings');
-
-//   final DocumentReference<Map<String, dynamic>> businessRef =
-//       firestore.collection('otherBusinesses').doc(uid);
-
-//   try {
-//     // 1. Read the business before deleting it.
-//     final businessSnapshot = await businessRef.get();
-
-//     final Map<String, dynamic> businessData =
-//         businessSnapshot.data() ?? {};
-
-//     final List<String> categoryKeys =
-//         List<String>.from(
-//       businessData['categoryKeys'] ?? [],
-//     );
-
-//     // 2. Delete the business profile.
-//     await businessRef.delete();
-
-//     // 3. Check every category separately.
-//     for (final key in categoryKeys.toSet()) {
-//       // Built-in categories must never be deleted.
-//       final bool isDefault =
-//           defaultOtherBusinessCategories.any(
-//         (item) => item.key == key,
-//       );
-
-//       if (isDefault) continue;
-
-//       // Check whether another business still uses this category.
-//       final remainingBusinesses = await firestore
-//           .collection('otherBusinesses')
-//           .where(
-//             'categoryKeys',
-//             arrayContains: key,
-//           )
-//           .limit(1)
-//           .get();
-
-//       // Delete only if nobody else uses it.
-//       if (remainingBusinesses.docs.isEmpty) {
-//         await firestore
-//             .collection('otherBusinessCategories')
-//             .doc(key)
-//             .delete();
-
-//         debugPrint(
-//           'Unused custom Other Business category deleted: $key',
-//         );
-//       }
-//     }
-
-//     // 4. Remove local registration data.
-//     // Do not clear another account's local registration.
-//     final String savedUid =
-//         (settingsBox.get('otherBusinessUid') ?? '')
-//             .toString();
-
-//     if (savedUid == uid) {
-//       final List<String> keysToRemove = [
-//         'otherBusinessRegistered',
-//         'otherBusinessUid',
-//         'otherBusinessUsername',
-//         'otherBusinessName',
-//         'otherBusinessMobile',
-//         'otherBusinessSecondaryMobile',
-//         'otherBusinessState',
-//         'otherBusinessDistrict',
-//         'otherBusinessNearestTown',
-//         'otherBusinessCategories',
-//         'otherBusinessCategoryKeys',
-//         'otherBusinessDescription',
-//         'otherBusinessOpeningTime',
-//         'otherBusinessClosingTime',
-//         'otherBusinessIsOpen24Hours',
-//         'otherBusinessProfilePhoto',
-//         'otherBusinessHasLocation',
-//         'otherBusinessPrivacyPolicyAccepted',
-//         'otherBusinessIsShopType',
-//         'otherBusinessLocation',
-//       ];
-
-//       for (final key in keysToRemove) {
-//         await settingsBox.delete(key);
-//       }
-//     }
-
-//     debugPrint(
-//       'Other Business profile and unused custom categories cleaned up.',
-//     );
-//   } catch (e, stackTrace) {
-//     debugPrint(
-//       'Other Business cleanup failed: $e',
-//     );
-//     debugPrint('$stackTrace');
-
-//     rethrow;
-//   }
-// }
-
 Future<void> markCurrentProviderOfflineOnLogout({
   required String uid,
   required String? role,
@@ -4825,7 +3895,6 @@ Future<void> cleanupRentalOnLogout(String uid) async {
     final rentalSnapshot = await rentalRef.get();
 
     if (rentalSnapshot.exists) {
-     // final data = rentalSnapshot.data() ?? {};
 
       debugPrint(
         'Rental profile found before logout: $uid',
@@ -4899,197 +3968,6 @@ Future<void> cleanupRentalOnLogout(String uid) async {
     rethrow;
   }
 }
-
-// if (role == 'rental' ||
-//     role == 'rentals') {
-//   try {
-//     await cleanupRentalOnLogout(user.uid).timeout(
-//       const Duration(seconds: 20),
-//     );
-
-//     debugPrint(
-//       'Rental profile and category cleanup completed.',
-//     );
-//   } catch (e, stackTrace) {
-//     debugPrint('Rental logout cleanup failed: $e');
-//     debugPrint('$stackTrace');
-//   }
-// }
-// ========================================================
-// RENTAL PROFILE AND CATEGORY CLEANUP
-// ========================================================
-
-// if (isRentalAccount) {
-//   try {
-//     await cleanupRentalOnLogout(user.uid).timeout(
-//       const Duration(seconds: 20),
-//     );
-
-//     debugPrint(
-//       'Rental profile and category cleanup completed.',
-//     );
-//   } catch (e, stackTrace) {
-//     debugPrint(
-//       'Rental logout cleanup failed: $e',
-//     );
-
-//     debugPrint('$stackTrace');
-//   }
-// }
-// if (role == 'rental' ||
-//     role == 'rentals') {
-//   try {
-//     await cleanupRentalOnLogout(user.uid).timeout(
-//       const Duration(seconds: 20),
-//     );
-
-//     debugPrint(
-//       'Rental profile and category cleanup completed.',
-//     );
-//   } catch (e, stackTrace) {
-//     debugPrint(
-//       'Rental logout cleanup failed: $e',
-//     );
-
-//     debugPrint('$stackTrace');
-//   }
-// }
-
-
-// Future<void> cleanupRentalOnLogout(String uid) async {
-//   final FirebaseFirestore firestore =
-//       FirebaseFirestore.instance;
-
-//   Object? firestoreError;
-//   StackTrace? firestoreStackTrace;
-
-//   // ==========================================================
-//   // 1. DELETE RENTAL PROFILE FROM FIRESTORE
-//   // ==========================================================
-
-//   try {
-//     await firestore
-//         .collection('rentals')
-//         .doc(uid)
-//         .delete();
-
-//     debugPrint(
-//       'Rental Firestore profile deleted: $uid',
-//     );
-//   } catch (e, stackTrace) {
-//     firestoreError = e;
-//     firestoreStackTrace = stackTrace;
-
-//     debugPrint(
-//       'Rental Firestore deletion failed: $e',
-//     );
-//   }
-
-//   // ==========================================================
-//   // 2. DELETE RENTAL PROFILE FROM HIVE
-//   // ==========================================================
-
-//   try {
-//     final Box rentalBox =
-//         Hive.isBoxOpen('rentalProfiles')
-//             ? Hive.box('rentalProfiles')
-//             : await Hive.openBox('rentalProfiles');
-
-//     await rentalBox.delete(uid);
-
-//     debugPrint('Rental Hive profile deleted.');
-//   } catch (e) {
-//     debugPrint('Rental Hive cleanup failed: $e');
-//   }
-
-//   // ==========================================================
-//   // 3. CLEAR RENTAL APP SETTINGS
-//   // ==========================================================
-
-//   try {
-//     final Box settingsBox =
-//         Hive.isBoxOpen('appSettings')
-//             ? Hive.box('appSettings')
-//             : await Hive.openBox('appSettings');
-
-//     final savedRentalUid =
-//         settingsBox.get('rentalUid')?.toString();
-
-//     if (savedRentalUid == uid) {
-//       await settingsBox.delete('isRentalRegistered');
-//       await settingsBox.delete('rentalUid');
-
-//       if (settingsBox
-//               .get('userRole')
-//               ?.toString()
-//               .trim()
-//               .toLowerCase() ==
-//           'rental') {
-//         await settingsBox.delete('userRole');
-//       }
-//     }
-
-//     debugPrint('Rental app settings cleared.');
-//   } catch (e) {
-//     debugPrint('Rental settings cleanup failed: $e');
-//   }
-
-//   // ==========================================================
-//   // 4. CLEAR COMMON LOGIN DATA IF IT BELONGS TO THIS RENTAL
-//   // ==========================================================
-
-//   try {
-//     final Box userBox =
-//         Hive.isBoxOpen('userBox')
-//             ? Hive.box('userBox')
-//             : await Hive.openBox('userBox');
-
-//     final savedUid =
-//         userBox.get('uid')?.toString();
-
-//     final savedRole = userBox
-//         .get('role')
-//         ?.toString()
-//         .trim()
-//         .toLowerCase();
-
-//     if (savedUid == uid &&
-//         (savedRole == 'rental' ||
-//             savedRole == 'rentals')) {
-//       const keys = [
-//         'uid',
-//         'name',
-//         'mobile',
-//         'secondaryMobile',
-//         'role',
-//         'categories',
-//       ];
-
-//       for (final key in keys) {
-//         await userBox.delete(key);
-//       }
-//     }
-
-//     debugPrint('Rental common login data cleared.');
-//   } catch (e) {
-//     debugPrint('Rental common login cleanup failed: $e');
-//   }
-
-//   // ==========================================================
-//   // 5. REPORT FIRESTORE FAILURE
-//   // ==========================================================
-
-//   if (firestoreError != null) {
-//     Error.throwWithStackTrace(
-//       firestoreError,
-//       firestoreStackTrace!,
-//     );
-//   }
-
-//   debugPrint(
-//     'RENTAL LOGOUT CLEANUP COMPLETE: $uid',
-//   );
-// }
 
 Future<void> cleanupAutoSparePartsOnLogout(
   String uid,
@@ -6307,51 +5185,6 @@ Future<void> cleanupWorkerOnLogout(String uid) async {
   // Delete the public worker profile.
   await workerRef.delete();
 
-  // Remove this worker from each category registry.
-//   for (final entry in categoryRefs.entries) {
-//     await db.runTransaction((transaction) async {
-//       final ref = entry.value;
-//       final snapshot = await transaction.get(ref);
-
-//       if (!snapshot.exists) return;
-
-//       final data = snapshot.data() ?? <String, dynamic>{};
-
-//       final List<String> owners =
-//           (data['workerUids'] as List?)
-//                   ?.map((value) => value.toString())
-//                   .toList() ??
-//               <String>[];
-
-//       owners.removeWhere((ownerUid) => ownerUid == uid);
-
-//       final String name =
-//           (data['name'] ?? '').toString().trim();
-
-//       final bool isStandard =
-//           standardCategories.contains(name.toLowerCase());
-
-//       // Delete unused custom categories. Preserve standard ones.
-//       // if (!isStandard && owners.isEmpty) {
-//       //   transaction.delete(ref);
-//       // } 
-//       if (!isStandard &&
-//     owners.isEmpty &&
-//     !categoriesStillUsed.contains(name.toLowerCase())) {
-//   transaction.delete(ref);
-// }else {
-//         transaction.set(
-//           ref,
-//           {
-//             'workerUids': owners,
-//             'updatedAt': FieldValue.serverTimestamp(),
-//           },
-//           SetOptions(merge: true),
-//         );
-//       }
-//     });
-//   }
-// Get categories still used by the remaining workers.
 final remainingWorkers =
     await db.collection('workers').get();
 
@@ -6430,8 +5263,6 @@ for (final entry in categoryRefs.entries) {
 
   final Box userBox = await Hive.openBox('userBox');
 
-  // if (userBox.get('uid')?.toString() == uid ||
-  //     userBox.get('role')?.toString().toLowerCase() == 'worker') {
   if (userBox.get('uid')?.toString() == uid &&
     userBox.get('role')?.toString().trim().toLowerCase() ==
         'worker') {
@@ -7426,7 +6257,6 @@ void _listenToSelfEmployeeRegisteredCount() {
                 _menuItem(
                   icon: Icons.person_outline,
                   title: AppLocalizations.of(context)!.profile,
-                  //'Profile',
 
                   onTap: () {
                     Navigator.pop(context);
@@ -7543,7 +6373,6 @@ void _listenToSelfEmployeeRegisteredCount() {
                 _menuItem(
                   icon: Icons.settings_outlined,
                   title:    AppLocalizations.of(context)!.settings,
-                  //'Settings',
                   onTap: () {
                     Navigator.pop(context);
 
@@ -7568,7 +6397,6 @@ void _listenToSelfEmployeeRegisteredCount() {
                   icon: Icons.language,
                   title: 
                   AppLocalizations.of(context)!.languages,
-                  //'Languages',
                   onTap: () {
                     Navigator.pop(context);
 
@@ -7592,7 +6420,6 @@ void _listenToSelfEmployeeRegisteredCount() {
                 _menuItem(
                   icon: Icons.help_outline,
                   title: AppLocalizations.of(context)!.helpSupport,
-                  //'Help & Support',
                   onTap: () {
                     Navigator.pop(context);
 
@@ -7616,7 +6443,6 @@ void _listenToSelfEmployeeRegisteredCount() {
                 _menuItem(
                   icon: Icons.info_outline,
                   title: AppLocalizations.of(context)!.aboutPeopleBridge,
-                  // 'About People Bridge',
 
                   onTap: () {
                     Navigator.pop(context);
@@ -7641,7 +6467,6 @@ void _listenToSelfEmployeeRegisteredCount() {
                 _menuItem(
                   icon: Icons.logout,
                   title:AppLocalizations.of(context)!.logout,
-                  //'Logout',
 
                   iconColor: Colors.red,
                   textColor: Colors.red,
@@ -7721,7 +6546,6 @@ Widget _profileHeaderCard() {
             children: [
 
               Text( AppLocalizations.of(context)!.yourProfile,
-              //  'Your Profile',
 
                 style: TextStyle(
                   fontSize: 24,
@@ -7850,7 +6674,6 @@ Widget _profileHeaderCard() {
 
                      Text(
                       AppLocalizations.of(context)!.opportunitiesforEveryone,
-                     // 'Opportunities for Everyone',
                       style:
                           TextStyle(
                         fontSize: 11,
@@ -7994,12 +6817,9 @@ Align(
     label: Text(
       _loadingLocation
           ?  AppLocalizations.of(context)!.pleasewait
-         // 'Please wait...'
           : _liveLocationRequested
               ? AppLocalizations.of(context)!.liveLocationON
-             // 'LIVE Location ON'
               : AppLocalizations.of(context)!.turnOnLiveLocation
-              //'Turn ON LIVE Location',
     ),
 
     style: ElevatedButton.styleFrom(
@@ -8063,7 +6883,6 @@ Widget bottomNavigationBar() {
                     child: bottomItem(
                       Icons.home_outlined,
                        AppLocalizations.of(context)!.home,
-                   //   'Home',
                       true,
                     ),
                   ),
@@ -8084,7 +6903,6 @@ Widget bottomNavigationBar() {
        SnackBar(
         content: Text(
            AppLocalizations.of(context)!.liveLocationonButton
-         // 'Please turn ON LIVE location from the Home page first.',
         ),
       ),
     );
@@ -8101,7 +6919,6 @@ Widget bottomNavigationBar() {
                       child: bottomItem(
                         Icons.chat_bubble_outline,
                         AppLocalizations.of(context)!.messages,
-                       // 'Messages',
                         false,
                       ),
                     ),
@@ -8122,7 +6939,6 @@ Widget bottomNavigationBar() {
     ScaffoldMessenger.of(context).showSnackBar(
        SnackBar(
         content: Text( AppLocalizations.of(context)!.liveLocationonButton,
-         // 'Please turn ON LIVE location from the Home page first.',
         ),
       ),
     );
@@ -8139,7 +6955,6 @@ Widget bottomNavigationBar() {
                       child: bottomItem(
                         Icons.language_outlined,
                         AppLocalizations.of(context)!.languages,
-                      //  'Language',
                         false,
                       ),
                     ),
@@ -8165,7 +6980,6 @@ Widget bottomNavigationBar() {
     ScaffoldMessenger.of(context).showSnackBar(
        SnackBar(
         content: Text( AppLocalizations.of(context)!.liveLocationonButton
-      //    'Please turn ON LIVE location from the Home page first.',
         ),
       ),
     );
@@ -8397,7 +7211,6 @@ Positioned(
 );
 
     _workerScrollController.dispose();
-   // locationSubscription?.cancel();
     _liveLocationsSubscription?.cancel();
     searchController .dispose();
     searchFocusNode .dispose();
@@ -8548,7 +7361,6 @@ class AboutCitizenIndiaScreen
         title:
              Text(
               AppLocalizations.of(context)!.aboutPeopleBridge
-         // 'About People Bridge',
         ),
 
         backgroundColor:
@@ -8602,7 +7414,6 @@ class AboutCitizenIndiaScreen
 
 
              Text(AppLocalizations.of(context)!.opportunitiesforEveryone,
-            //  'Opportunities for Everyone',
               style: TextStyle(fontSize: 15,
                 color: Colors.grey),
             ),
@@ -8611,9 +7422,6 @@ class AboutCitizenIndiaScreen
             const SizedBox(height: 30),
 
              Text(AppLocalizations.of(context)!.aboutText,
-              // 'People Bridge is designed to connect people '
-              // 'with workers, professionals, services and '
-              // 'businesses in their area.',
 
               textAlign: TextAlign.center,
               style:  TextStyle(
@@ -8665,7 +7473,6 @@ class SettingsMenuScreen
         title:
              Text(
               AppLocalizations.of(context)!.settings
-         // 'Settings',
         ),
 
         backgroundColor:
@@ -8699,7 +7506,6 @@ class SettingsMenuScreen
             title:
                  Text(
 AppLocalizations.of(context)!.notifications,
-             // 'Notifications',
               style:
                   TextStyle(
                 fontWeight:

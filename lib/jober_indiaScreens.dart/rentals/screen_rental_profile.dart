@@ -64,7 +64,6 @@ class _RentalProfileScreenState
   static const Color green =
       Color(0xFF138808);
 
-     // Color(0xFF198B35);
   static const Color orange =
       Color(0xFFED801D);
 
@@ -77,12 +76,6 @@ class _RentalProfileScreenState
 
   final FirebaseFirestore _firestore =
       FirebaseFirestore.instance;
-
-  // ==============================================================
-  // DATA
-  // ==============================================================
-
- // Map<String, dynamic>? _rentalData;
 
   bool _loading = true;
 
@@ -169,8 +162,6 @@ class _RentalProfileScreenState
 
       final Map<String, dynamic> data =
           snapshot.data()!;
-
-     // _rentalData = data;
 
       _username =
           (data['username'] ?? '').toString();
@@ -276,45 +267,6 @@ _secondaryPhoneNumber =
     return [];
   }
 
-  // ==============================================================
-  // READ LOCATION
-  // ==============================================================
-
-//   void _readLocation(
-//   Map<String, dynamic> data,
-// ) {
-//   dynamic location = data['currentLocation'];
-
-//   // First location format: currentLocation
-//   if (location is Map) {
-//     _latitude ??=
-//         _toDouble(location['latitude']);
-
-//     _longitude ??=
-//         _toDouble(location['longitude']);
-//   }
-
-//   // Second location format: location
-//   if (_latitude == null ||
-//       _longitude == null) {
-//     location = data['location'];
-
-//     if (location is Map) {
-//       _latitude ??=
-//           _toDouble(location['latitude']);
-
-//       _longitude ??=
-//           _toDouble(location['longitude']);
-//     }
-//   }
-
-//   // Third location format: direct fields
-//   _latitude ??=
-//       _toDouble(data['latitude']);
-
-//   _longitude ??=
-//       _toDouble(data['longitude']);
-// }
 void _readLocation(Map<String, dynamic> data) {
   final dynamic currentLocation = data['currentLocation'];
 
@@ -1476,38 +1428,6 @@ Future<void> _openDirections() async {
   }
 }
 
-// ==============================================================
-// CHAT
-// ==============================================================
-//
-// IMPORTANT:
-//
-// Connect this method to the SAME WhatsApp-style message screen
-// already present in your Citizen India application.
-//
-// I have intentionally NOT invented the constructor of your
-// existing chat screen because its exact class/arguments were not
-// provided here.
-//
-// Your existing chat screen should receive the rental UID so that
-// messages belong to this rental.
-//
-// Example structure:
-//
-// Navigator.push(
-//   context,
-//   MaterialPageRoute(
-//     builder: (_) => ScreenMessage(
-//       // receiverId: widget.rentalId,
-//       // receiverName: _displayName,
-//       // receiverRole: 'rental',
-//     ),
-//   ),
-// );
-//
-// Replace ONLY the body below with your existing chat navigation.
-// ==============================================================
-
 void _openChat() {
   Navigator.push(
     context,
@@ -1594,69 +1514,6 @@ void _showMessage(
     ),
   );
 }
-
-// ==============================================================
-// DISTANCE CALCULATION HELPER
-// ==============================================================
-//
-// This method is available if later you want the profile screen
-// to calculate distance from the customer's current location.
-//
-// It does not start live location and does not continuously track
-// the customer.
-// ==============================================================
-
-// double _calculateDistanceKm(
-//   double lat1,
-//   double lon1,
-//   double lat2,
-//   double lon2,
-// ) {
-//   const double earthRadiusKm = 6371.0;
-
-//   final double dLat = _degreesToRadians(
-//     lat2 - lat1,
-//   );
-
-//   final double dLon = _degreesToRadians(
-//     lon2 - lon1,
-//   );
-
-//   final double a =
-//       math.sin(dLat / 2) *
-//               math.sin(dLat / 2) +
-//           math.cos(
-//                 _degreesToRadians(lat1),
-//               ) *
-//               math.cos(
-//                 _degreesToRadians(lat2),
-//               ) *
-//               math.sin(dLon / 2) *
-//               math.sin(dLon / 2);
-
-//   final double c = 2 *
-//       math.atan2(
-//         math.sqrt(a),
-//         math.sqrt(1 - a),
-//       );
-
-//   return earthRadiusKm * c;
-// }
-// ==============================================================
-// DEGREE TO RADIANS
-// ==============================================================
-
-// double _degreesToRadians(
-//   double degrees,
-// ) {
-//   return degrees *
-//       math.pi /
-//       180.0;
-// }
-
-// ==============================================================
-// DISPOSE
-// ==============================================================
 
 @override
 void dispose() {

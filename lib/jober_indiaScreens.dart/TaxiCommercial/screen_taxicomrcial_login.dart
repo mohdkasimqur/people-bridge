@@ -127,27 +127,6 @@ bool isSearchingLocation = false;
 // Used to invalidate an older location request
 int _locationRequestId = 0;
 
-  // ============================================================
-  // OTP
-  // ============================================================
-
-  // String? verificationId;
-
-  // bool otpSent = false;
-  // bool otpVerified = false;
-
-  // bool isSendingOtp = false;
-  // bool isVerifying = false;
-  // bool isSubmitting = false;
-
-  //  bool otpError = false;
-
-  // String otpErrorMessage = '';
-
-  // int secondsRemaining = 30;
-
-  // Timer? timer;
-
   String? verificationId;
 
   bool otpSent = false;
@@ -178,7 +157,6 @@ int? resendToken;
   String? mobileErrorMessage;
  bool mobileError = false;
 
-  // String? otpError;
   String? genderError;
   String? vehicleError;
   String? vehicleNumberError;
@@ -214,25 +192,6 @@ bool isUploadingPhoto = false;
 
 List<Map<String, String>> _loadedVehicles = [];
 
-//bool _isLoadingVehicles = false;
-
-// List<Map<String, String>> get currentVehicles {
-//   if (_loadedVehicles.isNotEmpty) {
-//     return _loadedVehicles;
-//   }
-
-//   final List<TaxiCommercialVehicleCategory> source =
-//       getPredefinedVehicleCategories(selectedType);
-
-//   return source.map((vehicle) {
-//     return <String, String>{
-//       'name': vehicle.name,
-//       'image': vehicle.image,
-//       'imageUrl': vehicle.imageUrl,
-//       'isCustom': vehicle.isCustom.toString(),
-//     };
-//   }).toList();
-// }
 StreamSubscription<QuerySnapshot<Map<String, dynamic>>>?
     _vehicleSubscription;
 
@@ -299,128 +258,6 @@ void initState() {
     super.dispose();
   }
 
-//         final TextEditingController nearestCityController =
-//     TextEditingController();
-// String stateError = '';
-// String districtError = '';
-// String nearestCityError = '';
-//  bool isStateDropdownOpen = false;
-
-// String? selectedState;
-
-// final TextEditingController stateSearchController =
-//     TextEditingController();
-
-// List<String> filteredStates = [];
-
-// static const List<String> indiaStates = [
-//   'Andhra Pradesh',
-//   'Arunachal Pradesh',
-//   'Assam',
-//   'Bihar',
-//   'Chhattisgarh',
-//   'Goa',
-//   'Gujarat',
-//   'Haryana',
-//   'Himachal Pradesh',
-//   'Jharkhand',
-//   'Karnataka',
-//   'Keralam',
-//   'Madhya Pradesh',
-//   'Maharashtra',
-//   'Manipur',
-//   'Meghalaya',
-//   'Mizoram',
-//   'Nagaland',
-//   'Odisha',
-//   'Punjab',
-//   'Rajasthan',
-//   'Sikkim',
-//   'Tamil Nadu',
-//   'Telangana',
-//   'Tripura',
-//   'Uttar Pradesh',
-//   'Uttarakhand',
-//   'West Bengal',
-// ];
-
-// void filterStates(String value) {
-//   final String search = value.trim().toLowerCase();
-
-//   final List<String> result = indiaStates.where((state) {
-//     return search.isEmpty ||
-//         state.toLowerCase().contains(search);
-//   }).toList();
-
-//   if (!mounted) return;
-
-//   setState(() {
-//     filteredStates = result;
-//   });
-// }
-
-// String? selectedDistrict;
-
-// bool isDistrictDropdownOpen = false;
-
-// final TextEditingController districtSearchController =
-//     TextEditingController();
-
-// List<String> filteredDistricts = [];
-
-// Map<String, List<String>> indiaDistricts = {};
-
-// List<String> get availableDistricts {
-//   if (selectedState == null ||
-//       selectedState!.trim().isEmpty) {
-//     return indiaDistricts.values
-//         .expand((districts) => districts)
-//         .toSet()
-//         .toList();
-//   }
-
-//   return List<String>.from(
-//     indiaDistricts[selectedState!] ?? [],
-//   );
-// }
-
-// void filterDistricts(String value) {
-//   final search = value.trim().toLowerCase();
-
-//   final result = availableDistricts.where((district) {
-//     return search.isEmpty ||
-//         district.toLowerCase().contains(search);
-//   }).toList();
-
-//   if (!mounted) return;
-
-//   setState(() {
-//     filteredDistricts = result;
-//   });
-// }
-
-// Future<void> loadDistricts() async {
-//   final String jsonString = await rootBundle.loadString(
-//     'assets/data/india_districts.json',
-//   );
-
-//   final Map<String, dynamic> data =
-//       json.decode(jsonString);
-
-//   if (!mounted) return;
-
-//   setState(() {
-//     indiaDistricts = data.map(
-//       (key, value) => MapEntry(
-//         key,
-//         List<String>.from(value),
-//       ),
-//     );
-
-//     filteredDistricts =
-//         List<String>.from(availableDistricts);
-//   });
-// }
      void showMessage(
   String message, {
   bool isError = false,
@@ -457,7 +294,6 @@ Future<void> sendOTP({bool isResend = false}) async {
 
   if (!RegExp(r'^[6-9][0-9]{9}$').hasMatch(phone)) {
     showMessage(AppLocalizations.of(context)!.enteradigitmobilenumber
-      //'Enter a valid 10-digit mobile number.'
       );
     return;
   }
@@ -1017,12 +853,6 @@ await userBox.put(
                 .trim()
                 .toUpperCase(),
 
-        // 'profilePhotoUrl': profilePhotoUrl,
-
-        // 'role': 'taxi_commercial',
-
-        // 'isActive' : true,
-
         // 'updatedAt':
         //     FieldValue.serverTimestamp(),
         'role': 'taxi_commercial',
@@ -1052,7 +882,6 @@ await userBox.put(
   nameError = null;
       stateError = '';
 
- // mobileError = null;
   genderError = null;
   vehicleError = null;
   vehicleNumberError = null;
@@ -1088,17 +917,6 @@ if (!otpVerified) {
   mobileError = true;
   hasError = true;
 }
-// if (!otpVerified) {
-//     showMessage(
-//       'Please verify your mobile number first.',
-//       isError: true,
-//     );
-//     return;
-//   }
-
-// ============================================================
-// SECONDARY MOBILE NUMBER
-// ============================================================
 
 final String secondaryMobile =
     secondaryPhoneController.text.trim();
@@ -1307,7 +1125,6 @@ void changeVehicleType(String type) {
       selectedVehicle = vehicleName;
 
       vehicleError = null;
-      //vehicleNumberError = null;
     });
   }
 
@@ -1591,22 +1408,12 @@ Future<void> addYourVehicle() async {
       imageUrl = await snapshot.ref.getDownloadURL();
     }
 
-    // Save the category using your existing helper.
-    // No photo means imageUrl remains empty.
-    // await saveCustomTaxiCommercialCategory(
-    //   name: vehicleName,
-    //   type: selectedType,
-    //   uid: FirebaseAuth.instance.currentUser?.uid ?? 'local',
-    //   imageUrl: imageUrl,
-    // );
     await saveCustomTaxiCommercialCategory(
   name: vehicleName,
   type: selectedType,
   uid: FirebaseAuth.instance.currentUser?.uid ?? 'local',
   imageUrl: imageUrl,
 );
-
-   // await _loadVehicles(force: true);
 
   // Select the newly added category immediately.
 if (!mounted) return;
@@ -2091,18 +1898,7 @@ SizedBox(
                           child:
                    
                             OutlinedButton.icon(
-  // onPressed: () {
-  //   // Immediately invalidate any running location request.
-  //   _locationRequestId++;
 
-  //   // Immediately update the UI.
-  //   setState(() {
-  //     currentLocation = null;
-  //     isGettingLocation = false;
-  //     isSearchingLocation = false;
-  //     locationError = false;
-  //   });
-  // },
   onPressed: () async {
   // Cancel any location request currently in progress.
   _locationRequestId++;
@@ -2226,20 +2022,6 @@ if (placeName == null ||
   return;
 }
 
-// setState(() {
-//   currentLocation = TaxiCommercialLocation(
-//     placeName: placeName.trim(),
-//     latitude: null,
-//     longitude: null,
-//   );
-//   locationError = false;
-//   isGettingLocation = false;
-//   isSearchingLocation = false;
-// });
-
-// showMessage(
-//   'Ambulance Parked location added.',
-// );
 final TaxiCommercialLocation location =
     TaxiCommercialLocation(
   placeName: placeName.trim(),
@@ -2310,13 +2092,6 @@ Future<String?> _processManualGarageLocation(
       value.contains('maps.app.goo.gl') ||
       value.contains('goo.gl/maps');
 
-  // ==========================================================
-  // NORMAL TEXT
-  // ==========================================================
-
-  // if (!isGoogleMapsLink) {
-  //   return value;
-  // }
   if (!isGoogleMapsLink) {
   try {
     final locations =
@@ -2723,29 +2498,6 @@ if (!locationMatches) {
       );
     }
 
-    // ----------------------------------------------------------
-    // SAVE LOCATION
-    // ----------------------------------------------------------
-
-//     if (!mounted || requestId != _locationRequestId) return;
-
-//     setState(() {
-//   currentLocation = TaxiCommercialLocation(
-//     placeName: placeName,
-//     latitude: position.latitude,
-//     longitude: position.longitude,
-//   );
-
-//   locationError = false;
-// });
-
-//     showMessage(
-//       'Ambulance location added.',
-//     );
-// ----------------------------------------------------------
-    // SAVE LOCATION TO HIVE AND FIRESTORE
-    // ----------------------------------------------------------
-
     if (!mounted || requestId != _locationRequestId) {
       return;
     }
@@ -3028,7 +2780,6 @@ Widget sectionTitle(
               ),
               TextSpan(
                 text:  AppLocalizations.of(context)!.registration,
-                //' Registration',
                 style: TextStyle(
                   color: Colors.red,
                   fontSize: 25,
@@ -3120,7 +2871,6 @@ Widget sectionTitle(
                     ),
 
                     child: Text(AppLocalizations.of(context)!.enteradigitmobilenumber,
-                    //  'Enter a valid 10-digit number',
 
                       style:
                           TextStyle(
@@ -3508,8 +3258,6 @@ const SizedBox(height: 20),
   // ============================================================
 
     Widget mobileSection() {
-    // final bool verified =
-    //     otpVerified;
 
     return Column(
       crossAxisAlignment:
@@ -3765,7 +3513,6 @@ const SizedBox(height: 20),
    Padding(
     padding: EdgeInsets.only(left: 12, top: 5),
     child: Text(AppLocalizations.of(context)!.enteradigitmobilenumber,
-     // 'Enter a valid 10-digit mobile number.',
       style: TextStyle(
         color: Colors.red,
         fontSize: 12,
@@ -3931,8 +3678,6 @@ const SizedBox(height: 20),
             autofillHints: const [
   AutofillHints.oneTimeCode,
 ],
-            // enabled:
-            //     !isVerifying,
             enabled: !isVerifying &&
     !isSendingOtp &&
     secondsRemaining > 0,
@@ -4507,7 +4252,6 @@ Future<void> loadDistricts() async {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       sectionTitle( AppLocalizations.of(context)!.state
-       // 'State',
       ),
 
       AnimatedContainer(
@@ -4572,9 +4316,7 @@ Future<void> loadDistricts() async {
                         selectedState == null ||
                                 selectedState!.isEmpty
                             ? AppLocalizations.of(context)!.selectyourState
-                            // 'Select your State'
                             : localizedState(selectedState!, languageCode),
-                            //selectedState!,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -4626,7 +4368,6 @@ Future<void> loadDistricts() async {
                       controller: stateSearchController,
                       onChanged: filterStates,
                       decoration: InputDecoration(
-                       // hintText: 'Search state...',
                        hintText: AppLocalizations.of(context)!.searchState,
                         prefixIcon: const Icon(
                           Icons.search,
@@ -4681,7 +4422,6 @@ Future<void> loadDistricts() async {
                       child: filteredStates.isEmpty
                           ? Center(
                               child: Text( AppLocalizations.of(context)!.nostatefound,
-                              //  'No state found',
                                 style: TextStyle(
                                   color:
                                       Colors.grey.shade600,
@@ -4705,23 +4445,7 @@ Future<void> loadDistricts() async {
                                     10,
                                   ),
                                   onTap: () {
-                                    // setState(() {
-                                    //   selectedState = state;
 
-                                    //   categoryError =
-                                    //       false;
-
-                                    //   isCategoryDropdownOpen =
-                                    //       false;
-
-                                    //   stateSearchController
-                                    //       .clear();
-
-                                    //   filteredStates =
-                                    //       List<String>.from(
-                                    //     indiaStates,
-                                    //   );
-                                    // });
                                     setState(() {
   final bool stateChanged = selectedState != state;
 
@@ -4791,14 +4515,6 @@ Future<void> loadDistricts() async {
 
                                         Expanded(
                                           child:
-                                          //  Text(
-                                          //   state,
-                                          //   style:
-                                          //       const TextStyle(
-                                          //     color: darkText,
-                                          //     fontSize: 14,
-                                          //   ),
-                                          // ),
                                           Text(localizedState(state, languageCode) ,
                                           style:
                                                 const TextStyle(
@@ -4832,7 +4548,6 @@ Future<void> loadDistricts() async {
             top: 5,
           ),
           child: Text( AppLocalizations.of(context)!.pleaseSelectyourState,
-            //'Please select your state.',
             style: TextStyle(
               color: Colors.red,
               fontSize: 12,
@@ -4844,13 +4559,11 @@ Future<void> loadDistricts() async {
   );
 }
 
-//Widget districtSection() {
 Widget districtSection() {
   final languageCode = currentLanguageCode(context);
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      //sectionTitle('District'),
       sectionTitle(AppLocalizations.of(context)!.district),
 
       AnimatedContainer(
@@ -4918,8 +4631,6 @@ Widget districtSection() {
                       child: Text(
                         selectedDistrict == null ||
                                 selectedDistrict!.isEmpty
-                            // ? 'Select your District'
-                            // : selectedDistrict!,
                             ? AppLocalizations.of(context)!.selectyourDistrict
 : localizedDistrict(selectedDistrict!, languageCode),
                         maxLines: 1,
@@ -4982,8 +4693,6 @@ Widget districtSection() {
 
                       decoration:
                           InputDecoration(
-                        // hintText:
-                        //     'Search district...',
                         hintText: AppLocalizations.of(context)!.searchdistrict,
 
                         prefixIcon:
@@ -5167,16 +4876,6 @@ Widget districtSection() {
                                         ),
 
                                         Expanded(
-                                          // child: Text(
-                                          //   district,
-                                          //   style:
-                                          //       const TextStyle(
-                                          //     color:
-                                          //         darkText,
-                                          //     fontSize:
-                                          //         14,
-                                          //   ),
-                                          // ),
                                           child: Text(
   localizedDistrict(district, languageCode),
   style: const TextStyle(
@@ -5210,7 +4909,6 @@ Widget districtSection() {
             top: 5,
           ),
           child: Text( AppLocalizations.of(context)!.pleaseselectyourdistrict,
-          //  'Please select your district.',
             style: TextStyle(
               color: Colors.red,
               fontSize: 12,
@@ -6331,53 +6029,6 @@ class _AllVehiclesPageState
     }
   }
 
-//   Widget buildVehicleImage({
-//   required String image,
-//   required String imageUrl,
-// }) {
-//   if (imageUrl.trim().isNotEmpty) {
-//     return Image.network(
-//       imageUrl,
-//       width: double.infinity,
-//       fit: BoxFit.cover,
-//       errorBuilder: (_, _, _) {
-//         return const Center(
-//           child: Icon(
-//             Icons.directions_car_outlined,
-//             size: 45,
-//             color: Colors.grey,
-//           ),
-//         );
-//       },
-//     );
-//   }
-
-//   if (image.trim().isNotEmpty) {
-//     return Image.asset(
-//       image,
-//       width: double.infinity,
-//       fit: BoxFit.cover,
-//     //  errorBuilder : (_, _, _) {
-//     //     return const Center(
-//     //       child: Icon(
-//     //         Icons.directions_car_outlined,
-//     //         size: 45,
-//     //         color: Colors.grey,
-//     //       ),
-//     //     );
-//      // },
-//      errorBuilder: (context, error, stackTrace) {
-//   return const Center(
-//           child: Icon(
-//             Icons.directions_car_outlined,
-//             size: 45,
-//             color: Colors.grey,
-//           ),
-//         );
-// },
-//     );
-// }
-// }
 Widget buildVehicleImage({
   required String image,
   required String imageUrl,
@@ -6758,37 +6409,6 @@ final imageUrl = vehicle['imageUrl'] ?? '';
                                         ),
                                       ),
 
-                                      // child:
-                                      //     Image.asset(
-                                      //   image,
-
-                                      //   width:
-                                      //       double.infinity,
-
-                                      //   fit:
-                                      //       BoxFit.cover,
-
-                                      //   errorBuilder:
-                                      //       (
-                                      //     context,
-                                      //     error,
-                                      //     stackTrace,
-                                      //   ) {
-                                      //     return const Center(
-                                      //       child:
-                                      //           Icon(
-                                      //         Icons
-                                      //             .directions_car_outlined,
-
-                                      //         size:
-                                      //             45,
-
-                                      //         color:
-                                      //             Colors.grey,
-                                      //       ),
-                                      //     );
-                                      //   },
-                                      // ),
                                       child: buildVehicleImage(
   image: image,
   imageUrl: imageUrl,
@@ -6860,718 +6480,3 @@ final imageUrl = vehicle['imageUrl'] ?? '';
     );
   }
 }
-
-
-
-  //  InputDecoration fieldDecoration({
-  //   required String hint,
-  //   IconData? icon,
-  // }) {
-  //   return InputDecoration(
-  //     hintText: hint,
-
-  //     prefixIcon: icon == null
-  //         ? null
-  //         : Icon(
-  //             icon,
-  //             color:
-  //                 const Color(0xFF16803C),
-  //             size: 26,
-  //           ),
-
-  //     filled: true,
-
-  //     fillColor:
-  //         const Color(0xFFF9F9F9),
-
-  //     contentPadding:
-  //         const EdgeInsets.symmetric(
-  //       horizontal: 18,
-  //       vertical: 18,
-  //     ),
-
-  //     hintStyle:
-  //         const TextStyle(
-  //       color:
-  //           Color(0xFF777777),
-  //       fontSize: 16,
-  //     ),
-
-  //     enabledBorder:
-  //         OutlineInputBorder(
-  //       borderRadius:
-  //           BorderRadius.circular(20),
-  //       borderSide:
-  //           const BorderSide(
-  //         color:
-  //             Color(0xFFD5D5D5),
-  //         width: 1.5,
-  //       ),
-  //     ),
-
-  //     focusedBorder:
-  //         OutlineInputBorder(
-  //       borderRadius:
-  //           BorderRadius.circular(20),
-  //       borderSide:
-  //           const BorderSide(
-  //         color:
-  //             Color(0xFF16803C),
-  //         width: 2,
-  //       ),
-  //     ),
-
-  //     errorBorder:
-  //         OutlineInputBorder(
-  //       borderRadius:
-  //           BorderRadius.circular(20),
-  //       borderSide:
-  //           const BorderSide(
-  //         color: Colors.red,
-  //         width: 2,
-  //       ),
-  //     ),
-
-  //     focusedErrorBorder:
-  //         OutlineInputBorder(
-  //       borderRadius:
-  //           BorderRadius.circular(20),
-  //       borderSide:
-  //           const BorderSide(
-  //         color: Colors.red,
-  //         width: 2,
-  //       ),
-  //     ),
-
-  //     errorStyle:
-  //         const TextStyle(
-  //       color: Colors.red,
-  //       fontSize: 12,
-  //       fontWeight:
-  //           FontWeight.w500,
-  //     ),
-  //   );
-  // }
-
-//   Widget secondaryMobileSection() {
-//   return Column(
-//     crossAxisAlignment: CrossAxisAlignment.start,
-//     children: [
-//       const Text(
-//         'Secondary Mobile Number',
-//         style: TextStyle(
-//           color: Color(0xFF252525),
-//           fontSize: 16,
-//           fontWeight: FontWeight.bold,
-//         ),
-//       ),
-
-//       const SizedBox(height: 8),
-
-//       TextFormField(
-//         controller: secondaryPhoneController,
-//         keyboardType: TextInputType.phone,
-//         maxLength: 10,
-
-//         inputFormatters: [
-//           FilteringTextInputFormatter.digitsOnly,
-//         ],
-// onChanged: (value) {
-//   if (secondaryMobileError != null) {
-//     setState(() {
-//       secondaryMobileError = null;
-//     });
-//   }
-// },
-//         decoration: InputDecoration(
-//           hintText: 'Enter secondary mobile number (optional)',
-//           icon: Icon(Icons.phone_android_outlined),
-//         ).copyWith(
-//           counterText: '',
-//         ),
-
-//         validator: (value) {
-//           final number = value?.trim() ?? '';
-
-//           // Optional field.
-//           if (number.isEmpty) {
-//             return null;
-//           }
-
-//           if (number.length != 10) {
-//             return 'Enter a valid 10-digit mobile number';
-//           }
-
-//           return null;
-//         },
-//       ),
-
-//       const SizedBox(height: 5),
-
-//       const Text(
-//         'You can add same number,if another number is not available.',
-//         style: TextStyle(
-//           color: Color(0xFF777777),
-//           fontSize: 12,
-//         ),
-//       ),
-//       const  Text(
-//         'Note : This number will be shown to users when they choose to call you.',
-//         style: TextStyle(
-//           color: Color(0xFF777777),
-//           fontSize: 12,
-//         ),
-//       ),
-//     ],
-//   );
-// }
-
-//  Future<void> addYourVehicle() async {
-//   customVehicleController.clear();
-
-//   final result = await showDialog<String>(
-//     context: context,
-//     builder: (dialogContext) {
-//       return AlertDialog(
-//         backgroundColor: Colors.white,
-
-//         shape: RoundedRectangleBorder(
-//           borderRadius: BorderRadius.circular(20),
-//         ),
-
-//         title: const Text(
-//           'Add Your Vehicle',
-//           style: TextStyle(
-//             fontWeight: FontWeight.bold,
-//           ),
-//         ),
-
-//         content: TextField(
-//           controller: customVehicleController,
-
-//           textCapitalization:
-//               TextCapitalization.words,
-
-//           decoration: InputDecoration(
-//             hintText: selectedType == 'Taxi'
-//                 ? 'Example: Toyota Rumion'
-//                 : 'Example: BharatBenz',
-
-//             filled: true,
-
-//             fillColor:
-//                 const Color(0xFFF9F9F9),
-
-//             border: OutlineInputBorder(
-//               borderRadius:
-//                   BorderRadius.circular(16),
-//             ),
-
-//             focusedBorder: OutlineInputBorder(
-//               borderRadius:
-//                   BorderRadius.circular(16),
-
-//               borderSide: const BorderSide(
-//                 color: Color(0xFF159B16),
-//                 width: 2,
-//               ),
-//             ),
-//           ),
-//         ),
-
-//         actions: [
-//           TextButton(
-//             onPressed: () {
-//               Navigator.pop(dialogContext);
-//             },
-
-//             child: const Text(
-//               'Cancel',
-//               style: TextStyle(
-//                 color: Colors.grey,
-//               ),
-//             ),
-//           ),
-
-//           ElevatedButton(
-//             onPressed: () {
-//               final vehicle =
-//                   customVehicleController
-//                       .text
-//                       .trim();
-
-//               if (vehicle.isEmpty) {
-//                 return;
-//               }
-
-//               Navigator.pop(
-//                 dialogContext,
-//                 vehicle,
-//               );
-//             },
-
-//             style: ElevatedButton.styleFrom(
-//               backgroundColor:
-//                   const Color(0xFF16803C),
-//               foregroundColor:
-//                   Colors.white,
-//             ),
-
-//             child: const Text(
-//               'Add Vehicle',
-//             ),
-//           ),
-//         ],
-//       );
-//     },
-//   );
-
-//   // ==========================================================
-//   // USER CANCELLED
-//   // ==========================================================
-
-//   if (!mounted || result == null) {
-//     return;
-//   }
-
-//   final String vehicleName =
-//       result.trim();
-
-//   if (vehicleName.isEmpty) {
-//     return;
-//   }
-
-//   // ==========================================================
-//   // CURRENT FIREBASE USER
-//   // ==========================================================
-
-//   final user =
-//       FirebaseAuth.instance.currentUser;
-
-//   if (user == null) {
-//     if (!mounted) return;
-
-//     ScaffoldMessenger.of(context).showSnackBar(
-//       const SnackBar(
-//         content: Text(
-//           'Please verify your phone number first.',
-//         ),
-//       ),
-//     );
-
-//     return;
-//   }
-
-//   // ==========================================================
-//   // SAVE CUSTOM CATEGORY TO FIRESTORE
-//   // ==========================================================
-
-//   try {
-//     await saveCustomTaxiCommercialCategory(
-//       name: vehicleName,
-//       type: selectedType,
-//       uid: user.uid,
-//     );
-//     await _loadVehicles();
-
-//     // ========================================================
-//     // UPDATE CURRENT REGISTRATION PAGE
-//     // ========================================================
-
-//     if (!mounted) {
-//       return;
-//     }
-
-//     setState(() {
-//       selectedVehicle = vehicleName;
-//       vehicleError = null;
-//       customVehicleController.clear();
-//     });
-
-//     ScaffoldMessenger.of(context).showSnackBar(
-//       SnackBar(
-//         content: Text(
-//           '$vehicleName added to $selectedType vehicles',
-//         ),
-//       ),
-//     );
-//   } catch (e) {
-//     debugPrint(
-//       'Error saving custom vehicle category: $e',
-//     );
-
-//     if (!mounted) {
-//       return;
-//     }
-
-//     ScaffoldMessenger.of(context).showSnackBar(
-//       const SnackBar(
-//         content: Text(
-//           'Could not save vehicle category',
-//         ),
-//       ),
-//     );
-//   }
-// // }
-// Future<void> addYourVehicle() async {
-//   customVehicleController.clear();
-
-//   File? selectedVehiclePhoto;
-
-//   final Map<String, dynamic>? result =
-//       await showDialog<Map<String, dynamic>>(
-//     context: context,
-//     builder: (dialogContext) {
-//       return StatefulBuilder(
-//         builder: (context, setDialogState) {
-//           return AlertDialog(
-//             backgroundColor: Colors.white,
-//             shape: RoundedRectangleBorder(
-//               borderRadius: BorderRadius.circular(20),
-//             ),
-//             title: const Text(
-//               'Add Your Vehicle',
-//               style: TextStyle(
-//                 fontWeight: FontWeight.bold,
-//               ),
-//             ),
-//             content: SingleChildScrollView(
-//               child: Column(
-//                 mainAxisSize: MainAxisSize.min,
-//                 children: [
-//                   TextField(
-//                     controller: customVehicleController,
-//                     textCapitalization:
-//                         TextCapitalization.words,
-//                     decoration: InputDecoration(
-//                       hintText: selectedType == 'Taxi'
-//                           ? 'Example: Toyota Rumion'
-//                           : 'Example: BharatBenz',
-//                       filled: true,
-//                       fillColor: const Color(0xFFF9F9F9),
-//                       border: OutlineInputBorder(
-//                         borderRadius:
-//                             BorderRadius.circular(16),
-//                       ),
-//                       focusedBorder: OutlineInputBorder(
-//                         borderRadius:
-//                             BorderRadius.circular(16),
-//                         borderSide: const BorderSide(
-//                           color: Color(0xFF16803C),
-//                           width: 2,
-//                         ),
-//                       ),
-//                     ),
-//                   ),
-
-//                   const SizedBox(height: 16),
-
-//                   // Optional vehicle photo preview.
-//                   Container(
-//                     width: double.infinity,
-//                     height: 130,
-//                     decoration: BoxDecoration(
-//                       color: const Color(0xFFF9F9F9),
-//                       borderRadius:
-//                           BorderRadius.circular(14),
-//                       border: Border.all(
-//                         color: Colors.grey.shade300,
-//                       ),
-//                     ),
-//                     child: selectedVehiclePhoto != null
-//                         ? ClipRRect(
-//                             borderRadius:
-//                                 BorderRadius.circular(14),
-//                             child: Image.file(
-//                               selectedVehiclePhoto!,
-//                               fit: BoxFit.contain,
-//                             ),
-//                           )
-//                         : const Center(
-//                             child: Icon(
-//                               Icons.directions_car_outlined,
-//                               size: 48,
-//                               color: Colors.grey,
-//                             ),
-//                           ),
-//                   ),
-
-//                   const SizedBox(height: 10),
-
-//                   OutlinedButton.icon(
-//                     onPressed: () async {
-//                       final XFile? picked =
-//                           await _imagePicker.pickImage(
-//                         source: ImageSource.gallery,
-//                         imageQuality: 80,
-//                         maxWidth: 1200,
-//                         maxHeight: 1200,
-//                       );
-
-//                       if (picked != null) {
-//                         setDialogState(() {
-//                           selectedVehiclePhoto =
-//                               File(picked.path);
-//                         });
-//                       }
-//                     },
-//                     icon: const Icon(
-//                       Icons.photo_library_outlined,
-//                     ),
-//                     label: Text(
-//                       selectedVehiclePhoto == null
-//                           ? 'Choose Vehicle Photo (Optional)'
-//                           : 'Change Vehicle Photo',
-//                     ),
-//                   ),
-
-//                   if (selectedVehiclePhoto != null)
-//                     TextButton(
-//                       onPressed: () {
-//                         setDialogState(() {
-//                           selectedVehiclePhoto = null;
-//                         });
-//                       },
-//                       child: const Text(
-//                         'Remove Photo',
-//                         style: TextStyle(
-//                           color: Colors.red,
-//                         ),
-//                       ),
-//                     ),
-//                 ],
-//               ),
-//             ),
-//             actions: [
-//               TextButton(
-//                 onPressed: () {
-//                   Navigator.pop(dialogContext);
-//                 },
-//                 child: const Text(
-//                   'Cancel',
-//                   style: TextStyle(color: Colors.grey),
-//                 ),
-//               ),
-//               ElevatedButton(
-//                 onPressed: () {
-//                   final String name =
-//                       customVehicleController.text.trim();
-
-//                   if (name.isEmpty) {
-//                     ScaffoldMessenger.of(context)
-//                         .showSnackBar(
-//                       const SnackBar(
-//                         content: Text(
-//                           'Please enter a vehicle name.',
-//                         ),
-//                       ),
-//                     );
-//                     return;
-//                   }
-
-//                   Navigator.pop(
-//                     dialogContext,
-//                     <String, dynamic>{
-//                       'name': name,
-//                       'photo': selectedVehiclePhoto,
-//                     },
-//                   );
-//                 },
-//                 style: ElevatedButton.styleFrom(
-//                   backgroundColor:
-//                       const Color(0xFF16803C),
-//                   foregroundColor: Colors.white,
-//                 ),
-//                 child: const Text('Add Vehicle'),
-//               ),
-//             ],
-//           );
-//         },
-//       );
-//     },
-//   );
-
-//   if (!mounted || result == null) return;
-
-//   final String vehicleName =
-//       (result['name'] as String? ?? '').trim();
-
-//   final File? photo = result['photo'] as File?;
-
-//   if (vehicleName.isEmpty) return;
-
-//   final User? user = FirebaseAuth.instance.currentUser;
-
-// final String creatorUid =
-//     user?.uid ?? 'unverified_${DateTime.now().millisecondsSinceEpoch}';
-
-//   // try {
-//   //   String imageUrl = '';
-
-//   //   // Upload the photo only if one was selected.
-//   //   if (photo != null) {
-//   //     showMessage('Uploading vehicle photo...');
-
-//   //     final Reference storageRef =
-//   //         FirebaseStorage.instance
-//   //             .ref()
-//   //             .child('taxiVehicleCategories')
-//   //             .child(selectedType.toLowerCase())
-//   //             .child(
-//   //               '${user.uid}_${DateTime.now().millisecondsSinceEpoch}.jpg',
-//   //             );
-
-//   //     await storageRef.putFile(
-//   //       photo,
-//   //       SettableMetadata(
-//   //         contentType: 'image/jpeg',
-//   //       ),
-//   //     );
-
-//   //     imageUrl = await storageRef.getDownloadURL();
-//   //   }
-
-//   //   // Save the category and its photo URL.
-//   //   await saveCustomTaxiCommercialCategory(
-//   //     name: vehicleName,
-//   //     type: selectedType,
-//   //     uid: user.uid,
-//   //     imageUrl: imageUrl,
-//   //   );
-
-//   //   // Reload the list, including custom categories.
-//   //   await _loadVehicles(force: true);
-
-//   //   if (!mounted) return;
-
-//   //   setState(() {
-//   //     selectedVehicle = vehicleName;
-//   //     vehicleError = null;
-//   //     customVehicleController.clear();
-//   //   });
-
-//   //   showMessage(
-//   //     photo == null
-//   //         ? '$vehicleName added successfully.'
-//   //         : '$vehicleName and its photo saved successfully.',
-//   //   );
-//   // } catch (e) {
-//   //   debugPrint('Error saving custom vehicle: $e');
-
-//   //   if (!mounted) return;
-
-//   //   showMessage(
-//   //     'Could not save the vehicle. Please try again.',
-//   //     isError: true,
-//   //   );
-//   // }
-//   try {
-//   String imageUrl = '';
-
-//   if (photo != null) {
-//     showMessage('Uploading vehicle photo...');
-
-//     // final Reference storageRef = FirebaseStorage.instance
-//     //     .ref()
-//     //     .child('taxiVehicleCategories')
-//     //     .child(selectedType.toLowerCase())
-//     //     .child(
-//     //       '${creatorUid}_${DateTime.now().millisecondsSinceEpoch}.jpg',
-//     //     );
-
-//     // final UploadTask uploadTask = storageRef.putFile(
-//     //   photo,
-//     //   SettableMetadata(contentType: 'image/jpeg'),
-//     // );
-//     final String extension =
-//     path.extension(photo.path).toLowerCase();
-
-// final String contentType;
-
-// switch (extension) {
-//   case '.png':
-//     contentType = 'image/png';
-//     break;
-//   case '.webp':
-//     contentType = 'image/webp';
-//     break;
-//   case '.jpg':
-//   case '.jpeg':
-//   default:
-//     contentType = 'image/jpeg';
-//     break;
-// }
-
-// final Reference storageRef =
-//     FirebaseStorage.instance
-//         .ref()
-//         .child('taxiVehicleCategories')
-//         .child(selectedType.toLowerCase())
-//         .child(
-//           '${creatorUid}_${DateTime.now().millisecondsSinceEpoch}$extension',
-//         );
-
-// await storageRef.putFile(
-//   photo,
-//   SettableMetadata(contentType: contentType),
-// );
-
-// imageUrl = await storageRef.getDownloadURL();
-
-//     final TaskSnapshot snapshot = await uploadTask;
-//     imageUrl = await snapshot.ref.getDownloadURL();
-//   }
-
-//   await saveCustomTaxiCommercialCategory(
-//     name: vehicleName,
-//     type: selectedType,
-//     uid: creatorUid,
-//     imageUrl: imageUrl,
-//   );
-
-//   await _loadVehicles(force: true);
-
-//   if (!mounted) return;
-
-//   setState(() {
-//     selectedVehicle = vehicleName;
-//     vehicleError = null;
-//     customVehicleController.clear();
-//   });
-
-//   showMessage(
-//     photo == null
-//         ? '$vehicleName added successfully.'
-//         : '$vehicleName and its photo saved successfully.',
-//   );
-// } catch (e, stackTrace) {
-//   debugPrint('Error saving custom vehicle: $e');
-//   debugPrintStack(stackTrace: stackTrace);
-
-//   if (!mounted) return;
-
-//   showMessage(
-//     'Could not save the vehicle: $e',
-//     isError: true,
-//   );
-// }
-// }
-
-// void changeVehicleType(String type) {
-//   setState(() {
-//     selectedType = type;
-
-//     selectedVehicle = null;
-//     selectedVehicles.clear();
-
-//     _loadedVehicles = [];
-
-//     vehicleNameController.clear();
-//     vehicleNumberController.clear();
-
-//     vehicleError = null;
-//     vehicleNumberError = null;
-//   });
-
-//   _listenToVehicles();
-// }

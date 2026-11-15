@@ -356,8 +356,6 @@ class _ScreenFishDeliveryCategoriesState
     );
   }
 
-  // Empty snapshot helper is avoided by the normal loading path;
-  // this fallback is used only if the category stream has no data.
   QuerySnapshot<Map<String, dynamic>> _emptyCategorySnapshot() {
     throw StateError(
       'Category snapshot is not available yet.',
@@ -407,20 +405,6 @@ class _ScreenFishDeliveryCategoriesState
             padding: const EdgeInsets.all(16),
             child: Row(
               children: [
-                // Container(
-                //   width: 58,
-                //   height: 58,
-                //   decoration: BoxDecoration(
-                //     color: green.withValues(alpha: 0.12),
-                //     borderRadius: BorderRadius.circular(16),
-                //   ),
-                //   child: Icon(
-                //     icon,
-                //     size: 30,
-                //     color: green,
-                //   ),
-                // ),
-                // CATEGORY ICON WITH AVAILABLE-PERSON COUNT
 Stack(
   clipBehavior: Clip.none,
   children: [

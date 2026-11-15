@@ -126,8 +126,6 @@ class _ScreenFoodDeliveryLoginState
   final TextEditingController _shopLocationController =
     TextEditingController();
       
-  // final categorySearchController =
-  //     TextEditingController();
    final TextEditingController vehicleSearchController =
       TextEditingController();
 
@@ -140,8 +138,6 @@ class _ScreenFoodDeliveryLoginState
   static const Color lightFill =
       Color(0xFFF9F9F9);
   bool isCategoryDropdownOpen = false;
-//  bool isStateDropdownOpen = false;
-
 
   Color selectedVehicleNumberColor = Colors.white;
 
@@ -168,28 +164,6 @@ bool isUploadingPhoto = false;
 
   String? privacyPolicyError;
 
-  // =============================================================
-  // OTP VARIABLES
-  // =============================================================
-
-//  String? verificationId;
-
-//   bool otpSent = false;
-//   bool otpVerified = false;
-
-//   bool isSendingOtp = false;
-//   bool isVerifying = false;
-//   bool isSubmitting = false;
-
-//   bool otpError = false;
-
-//   String otpErrorMessage = '';
-
-//   int secondsRemaining = 30;
-
-//   Timer? timer;
-
-
   String? verificationId;
 
   bool otpSent = false;
@@ -215,7 +189,6 @@ int? resendToken;
 
   bool isLoadingCategories = false;
 
- // File? profilePhoto;
  FoodDeliveryLocation? currentLocation;
 
 bool isGettingLocation = false;
@@ -327,128 +300,6 @@ bool vehicleCategoryError = false;
     super.dispose();
   }
 
-//         final TextEditingController nearestCityController =
-//     TextEditingController();
-
-// String stateError = '';
-// String districtError = '';
-// String nearestCityError = '';
-// String? selectedState;
-
-// final TextEditingController stateSearchController =
-//     TextEditingController();
-
-// List<String> filteredStates = [];
-
-// static const List<String> indiaStates = [
-//   'Andhra Pradesh',
-//   'Arunachal Pradesh',
-//   'Assam',
-//   'Bihar',
-//   'Chhattisgarh',
-//   'Goa',
-//   'Gujarat',
-//   'Haryana',
-//   'Himachal Pradesh',
-//   'Jharkhand',
-//   'Karnataka',
-//   'Keralam',
-//   'Madhya Pradesh',
-//   'Maharashtra',
-//   'Manipur',
-//   'Meghalaya',
-//   'Mizoram',
-//   'Nagaland',
-//   'Odisha',
-//   'Punjab',
-//   'Rajasthan',
-//   'Sikkim',
-//   'Tamil Nadu',
-//   'Telangana',
-//   'Tripura',
-//   'Uttar Pradesh',
-//   'Uttarakhand',
-//   'West Bengal',
-// ];
-
-// void filterStates(String value) {
-//   final String search = value.trim().toLowerCase();
-
-//   final List<String> result = indiaStates.where((state) {
-//     return search.isEmpty ||
-//         state.toLowerCase().contains(search);
-//   }).toList();
-
-//   if (!mounted) return;
-
-//   setState(() {
-//     filteredStates = result;
-//   });
-// }
-
-// String? selectedDistrict;
-
-// bool isDistrictDropdownOpen = false;
-
-// final TextEditingController districtSearchController =
-//     TextEditingController();
-
-// List<String> filteredDistricts = [];
-
-// Map<String, List<String>> indiaDistricts = {};
-
-// List<String> get availableDistricts {
-//   if (selectedState == null ||
-//       selectedState!.trim().isEmpty) {
-//     return indiaDistricts.values
-//         .expand((districts) => districts)
-//         .toSet()
-//         .toList();
-//   }
-
-//   return List<String>.from(
-//     indiaDistricts[selectedState!] ?? [],
-//   );
-// }
-
-// void filterDistricts(String value) {
-//   final search = value.trim().toLowerCase();
-
-//   final result = availableDistricts.where((district) {
-//     return search.isEmpty ||
-//         district.toLowerCase().contains(search);
-//   }).toList();
-
-//   if (!mounted) return;
-
-//   setState(() {
-//     filteredDistricts = result;
-//   });
-// }
-
-// Future<void> loadDistricts() async {
-//   final String jsonString = await rootBundle.loadString(
-//     'assets/data/india_districts.json',
-//   );
-
-//   final Map<String, dynamic> data =
-//       json.decode(jsonString);
-
-//   if (!mounted) return;
-
-//   setState(() {
-//     indiaDistricts = data.map(
-//       (key, value) => MapEntry(
-//         key,
-//         List<String>.from(value),
-//       ),
-//     );
-
-//     filteredDistricts =
-//         List<String>.from(availableDistricts);
-//   });
-// }
- 
 Future<void> _loadVehicleCategories() async {
   if (loadingVehicleCategories) {
     return;
@@ -651,7 +502,6 @@ Future<void> sendOTP({bool isResend = false}) async {
 
   if (!RegExp(r'^[6-9][0-9]{9}$').hasMatch(phone)) {
     showMessage( AppLocalizations.of(context)!.enteradigitmobilenumber,
-     // 'Enter a valid 10-digit mobile number.'
       );
     return;
   }
@@ -1549,33 +1399,10 @@ Future<void> _submit() async {
       .trim()
       .replaceAll(RegExp(r'\D'), '');
 
-  // if (primary.length != 10) {
-  //   hasError = true;
-  // }
-   // PRIMARY MOBILE
 mobileError = primary.length != 10;
 if (mobileError) {
   hasError = true;
 }
-   // ============================================================
-  // OTP SENT
-  // ============================================================
-
-  // if (!otpSent) {
-  //   ScaffoldMessenger.of(context).showSnackBar(
-  //     const SnackBar(
-  //       content: Text(
-  //         'Please send OTP first.',
-  //       ),
-  //     ),
-  //   );
-
-  //   return;
-  // }
-
-  // ============================================================
-  // OTP VERIFIED
-  // ============================================================
 
   if (!otpVerified) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -1597,9 +1424,6 @@ if (mobileError) {
       .trim()
       .replaceAll(RegExp(r'\D'), '');
 
-  // if (secondary.length != 10) {
-  //   hasError = true;
-  // }
 secondaryMobileError =
       !_isValidIndianMobile(secondary);
 
@@ -1628,7 +1452,6 @@ final String districtValue =
 
 if (districtValue.isEmpty) {
   districtError =  AppLocalizations.of(context)!.pleaseselectyourdistrict;
-  //'Please select your district.';
   hasError = true;
 } else if (stateValue.isNotEmpty &&
     !(indiaDistricts[stateValue] ?? [])
@@ -1669,7 +1492,6 @@ if (nearestTownValue.isEmpty) {
   );
   if (vehicleNumber.length < 8) {
   vehicleNumberError = AppLocalizations.of(context)!.enteradigitmobilenumber;
-    //  'Enter a valid vehicle registration number.';
   hasError = true;
 } else {
   vehicleNumberError = null;
@@ -1688,7 +1510,6 @@ if (nearestTownValue.isEmpty) {
     vehicleNumberError =
         vehicleNumber.length < 8
             ? AppLocalizations.of(context)!.enteradigitmobilenumber
-            //'Enter a valid vehicle registration number.'
             : null;
   });
 
@@ -2046,8 +1867,6 @@ Future<void> _syncFoodDeliveryToFirestore({
 
       'profilePhotoUrl': photoUrl ?? '',
 
-      // 'isActive': true,
-      // 'profileCompleted': true,
       'isActive': true,
 'isOnline': true,
 'onlineUpdatedAt': FieldValue.serverTimestamp(),
@@ -2134,8 +1953,6 @@ Future<void> _syncFoodDeliveryCategoryDefinitions({
   // MOBILE SECTION
   // ==========================================================
    Widget mobileSection() {
-    // final bool verified =
-    //     otpVerified;
 
     return Column(
       crossAxisAlignment:
@@ -2391,7 +2208,6 @@ Future<void> _syncFoodDeliveryCategoryDefinitions({
    Padding(
     padding: EdgeInsets.only(left: 12, top: 5),
     child: Text(AppLocalizations.of(context)!.enteradigitmobilenumber,
-    //  'Enter a valid 10-digit mobile number.',
       style: TextStyle(
         color: Colors.red,
         fontSize: 12,
@@ -2556,8 +2372,6 @@ Future<void> _syncFoodDeliveryCategoryDefinitions({
             autofillHints: const [
   AutofillHints.oneTimeCode,
 ],
-            // enabled:
-            //     !isVerifying,
             enabled: !isVerifying &&
     !isSendingOtp &&
     secondsRemaining > 0,
@@ -3009,7 +2823,6 @@ Future<void> loadDistricts() async {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       sectionTitle( AppLocalizations.of(context)!.state
-       // 'State',
       ),
 
       AnimatedContainer(
@@ -3074,9 +2887,7 @@ Future<void> loadDistricts() async {
                         selectedState == null ||
                                 selectedState!.isEmpty
                             ? AppLocalizations.of(context)!.selectyourState
-                            // 'Select your State'
                             : localizedState(selectedState!, languageCode),
-                            //selectedState!,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -3128,7 +2939,6 @@ Future<void> loadDistricts() async {
                       controller: stateSearchController,
                       onChanged: filterStates,
                       decoration: InputDecoration(
-                       // hintText: 'Search state...',
                        hintText: AppLocalizations.of(context)!.searchState,
                         prefixIcon: const Icon(
                           Icons.search,
@@ -3183,7 +2993,6 @@ Future<void> loadDistricts() async {
                       child: filteredStates.isEmpty
                           ? Center(
                               child: Text( AppLocalizations.of(context)!.nostatefound,
-                              //  'No state found',
                                 style: TextStyle(
                                   color:
                                       Colors.grey.shade600,
@@ -3207,23 +3016,7 @@ Future<void> loadDistricts() async {
                                     10,
                                   ),
                                   onTap: () {
-                                    // setState(() {
-                                    //   selectedState = state;
 
-                                    //   categoryError =
-                                    //       false;
-
-                                    //   isCategoryDropdownOpen =
-                                    //       false;
-
-                                    //   stateSearchController
-                                    //       .clear();
-
-                                    //   filteredStates =
-                                    //       List<String>.from(
-                                    //     indiaStates,
-                                    //   );
-                                    // });
                                     setState(() {
   final bool stateChanged = selectedState != state;
 
@@ -3293,14 +3086,6 @@ Future<void> loadDistricts() async {
 
                                         Expanded(
                                           child:
-                                          //  Text(
-                                          //   state,
-                                          //   style:
-                                          //       const TextStyle(
-                                          //     color: darkText,
-                                          //     fontSize: 14,
-                                          //   ),
-                                          // ),
                                           Text(localizedState(state, languageCode) ,
                                           style:
                                                 const TextStyle(
@@ -3334,7 +3119,6 @@ Future<void> loadDistricts() async {
             top: 5,
           ),
           child: Text( AppLocalizations.of(context)!.pleaseSelectyourState,
-            //'Please select your state.',
             style: TextStyle(
               color: Colors.red,
               fontSize: 12,
@@ -3346,13 +3130,11 @@ Future<void> loadDistricts() async {
   );
 }
 
-//Widget districtSection() {
 Widget districtSection() {
   final languageCode = currentLanguageCode(context);
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      //sectionTitle('District'),
       sectionTitle(AppLocalizations.of(context)!.district),
 
       AnimatedContainer(
@@ -3420,8 +3202,6 @@ Widget districtSection() {
                       child: Text(
                         selectedDistrict == null ||
                                 selectedDistrict!.isEmpty
-                            // ? 'Select your District'
-                            // : selectedDistrict!,
                             ? AppLocalizations.of(context)!.selectyourDistrict
 : localizedDistrict(selectedDistrict!, languageCode),
                         maxLines: 1,
@@ -3484,8 +3264,6 @@ Widget districtSection() {
 
                       decoration:
                           InputDecoration(
-                        // hintText:
-                        //     'Search district...',
                         hintText: AppLocalizations.of(context)!.searchdistrict,
 
                         prefixIcon:
@@ -3669,16 +3447,6 @@ Widget districtSection() {
                                         ),
 
                                         Expanded(
-                                          // child: Text(
-                                          //   district,
-                                          //   style:
-                                          //       const TextStyle(
-                                          //     color:
-                                          //         darkText,
-                                          //     fontSize:
-                                          //         14,
-                                          //   ),
-                                          // ),
                                           child: Text(
   localizedDistrict(district, languageCode),
   style: const TextStyle(
@@ -3712,7 +3480,6 @@ Widget districtSection() {
             top: 5,
           ),
           child: Text( AppLocalizations.of(context)!.pleaseselectyourdistrict,
-          //  'Please select your district.',
             style: TextStyle(
               color: Colors.red,
               fontSize: 12,
@@ -4092,13 +3859,6 @@ Future<String?> _processManualGarageLocation(
       value.contains('maps.app.goo.gl') ||
       value.contains('goo.gl/maps');
 
-  // ==========================================================
-  // NORMAL TEXT
-  // ==========================================================
-
-  // if (!isGoogleMapsLink) {
-  //   return value;
-  // }
   if (!isGoogleMapsLink) {
   try {
     final locations =
@@ -4643,7 +4403,6 @@ Widget _vehicleCategorySection() {
     children: [
       sectionTitle(
         'Vehicle Category',
-       // required: true,
       ),
 
       const SizedBox(height: 6),
@@ -5262,17 +5021,6 @@ Future<void> _showAddVehicleCategoryDialog() async {
             .contains(category.id);
 
     return GestureDetector(
-      // onTap: () {
-      //   setState(() {
-      //     if (selected) {
-      //       selectedVehicleCategoryIds
-      //           .remove(category.id);
-      //     } else {
-      //       selectedVehicleCategoryIds
-      //           .add(category.id);
-      //     }
-      //   });
-      // },
       onTap: () {
   setState(() {
     if (selectedVehicleCategoryIds.contains(category.id)) {
@@ -5435,7 +5183,6 @@ Future<void> _showAddVehicleCategoryDialog() async {
 
               TextSpan(
                 text: AppLocalizations.of(context)!.registration,
-                  //  'Registration',
                 style:
                     TextStyle(
                  color: Colors.red,
@@ -5463,7 +5210,6 @@ Future<void> _showAddVehicleCategoryDialog() async {
 
             sectionTitle(
               'Username',
-             // required: true,
             ),
 
             const SizedBox(
@@ -5591,7 +5337,6 @@ if (nearestCityError.isNotEmpty)
 
             sectionTitle(
               'Vehicle Number',
-              //required: true,
             ),
 
             const SizedBox(

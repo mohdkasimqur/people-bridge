@@ -74,10 +74,6 @@ class _ScreenNearbyGroceryState
 
   static const Color darkGreen =
       Color(0xFF138808);
-      //(0xFF12652F);
-
-  // static const Color green =
-  //     Color(0xFF198B35);
 
   static const Color orange =
       Color(0xFFED801D);
@@ -181,11 +177,6 @@ class _ScreenNearbyGroceryState
         return;
       }
 
-      // final position =
-      //     await Geolocator.getCurrentPosition(
-      //   desiredAccuracy:
-      //       LocationAccuracy.high,
-      // );
     final position = await Geolocator.getCurrentPosition(
   locationSettings: const LocationSettings(
     accuracy: LocationAccuracy.high,
@@ -409,7 +400,6 @@ class _ScreenNearbyGroceryState
           longitude = geoPoint.longitude;
         }
 
-        // No valid location = skip
         if (latitude == null ||
             longitude == null) {
           continue;

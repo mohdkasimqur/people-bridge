@@ -35,7 +35,6 @@ class _ScreenStudentState extends State<ScreenStudent> {
       TextEditingController();
 
  static const Color green =
-    //  Color(0xFF16803C);
       Color(0xFF138808);
 
   static const Color darkText =
@@ -85,9 +84,6 @@ class _ScreenStudentState extends State<ScreenStudent> {
   bool otpError = false;
   bool genderError = false;
   bool secondaryMobileError = false;
-// String stateError = '';
-// String districtError = '';
-// String nearestCityError = '';
   bool isCategoryDropdownOpen = false;
 
 
@@ -130,125 +126,6 @@ class _ScreenStudentState extends State<ScreenStudent> {
   loadDistricts();
   }
 
-//         final TextEditingController nearestCityController =
-//     TextEditingController();
-
-// String? selectedState;
-
-// final TextEditingController stateSearchController =
-//     TextEditingController();
-
-// List<String> filteredStates = [];
-
-// static const List<String> indiaStates = [
-//   'Andhra Pradesh',
-//   'Arunachal Pradesh',
-//   'Assam',
-//   'Bihar',
-//   'Chhattisgarh',
-//   'Goa',
-//   'Gujarat',
-//   'Haryana',
-//   'Himachal Pradesh',
-//   'Jharkhand',
-//   'Karnataka',
-//   'Keralam',
-//   'Madhya Pradesh',
-//   'Maharashtra',
-//   'Manipur',
-//   'Meghalaya',
-//   'Mizoram',
-//   'Nagaland',
-//   'Odisha',
-//   'Punjab',
-//   'Rajasthan',
-//   'Sikkim',
-//   'Tamil Nadu',
-//   'Telangana',
-//   'Tripura',
-//   'Uttar Pradesh',
-//   'Uttarakhand',
-//   'West Bengal',
-// ];
-
-// void filterStates(String value) {
-//   final String search = value.trim().toLowerCase();
-
-//   final List<String> result = indiaStates.where((state) {
-//     return search.isEmpty ||
-//         state.toLowerCase().contains(search);
-//   }).toList();
-
-//   if (!mounted) return;
-
-//   setState(() {
-//     filteredStates = result;
-//   });
-// }
-
-// String? selectedDistrict;
-
-// bool isDistrictDropdownOpen = false;
-
-// final TextEditingController districtSearchController =
-//     TextEditingController();
-
-// List<String> filteredDistricts = [];
-
-// Map<String, List<String>> indiaDistricts = {};
-
-// List<String> get availableDistricts {
-//   if (selectedState == null ||
-//       selectedState!.trim().isEmpty) {
-//     return indiaDistricts.values
-//         .expand((districts) => districts)
-//         .toSet()
-//         .toList();
-//   }
-
-//   return List<String>.from(
-//     indiaDistricts[selectedState!] ?? [],
-//   );
-// }
-
-// void filterDistricts(String value) {
-//   final search = value.trim().toLowerCase();
-
-//   final result = availableDistricts.where((district) {
-//     return search.isEmpty ||
-//         district.toLowerCase().contains(search);
-//   }).toList();
-
-//   if (!mounted) return;
-
-//   setState(() {
-//     filteredDistricts = result;
-//   });
-// }
-
-// Future<void> loadDistricts() async {
-//   final String jsonString = await rootBundle.loadString(
-//     'assets/data/india_districts.json',
-//   );
-
-//   final Map<String, dynamic> data =
-//       json.decode(jsonString);
-
-//   if (!mounted) return;
-
-//   setState(() {
-//     indiaDistricts = data.map(
-//       (key, value) => MapEntry(
-//         key,
-//         List<String>.from(value),
-//       ),
-//     );
-
-//     filteredDistricts =
-//         List<String>.from(availableDistricts);
-//   });
-// }
-
    void showMessage(String message) {
     if (!mounted) return;
 
@@ -277,7 +154,6 @@ class _ScreenStudentState extends State<ScreenStudent> {
 
     if (phone.length != 10) {
       showMessage(AppLocalizations.of(context)!.enteradigitmobilenumber,
-       // 'Enter a valid 10-digit mobile number.',
       );
       return;
     }
@@ -688,8 +564,6 @@ class _ScreenStudentState extends State<ScreenStudent> {
 
 
       Widget mobileSection() {
-    // final bool verified =
-    //     otpVerified;
 
     return Column(
       crossAxisAlignment:
@@ -945,7 +819,6 @@ class _ScreenStudentState extends State<ScreenStudent> {
    Padding(
     padding: EdgeInsets.only(left: 12, top: 5),
     child: Text(AppLocalizations.of(context)!.enteradigitmobilenumber,
-     // 'Enter a valid 10-digit mobile number.',
       style: TextStyle(
         color: Colors.red,
         fontSize: 12,
@@ -1482,7 +1355,6 @@ Future<void> loadDistricts() async {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       sectionTitle( AppLocalizations.of(context)!.state
-       // 'State',
       ),
 
       AnimatedContainer(
@@ -1547,9 +1419,7 @@ Future<void> loadDistricts() async {
                         selectedState == null ||
                                 selectedState!.isEmpty
                             ? AppLocalizations.of(context)!.selectyourState
-                            // 'Select your State'
                             : localizedState(selectedState!, languageCode),
-                            //selectedState!,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -1601,7 +1471,6 @@ Future<void> loadDistricts() async {
                       controller: stateSearchController,
                       onChanged: filterStates,
                       decoration: InputDecoration(
-                       // hintText: 'Search state...',
                        hintText: AppLocalizations.of(context)!.searchState,
                         prefixIcon: const Icon(
                           Icons.search,
@@ -1656,7 +1525,6 @@ Future<void> loadDistricts() async {
                       child: filteredStates.isEmpty
                           ? Center(
                               child: Text( AppLocalizations.of(context)!.nostatefound,
-                              //  'No state found',
                                 style: TextStyle(
                                   color:
                                       Colors.grey.shade600,
@@ -1680,23 +1548,7 @@ Future<void> loadDistricts() async {
                                     10,
                                   ),
                                   onTap: () {
-                                    // setState(() {
-                                    //   selectedState = state;
 
-                                    //   categoryError =
-                                    //       false;
-
-                                    //   isCategoryDropdownOpen =
-                                    //       false;
-
-                                    //   stateSearchController
-                                    //       .clear();
-
-                                    //   filteredStates =
-                                    //       List<String>.from(
-                                    //     indiaStates,
-                                    //   );
-                                    // });
                                     setState(() {
   final bool stateChanged = selectedState != state;
 
@@ -1766,14 +1618,6 @@ Future<void> loadDistricts() async {
 
                                         Expanded(
                                           child:
-                                          //  Text(
-                                          //   state,
-                                          //   style:
-                                          //       const TextStyle(
-                                          //     color: darkText,
-                                          //     fontSize: 14,
-                                          //   ),
-                                          // ),
                                           Text(localizedState(state, languageCode) ,
                                           style:
                                                 const TextStyle(
@@ -1807,7 +1651,6 @@ Future<void> loadDistricts() async {
             top: 5,
           ),
           child: Text( AppLocalizations.of(context)!.pleaseSelectyourState,
-            //'Please select your state.',
             style: TextStyle(
               color: Colors.red,
               fontSize: 12,
@@ -1819,13 +1662,11 @@ Future<void> loadDistricts() async {
   );
 }
 
-//Widget districtSection() {
 Widget districtSection() {
   final languageCode = currentLanguageCode(context);
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      //sectionTitle('District'),
       sectionTitle(AppLocalizations.of(context)!.district),
 
       AnimatedContainer(
@@ -1893,8 +1734,6 @@ Widget districtSection() {
                       child: Text(
                         selectedDistrict == null ||
                                 selectedDistrict!.isEmpty
-                            // ? 'Select your District'
-                            // : selectedDistrict!,
                             ? AppLocalizations.of(context)!.selectyourDistrict
 : localizedDistrict(selectedDistrict!, languageCode),
                         maxLines: 1,
@@ -1957,8 +1796,6 @@ Widget districtSection() {
 
                       decoration:
                           InputDecoration(
-                        // hintText:
-                        //     'Search district...',
                         hintText: AppLocalizations.of(context)!.searchdistrict,
 
                         prefixIcon:
@@ -2142,16 +1979,6 @@ Widget districtSection() {
                                         ),
 
                                         Expanded(
-                                          // child: Text(
-                                          //   district,
-                                          //   style:
-                                          //       const TextStyle(
-                                          //     color:
-                                          //         darkText,
-                                          //     fontSize:
-                                          //         14,
-                                          //   ),
-                                          // ),
                                           child: Text(
   localizedDistrict(district, languageCode),
   style: const TextStyle(
@@ -2185,7 +2012,6 @@ Widget districtSection() {
             top: 5,
           ),
           child: Text( AppLocalizations.of(context)!.pleaseselectyourdistrict,
-          //  'Please select your district.',
             style: TextStyle(
               color: Colors.red,
               fontSize: 12,
@@ -2338,19 +2164,6 @@ await userBox.put(
     nameError = false;
   }
 
-  // ============================================================
-  // MOBILE
-  // ============================================================
-
-  // if (mobileController.text.trim().isEmpty) {
-  //   mobileError = true;
-  //   hasError = true;
-  // } else if (mobileController.text.trim().length != 10) {
-  //   mobileError = true;
-  //   hasError = true;
-  // } else {
-  //   mobileError = false;
-  // }
    final String mobile =
       mobileController.text.trim();
 
@@ -2396,21 +2209,6 @@ if (stateError.isNotEmpty ||
     genderError = false;
   }
 
-    // ============================================================
-  // TERMS & CONDITION / PRIVACY POLICY
-  // ============================================================
-//   if (!privacyPolicyAccepted) {
-//   setState(() {
-//     privacyPolicyError =
-//         'Please accept the Privacy Policy and Terms & Conditions.';
-//   });
-
-//   showMessage(
-//     'Please accept the Privacy Policy and Terms & Conditions.',
-//   );
-
-//   return;
-// }
  if (!privacyPolicyAccepted) {
     privacyPolicyError =
         'Please accept the Privacy Policy and Terms & Conditions.';
@@ -2431,26 +2229,6 @@ if (stateError.isNotEmpty ||
   if (hasError) {
     return;
   }
-
-  // ============================================================
-  // OTP SENT?
-  // ============================================================
-
-  // if (!otpSent) {
-  //   ScaffoldMessenger.of(context).showSnackBar(
-  //     const SnackBar(
-  //       content: Text(
-  //         'Please send OTP first.',
-  //       ),
-  //     ),
-  //   );
-
-  //   return;
-  // }
-
-  // ============================================================
-  // OTP VERIFIED?
-  // ============================================================
 
   if (!otpVerified) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -2499,16 +2277,6 @@ if (stateError.isNotEmpty ||
 
     await saveBasicUserToHive();
 
-    // ============================================================
-    // 2. SAVE LOGIN STATUS
-    // ============================================================
-
-    // final prefs = await SharedPreferences.getInstance();
-
-    // await prefs.setBool(
-    //   'isLoggedIn',
-    //   true,
-    // );
     await CommonProfileService.saveLogin(
   uid: user.uid,
   name: nameController.text.trim(),
@@ -2732,7 +2500,6 @@ Widget build(BuildContext context) {
             ),
             TextSpan(
               text:  AppLocalizations.of(context)!.registration,
-              //'Registration',
               style: TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
@@ -2899,7 +2666,6 @@ Widget build(BuildContext context) {
                     ),
 
                     child: Text(AppLocalizations.of(context)!.enteradigitmobilenumber,
-                     // 'Enter a valid 10-digit number',
 
                       style:
                           TextStyle(
@@ -3041,7 +2807,6 @@ if (nearestCityError.isNotEmpty)
   Widget _genderButton({
     required String title,
     required String value,
-    // required IconData icon,
   }) {
     final bool selected =
         selectedGender == value;
@@ -3094,19 +2859,6 @@ if (nearestCityError.isNotEmpty)
               MainAxisAlignment.center,
 
           children: [
-            // Icon(
-            //   // icon,
-
-            //   color: selected
-            //       ? const Color(
-            //           0xFF159B16,
-            //         )
-            //       : Colors.grey.shade700,
-            // ),
-
-            // const SizedBox(
-            //   width: 8,
-            // ),
 
             Text(
               title,

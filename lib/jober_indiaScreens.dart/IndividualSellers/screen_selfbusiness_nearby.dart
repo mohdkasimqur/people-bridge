@@ -765,28 +765,6 @@ class _ScreenNearbySelfBusinessState
     Map<String, dynamic> business,
   ) {
 
-    // -----------------------------------------------------------
-    // PART OF NEXT SCREEN FLOW
-    // -----------------------------------------------------------
-    //
-    // Later we will create:
-    //
-    // screen_self_business_profile.dart
-    //
-    // Example:
-    //
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (_) =>
-    //       ScreenSelfBusinessProfile(
-    //         businessId: business['id'],
-    //       ),
-    //   ),
-    // );
-    //
-    // -----------------------------------------------------------
-
     ScaffoldMessenger.of(context)
         .hideCurrentSnackBar();
 
@@ -1058,43 +1036,6 @@ class _ScreenNearbySelfBusinessState
   void openIncreaseRadiusScreen(
     double requiredDistanceKm,
   ) {
-
-    // -----------------------------------------------------------
-    // PAYMENT SCREEN
-    // -----------------------------------------------------------
-    //
-    // Later we can create:
-    //
-    // screen_increase_self_business_radius.dart
-    //
-    // The screen will receive:
-    //
-    // Current Radius
-    // Required Radius
-    //
-    // Example:
-    //
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (_) =>
-    //       ScreenIncreaseSelfBusinessRadius(
-    //         currentRadiusKm: paidRadiusKm,
-    //         requiredRadiusKm:
-    //             requiredDistanceKm,
-    //       ),
-    //   ),
-    // ).then((newRadius) {
-    //
-    //   if (newRadius != null) {
-    //
-    //     setState(() {
-    //       paidRadiusKm = newRadius;
-    //     });
-    //   }
-    // });
-    //
-    // -----------------------------------------------------------
 
     showMessage(
       'Payment screen will open to increase your KM radius.',

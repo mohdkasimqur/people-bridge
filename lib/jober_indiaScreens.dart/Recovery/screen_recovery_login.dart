@@ -86,9 +86,7 @@ class _ScreenRecoveryLoginState
 
   static const Color lightFill =
       Color(0xFFF9F9F9);
- // String? selectedCategory;
 
- // bool termsAccepted = false;
   bool privacyPolicyAccepted = false;
   String? privacyPolicyError;
 
@@ -97,25 +95,6 @@ class _ScreenRecoveryLoginState
   String? profilePhotoUrl;
 bool isUploadingPhoto = false;
   final ImagePicker _imagePicker = ImagePicker();
-  // ============================================================
-  // OTP STATE
-  // ============================================================
-
-//  bool otpSent = false;
-//   bool otpVerified = false;
-
-//   bool isSendingOtp = false;
-//   bool isVerifying = false;
-//   bool isSubmitting = false;
-
-//   bool otpError = false;
-
-//   String otpErrorMessage = '';
-
-//   int secondsRemaining = 30;
-//   String? verificationId;
-
-//   Timer? timer;
 
   String? verificationId;
 
@@ -135,7 +114,6 @@ int? resendToken;
 
    Timer? timer;
 
- // String? usernameError;
    bool userNameError = false;
 
   String? mobileErrorMessage;
@@ -144,25 +122,7 @@ int? resendToken;
 
 
 
-  //String? secondaryError;
- // String? categoryError;
   String? vehicleNumberError;
-
- // String? termsError;
- // String? otpError;
-
-  // final categories = const [
-  //   {
-  //     'id': 'flatbed_recovery',
-  //     'name': 'Flatbed Recovery',
-  //     'icon': Icons.local_shipping_outlined,
-  //   },
-  //   {
-  //     'id': 'tow_truck',
-  //     'name': 'Tow Truck',
-  //     'icon': Icons.car_repair,
-  //   },
-  // ];
 
   @override
   void initState() {
@@ -190,129 +150,6 @@ int? resendToken;
     timer?.cancel();
     super.dispose();
   }
-
-//   final TextEditingController nearestCityController =
-//     TextEditingController();
-// String stateError = '';
-// String districtError = '';
-// String nearestCityError = '';
-//   //  bool isStateDropdownOpen = false;
-// String? selectedState;
-
-// final TextEditingController stateSearchController =
-//     TextEditingController();
-
-// List<String> filteredStates = [];
-
-// static const List<String> indiaStates = [
-//   'Andhra Pradesh',
-//   'Arunachal Pradesh',
-//   'Assam',
-//   'Bihar',
-//   'Chhattisgarh',
-//   'Goa',
-//   'Gujarat',
-//   'Haryana',
-//   'Himachal Pradesh',
-//   'Jharkhand',
-//   'Karnataka',
-//   'Keralam',
-//   'Madhya Pradesh',
-//   'Maharashtra',
-//   'Manipur',
-//   'Meghalaya',
-//   'Mizoram',
-//   'Nagaland',
-//   'Odisha',
-//   'Punjab',
-//   'Rajasthan',
-//   'Sikkim',
-//   'Tamil Nadu',
-//   'Telangana',
-//   'Tripura',
-//   'Uttar Pradesh',
-//   'Uttarakhand',
-//   'West Bengal',
-// ];
-
-// void filterStates(String value) {
-//   final String search = value.trim().toLowerCase();
-
-//   final List<String> result = indiaStates.where((state) {
-//     return search.isEmpty ||
-//         state.toLowerCase().contains(search);
-//   }).toList();
-
-//   if (!mounted) return;
-
-//   setState(() {
-//     filteredStates = result;
-//   });
-// }
-
-// String? selectedDistrict;
-
-// bool isDistrictDropdownOpen = false;
-
-// final TextEditingController districtSearchController =
-//     TextEditingController();
-
-// List<String> filteredDistricts = [];
-
-// Map<String, List<String>> indiaDistricts = {};
-
-// List<String> get availableDistricts {
-//   if (selectedState == null ||
-//       selectedState!.trim().isEmpty) {
-//     return indiaDistricts.values
-//         .expand((districts) => districts)
-//         .toSet()
-//         .toList();
-//   }
-
-//   return List<String>.from(
-//     indiaDistricts[selectedState!] ?? [],
-//   );
-// }
-
-// void filterDistricts(String value) {
-//   final search = value.trim().toLowerCase();
-
-//   final result = availableDistricts.where((district) {
-//     return search.isEmpty ||
-//         district.toLowerCase().contains(search);
-//   }).toList();
-
-//   if (!mounted) return;
-
-//   setState(() {
-//     filteredDistricts = result;
-//   });
-// }
-
-// Future<void> loadDistricts() async {
-//   final String jsonString = await rootBundle.loadString(
-//     'assets/data/india_districts.json',
-//   );
-
-//   final Map<String, dynamic> data =
-//       json.decode(jsonString);
-
-//   if (!mounted) return;
-
-//   setState(() {
-//     indiaDistricts = data.map(
-//       (key, value) => MapEntry(
-//         key,
-//         List<String>.from(value),
-//       ),
-//     );
-
-//     filteredDistricts =
-//         List<String>.from(availableDistricts);
-//   });
-// }
-
 
   void showMessage(
   String message, {
@@ -350,7 +187,6 @@ Future<void> sendOTP({bool isResend = false}) async {
 
   if (!RegExp(r'^[6-9][0-9]{9}$').hasMatch(phone)) {
     showMessage(AppLocalizations.of(context)!.enteradigitmobilenumber,
-     // 'Enter a valid 10-digit mobile number.'
       );
     return;
   }
@@ -751,8 +587,6 @@ isCompletingPhoneAuth = false;
   // ============================================================
 
        Widget mobileSection() {
-    // final bool verified =
-    //     otpVerified;
 
     return Column(
       crossAxisAlignment:
@@ -1008,7 +842,6 @@ isCompletingPhoneAuth = false;
    Padding(
     padding: EdgeInsets.only(left: 12, top: 5),
     child: Text(AppLocalizations.of(context)!.enteradigitmobilenumber,
-    //  'Enter a valid 10-digit mobile number.',
       style: TextStyle(
         color: Colors.red,
         fontSize: 12,
@@ -1173,8 +1006,6 @@ isCompletingPhoneAuth = false;
             autofillHints: const [
   AutofillHints.oneTimeCode,
 ],
-            // enabled:
-            //     !isVerifying,
             enabled: !isVerifying &&
     !isSendingOtp &&
     secondsRemaining > 0,
@@ -1416,16 +1247,6 @@ isCompletingPhoneAuth = false;
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      // const Text(
-      //   'Secondary Mobile Number',
-      //   style: TextStyle(
-      //     color: Color(0xFF252525),
-      //     fontSize: 16,
-      //     fontWeight: FontWeight.bold,
-      //   ),
-      // ),
-
-      // const SizedBox(height: 8),
 
    TextField(
   controller: secondaryMobileController,
@@ -1626,7 +1447,6 @@ Future<void> loadDistricts() async {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       sectionTitle( AppLocalizations.of(context)!.state
-       // 'State',
       ),
 
       AnimatedContainer(
@@ -1691,9 +1511,7 @@ Future<void> loadDistricts() async {
                         selectedState == null ||
                                 selectedState!.isEmpty
                             ? AppLocalizations.of(context)!.selectyourState
-                            // 'Select your State'
                             : localizedState(selectedState!, languageCode),
-                            //selectedState!,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -1745,7 +1563,6 @@ Future<void> loadDistricts() async {
                       controller: stateSearchController,
                       onChanged: filterStates,
                       decoration: InputDecoration(
-                       // hintText: 'Search state...',
                        hintText: AppLocalizations.of(context)!.searchState,
                         prefixIcon: const Icon(
                           Icons.search,
@@ -1800,7 +1617,6 @@ Future<void> loadDistricts() async {
                       child: filteredStates.isEmpty
                           ? Center(
                               child: Text( AppLocalizations.of(context)!.nostatefound,
-                              //  'No state found',
                                 style: TextStyle(
                                   color:
                                       Colors.grey.shade600,
@@ -1824,23 +1640,7 @@ Future<void> loadDistricts() async {
                                     10,
                                   ),
                                   onTap: () {
-                                    // setState(() {
-                                    //   selectedState = state;
 
-                                    //   categoryError =
-                                    //       false;
-
-                                    //   isCategoryDropdownOpen =
-                                    //       false;
-
-                                    //   stateSearchController
-                                    //       .clear();
-
-                                    //   filteredStates =
-                                    //       List<String>.from(
-                                    //     indiaStates,
-                                    //   );
-                                    // });
                                     setState(() {
   final bool stateChanged = selectedState != state;
 
@@ -1910,14 +1710,6 @@ Future<void> loadDistricts() async {
 
                                         Expanded(
                                           child:
-                                          //  Text(
-                                          //   state,
-                                          //   style:
-                                          //       const TextStyle(
-                                          //     color: darkText,
-                                          //     fontSize: 14,
-                                          //   ),
-                                          // ),
                                           Text(localizedState(state, languageCode) ,
                                           style:
                                                 const TextStyle(
@@ -1951,7 +1743,6 @@ Future<void> loadDistricts() async {
             top: 5,
           ),
           child: Text( AppLocalizations.of(context)!.pleaseSelectyourState,
-            //'Please select your state.',
             style: TextStyle(
               color: Colors.red,
               fontSize: 12,
@@ -1963,13 +1754,11 @@ Future<void> loadDistricts() async {
   );
 }
 
-//Widget districtSection() {
 Widget districtSection() {
   final languageCode = currentLanguageCode(context);
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      //sectionTitle('District'),
       sectionTitle(AppLocalizations.of(context)!.district),
 
       AnimatedContainer(
@@ -2037,8 +1826,6 @@ Widget districtSection() {
                       child: Text(
                         selectedDistrict == null ||
                                 selectedDistrict!.isEmpty
-                            // ? 'Select your District'
-                            // : selectedDistrict!,
                             ? AppLocalizations.of(context)!.selectyourDistrict
 : localizedDistrict(selectedDistrict!, languageCode),
                         maxLines: 1,
@@ -2101,8 +1888,6 @@ Widget districtSection() {
 
                       decoration:
                           InputDecoration(
-                        // hintText:
-                        //     'Search district...',
                         hintText: AppLocalizations.of(context)!.searchdistrict,
 
                         prefixIcon:
@@ -2286,16 +2071,6 @@ Widget districtSection() {
                                         ),
 
                                         Expanded(
-                                          // child: Text(
-                                          //   district,
-                                          //   style:
-                                          //       const TextStyle(
-                                          //     color:
-                                          //         darkText,
-                                          //     fontSize:
-                                          //         14,
-                                          //   ),
-                                          // ),
                                           child: Text(
   localizedDistrict(district, languageCode),
   style: const TextStyle(
@@ -2329,7 +2104,6 @@ Widget districtSection() {
             top: 5,
           ),
           child: Text( AppLocalizations.of(context)!.pleaseselectyourdistrict,
-          //  'Please select your district.',
             style: TextStyle(
               color: Colors.red,
               fontSize: 12,
@@ -2476,7 +2250,6 @@ Widget districtSection() {
       !RegExp(r'^[0-9]{10}$').hasMatch(phone)) {
     mobileError = true;
     mobileErrorMessage = AppLocalizations.of(context)!.enteradigitmobilenumber;
-       // 'Enter a valid 10-digit mobile number.';
     hasError = true;
   } else if (!otpVerified) {
     mobileError = true;
@@ -3430,13 +3203,6 @@ Future<String?> _processManualGarageLocation(
       value.contains('maps.app.goo.gl') ||
       value.contains('goo.gl/maps');
 
-  // ==========================================================
-  // NORMAL TEXT
-  // ==========================================================
-
-  // if (!isGoogleMapsLink) {
-  //   return value;
-  // }
   if (!isGoogleMapsLink) {
   try {
     final locations =
@@ -3958,7 +3724,6 @@ if (!locationMatches) {
 
               TextSpan(
                 text: AppLocalizations.of(context)!.registration,
-                   // 'Registration',
                 style:
                     TextStyle(
                  color: Colors.red,
@@ -4035,7 +3800,6 @@ if (!locationMatches) {
                     ),
 
                     child: Text(AppLocalizations.of(context)!.enteradigitmobilenumber,
-                    //  'Enter a valid 10-digit number',
 
                       style:
                           TextStyle(
@@ -4097,11 +3861,6 @@ if (nearestCityError.isNotEmpty)
   ),
   const SizedBox(height: 20),
 
-              // sectionTitle(
-              //   'Vehicle Number',
-              // ),
-
-            
               sectionTitle('Vehicle Number *'),
 const SizedBox(height: 8),
 
@@ -4179,219 +3938,3 @@ _profilePhotoSection(),
     );
   }
 }
-
-  // TextField(
-              //   controller:
-              //       secondaryMobileController,
-              //   keyboardType:
-              //       TextInputType.phone,
-              //   maxLength: 10,
-              //   inputFormatters: [
-              //     FilteringTextInputFormatter
-              //         .digitsOnly,
-              //   ],
-              //   decoration:
-              //       inputDecoration(
-              //     hint:
-              //         'Enter secondary mobile number',
-              //   ).copyWith(
-              //     counterText: '',
-              //   ),
-              // ),
-              // errorText(secondaryError),
-
-              // const SizedBox(height: 18),
-
-              // sectionTitle(
-              //   'Recovery Category',
-              // ),
-
-              // ...categories.map(
-              //   recoveryCategoryCard,
-              // ),
-
-              // errorText(categoryError),
-               // ==================================================
-              // TERMS
-              // ==================================================
-
-              // Row(
-              //   crossAxisAlignment:
-              //       CrossAxisAlignment.start,
-              //   children: [
-              //     Checkbox(
-              //       value: termsAccepted,
-              //       activeColor:
-              //           const Color(
-              //         0xFF138808,
-              //       ),
-              //       onChanged: (value) {
-              //         setState(() {
-              //           termsAccepted =
-              //               value ?? false;
-              //           if (termsAccepted) {
-              //             termsError = null;
-              //           }
-              //         });
-              //       },
-              //     ),
-              //     const Expanded(
-              //       child: Padding(
-              //         padding:
-              //             EdgeInsets.only(
-              //           top: 12,
-              //         ),
-              //         child: Text(
-              //           'I accept the Terms & Conditions.',
-              //           style: TextStyle(
-              //             fontSize: 14,
-              //           ),
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
-
-              // errorText(termsError),
-
-  // Widget recoveryCategoryCard(
-  //   Map<String, dynamic> item,
-  // ) {
-  //   final selected =
-  //       selectedCategory == item['id'];
-
-  //   return GestureDetector(
-  //     onTap: () {
-  //       setState(() {
-  //         selectedCategory =
-  //             item['id'];
-  //         categoryError = null;
-  //       });
-  //     },
-  //     child: Container(
-  //       width: double.infinity,
-  //       padding:
-  //           const EdgeInsets.all(15),
-  //       decoration: BoxDecoration(
-  //         color: selected
-  //             ? const Color(0xFFE8F5E9)
-  //             : Colors.white,
-  //         borderRadius:
-  //             BorderRadius.circular(16),
-  //         border: Border.all(
-  //           color: selected
-  //               ? const Color(0xFF138808)
-  //               : const Color(0xFFE0E0E0),
-  //           width: selected ? 1.8 : 1.2,
-  //         ),
-  //       ),
-  //       child: Row(
-  //         children: [
-  //           Container(
-  //             width: 52,
-  //             height: 52,
-  //             decoration: BoxDecoration(
-  //               color: const Color(
-  //                 0xFFE8F5E9,
-  //               ),
-  //               borderRadius:
-  //                   BorderRadius.circular(14),
-  //             ),
-  //             child: Icon(
-  //               item['icon'] as IconData,
-  //               color:
-  //                   const Color(0xFF138808),
-  //               size: 28,
-  //             ),
-  //           ),
-  //           const SizedBox(width: 14),
-  //           Expanded(
-  //             child: Text(
-  //               item['name'] as String,
-  //               style: const TextStyle(
-  //                 fontSize: 16,
-  //                 fontWeight:
-  //                     FontWeight.w600,
-  //               ),
-  //             ),
-  //           ),
-  //           Icon(
-  //             selected
-  //                 ? Icons.check_circle
-  //                 : Icons.circle_outlined,
-  //             color: selected
-  //                 ? const Color(0xFF138808)
-  //                 : Colors.grey,
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
-
-
-    // if (mobile.isEmpty) {
-    //   mobileErrorMessage =
-    //       'Enter your mobile number.';
-    //   hasError = true;
-    // } else if (mobile.length != 10) {
-    //   mobileErrorMessage =
-    //       'Enter a valid 10-digit mobile number.';
-    //   hasError = true;
-    // } else if (!otpVerified) {
-    //   mobileErrorMessage =
-    //       'Verify your mobile number with OTP.';
-    //   hasError = true;
-    // }
-      // // ==================================================
-              // // FIXED YELLOW COMMERCIAL-STYLE PLATE
-              // // ==================================================
-
-              // Container(
-              //   width: double.infinity,
-              //   padding:
-              //       const EdgeInsets.all(10),
-              //   decoration: BoxDecoration(
-              //     color: const Color(
-              //       0xFFFFD600,
-              //     ),
-              //     borderRadius:
-              //         BorderRadius.circular(8),
-              //     border: Border.all(
-              //       color: Colors.black87,
-              //       width: 1.2,
-              //     ),
-              //   ),
-              //   child: TextField(
-              //     controller:
-              //         vehicleNumberController,
-              //     textCapitalization:
-              //         TextCapitalization.characters,
-              //     inputFormatters: [
-              //       FilteringTextInputFormatter
-              //           .allow(
-              //         RegExp(
-              //           r'[a-zA-Z0-9 ]',
-              //         ),
-              //       ),
-              //     ],
-              //     decoration:
-              //         const InputDecoration(
-              //       hintText:
-              //           'Enter vehicle number',
-              //       hintStyle: TextStyle(
-              //         color: Colors.black54,
-              //       ),
-              //       border: InputBorder.none,
-              //     ),
-              //     style: const TextStyle(
-              //       fontSize: 20,
-              //       fontWeight:
-              //           FontWeight.bold,
-              //       letterSpacing: 1.5,
-              //       color: Colors.black,
-              //     ),
-              //   ),
-              // ),
-
-              // errorText(vehicleNumberError),

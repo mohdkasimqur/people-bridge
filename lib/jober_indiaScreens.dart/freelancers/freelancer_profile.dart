@@ -288,17 +288,6 @@ class _ScreenFreelancerProfileState
   }
 
 
-  // =============================================================
-  // OPEN FREELANCER LOCATION
-  //
-  // Opens Google Maps using the freelancer coordinates.
-  //
-  // Example:
-  //
-  // https://www.google.com/maps/search/
-  // ?api=1&query=latitude,longitude
-  // =============================================================
-
   Future<void> _openLocation() async {
 
     if (_openingLocation) return;

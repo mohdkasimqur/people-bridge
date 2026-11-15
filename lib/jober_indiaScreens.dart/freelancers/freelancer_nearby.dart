@@ -68,20 +68,6 @@ class _ScreenNearbyFreelancersState
       ScrollController();
 
 
-  // =============================================================
-  // FREELANCER DATA
-  // =============================================================
-
-  // final List<Map<String, dynamic>>
-  //     _freelancers = [];
-
-
-  // =============================================================
-  // DOCUMENT PAGINATION
-  // =============================================================
-
- // DocumentSnapshot? _lastDocument;
-
  final List<Map<String, dynamic>> _liveFreelancers = [];
   final     List<Map<String, dynamic>> _loggedInFreelancers = [];
 
@@ -108,8 +94,6 @@ static const Duration _onlineFreshness = Duration(minutes: 3);
 
   bool _loadingMore = false;
 
- // bool _hasMore = true;
-
   bool _initialLoadCompleted = false;
 Timer? _subscriptionExpiryTimer;
 
@@ -129,11 +113,6 @@ Timer? _subscriptionExpiryTimer;
   static const double maxSearchRadius =
       50.0;
 
-// =============================================================
-// SUBSCRIPTION ACCESS
-// =============================================================
-
-// No active subscription = free access up to 1 km.
 double _paidRadius = 1.0;
 
 bool _hasActiveSubscription = false;
@@ -1631,67 +1610,6 @@ Future<void> _openFreelancer(
 
                         ),
 
-                        // onPressed:
-                        //     () async {
-
-                        //   // =====================================
-                        //   // IMPORTANT
-                        //   //
-                        //   // This temporarily saves the selected
-                        //   // radius locally.
-                        //   //
-                        //   // Replace this section with your actual
-                        //   // payment success callback later.
-                        //   // =====================================
-
-                        //   try {
-
-                        //     final settingsBox =
-                        //        Hive.box(
-                        //       'settings',
-                        //     );
-
-
-                        //     await settingsBox.put(
-                        //       'paidDistance',
-                        //       selectedRadius,
-                        //     );
-
-
-                        //     if (!mounted) return;
-
-
-                        //     setState(() {
-
-                        //       _paidRadius =
-                        //           selectedRadius;
-
-                        //     });
-
-
-                        //     if (bottomSheetContext
-                        //         .mounted) {
-
-                        //       Navigator.pop(
-                        //         bottomSheetContext,
-                        //       );
-
-                        //     }
-
-
-                        //     _showMessage(
-                        //       'Search radius updated to ${selectedRadius.toStringAsFixed(0)} KM',
-                        //     );
-
-                        //   } catch (_) {
-
-                        //     _showMessage(
-                        //       'Unable to update radius',
-                        //     );
-
-                        //   }
-
-                        // },
                         onPressed: () {
   Navigator.pop(bottomSheetContext);
 
@@ -2273,12 +2191,6 @@ _hasActiveSubscription
         ),
 
 
-        // =======================================================
-        // EMPTY STATE
-        // =======================================================
-
-        // if (_freelancers.isEmpty &&
-        //     !_loadingFreelancers)
         if (_liveFreelancers.isEmpty &&
     _loggedInFreelancers.isEmpty &&
     !_loadingFreelancers)
@@ -2638,7 +2550,6 @@ _hasActiveSubscription
 
                           Text(
 
-                            //'${distance.toStringAsFixed(1)} KM away',
  _formatDistance(distance),
   style: const TextStyle(
     fontSize: 13,
@@ -2697,130 +2608,3 @@ _hasActiveSubscription
   }
 
 }
-
-
-// Future<void> _loadFirstFreelancers() async {
-//   if (!mounted) return;
-
-//   setState(() {
-//     _loadingFreelancers = true;
-//     _loadingMore = false;
-//     _initialLoadCompleted = false;
-//     _errorMessage = null;
-
-//     _liveFreelancers.clear();
-//     _loggedInFreelancers.clear();
-
-//     _lastLiveDocument = null;
-//     _lastLoggedInDocument = null;
-
-//     _hasMoreLive = true;
-//     _hasMoreLoggedIn = true;
-//   });
-
-//   try {
-//     // Each section loads one bounded batch.
-//     await _fetchLiveFreelancerBatch();
-//     await _fetchLoggedInFreelancerBatch();
-
-//     if (!mounted) return;
-
-//     setState(() {
-//       _initialLoadCompleted = true;
-//     });
-//   } catch (e) {
-//     if (!mounted) return;
-
-//     setState(() {
-//       _errorMessage = _cleanErrorMessage(e);
-//     });
-//   } finally {
-//     if (mounted) {
-//       setState(() {
-//         _loadingFreelancers = false;
-//         _loadingMore = false;
-//       });
-//     }
-//   }
-// }
-
-// Future<void> _loadMoreFreelancers() async {
-//   if (!mounted ||
-//       _loadingFreelancers ||
-//       _loadingMore ||
-//       (!_hasMoreLive && !_hasMoreLoggedIn)) {
-//     return;
-//   }
-
-//   setState(() => _loadingMore = true);
-
-//   try {
-//     if (_hasMoreLive) {
-//       await _fetchLiveFreelancerBatch();
-//     }
-
-//     if (!mounted) return;
-
-//     if (_hasMoreLoggedIn) {
-//       await _fetchLoggedInFreelancerBatch();
-//     }
-//   } catch (e) {
-//     debugPrint('Loading more freelancers failed: $e');
-//   } finally {
-//     if (mounted) {
-//       setState(() => _loadingMore = false);
-//     }
-//   }
-// }
-
-// double? _readCoordinate(
-//   Map<String, dynamic> data,
-//   List<String> keys,
-// ) {
-//   for (final key in keys) {
-//     final value = data[key];
-
-//     if (value is num) {
-//       return value.toDouble();
-//     }
-
-//     if (value is String) {
-//       final parsed = double.tryParse(value);
-//       if (parsed != null) return parsed;
-//     }
-//   }
-
-//   // Support nested currentLocation data too.
-//   final currentLocation = data['currentLocation'];
-
-//   if (currentLocation is Map) {
-//     for (final key in keys) {
-//       final value = currentLocation[key];
-
-//       if (value is num) return value.toDouble();
-
-//       if (value is String) {
-//         final parsed = double.tryParse(value);
-//         if (parsed != null) return parsed;
-//       }
-//     }
-//   }
-
-//   return null;
-// }
-
-   // style:
-                            //     TextStyle(
-
-                            //   fontSize:
-                            //       13,
-
-                            //   fontWeight:
-                            //       FontWeight.w600,
-
-                            //   color:
-                            //       isUnlocked
-                            //           ? green
-                            //           : orange,
-
-                            // ),

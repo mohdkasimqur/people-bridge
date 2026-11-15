@@ -8,16 +8,12 @@ class ScreenFoodDeliveryProfile
   final String uid;
   final String categoryId;
   final String categoryName;
-  // final double userLatitude;
-  // final double userLongitude;
 
   const ScreenFoodDeliveryProfile({
     super.key,
     required this.uid,
     required this.categoryId,
     required this.categoryName,
-    // required this.userLatitude,
-    // required this.userLongitude,
   });
 
   @override
@@ -42,44 +38,6 @@ class _ScreenFoodDeliveryProfileState
     _loadProfile();
   }
 
-//  Future<void> _loadProfile() async {
-//   try {
-//     final profileFuture = _firestore
-//         .collection('foodDeliveryGuys')
-//         .doc(widget.uid)
-//         .get();
-
-//     final liveFuture = _firestore
-//         .collection('liveLocations')
-//         .doc(widget.uid)
-//         .get();
-
-//     final profileSnapshot = await profileFuture;
-//     final liveSnapshot = await liveFuture;
-
-//     if (!mounted) return;
-
-//     setState(() {
-//       profileData = profileSnapshot.data();
-//       liveData = liveSnapshot.data();
-//       isLoading = false;
-//     });
-//   } catch (e) {
-//     if (!mounted) return;
-
-//     setState(() {
-//       isLoading = false;
-//     });
-
-//     ScaffoldMessenger.of(context).showSnackBar(
-//       const SnackBar(
-//         content: Text(
-//           'Unable to load profile.',
-//         ),
-//       ),
-//     );
-//   }
-// }
 Future<void> _loadProfile() async {
   try {
     final snapshot = await _firestore
@@ -290,13 +248,6 @@ Future<void> _openSavedLocation() async {
         .join(' ');
   }
 
-  // Future<void> _callNumber(
-  //   String number,
-  // ) async {
-  //   // Keep your existing url_launcher
-  //   // implementation here if you already have it.
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -396,56 +347,6 @@ Future<void> _openSavedLocation() async {
     );
   }
 
-  // Widget _liveStatusCard() {
-  //   final isLive =
-  //       liveData?['isLive'] == true;
-
-  //   return Container(
-  //     padding:
-  //         const EdgeInsets.all(14),
-  //     decoration: BoxDecoration(
-  //       color: isLive
-  //           ? const Color(0xFFE8F5E9)
-  //           : Colors.grey.shade100,
-  //       borderRadius:
-  //           BorderRadius.circular(12),
-  //       border: Border.all(
-  //         color: isLive
-  //             ? const Color(0xFF138808)
-  //             : Colors.grey.shade300,
-  //       ),
-  //     ),
-  //     child: Row(
-  //       children: [
-  //         Icon(
-  //           isLive
-  //               ? Icons.location_on
-  //               : Icons.location_off,
-  //           color: isLive
-  //               ? const Color(0xFF138808)
-  //               : Colors.grey,
-  //         ),
-  //         const SizedBox(width: 10),
-  //         Expanded(
-  //           child: Text(
-  //             isLive
-  //                 ? 'Currently LIVE'
-  //                 : 'Currently offline',
-  //             style: TextStyle(
-  //               fontWeight:
-  //                   FontWeight.w600,
-  //               color: isLive
-  //                   ? const Color(
-  //                       0xFF138808,
-  //                     )
-  //                   : Colors.grey.shade700,
-  //             ),
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
   Widget _liveStatusCard() {
   return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
     stream: _firestore
@@ -685,11 +586,6 @@ Future<void> _openSavedLocation() async {
             'vehicleNumber',
           );
 
-    // final primary =
-    //     _stringValue(
-    //   'mobileNumber',
-    // );
-
     final secondary =
         _stringValue(
       'secondaryMobileNumber',
@@ -769,28 +665,6 @@ Future<void> _openSavedLocation() async {
 
             const SizedBox(height: 16),
 
-            // const Text(
-            //   'Contact',
-            //   style: TextStyle(
-            //     fontSize: 18,
-            //     fontWeight:
-            //         FontWeight.bold,
-            //   ),
-            // ),
-
-            // const SizedBox(height: 10),
-
-            // if (primary.isNotEmpty)
-            //   _phoneButton(
-            //     'Primary Mobile',
-            //     primary,
-            //   ),
-
-            // if (secondary.isNotEmpty)
-            //   _phoneButton(
-            //     'Secondary Mobile',
-            //     secondary,
-            //   ),
             const Text(
   'Contact Rider',
   style: TextStyle(
@@ -866,28 +740,4 @@ SizedBox(
     );
   }
 
-  // Widget _phoneButton(
-  //   String title,
-  //   String number,
-  // ) {
-  //   return Padding(
-  //     padding:
-  //         const EdgeInsets.only(
-  //       bottom: 8,
-  //     ),
-  //     child: SizedBox(
-  //       width: double.infinity,
-  //       child: OutlinedButton.icon(
-  //         onPressed: () =>
-  //             _callNumber(number),
-  //         icon: const Icon(
-  //           Icons.phone_outlined,
-  //         ),
-  //         label: Text(
-  //           '$title • $number',
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
 }

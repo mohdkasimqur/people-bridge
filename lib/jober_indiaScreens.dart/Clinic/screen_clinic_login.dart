@@ -101,9 +101,6 @@ class _ScreenClinicLoginState extends State<ScreenClinicLogin> {
    static const Color green =
       Color(0xFF138808);
 
-  // static const Color submitGreen =
-  //     Color(0xFF159B16);
-
   static const Color darkText =
       Color(0xFF202124);
 
@@ -144,27 +141,6 @@ bool isSearchingLocation = false;
 // Used to invalidate an older location request
 int _locationRequestId = 0;
 
-  // ============================================================
-  // OTP VARIABLES
-  // ============================================================
-
-  // String? verificationId;
-
-  // bool otpSent = false;
-  // bool otpVerified = false;
-
-  // bool isSendingOtp = false;
-  // bool isVerifying = false;
-  // bool isSubmitting = false;
-
-  // bool otpError = false;
-
-  // String otpErrorMessage = '';
-
-  // int secondsRemaining = 30;
-
-  // Timer? timer;
-
   String? verificationId;
 
   bool otpSent = false;
@@ -191,8 +167,6 @@ int? resendToken;
   // ERROR VARIABLES
   // ============================================================
     String? usernameError;
-
- // bool usernameError = false;
 
   bool clinicNameError = false;
 
@@ -264,7 +238,6 @@ Future<void> sendOTP({bool isResend = false}) async {
 
   if (!RegExp(r'^[6-9][0-9]{9}$').hasMatch(phone)) {
     showMessage( AppLocalizations.of(context)!.enteradigitmobilenumber,
-     // 'Enter a valid 10-digit mobile number.'
       );
     return;
   }
@@ -1145,12 +1118,6 @@ Future<void> syncClinicCategoriesToFirestore({
    final String mobile =
       mobileController.text.trim();
 
-  // if (mobile.length != 10) {
-  //   mobileError = true;
-  //   valid = true;
-  // } else {
-  //   mobileError = false;
-  // }
   if (!_isValidIndianMobile(mobile)) {
   mobileError = true;
   valid = false;
@@ -1158,27 +1125,6 @@ Future<void> syncClinicCategoriesToFirestore({
   mobileError = false;
 }
 
-// SECONDARY MOBILE VALIDATION
-// ----------------------------------------------------------
-
-// final String secondaryMobile =
-//     secondaryMobileController.text.trim();
-
-// // if (secondaryMobile.length != 10) {
-// //   valid = false;
-
-// //   showMessage(
-// //     'Please enter a valid 10-digit secondary mobile number.',
-// //     error: true,
-// //   );
-// // }
-
-//   secondaryMobileError =
-//       !_isValidIndianMobile(secondaryMobile);
-
-//   if (secondaryMobileError) {
-//     valid = true;
-//   }
 final secondaryMobile =
     secondaryMobileController.text.trim();
 
@@ -1211,7 +1157,6 @@ final String districtValue =
 
 if (districtValue.isEmpty) {
   districtError =  AppLocalizations.of(context)!.pleaseselectyourdistrict;
-  //'Please select your district.';
   valid = false;
 } else if (stateValue.isNotEmpty &&
     !(indiaDistricts[stateValue] ?? [])
@@ -1488,9 +1433,6 @@ if (currentLocation == null) {
       crossAxisAlignment:
           CrossAxisAlignment.start,
       children: [
-        // sectionTitle(
-        //   'Freelancer Categories',
-        // ),
 
         AnimatedContainer(
           duration:
@@ -2447,13 +2389,6 @@ Future<String?> _processManualGarageLocation(
       value.contains('maps.app.goo.gl') ||
       value.contains('goo.gl/maps');
 
-  // ==========================================================
-  // NORMAL TEXT
-  // ==========================================================
-
-  // if (!isGoogleMapsLink) {
-  //   return value;
-  // }
   if (!isGoogleMapsLink) {
   try {
     final locations =
@@ -3010,29 +2945,7 @@ Widget _sectionTitle(String title) {
   );
 }
 
-  //  void changeMobileNumber() {
-  //   timer?.cancel();
-
-  //   verificationId = null;
-
-  //   otpController.clear();
-
-  //   if (!mounted) return;
-
-  //   setState(() {
-  //     otpSent = false;
-  //     otpVerified = false;
-  //     isSendingOtp = false;
-  //     isVerifying = false;
-  //     otpError = false;
-  //     otpErrorMessage = '';
-  //     secondsRemaining = 30;
-  //   });
-  // }
-
  Widget mobileSection() {
-    // final bool verified =
-    //     otpVerified;
 
     return Column(
       crossAxisAlignment:
@@ -3217,7 +3130,6 @@ Widget _sectionTitle(String title) {
       top: 5,
     ),
     child: Text( AppLocalizations.of(context)!.enteradigitmobilenumber,
-    //  'Enter a valid 10-digit mobile number.',
       style: TextStyle(
         color: Colors.red,
         fontSize: 12,
@@ -3457,8 +3369,6 @@ Widget _sectionTitle(String title) {
             autofillHints: const [
   AutofillHints.oneTimeCode,
 ],
-            // enabled:
-            //     !isVerifying,
             enabled: !isVerifying &&
     !isSendingOtp &&
     secondsRemaining > 0,
@@ -4374,7 +4284,6 @@ Future<void> loadDistricts() async {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       sectionTitle( AppLocalizations.of(context)!.state
-       // 'State',
       ),
 
       AnimatedContainer(
@@ -4439,9 +4348,7 @@ Future<void> loadDistricts() async {
                         selectedState == null ||
                                 selectedState!.isEmpty
                             ? AppLocalizations.of(context)!.selectyourState
-                            // 'Select your State'
                             : localizedState(selectedState!, languageCode),
-                            //selectedState!,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -4493,7 +4400,6 @@ Future<void> loadDistricts() async {
                       controller: stateSearchController,
                       onChanged: filterStates,
                       decoration: InputDecoration(
-                       // hintText: 'Search state...',
                        hintText: AppLocalizations.of(context)!.searchState,
                         prefixIcon: const Icon(
                           Icons.search,
@@ -4548,7 +4454,6 @@ Future<void> loadDistricts() async {
                       child: filteredStates.isEmpty
                           ? Center(
                               child: Text( AppLocalizations.of(context)!.nostatefound,
-                              //  'No state found',
                                 style: TextStyle(
                                   color:
                                       Colors.grey.shade600,
@@ -4572,23 +4477,7 @@ Future<void> loadDistricts() async {
                                     10,
                                   ),
                                   onTap: () {
-                                    // setState(() {
-                                    //   selectedState = state;
 
-                                    //   categoryError =
-                                    //       false;
-
-                                    //   isCategoryDropdownOpen =
-                                    //       false;
-
-                                    //   stateSearchController
-                                    //       .clear();
-
-                                    //   filteredStates =
-                                    //       List<String>.from(
-                                    //     indiaStates,
-                                    //   );
-                                    // });
                                     setState(() {
   final bool stateChanged = selectedState != state;
 
@@ -4658,14 +4547,6 @@ Future<void> loadDistricts() async {
 
                                         Expanded(
                                           child:
-                                          //  Text(
-                                          //   state,
-                                          //   style:
-                                          //       const TextStyle(
-                                          //     color: darkText,
-                                          //     fontSize: 14,
-                                          //   ),
-                                          // ),
                                           Text(localizedState(state, languageCode) ,
                                           style:
                                                 const TextStyle(
@@ -4699,7 +4580,6 @@ Future<void> loadDistricts() async {
             top: 5,
           ),
           child: Text( AppLocalizations.of(context)!.pleaseSelectyourState,
-            //'Please select your state.',
             style: TextStyle(
               color: Colors.red,
               fontSize: 12,
@@ -4711,13 +4591,11 @@ Future<void> loadDistricts() async {
   );
 }
 
-//Widget districtSection() {
 Widget districtSection() {
   final languageCode = currentLanguageCode(context);
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      //sectionTitle('District'),
       sectionTitle(AppLocalizations.of(context)!.district),
 
       AnimatedContainer(
@@ -4785,8 +4663,6 @@ Widget districtSection() {
                       child: Text(
                         selectedDistrict == null ||
                                 selectedDistrict!.isEmpty
-                            // ? 'Select your District'
-                            // : selectedDistrict!,
                             ? AppLocalizations.of(context)!.selectyourDistrict
 : localizedDistrict(selectedDistrict!, languageCode),
                         maxLines: 1,
@@ -4849,8 +4725,6 @@ Widget districtSection() {
 
                       decoration:
                           InputDecoration(
-                        // hintText:
-                        //     'Search district...',
                         hintText: AppLocalizations.of(context)!.searchdistrict,
 
                         prefixIcon:
@@ -5034,16 +4908,6 @@ Widget districtSection() {
                                         ),
 
                                         Expanded(
-                                          // child: Text(
-                                          //   district,
-                                          //   style:
-                                          //       const TextStyle(
-                                          //     color:
-                                          //         darkText,
-                                          //     fontSize:
-                                          //         14,
-                                          //   ),
-                                          // ),
                                           child: Text(
   localizedDistrict(district, languageCode),
   style: const TextStyle(
@@ -5077,7 +4941,6 @@ Widget districtSection() {
             top: 5,
           ),
           child: Text( AppLocalizations.of(context)!.pleaseselectyourdistrict,
-          //  'Please select your district.',
             style: TextStyle(
               color: Colors.red,
               fontSize: 12,
@@ -5187,12 +5050,6 @@ Widget build(BuildContext context) {
     backgroundColor: Colors.white,
 
     appBar: AppBar(
-      // title: const Text(
-      //   'Clinic Registration',
-      //   style: TextStyle(
-      //     fontWeight: FontWeight.w700,
-      //   ),
-      // ),
       title: RichText(text: TextSpan(children: [
         TextSpan(text: 'Clinic',
                    style: TextStyle(
@@ -5205,7 +5062,6 @@ Widget build(BuildContext context) {
           ),
           TextSpan(
                   text: AppLocalizations.of(context)!.registration,
-                  // 'Registration',
                   style: TextStyle(
                   color:
                       Colors.red,
@@ -5308,7 +5164,6 @@ Widget build(BuildContext context) {
                     ),
 
                     child: Text(AppLocalizations.of(context)!.enteradigitmobilenumber,
-                    //  'Enter a valid 10-digit number',
 
                       style:
                           TextStyle(
@@ -5462,706 +5317,3 @@ if (nearestCityError.isNotEmpty)
   );
 }
 }
-
-
-
-
-//  Widget shopTimingSection() {
-//   return Column(
-//     crossAxisAlignment: CrossAxisAlignment.start,
-//     children: [
-//       sectionTitle(
-//         'Shop Timing',
-//       ),
-
-//       const SizedBox(height: 10),
-
-//       // ============================================================
-//       // OPEN 24 HOURS BUTTON
-//       // ============================================================
-
-//       SizedBox(
-//         width: double.infinity,
-//         height: 54,
-//         child: OutlinedButton(
-//           onPressed: () {
-//             setState(() {
-//               isOpen24Hours = !isOpen24Hours;
-
-//               // Clear selected times when 24 hours is enabled
-//               if (isOpen24Hours) {
-//                 openingTime = null;
-//                 closingTime = null;
-//               }
-//             });
-//           },
-//           style: OutlinedButton.styleFrom(
-//             backgroundColor: isOpen24Hours
-//                 ? const Color(0xFF16803C)
-//                 : const Color(0xFFF9F9F9),
-
-//             foregroundColor: isOpen24Hours
-//                 ? Colors.white
-//                 : const Color(0xFF16803C),
-
-//             side: BorderSide(
-//               color: isOpen24Hours
-//                   ? const Color(0xFF16803C)
-//                   : Colors.grey.shade300,
-//               width: 1.5,
-//             ),
-
-//             shape: RoundedRectangleBorder(
-//               borderRadius: BorderRadius.circular(20),
-//             ),
-
-//             elevation: 0,
-//           ),
-//           child: Row(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: [
-//               Icon(
-//                 isOpen24Hours
-//                     ? Icons.check_circle
-//                     : Icons.access_time,
-//                 size: 21,
-//               ),
-
-//               const SizedBox(width: 8),
-
-//               Text(
-//                 isOpen24Hours
-//                     ? '✓ Open 24 Hours'
-//                     : 'Open 24 Hours',
-//                 style: const TextStyle(
-//                   fontSize: 15,
-//                   fontWeight: FontWeight.w600,
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-
-//       // ============================================================
-//       // OPENING / CLOSING TIME
-//       // ============================================================
-
-//       if (!isOpen24Hours) ...[
-//         const SizedBox(height: 12),
-
-//         Row(
-//           children: [
-//             // ========================================================
-//             // OPENING TIME
-//             // ========================================================
-
-//             Expanded(
-//               child: InkWell(
-//                 onTap: selectOpeningTime,
-//                 borderRadius: BorderRadius.circular(20),
-//                 child: Container(
-//                   height: 62,
-//                   padding: const EdgeInsets.symmetric(
-//                     horizontal: 16,
-//                   ),
-//                   decoration: BoxDecoration(
-//                     color: const Color(0xFFF9F9F9),
-//                     borderRadius: BorderRadius.circular(20),
-//                     border: Border.all(
-//                       color: Colors.grey.shade300,
-//                       width: 1.5,
-//                     ),
-//                   ),
-//                   child: Row(
-//                     children: [
-//                       const Icon(
-//                         Icons.access_time,
-//                         color: Color(0xFF16803C),
-//                       ),
-
-//                       const SizedBox(width: 10),
-
-//                       Expanded(
-//                         child: Text(
-//                           openingTime == null
-//                               ? 'Opening Time'
-//                               : timeToString(
-//                                   openingTime!,
-//                                 ),
-//                           style: TextStyle(
-//                             fontSize: 15,
-//                             color: openingTime == null
-//                                 ? Colors.grey
-//                                 : Colors.black,
-//                           ),
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//             ),
-
-//             const SizedBox(width: 12),
-
-//             // ========================================================
-//             // CLOSING TIME
-//             // ========================================================
-
-//             Expanded(
-//               child: InkWell(
-//                 onTap: selectClosingTime,
-//                 borderRadius: BorderRadius.circular(20),
-//                 child: Container(
-//                   height: 62,
-//                   padding: const EdgeInsets.symmetric(
-//                     horizontal: 16,
-//                   ),
-//                   decoration: BoxDecoration(
-//                     color: const Color(0xFFF9F9F9),
-//                     borderRadius: BorderRadius.circular(20),
-//                     border: Border.all(
-//                       color: Colors.grey.shade300,
-//                       width: 1.5,
-//                     ),
-//                   ),
-//                   child: Row(
-//                     children: [
-//                       const Icon(
-//                         Icons.access_time,
-//                         color: Color(0xFF16803C),
-//                       ),
-
-//                       const SizedBox(width: 10),
-
-//                       Expanded(
-//                         child: Text(
-//                           closingTime == null
-//                               ? 'Closing Time'
-//                               : timeToString(
-//                                   closingTime!,
-//                                 ),
-//                           style: TextStyle(
-//                             fontSize: 15,
-//                             color: closingTime == null
-//                                 ? Colors.grey
-//                                 : Colors.black,
-//                           ),
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ],
-//     ],
-//   );
-// }
-
-  //           TextField(
-  //             controller: usernameController,
-  //             focusNode: userNameFocus,
-
-  //             textInputAction: TextInputAction.next,
-  //              onChanged:
-  //                   (String value) {
-  //                 if (usernameError) {
-  //                   setState(() {
-  //                     usernameError = false;
-  //                   });
-  //                 }
-  //               },
-  //             decoration: fieldDecoration(
-  //               hintText: 'Enter username',
-  //               icon: Icons.person_outline,
-  //             ),
-  //           ),
-  //            if (usernameError)
-  // const Padding(
-  //   padding: EdgeInsets.only(
-  //     left: 12,
-  //     top: 5,
-  //   ),
-  //   child: Text(
-  //     'Enter Your Company Name.',
-  //     style: TextStyle(
-  //       color: Colors.red,
-  //       fontSize: 12,
-  //       fontWeight: FontWeight.w500,
-  //     ),
-  //   ),
-  // ),
-   // ============================================================
-  // LOCATION SECTION
-  // ============================================================
-
-//   Widget locationSection() {
-//     return Column(
-//       crossAxisAlignment:
-//           CrossAxisAlignment.start,
-//       children: [
-//         const Text(
-//           "Tea Shop's Location",
-//           style: TextStyle(
-//             fontSize: 16,
-//             fontWeight: FontWeight.w600,
-//             color: Color(0xFF222222),
-//           ),
-//         ),
-
-//         const SizedBox(height: 8),
-
-//         Container(
-//           width: double.infinity,
-
-//           padding:
-//               const EdgeInsets.all(16),
-
-//           decoration: BoxDecoration(
-//             color:
-//                 const Color(0xFFF9F9F9),
-//             borderRadius:
-//                 BorderRadius.circular(20),
-//             border: Border.all(
-//   color: locationError
-//       ? Colors.red
-//       : const Color(0xFFE0E0E0),
-//   width: locationError ? 2 : 1.5,
-// ),
-//           ),
-
-//           child: currentLocation == null
-//               ? Column(
-//                   children: [
-//                     const Icon(
-//                       Icons.location_on_outlined,
-//                       color:
-//                           Color(0xFF08744F),
-//                       size: 38,
-//                     ),
-
-//                     const SizedBox(height: 8),
-
-//                     const Text(
-//                       'Add your current shop location',
-//                       textAlign:
-//                           TextAlign.center,
-//                       style: TextStyle(
-//                         fontSize: 15,
-//                         color:
-//                             Color(0xFF666666),
-//                       ),
-//                     ),
-
-//                     const SizedBox(height: 12),
-
-//                     SizedBox(
-//                       width:
-//                           double.infinity,
-//                       height: 48,
-//                       child:
-//                           ElevatedButton.icon(
-//                         onPressed:
-//                             isGettingLocation
-//                                 ? null
-//                                 : _getCurrentLocation,
-
-//                         icon:
-//                             isGettingLocation
-//                                 ? const SizedBox(
-//                                     width: 19,
-//                                     height: 19,
-//                                     child:
-//                                         CircularProgressIndicator(
-//                                       strokeWidth:
-//                                           2,
-//                                       color:
-//                                           Colors.white,
-//                                     ),
-//                                   )
-//                                 : const Icon(
-//                                     Icons.my_location,
-//                                   ),
-
-//                         label: Text(
-//                           isGettingLocation
-//                               ? 'Getting Location...'
-//                               : 'Use Current Location',
-//                         ),
-
-//                         style:
-//                             ElevatedButton.styleFrom(
-//                           backgroundColor:
-//                               const Color(
-//                             0xFF16803C,
-//                           ),
-//                           foregroundColor:
-//                               Colors.white,
-//                           elevation: 0,
-//                           shape:
-//                               RoundedRectangleBorder(
-//                             borderRadius:
-//                                 BorderRadius
-//                                     .circular(
-//                               24,
-//                             ),
-//                           ),
-//                         ),
-//                       ),
-//                     ),
-//                   ],
-//                 )
-//               : Column(
-//                   crossAxisAlignment:
-//                       CrossAxisAlignment.start,
-//                   children: [
-//                     Row(
-//                       crossAxisAlignment:
-//                           CrossAxisAlignment.start,
-//                       children: [
-//                         const Icon(
-//                           Icons.location_on,
-//                           color:
-//                               Color(0xFF16803C),
-//                           size: 28,
-//                         ),
-
-//                         const SizedBox(
-//                           width: 10,
-//                         ),
-
-//                         Expanded(
-//                           child: Column(
-//                             crossAxisAlignment:
-//                                 CrossAxisAlignment
-//                                     .start,
-//                             children: [
-//                               const Text(
-//                                 'Shop Location',
-//                                 style:
-//                                     TextStyle(
-//                                   fontWeight:
-//                                       FontWeight
-//                                           .bold,
-//                                   color:
-//                                       Color(
-//                                     0xFF12652F,
-//                                   ),
-//                                 ),
-//                               ),
-
-//                               const SizedBox(
-//                                 height: 4,
-//                               ),
-
-//                               Text(
-//                                 currentLocation!
-//                                     .placeName,
-//                                 style:
-//                                     const TextStyle(
-//                                   fontSize: 14,
-//                                   color:
-//                                       Color(
-//                                     0xFF555555,
-//                                   ),
-//                                 ),
-//                               ),
-//                             ],
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-
-//                     const SizedBox(height: 12),
-
-//                     Row(
-//                       children: [
-//                         const SizedBox(
-//                           width: 10,
-//                         ),
-
-//                         Expanded(
-//                           child:
-//                             OutlinedButton.icon(
-//   onPressed: () {
-//     // Immediately invalidate any running location request.
-//     _locationRequestId++;
-
-//     // Immediately update the UI.
-//     setState(() {
-//       currentLocation = null;
-//       isGettingLocation = false;
-//       isSearchingLocation = false;
-//       locationError = false;
-//     });
-//   },
-//   icon: const Icon(
-//     Icons.delete_outline,
-//   ),
-//   label: const Text(
-//     'Remove',
-//   ),
-//   style: OutlinedButton.styleFrom(
-//     foregroundColor: Colors.red,
-//     side: const BorderSide(
-//       color: Colors.red,
-//     ),
-//     shape: RoundedRectangleBorder(
-//       borderRadius: BorderRadius.circular(18),
-//     ),
-//   ),
-// ),
-//                         ),
-//                       ],
-//                     ),
-//                   ],
-//                 ),
-//         ),
-//       ],
-//     );
-//   }
-
-//  Future<void> _getCurrentLocation() async {
-//   if (isGettingLocation) return;
-
-//   final int requestId = ++_locationRequestId;
-
-//   if (!mounted) return;
-
-//   setState(() {
-//     isGettingLocation = true;
-//   });
-
-//   try {
-//     // ----------------------------------------------------------
-//     // CHECK LOCATION SERVICE
-//     // ----------------------------------------------------------
-
-//     final serviceEnabled =
-//         await Geolocator.isLocationServiceEnabled();
-
-//     if (!mounted || requestId != _locationRequestId) return;
-
-//     // Location is OFF on the phone
-//     // if (!serviceEnabled) {
-//     //   setState(() {
-//     //     isGettingLocation = false;
-//     //   });
-
-//     //   // Open phone Location Settings
-//     //   await Geolocator.openLocationSettings();
-
-//     //   return;
-//     // }
-//     if (!serviceEnabled) {
-//   if (mounted) {
-//     setState(() {
-//       isGettingLocation = false;
-//     });
-//   }
-
-//   showMessage(
-//     'Please turn on location services.',
-//     error: true,
-//   );
-
-//   return;
-// }
-
-//     // ----------------------------------------------------------
-//     // CHECK PERMISSION
-//     // ----------------------------------------------------------
-
-//     LocationPermission permission =
-//         await Geolocator.checkPermission();
-
-//     if (!mounted || requestId != _locationRequestId) return;
-
-//     if (permission == LocationPermission.denied) {
-//       permission =
-//           await Geolocator.requestPermission();
-//     }
-
-//     if (!mounted || requestId != _locationRequestId) return;
-
-//     if (permission == LocationPermission.denied ||
-//         permission == LocationPermission.deniedForever) {
-//       setState(() {
-//         isGettingLocation = false;
-//       });
-
-//       showMessage(
-//         'Location permission is required.',
-//         error: true,
-//       );
-
-//       return;
-//     }
-
-//     // ----------------------------------------------------------
-//     // GET CURRENT LOCATION
-//     // ----------------------------------------------------------
-
-//     final position =
-//         await Geolocator.getCurrentPosition(
-//       locationSettings: const LocationSettings(
-//         accuracy: LocationAccuracy.high,
-//       ),
-//     );
-
-//     if (!mounted || requestId != _locationRequestId) return;
-
-//     // ----------------------------------------------------------
-//     // DEFAULT LOCATION NAME
-//     // ----------------------------------------------------------
-
-//     String placeName =
-//         '${position.latitude}, ${position.longitude}';
-
-//     // ----------------------------------------------------------
-//     // REVERSE GEOCODING
-//     // ----------------------------------------------------------
-
-//     try {
-//       final placemarks =
-//           await geo.placemarkFromCoordinates(
-//         position.latitude,
-//         position.longitude,
-//       );
-
-//       if (!mounted || requestId != _locationRequestId) return;
-
-//       if (placemarks.isNotEmpty) {
-//         final place = placemarks.first;
-
-//         final parts = <String>[
-//           if ((place.name ?? '').trim().isNotEmpty)
-//             place.name!.trim(),
-
-//           if ((place.locality ?? '').trim().isNotEmpty)
-//             place.locality!.trim(),
-
-//           if ((place.administrativeArea ?? '')
-//               .trim()
-//               .isNotEmpty)
-//             place.administrativeArea!.trim(),
-//         ];
-
-//         if (parts.isNotEmpty) {
-//           placeName = parts.join(', ');
-//         }
-//       }
-//     } catch (e) {
-//       debugPrint(
-//         'Reverse geocoding error: $e',
-//       );
-//     }
-
-//     // ----------------------------------------------------------
-//     // SAVE LOCATION
-//     // ----------------------------------------------------------
-
-//     if (!mounted || requestId != _locationRequestId) return;
-
-//    setState(() {
-//   currentLocation = ClinicLocation(
-//     placeName: placeName,
-//     latitude: position.latitude,
-//     longitude: position.longitude,
-//   );
-
-//   locationError = false;
-  
-//   isGettingLocation = false;
-// });
-
-//     showMessage(
-//       'Tea Shop location added.',
-//     );
-//   } catch (e) {
-//     if (!mounted || requestId != _locationRequestId) return;
-
-//     showMessage(
-//       'Unable to get your location.',
-//       error: true,
-//     );
-//   } finally {
-//     if (mounted &&
-//         requestId == _locationRequestId) {
-//       setState(() {
-//         isGettingLocation = false;
-//       });
-//     }
-//   }
-// }
-
-
-//   void addCustomCategory() {
-//     final String category =
-//         customCategoryController.text.trim();
-
-//     if (category.isEmpty) {
-//       showMessage(
-//         'Please enter a category.',
-//       );
-//       return;
-//     }
-
-//     final int existingIndex =
-//         allCategories.indexWhere(
-//       (item) =>
-//           item.toLowerCase() ==
-//           category.toLowerCase(),
-//     );
-
-//     String actualCategory;
-
-//     if (existingIndex != -1) {
-
-//       actualCategory =
-//           allCategories[existingIndex];
-
-//     } else {
-
-//       customCategories.add(
-//         category,
-//       );
-//       actualCategory = category;
-//     }
-
-//     if (!selectedCategories.contains(
-//       actualCategory,
-//     )) {
-
-//       selectedCategories.add(
-//         actualCategory,
-//       );
-
-//     }
-
-//     customCategoryController.clear();
-//     categorySearchController.clear();
-
-// filterCategories(categorySearchController.text);
-
-//     if (mounted) {
-
-//       setState(() {
-
-//         categoryError = false;
-
-//       });
-
-//     }
-
-//     Navigator.of(context).pop();
-
-//     showMessage(
-//       '$actualCategory added.',
-//     );
-
-//   }

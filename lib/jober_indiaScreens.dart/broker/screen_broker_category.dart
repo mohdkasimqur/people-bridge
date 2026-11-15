@@ -570,36 +570,3 @@ class _ScreenBrokerCategoriesState
     );
   }
 }
-
-// Map<String, int> buildCategoryCounts(
-// List<QueryDocumentSnapshot<Map<String, dynamic>>> documents,
-// ) {
-// final Map<String, int> counts = {};
-
-// for (final document in documents) {
-//   final data = document.data();
-
-//   if (data['isActive'] != true) continue;
-
-//   final categories = data['categories'];
-
-//   if (categories is! List) continue;
-
-//   final Set<String> uniqueCategories = {};
-
-//   for (final item in categories) {
-//     final category = item.toString().trim();
-
-//     if (category.isNotEmpty) {
-//       uniqueCategories.add(category.toLowerCase());
-//     }
-//   }
-
-//   for (final category in uniqueCategories) {
-//     counts[category] = (counts[category] ?? 0) + 1;
-//   }
-// }
-
-// return counts;
-
-// }

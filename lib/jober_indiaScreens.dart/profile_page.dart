@@ -280,24 +280,6 @@ Future<void> _loadProfileData() async {
         ).toString(),
       );
 
-      // ======================================================
-      // COMMON CONTROLLERS
-      // ======================================================
-
-      // nameController.text = profileName;
-
-      // mobileController.text = _extractIndianMobile(
-      //   profileMobile,
-      // );
-
-      // selectedGender = profileGender.isEmpty
-      //     ? null
-      //     : profileGender;
-
-      // ======================================================
-      // ROLE-SPECIFIC PROFILE FIELDS
-      // ======================================================
-
       roleFields = _buildRoleFields(loadedData);
     });
 
@@ -2042,11 +2024,6 @@ CircleAvatar(
 
                 const SizedBox(height: 18),
 
-                // ================================================
-                // VIEW MODE
-                // ================================================
-
-                //if (!isEditing) 
                 ...[
 
                   // NAME
@@ -2378,19 +2355,11 @@ Future<Map<String, dynamic>> _loadRoleProfileFromFirestore({
 
   final Map<String, dynamic> localData = {};
 
-  // ==========================================================
-  // HELPER: READ HIVE BOX
-  // ==========================================================
-
   Future<Box> getBox(String boxName) async {
     return Hive.isBoxOpen(boxName)
         ? Hive.box(boxName)
         : await Hive.openBox(boxName);
   }
-
-  // ==========================================================
-  // HELPER: COPY MAP
-  // ==========================================================
 
   void copyMap(dynamic saved) {
     if (saved is Map) {
@@ -2893,10 +2862,6 @@ Future<Map<String, dynamic>> _loadRoleProfileFromFirestore({
     localData['role'] ??= 'worker';
   }
 
-  // ==========================================================
-  // SECOND: TRY FIRESTORE
-  // ==========================================================
-
   if (collection.isNotEmpty) {
     try {
       final snapshot = await FirebaseFirestore.instance
@@ -2926,10 +2891,6 @@ Future<Map<String, dynamic>> _loadRoleProfileFromFirestore({
       );
     }
   }
-
-  // ==========================================================
-  // THIRD: RETURN LOCAL DATA
-  // ==========================================================
 
   return localData;
 }

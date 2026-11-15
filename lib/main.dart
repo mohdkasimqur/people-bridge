@@ -281,8 +281,6 @@ class _MyAppState extends State<MyApp> {
 
           locale: locale,
 
-          // localizationsDelegates:
-          //     AppLocalizations.localizationsDelegates,
 localizationsDelegates: const [
   AppLocalizations.delegate,
 

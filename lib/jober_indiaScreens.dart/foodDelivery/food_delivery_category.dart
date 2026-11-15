@@ -196,7 +196,6 @@ void _listenToFoodDeliveryCategories() {
             'foodDeliveryVehicleCategories',
           )
           .orderBy('name')
-         // .limit(100)
           .get();
 
       customCategories = snapshot.docs
@@ -346,10 +345,6 @@ void _listenToFoodDeliveryCategories() {
             ScreenFoodDeliveryNearbyList(
           categoryId: id,
           categoryName: name,
-          // userLatitude:
-          //     widget.userLatitude,
-          // userLongitude:
-          //     widget.userLongitude,
         ),
       ),
     );

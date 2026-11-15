@@ -9,8 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:jober_india/jober_indiaScreens.dart/Message/screen_message.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-//import 'package:jober_india/jober_indiaScreens.dart/screen_message.dart';
-
 class ScreenSelfEmployeesProfile extends StatefulWidget {
   final Map<String, dynamic> employee;
 

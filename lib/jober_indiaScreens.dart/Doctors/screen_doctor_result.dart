@@ -77,10 +77,6 @@ double? _toDouble(dynamic value) {
 List<double>? _doctorCoordinates(
 Map<String, dynamic> doctor,
 ) {
-// ==========================================================
-// FIRST: READ THE LOCATION STRUCTURE SAVED BY DOCTOR LOGIN
-// Firestore: doctors/{uid}/location
-// ==========================================================
 
 final savedLocation = doctor['location'];
 
@@ -104,10 +100,6 @@ if (latitude != null &&
 }
 
 }
-
-// ==========================================================
-// SECOND: SUPPORT MULTIPLE LOCATIONS IF USED LATER
-// ==========================================================
 
 final locations = doctor['locations'];
 
@@ -170,10 +162,6 @@ for (final location in candidates) {
 }
 
 }
-
-// ==========================================================
-// THIRD: SUPPORT TOP-LEVEL COORDINATES
-// ==========================================================
 
 final latitude =
 _toDouble(doctor['latitude']);
@@ -259,7 +247,6 @@ String? _distanceText(
 
   @override
   Widget build(BuildContext context) {
-   // final doctors = filteredDoctors;
 final allDoctors = filteredDoctors;
 
 final totalPages =
@@ -318,24 +305,6 @@ final doctors = allDoctors.isEmpty
 
 
             Expanded(
-              // child: doctors.isEmpty
-              //     ? _emptyState()
-              //     : ListView.builder(
-              //         padding:
-              //             const EdgeInsets.fromLTRB(
-              //           16,
-              //           8,
-              //           16,
-              //           24,
-              //         ),
-              //         itemCount: doctors.length,
-              //         itemBuilder:
-              //             (context, index) {
-              //           return _doctorCard(
-              //             doctors[index],
-              //           );
-              //         },
-              //       ),
               child: allDoctors.isEmpty
     ? _emptyState()
     : Column(

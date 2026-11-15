@@ -24,21 +24,6 @@ class ScreenRecoveryProfile
     return '${distance.toStringAsFixed(1)} km';
   }
 
-  // String categoryName(
-  //   String? category,
-  // ) {
-  //   switch (category) {
-  //     case 'flatbed_recovery':
-  //       return 'Flatbed Recovery';
-
-  //     case 'tow_truck':
-  //       return 'Tow Truck';
-
-  //     default:
-  //       return 'Recovery';
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     final name =
@@ -52,9 +37,6 @@ class ScreenRecoveryProfile
     final vehicleNumber =
         driver['vehicleNumber'] ??
             'Not available';
-
-    // final category =
-    //     driver['category']?.toString();
 
     final uid =
         driver['uid']?.toString();
@@ -143,49 +125,7 @@ class ScreenRecoveryProfile
               ),
             ),
 
-          //  const SizedBox(height: 6),
-
-            // Text(
-            //  // categoryName(category),
-            //   style:
-            //       const TextStyle(
-            //     fontSize: 15,
-            //     color:
-            //         Color(0xFF138808),
-            //     fontWeight:
-            //         FontWeight.w600,
-            //   ),
-            // ),
-
             const SizedBox(height: 22),
-
-            // ==================================================
-            // DETAILS
-            // ==================================================
-
-            // _detailCard(
-            //   icon:
-            //       Icons.location_on_outlined,
-            //   title:
-            //       'Distance',
-            //   value:
-            //       formatDistance(
-            //     distance,
-            //   ),
-            // ),
-
-            // _detailCard(
-            //   icon:
-            //       Icons.local_shipping_outlined,
-            //   title:
-            //       'Recovery Vehicle',
-            //   value:
-            //       categoryName(category),
-            // ),
-
-            // ==================================================
-            // YELLOW VEHICLE NUMBER
-            // ==================================================
 
             Align(
               alignment:
@@ -314,29 +254,6 @@ class ScreenRecoveryProfile
             SizedBox(
               width: double.infinity,
               child: OutlinedButton.icon(
-                // onPressed:
-                //     uid == null ||
-                //             uid.isEmpty
-                //         ? null
-                //         : () {
-                //             Navigator.push(
-                //               context,
-                //               MaterialPageRoute(
-                //                 builder: (_) =>
-                //                     ScreenMessage(
-                //                   chatUser: {
-                //                     'uid': uid,
-                //                     'name':
-                //                         name.toString(),
-                //                     'photo':
-                //                         photo,
-                //                     'role':
-                //                         'recovery',
-                //                   },
-                //                 ),
-                //               ),
-                //             );
-                //           },
                 onPressed: () async {
   final String secondaryPhone =
       (driver['secondaryPhone'] ?? '').toString().trim();
@@ -425,66 +342,4 @@ class ScreenRecoveryProfile
     );
   }
 
-  // Widget _detailCard({
-  //   required IconData icon,
-  //   required String title,
-  //   required String value,
-  // }) {
-  //   return Container(
-  //     width: double.infinity,
-  //     margin:
-  //         const EdgeInsets.only(
-  //       bottom: 12,
-  //     ),
-  //     padding:
-  //         const EdgeInsets.all(15),
-  //     decoration:
-  //         BoxDecoration(
-  //       color: Colors.white,
-  //       borderRadius:
-  //           BorderRadius.circular(15),
-  //       border: Border.all(
-  //         color:
-  //             const Color(0xFFE0E0E0),
-  //       ),
-  //     ),
-  //     child: Row(
-  //       children: [
-  //         Icon(
-  //           icon,
-  //           color:
-  //               const Color(0xFF138808),
-  //         ),
-  //         const SizedBox(width: 12),
-  //         Expanded(
-  //           child: Column(
-  //             crossAxisAlignment:
-  //                 CrossAxisAlignment.start,
-  //             children: [
-  //               Text(
-  //                 title,
-  //                 style:
-  //                     const TextStyle(
-  //                   fontSize: 12,
-  //                   color:
-  //                       Colors.grey,
-  //                 ),
-  //               ),
-  //               const SizedBox(height: 3),
-  //               Text(
-  //                 value,
-  //                 style:
-  //                     const TextStyle(
-  //                   fontSize: 15,
-  //                   fontWeight:
-  //                       FontWeight.w600,
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 }

@@ -53,7 +53,6 @@ class _ScreenTeaShopProfileState
       Color(0xFF12652F);
 
   static const Color green =
-     // Color(0xFF198B35);
       Color(0xFF138808);
 
   static const Color orange =
@@ -62,19 +61,6 @@ class _ScreenTeaShopProfileState
   static const Color background =
       Color(0xFFF7F7F7);
 
-
-  // ==========================================================
-  // FIRESTORE
-  // ==========================================================
-
-  // final FirebaseFirestore
-  //     _firestore =
-  //     FirebaseFirestore.instance;
-
-
-  // ==========================================================
-  // LOADING STATE
-  // ==========================================================
 
   bool isLoading = false;
 

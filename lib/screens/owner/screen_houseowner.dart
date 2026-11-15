@@ -35,7 +35,6 @@ class _ScreenHouseOwnerState extends State<ScreenHouseOwner> {
       TextEditingController();
 
  static const Color green =
-     // Color(0xFF16803C);
       Color(0xFF138808);
 
   static const Color darkText =
@@ -83,26 +82,8 @@ class _ScreenHouseOwnerState extends State<ScreenHouseOwner> {
   bool mobileError = false;
   bool otpError = false;
   bool genderError = false;
-// String stateError = '';
-// String districtError = '';
-// String nearestCityError = '';
- // bool isCategoryDropdownOpen = false;
-
-
-  // ------------------------------------------------------------
-  // GENDER
-  // ------------------------------------------------------------
 
   String? selectedGender;
-
-  // final List<String> genderOptions = [
-  //   'Male',
-  //   'Female',
-  // ];
-
-  // ------------------------------------------------------------
-  // DISPOSE
-  // ------------------------------------------------------------
 
   @override
   void dispose() {
@@ -156,7 +137,6 @@ class _ScreenHouseOwnerState extends State<ScreenHouseOwner> {
 
     if (phone.length != 10) {
       showMessage(AppLocalizations.of(context)!.enteradigitmobilenumber
-      //  'Enter a valid 10-digit mobile number.',
       );
       return;
     }
@@ -561,8 +541,6 @@ class _ScreenHouseOwnerState extends State<ScreenHouseOwner> {
   }
 
      Widget mobileSection() {
-    // final bool verified =
-    //     otpVerified;
 
     return Column(
       crossAxisAlignment:
@@ -818,7 +796,6 @@ class _ScreenHouseOwnerState extends State<ScreenHouseOwner> {
    Padding(
     padding: EdgeInsets.only(left: 12, top: 5),
     child: Text(AppLocalizations.of(context)!.enteradigitmobilenumber,
-    //  'Enter a valid 10-digit mobile number.',
       style: TextStyle(
         color: Colors.red,
         fontSize: 12,
@@ -1355,7 +1332,6 @@ Future<void> loadDistricts() async {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       sectionTitle( AppLocalizations.of(context)!.state
-       // 'State',
       ),
 
       AnimatedContainer(
@@ -1420,9 +1396,7 @@ Future<void> loadDistricts() async {
                         selectedState == null ||
                                 selectedState!.isEmpty
                             ? AppLocalizations.of(context)!.selectyourState
-                            // 'Select your State'
                             : localizedState(selectedState!, languageCode),
-                            //selectedState!,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -1474,7 +1448,6 @@ Future<void> loadDistricts() async {
                       controller: stateSearchController,
                       onChanged: filterStates,
                       decoration: InputDecoration(
-                       // hintText: 'Search state...',
                        hintText: AppLocalizations.of(context)!.searchState,
                         prefixIcon: const Icon(
                           Icons.search,
@@ -1529,7 +1502,6 @@ Future<void> loadDistricts() async {
                       child: filteredStates.isEmpty
                           ? Center(
                               child: Text( AppLocalizations.of(context)!.nostatefound,
-                              //  'No state found',
                                 style: TextStyle(
                                   color:
                                       Colors.grey.shade600,
@@ -1553,23 +1525,7 @@ Future<void> loadDistricts() async {
                                     10,
                                   ),
                                   onTap: () {
-                                    // setState(() {
-                                    //   selectedState = state;
 
-                                    //   categoryError =
-                                    //       false;
-
-                                    //   isCategoryDropdownOpen =
-                                    //       false;
-
-                                    //   stateSearchController
-                                    //       .clear();
-
-                                    //   filteredStates =
-                                    //       List<String>.from(
-                                    //     indiaStates,
-                                    //   );
-                                    // });
                                     setState(() {
   final bool stateChanged = selectedState != state;
 
@@ -1639,14 +1595,6 @@ Future<void> loadDistricts() async {
 
                                         Expanded(
                                           child:
-                                          //  Text(
-                                          //   state,
-                                          //   style:
-                                          //       const TextStyle(
-                                          //     color: darkText,
-                                          //     fontSize: 14,
-                                          //   ),
-                                          // ),
                                           Text(localizedState(state, languageCode) ,
                                           style:
                                                 const TextStyle(
@@ -1680,7 +1628,6 @@ Future<void> loadDistricts() async {
             top: 5,
           ),
           child: Text( AppLocalizations.of(context)!.pleaseSelectyourState,
-            //'Please select your state.',
             style: TextStyle(
               color: Colors.red,
               fontSize: 12,
@@ -1692,13 +1639,11 @@ Future<void> loadDistricts() async {
   );
 }
 
-//Widget districtSection() {
 Widget districtSection() {
   final languageCode = currentLanguageCode(context);
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      //sectionTitle('District'),
       sectionTitle(AppLocalizations.of(context)!.district),
 
       AnimatedContainer(
@@ -1766,8 +1711,6 @@ Widget districtSection() {
                       child: Text(
                         selectedDistrict == null ||
                                 selectedDistrict!.isEmpty
-                            // ? 'Select your District'
-                            // : selectedDistrict!,
                             ? AppLocalizations.of(context)!.selectyourDistrict
 : localizedDistrict(selectedDistrict!, languageCode),
                         maxLines: 1,
@@ -1830,8 +1773,6 @@ Widget districtSection() {
 
                       decoration:
                           InputDecoration(
-                        // hintText:
-                        //     'Search district...',
                         hintText: AppLocalizations.of(context)!.searchdistrict,
 
                         prefixIcon:
@@ -2015,16 +1956,6 @@ Widget districtSection() {
                                         ),
 
                                         Expanded(
-                                          // child: Text(
-                                          //   district,
-                                          //   style:
-                                          //       const TextStyle(
-                                          //     color:
-                                          //         darkText,
-                                          //     fontSize:
-                                          //         14,
-                                          //   ),
-                                          // ),
                                           child: Text(
   localizedDistrict(district, languageCode),
   style: const TextStyle(
@@ -2058,7 +1989,6 @@ Widget districtSection() {
             top: 5,
           ),
           child: Text( AppLocalizations.of(context)!.pleaseselectyourdistrict,
-          //  'Please select your district.',
             style: TextStyle(
               color: Colors.red,
               fontSize: 12,
@@ -2069,30 +1999,6 @@ Widget districtSection() {
     ],
   );
 }
-  // ============================================================
-  // SAVE BASIC LOCAL DATA
-  // ============================================================
-
-  // Future<void> saveBasicUserToHive() async {
-  //   try {
-  //     final Box userBox =
-  //         Hive.box('userBox');
-
-  //     await userBox.put(
-  //       'name',
-  //       nameController.text.trim(),
-  //     );
-
-  //     await userBox.put(
-  //       'mobile',
-  //       mobileController.text.trim(),
-  //     );
-  //   } catch (e) {
-  //     debugPrint(
-  //       'Hive save error: $e',
-  //     );
-  //   }
-  // }
 
   Future<void> saveBasicUserToHive() async {
   try {
@@ -2341,23 +2247,6 @@ if (stateError.isNotEmpty ||
     return;
   }
 
-//   if (!privacyPolicyAccepted) {
-//   setState(() {
-//     privacyPolicyError =
-//         'Please accept the Privacy Policy and Terms & Conditions.';
-//   });
-
-//   showMessage(
-//     'Please accept the Privacy Policy and Terms & Conditions.',
-//   );
-
-//   return;
-// }
-
-  // ============================================================
-  // CURRENT FIREBASE USER
-  // ============================================================
-
   final User? user = auth.currentUser;
 
   if (user == null) {
@@ -2383,17 +2272,6 @@ if (stateError.isNotEmpty ||
 
     await saveBasicUserToHive();
 
-    // ============================================================
-    // 2. SAVE LOGIN STATUS
-    // ============================================================
-
-    // final prefs =
-    //     await SharedPreferences.getInstance();
-
-    // await prefs.setBool(
-    //   'isLoggedIn',
-    //   true,
-    // );
     await CommonProfileService.saveLogin(
   uid: user.uid,
   name: nameController.text.trim(),
@@ -2460,63 +2338,7 @@ if (stateError.isNotEmpty ||
     );
   }
 }
-  // ============================================================
-  // FIELD DECORATION
-  // ============================================================
 
-  // InputDecoration fieldDecoration({
-  //   required String hintText,
-  //   required bool hasError,
-  // }) {
-  //   return InputDecoration(
-  //     hintText: hintText,
-
-  //     filled: true,
-
-  //     fillColor:
-  //         const Color(0xFFF8F9FA),
-
-  //     contentPadding:
-  //         const EdgeInsets.symmetric(
-  //       horizontal: 18,
-  //       vertical: 17,
-  //     ),
-
-  //     enabledBorder:
-  //         OutlineInputBorder(
-  //       borderRadius:
-  //           BorderRadius.circular(16),
-
-  //       borderSide: BorderSide(
-  //         color: hasError
-  //             ? Colors.red
-  //             : Colors.grey.shade300,
-
-  //         width:
-  //             hasError ? 2 : 1,
-  //       ),
-  //     ),
-
-  //     focusedBorder:
-  //         OutlineInputBorder(
-  //       borderRadius:
-  //           BorderRadius.circular(16),
-
-  //       borderSide: BorderSide(
-  //         color: hasError
-  //             ? Colors.red
-  //             : const Color(0xFFFF8C00),
-
-  //         width: 2,
-  //       ),
-  //     ),
-
-  //     errorText:
-  //         hasError
-  //             ? null
-  //             : null,
-  //   );
-  // }
      InputDecoration fieldDecoration({
   required String hintText,
    bool hasError = false,
@@ -2792,7 +2614,6 @@ if (stateError.isNotEmpty ||
                     ),
 
                     child: Text( AppLocalizations.of(context)!.enteradigitmobilenumber,
-                    //  'Enter a valid 10-digit number',
 
                       style:
                           TextStyle(
@@ -2865,8 +2686,6 @@ if (nearestCityError.isNotEmpty)
                     child:
                         _genderButton(
                       title: 'Male',
-                      // icon:
-                      //     Icons.male,
                       value: 'Male',
                     ),
                   ),
@@ -2879,8 +2698,6 @@ if (nearestCityError.isNotEmpty)
                     child:
                         _genderButton(
                       title: 'Female',
-                      // icon:
-                      //     Icons.female,
                       value:
                           'Female',
                     ),
@@ -3001,7 +2818,6 @@ if (nearestCityError.isNotEmpty)
   Widget _genderButton({
     required String title,
     required String value,
-    // required IconData icon,
   }) {
     final bool selected =
         selectedGender == value;
@@ -3054,15 +2870,6 @@ if (nearestCityError.isNotEmpty)
               MainAxisAlignment.center,
 
           children: [
-            // Icon(
-            //   icon,
-
-            //   color: selected
-            //       ? const Color(
-            //           0xFF159B16,
-            //         )
-            //       : Colors.grey.shade700,
-            // ),
 
             const SizedBox(width: 8),
 

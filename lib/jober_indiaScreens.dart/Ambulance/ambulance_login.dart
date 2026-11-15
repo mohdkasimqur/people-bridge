@@ -1761,7 +1761,6 @@ Future<void> loadDistricts() async {
             top: 5,
           ),
           child: Text( AppLocalizations.of(context)!.pleaseSelectyourState,
-            //'Please select your state.',
             style: TextStyle(
               color: Colors.red,
               fontSize: 12,
@@ -1773,13 +1772,11 @@ Future<void> loadDistricts() async {
   );
 }
 
-//Widget districtSection() {
 Widget districtSection() {
   final languageCode = currentLanguageCode(context);
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      //sectionTitle('District'),
       sectionTitle(AppLocalizations.of(context)!.district),
 
       AnimatedContainer(
@@ -3796,7 +3793,6 @@ _profilePhotoSection(),
 
 const SizedBox(height: 32),
    sectionTitle( AppLocalizations.of(context)!.termsConditions
-    //'Terms & Conditions'
     ),
 
               const SizedBox(height: 5),

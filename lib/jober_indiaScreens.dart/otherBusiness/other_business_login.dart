@@ -14,7 +14,6 @@ import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:jober_india/jober_indiaScreens.dart/common_profile_services.dart';
 import 'package:jober_india/jober_indiaScreens.dart/otherBusiness/categories.dart';
-//import 'package:jober_india/jober_indiaScreens.dart/otherBusiness/otherbusiness_data.dart';
 import 'package:jober_india/jober_indiaScreens.dart/screen_camera_capture.dart';
 import 'package:jober_india/jober_indiaScreens.dart/screen_home.dart';
 import 'package:jober_india/l10n/app_localizations.dart';
@@ -79,8 +78,6 @@ class _ScreenOtherBusinessLoginState
        static const Color green =
        Color(0xFF138808);
 
-     // Color(0xFF16803C);
-
  File? profilePhoto;
   String? profilePhotoUrl;
 bool isUploadingPhoto = false;
@@ -105,9 +102,6 @@ bool locationError = false;
 
 String? mobileErrorMessage;
 String secondaryMobileErrorMessage = '';
-
-  // static const Color submitGreen =
-  //     Color(0xFF159B16);
 
   static const Color darkText =
       Color(0xFF202124);
@@ -197,7 +191,6 @@ Future<void> sendOTP({bool isResend = false}) async {
 
   if (!RegExp(r'^[6-9][0-9]{9}$').hasMatch(phone)) {
     showMessage( AppLocalizations.of(context)!.enteradigitmobilenumber,
-     // 'Enter a valid 10-digit mobile number.'
       );
     return;
   }
@@ -961,13 +954,6 @@ Future<String?> _processManualGarageLocation(
       value.contains('maps.app.goo.gl') ||
       value.contains('goo.gl/maps');
 
-  // ==========================================================
-  // NORMAL TEXT
-  // ==========================================================
-
-  // if (!isGoogleMapsLink) {
-  //   return value;
-  // }
   if (!isGoogleMapsLink) {
   try {
     final locations =
@@ -1434,8 +1420,6 @@ if (!locationMatches) {
   }
 
      Widget mobileSection() {
-    // final bool verified =
-    //     otpVerified;
 
     return Column(
       crossAxisAlignment:
@@ -1687,18 +1671,6 @@ if (!locationMatches) {
               ],
             ),
           ),
-  //         if (mobileError)
-  // const Padding(
-  //   padding: EdgeInsets.only(left: 12, top: 5),
-  //   child: Text(
-  //     'Enter a valid 10-digit mobile number.',
-  //     style: TextStyle(
-  //       color: Colors.red,
-  //       fontSize: 12,
-  //       fontWeight: FontWeight.w500,
-  //     ),
-  //   ),
-  // ),
   if (mobileError &&
     mobileErrorMessage != null)
   Padding(
@@ -1872,8 +1844,6 @@ if (!locationMatches) {
             autofillHints: const [
   AutofillHints.oneTimeCode,
 ],
-            // enabled:
-            //     !isVerifying,
             enabled: !isVerifying &&
     !isSendingOtp &&
     secondsRemaining > 0,
@@ -2411,7 +2381,6 @@ Future<void> loadDistricts() async {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       sectionTitle( AppLocalizations.of(context)!.state
-       // 'State',
       ),
 
       AnimatedContainer(
@@ -2476,9 +2445,7 @@ Future<void> loadDistricts() async {
                         selectedState == null ||
                                 selectedState!.isEmpty
                             ? AppLocalizations.of(context)!.selectyourState
-                            // 'Select your State'
                             : localizedState(selectedState!, languageCode),
-                            //selectedState!,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -2530,7 +2497,6 @@ Future<void> loadDistricts() async {
                       controller: stateSearchController,
                       onChanged: filterStates,
                       decoration: InputDecoration(
-                       // hintText: 'Search state...',
                        hintText: AppLocalizations.of(context)!.searchState,
                         prefixIcon: const Icon(
                           Icons.search,
@@ -2585,7 +2551,6 @@ Future<void> loadDistricts() async {
                       child: filteredStates.isEmpty
                           ? Center(
                               child: Text( AppLocalizations.of(context)!.nostatefound,
-                              //  'No state found',
                                 style: TextStyle(
                                   color:
                                       Colors.grey.shade600,
@@ -2609,23 +2574,7 @@ Future<void> loadDistricts() async {
                                     10,
                                   ),
                                   onTap: () {
-                                    // setState(() {
-                                    //   selectedState = state;
 
-                                    //   categoryError =
-                                    //       false;
-
-                                    //   isCategoryDropdownOpen =
-                                    //       false;
-
-                                    //   stateSearchController
-                                    //       .clear();
-
-                                    //   filteredStates =
-                                    //       List<String>.from(
-                                    //     indiaStates,
-                                    //   );
-                                    // });
                                     setState(() {
   final bool stateChanged = selectedState != state;
 
@@ -2695,14 +2644,6 @@ Future<void> loadDistricts() async {
 
                                         Expanded(
                                           child:
-                                          //  Text(
-                                          //   state,
-                                          //   style:
-                                          //       const TextStyle(
-                                          //     color: darkText,
-                                          //     fontSize: 14,
-                                          //   ),
-                                          // ),
                                           Text(localizedState(state, languageCode) ,
                                           style:
                                                 const TextStyle(
@@ -2736,7 +2677,6 @@ Future<void> loadDistricts() async {
             top: 5,
           ),
           child: Text( AppLocalizations.of(context)!.pleaseSelectyourState,
-            //'Please select your state.',
             style: TextStyle(
               color: Colors.red,
               fontSize: 12,
@@ -2748,13 +2688,11 @@ Future<void> loadDistricts() async {
   );
 }
 
-//Widget districtSection() {
 Widget districtSection() {
   final languageCode = currentLanguageCode(context);
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      //sectionTitle('District'),
       sectionTitle(AppLocalizations.of(context)!.district),
 
       AnimatedContainer(
@@ -2822,8 +2760,6 @@ Widget districtSection() {
                       child: Text(
                         selectedDistrict == null ||
                                 selectedDistrict!.isEmpty
-                            // ? 'Select your District'
-                            // : selectedDistrict!,
                             ? AppLocalizations.of(context)!.selectyourDistrict
 : localizedDistrict(selectedDistrict!, languageCode),
                         maxLines: 1,
@@ -2886,8 +2822,6 @@ Widget districtSection() {
 
                       decoration:
                           InputDecoration(
-                        // hintText:
-                        //     'Search district...',
                         hintText: AppLocalizations.of(context)!.searchdistrict,
 
                         prefixIcon:
@@ -3071,16 +3005,6 @@ Widget districtSection() {
                                         ),
 
                                         Expanded(
-                                          // child: Text(
-                                          //   district,
-                                          //   style:
-                                          //       const TextStyle(
-                                          //     color:
-                                          //         darkText,
-                                          //     fontSize:
-                                          //         14,
-                                          //   ),
-                                          // ),
                                           child: Text(
   localizedDistrict(district, languageCode),
   style: const TextStyle(
@@ -3114,7 +3038,6 @@ Widget districtSection() {
             top: 5,
           ),
           child: Text( AppLocalizations.of(context)!.pleaseselectyourdistrict,
-          //  'Please select your district.',
             style: TextStyle(
               color: Colors.red,
               fontSize: 12,
@@ -4552,33 +4475,6 @@ Future<void> submitProfile() async {
     hasError = true;
   }
 
-  // ========================================================
-  // STATE / DISTRICT / NEAREST TOWN
-  // ========================================================
-
-  // final String stateValue = selectedState?.trim() ?? '';
-
-  // final String districtValue =
-  //     selectedDistrict?.trim() ?? '';
-
-  // final String nearestTownValue =
-  //     nearestCityController.text.trim();
-
-  // if (stateValue.isEmpty) {
-  //   stateError = 'Please select a state.';
-  //   hasError = true;
-  // }
-
-  // if (districtValue.isEmpty) {
-  //   districtError = 'Please select a district.';
-  //   hasError = true;
-  // }
-
-  // if (nearestTownValue.isEmpty) {
-  //   nearestCityError = 'Please enter the nearest town or city.';
-  //   hasError = true;
-  // }
-
 final stateValue = selectedState?.trim() ?? '';
 final districtValue = selectedDistrict?.trim() ?? '';
 final nearestTownValue =
@@ -4626,19 +4522,6 @@ if (stateError.isNotEmpty ||
   } else {
     locationError = false;
   }
-
-  // // ========================================================
-  // // PRIVACY POLICY
-  // // ========================================================
-
-  // if (!privacyPolicyAccepted) {
-  //   privacyPolicyError =
-  //       'Please accept the Privacy Policy and Terms & Conditions.';
-  //   hasError = true;
-  // }
-  // ============================================================
-  // TERMS & CONDITION / PRIVACY POLICY
-  // ============================================================
 
 if (!privacyPolicyAccepted) {
   privacyPolicyError =
@@ -4893,8 +4776,6 @@ if (!privacyPolicyAccepted) {
 
   @override
   Widget build(BuildContext context) {
-    // final selectedShop =
-    //     selectedCategoryIsShopType;
 
     return Scaffold(
       backgroundColor:
@@ -4936,7 +4817,6 @@ if (!privacyPolicyAccepted) {
               ),
               TextSpan(
                 text:  AppLocalizations.of(context)!.registration,
-                //'Registration',
                 style: TextStyle(
                   fontSize: 25,
                   fontWeight:
@@ -5016,7 +4896,6 @@ const SizedBox(height: 20),
                   hasError: businessNameError ,
                   icon:
                       Icons.business_outlined,
-                 // border: OutlineInputBorder(),
                 ),
                 validator: (value) {
                   if (value == null ||
@@ -5058,7 +4937,6 @@ sectionTitle('Mobile Number'),
                     ),
 
                     child: Text(AppLocalizations.of(context)!.enteradigitmobilenumber,
-                    //  'Enter a valid 10-digit number',
 
                       style:
                           TextStyle(
@@ -5239,758 +5117,3 @@ if (nearestCityError.isNotEmpty)
     );
   }
 }
-
-
-  // ============================================================
-  // OTHER BUSINESS SUBMIT
-  // ============================================================
-
-// Future<void> submitBusiness() async {
-//   if (isSubmitting) return;
-
-//   FocusScope.of(context).unfocus();
-
-//   bool hasError = false;
-
-//   // ==========================================================
-//   // CLEAR ALL PREVIOUS ERRORS
-//   // ==========================================================
-
-//   setState(() {
-//     nameError = false;
-//     businessNameError = false;
-//     mobileError = false;
-//     secondaryMobileError = false;
-//     categoryError = false;
-//     stateError = '';
-    
-//     mobileErrorMessage = null;
-//     secondaryMobileErrorMessage = '';
-//     privacyPolicyError = null;
-//   });
-
-//   // ==========================================================
-//   // 1. USERNAME - REQUIRED
-//   // ==========================================================
-
-//   final String username =
-//       usernameController.text.trim();
-
-//   if (username.isEmpty) {
-//     nameError = true;
-//     hasError = true;
-//   }
-
-//   // ==========================================================
-//   // 2. BUSINESS NAME - REQUIRED
-//   // ==========================================================
-
-//   final String businessName =
-//       businessNameController.text.trim();
-
-//   if (businessName.isEmpty) {
-//     businessNameError = true;
-//     hasError = true;
-//   }
-
-//   // ==========================================================
-//   // 3. PRIMARY MOBILE - REQUIRED
-//   // ==========================================================
-
-//   final String primary =
-//       mobileController.text.trim();
-
-//   if (!RegExp(r'^[6-9][0-9]{9}$').hasMatch(primary)) {
-//     mobileError = true;
-//     mobileErrorMessage = AppLocalizations.of(context)!.enteradigitmobilenumber;
-//        // 'Enter a valid 10-digit mobile number.';
-//     hasError = true;
-//   } else if (!otpVerified) {
-//     mobileError = true;
-//     mobileErrorMessage =
-//         'Please verify your mobile number.';
-//     hasError = true;
-//   }
-
-//   // ==========================================================
-//   // 4. SECONDARY MOBILE - REQUIRED
-//   // ==========================================================
-
-//   final String secondary =
-//       secondaryPhoneController.text.trim();
-
-//   if (!RegExp(r'^[6-9][0-9]{9}$').hasMatch(secondary)) {
-//     secondaryMobileError = true;
-//     secondaryMobileErrorMessage =
-//         'Please enter a valid 10-digit secondary mobile number.';
-//     hasError = true;
-//   }
-
-//     final stateValue = selectedState?.trim() ?? '';
-// final districtValue = selectedDistrict?.trim() ?? '';
-// final nearestCityValue =
-//     nearestCityController.text.trim();
-
-// setState(() {
-//   stateError = stateValue.isEmpty
-//       ? 'Please select a state.'
-//       : '';
-
-//   districtError = districtValue.isEmpty
-//       ? 'Please select a district.'
-//       : '';
-
-//   nearestCityError = nearestCityValue.isEmpty
-//       ? 'Please enter the nearest town or city.'
-//       : '';
-// });
-
-// if (stateError.isNotEmpty ||
-//     districtError.isNotEmpty ||
-//     nearestCityError.isNotEmpty) {
-//   hasError = true;
-// }
-
-//   // ==========================================================
-//   // 5. BUSINESS CATEGORY - REQUIRED
-//   // ==========================================================
-
-//   final List<String> categories =
-//       List<String>.from(selectedCategories);
-
-//   if (categories.isEmpty) {
-//     categoryError = true;
-//     hasError = true;
-//   }
-
-// // ==========================================================
-// // GARAGE LOCATION
-// // ==========================================================
-
-// if (currentLocation == null) {
-//   locationError = true;
-//   hasError = true;
-// } else {
-//   locationError = false;
-// }
-
-//   // ==========================================================
-//   // 6. PRIVACY POLICY + TERMS - REQUIRED
-//   // ==========================================================
-
-//   if (!privacyPolicyAccepted) {
-//     privacyPolicyError =
-//         'Please accept the Privacy Policy and Terms & Conditions.';
-//     hasError = true;
-//   }
-
-//   // ==========================================================
-//   // SHOP TIMING - OPTIONAL
-//   //
-//   // But if the user selects only one time,
-//   // both opening and closing time are required.
-//   // ==========================================================
-
-//   if (!isOpen24Hours) {
-//     final bool onlyOpeningSelected =
-//         openingTime != null &&
-//         closingTime == null;
-
-//     final bool onlyClosingSelected =
-//         openingTime == null &&
-//         closingTime != null;
-
-//     if (onlyOpeningSelected ||
-//         onlyClosingSelected) {
-//       hasError = true;
-
-//       showMessage(
-//         'Please select both opening and closing time.',
-//         error: true,
-//       );
-//     }
-//   }
-
-//   // ==========================================================
-//   // SHOW ALL RED VALIDATION ERRORS
-//   // ==========================================================
-
-//   if (mounted) {
-//     setState(() {});
-//   }
-
-//   // Stop submission if anything required is missing.
-//   if (hasError) {
-//     return;
-//   }
-
-//   // ==========================================================
-//   // START SUBMISSION
-//   // ==========================================================
-
-//   setState(() {
-//     isSubmitting = true;
-//   });
-
-//   try {
-//     // ========================================================
-//     // FIREBASE USER
-//     // ========================================================
-
-//     final User? user =
-//         _auth.currentUser;
-
-//     if (user == null) {
-//       throw FirebaseAuthException(
-//         code: 'unauthenticated',
-//         message: 'Please verify your mobile number again.',
-//       );
-//     }
-
-//     // ========================================================
-//     // PHOTO UPLOAD - OPTIONAL
-//     // ========================================================
-
-//     String? savedProfilePhotoUrl =
-//         profilePhotoUrl;
-
-//     if (profilePhoto != null) {
-//       try {
-//         final Reference ref =
-//             FirebaseStorage.instance
-//                 .ref()
-//                 .child(
-//                   'other_business_profiles/${user.uid}.jpg',
-//                 );
-
-//         await ref.putFile(profilePhoto!);
-
-//         savedProfilePhotoUrl =
-//             await ref.getDownloadURL();
-
-//         profilePhotoUrl =
-//             savedProfilePhotoUrl;
-//       } catch (e) {
-//         debugPrint(
-//           'Optional profile photo upload failed: $e',
-//         );
-
-//         // Photo is optional.
-//         // Registration continues even if photo upload fails.
-//       }
-//     }
-
-//     // ========================================================
-//     // CATEGORY KEYS
-//     // ========================================================
-
-//     final List<String> categoryKeys =
-//         categories
-//             .map(categoryKey)
-//             .toList();
-
-//     // ========================================================
-//     // SHOP TYPE
-//     // ========================================================
-
-//     final bool isShopType =
-//         selectedCategoryIsShopType;
-
-//     // ========================================================
-//     // OPTIONAL DESCRIPTION
-//     // ========================================================
-
-//     final String description =
-//         descriptionController.text.trim();
-
-//     // ========================================================
-//     // OPTIONAL TIMING
-//     // ========================================================
-
-//     final String? openingTimeString =
-//         isOpen24Hours
-//             ? null
-//             : openingTime == null
-//                 ? null
-//                 : timeToString(openingTime!);
-
-//     final String? closingTimeString =
-//         isOpen24Hours
-//             ? null
-//             : closingTime == null
-//                 ? null
-//                 : timeToString(closingTime!);
-
-//     // ========================================================
-//     // CREATE DATA OBJECT
-//     // ========================================================
-
-//     final OtherBusinessData data =
-//         OtherBusinessData(
-//       uid: user.uid,
-
-//       username: username,
-
-//       name: businessName,
-
-//       primaryMobile:
-//           '+91$primary',
-
-//       secondaryMobile:
-//           '+91$secondary',
-
-//       categories:
-//           categories,
-
-//       categoryKeys:
-//           categoryKeys,
-
-//       description:
-//           description,
-
-//       profilePhotoUrl:
-//           savedProfilePhotoUrl,
-
-//       // hasLocation:
-//       //     currentLocation != null,
-
-//       // latitude:
-//       //     currentLocation?.latitude,
-
-//       // longitude:
-//       //     currentLocation?.longitude,
-//       location: currentLocation,
-
-//       isShopType:
-//           isShopType,
-
-//       openingTime:
-//           openingTimeString,
-
-//       closingTime:
-//           closingTimeString,
-
-//       createdAt:
-//           DateTime.now(),
-
-//       updatedAt:
-//           DateTime.now(),
-//     );
-
-//     // ========================================================
-//     // ========================================================
-//     // SAVE EVERYTHING TO HIVE FIRST
-//     // ========================================================
-//     // ========================================================
-
-//     final Box box =
-//         Hive.box('settings');
-
-//     await box.put(
-//       'otherBusinessRegistered',
-//       true,
-//     );
-
-//     await box.put(
-//       'otherBusinessUid',
-//       user.uid,
-//     );
-
-//     await box.put(
-//       'otherBusinessUsername',
-//       username,
-//     );
-
-//     await box.put(
-//       'otherBusinessName',
-//       businessName,
-//     );
-
-//     await box.put(
-//       'otherBusinessMobile',
-//       '+91$primary',
-//     );
-
-//     await box.put(
-//       'otherBusinessSecondaryMobile',
-//       '+91$secondary',
-//     );
-
-//     await box.put(
-//   'otherBusinessState',
-//   selectedState!.trim(),
-// );
-
-// await box.put(
-//   'otherBusinessDistrict',
-//   selectedDistrict!.trim(),
-// );
-
-// await box.put(
-//   'otherBusinessNearestTown',
-//   nearestCityController.text.trim(),
-// );
-
-//     await box.put(
-//       'otherBusinessCategories',
-//       List<String>.from(categories),
-//     );
-
-//     await box.put(
-//       'otherBusinessCategoryKeys',
-//       List<String>.from(categoryKeys),
-//     );
-
-//     await box.put(
-//       'otherBusinessDescription',
-//       description,
-//     );
-
-//     await box.put(
-//       'otherBusinessOpeningTime',
-//       openingTimeString ?? '',
-//     );
-
-//     await box.put(
-//       'otherBusinessClosingTime',
-//       closingTimeString ?? '',
-//     );
-
-//     await box.put(
-//       'otherBusinessIsOpen24Hours',
-//       isOpen24Hours,
-//     );
-
-//     await box.put(
-//       'otherBusinessProfilePhoto',
-//       savedProfilePhotoUrl ?? '',
-//     );
-
-//     await box.put(
-//       'otherBusinessHasLocation',
-//       currentLocation != null,
-//     );
-
-//     await box.put(
-//       'otherBusinessPrivacyPolicyAccepted',
-//       privacyPolicyAccepted,
-//     );
-
-//     await box.put(
-//       'otherBusinessIsShopType',
-//       isShopType,
-//     );
-//       await box.put(
-//   'otherBusinessLocation',
-//   currentLocation?.toMap(),
-// );
-
-//     // ========================================================
-//     // SAVE COMMON LOGIN INFORMATION
-//     // ========================================================
-
-//     await CommonProfileService.saveLogin(
-//       uid: user.uid,
-//       name: username,
-//       mobile: primary,
-//       role: 'other_business',
-//     );
-
-//     // ========================================================
-//     // HIVE IS NOW SAVED
-//     // ========================================================
-
-//     debugPrint(
-//       'Other Business saved locally to Hive.',
-//     );
-
-//     // ========================================================
-//     // START FIRESTORE IN BACKGROUND
-//     //
-//     // DO NOT AWAIT THIS HERE.
-//     // ========================================================
-
-//     Future<void> saveFirestoreInBackground() async {
-//       try {
-//         // ------------------------------------------------------
-//         // MAIN BUSINESS DOCUMENT
-//         // ------------------------------------------------------
-
-//        final Map<String, dynamic> firestoreData =
-//     Map<String, dynamic>.from(
-//   data.toFirestore(),
-// );
-
-// // Add these three fields.
-// firestoreData['state'] = selectedState!.trim();
-// firestoreData['district'] = selectedDistrict!.trim();
-// firestoreData['nearestTown'] =
-//     nearestCityController.text.trim();
-
-//         // ------------------------------------------------------
-//         // PRIVACY / TERMS
-//         // ------------------------------------------------------
-
-//         firestoreData[
-//             'privacyPolicyAccepted'] =
-//             privacyPolicyAccepted;
-
-//         // ------------------------------------------------------
-//         // 24 HOURS
-//         // ------------------------------------------------------
-
-//         firestoreData[
-//             'isOpen24Hours'] =
-//             isOpen24Hours;
-
-//         // ------------------------------------------------------
-//         // CUSTOM CATEGORIES
-//         // ------------------------------------------------------
-
-//         firestoreData[
-//             'customCategories'] =
-//             List<String>.from(
-//           customCategories,
-//         );
-
-//         firestoreData[
-//             'isCustomCategory'] =
-//             customCategories.isNotEmpty;
-
-//         // ------------------------------------------------------
-//         // ROLE
-//         // ------------------------------------------------------
-
-//         firestoreData[
-//             'role'] =
-//             'other_business';
-
-//         firestoreData[
-//             'isActive'] =
-//             true;
-
-//         firestoreData[
-//             'updatedAt'] =
-//             FieldValue.serverTimestamp();
-
-//         // ------------------------------------------------------
-//         // MAIN DOCUMENT
-//         // ------------------------------------------------------
-
-//         await _firestore
-//             .collection('otherBusinesses')
-//             .doc(user.uid)
-//             .set(
-//               firestoreData,
-//               SetOptions(merge: true),
-//             );
-
-//         // ------------------------------------------------------
-//         // CATEGORY INDEX
-//         // ------------------------------------------------------
-
-//         // final WriteBatch batch =
-//         //     _firestore.batch();
-
-//         // for (final category in categories) {
-//         //   final String key =
-//         //       categoryKey(category);
-
-//         //   final DocumentReference categoryRef =
-//         //       _firestore
-//         //           .collection(
-//         //             'otherBusinessCategories',
-//         //           )
-//         //           .doc(key);
-
-//         //   final Iterable<OtherBusinessCategory>
-//         //       defaultMatch =
-//         //       defaultOtherBusinessCategories
-//         //           .where(
-//         //     (item) => item.key == key,
-//         //   );
-
-//         //   final bool isDefault =
-//         //       defaultMatch.isNotEmpty;
-
-//         //   final bool categoryIsShop =
-//         //       defaultMatch.isNotEmpty
-//         //           ? defaultMatch.first.isShopType
-//         //           : isShopType;
-
-//         //   batch.set(
-//         //     categoryRef,
-//         //     {
-//         //       'name': category,
-//         //       'key': key,
-//         //       'isDefault': isDefault,
-//         //       'isShopType': categoryIsShop,
-//         //       'updatedAt':
-//         //           FieldValue.serverTimestamp(),
-//         //     },
-//         //     SetOptions(merge: true),
-//         //   );
-//         // }
-
-//         // await batch.commit();
-
-//         // debugPrint(
-//         //   'Other Business Firestore background save successful.',
-//         // );
-//         // ========================================================
-// // SAVE CATEGORY INDEX DOCUMENTS
-// // ========================================================
-
-// for (int i = 0; i < categories.length; i++) {
-
-//   final String categoryName = categories[i].trim();
-
-//   if (categoryName.isEmpty) continue;
-
-//   // Always generate the key from the category name.
-//   final String key = categoryKey(categoryName);
-
-//   // Find built-in category information.
-//   final defaultMatch =
-//       defaultOtherBusinessCategories.where(
-//     (item) => item.key == key,
-//   );
-
-//   final bool isDefault = defaultMatch.isNotEmpty;
-
-//   final bool categoryIsShop = isDefault
-//       ? defaultMatch.first.isShopType
-//       : false;
-
-//   final DocumentReference categoryRef = _firestore
-//       .collection('otherBusinessCategories')
-//       .doc(key);
-
-//   debugPrint(
-//     'Saving category: $categoryName | key: $key',
-//   );
-
-//   // Save each category independently.
-//   await categoryRef.set(
-//     {
-//       'name': categoryName,
-//       'key': key,
-//       'isDefault': isDefault,
-//       'isShopType': categoryIsShop,
-//       'updatedAt': FieldValue.serverTimestamp(),
-//     },
-//     SetOptions(merge: true),
-//   );
-
-//   debugPrint(
-//     'Category saved successfully: $key',
-//   );
-// }
-
-// debugPrint(
-//   'ALL OTHER BUSINESS CATEGORIES SAVED SUCCESSFULLY',
-// );
-//       } catch (e) {
-//         debugPrint(
-//           'Other Business Firestore background save failed: $e',
-//         );
-//         rethrow;
-//       }
-//     }
-
-//     // Start Firestore save.
-//     // The user does NOT wait for it.
-//     saveFirestoreInBackground();
-
-//     // ========================================================
-//     // WAIT 3 SECONDS BEFORE NAVIGATION
-//     // ========================================================
-
-//     await Future.delayed(
-//       const Duration(seconds: 3),
-//     );
-
-//     if (!mounted) return;
-
-//     setState(() {
-//       isSubmitting = false;
-//     });
-
-//     // ========================================================
-//     // NAVIGATE TO HOME
-//     // ========================================================
-
-//     Navigator.pushAndRemoveUntil(
-//       context,
-//       MaterialPageRoute(
-//         builder: (_) => const ScreenHome(),
-//       ),
-//       (route) => false,
-//     );
-//   }
-
-//   // ==========================================================
-//   // FIREBASE AUTH ERROR
-//   // ==========================================================
-
-//   on FirebaseAuthException catch (e) {
-//     debugPrint(
-//       'Other Business Auth error: $e',
-//     );
-
-
-//     if (!mounted) return;
-
-//     setState(() {
-//       isSubmitting = false;
-//     });
-
-//     showMessage(
-//       e.message ??
-//           'Authentication failed. Please try again.',
-//       error: true,
-//     );
-//   }
-
-//   // ==========================================================
-//   // HIVE ERROR
-//   // ==========================================================
-
-//   on HiveError catch (e) {
-//     debugPrint(
-//       'Other Business Hive error: $e',
-//     );
-
-//     if (!mounted) return;
-
-//     setState(() {
-//       isSubmitting = false;
-//     });
-
-//     showMessage(
-//       'Could not save your business information locally.',
-//       error: true,
-//     );
-//   }
-
-//   // ==========================================================
-//   // OTHER ERROR
-//   // ==========================================================
-
-//   catch (e) {
-//     debugPrint(
-//       'Other Business submit error: $e',
-//     );
-
-//     if (!mounted) return;
-
-//     setState(() {
-//       isSubmitting = false;
-//     });
-
-//     showMessage(
-//       'Unable to register business. Please try again.',
-//       error: true,
-//     );
-//   }
-// }

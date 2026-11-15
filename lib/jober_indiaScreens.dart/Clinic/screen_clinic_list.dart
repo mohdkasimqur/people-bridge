@@ -147,14 +147,6 @@ Future<void> loadPaymentData() async {
         : paidDistance;
   }
 
-  // bool _canOpenClinic(double distanceKm) {
-  //   if (distanceKm <= freeDistanceKm) {
-  //     return true;
-  //   }
-
-  //   return hasActiveSubscription &&
-  //       distanceKm <= paidDistance;
-  // }
   bool _canOpenClinic(double distanceKm) {
 
   // Free access within 1 KM.
@@ -491,27 +483,6 @@ if (distanceKm > 50.0) continue;
     }
   }
 
-  // ==========================================================
-  // PROFILE ACCESS PLACEHOLDER
-  // ==========================================================
-
-  // void _handleClinicTap(
-  //   Map<String, dynamic> clinic,
-  // ) {
-  //   final distanceKm =
-  //       (clinic['distanceKm'] as num).toDouble();
-
-  //   if (!_canOpenClinic(distanceKm)) {
-  //     _showSubscriptionRequiredDialog(distanceKm);
-  //     return;
-  //   }
-
-  //   // We will connect this to the clinic profile screen
-  //   // after that page is created.
-  //   _showMessage(
-  //     'Clinic profile page will be connected next.',
-  //   );
-  // }
   void _handleClinicTap(Map<String, dynamic> clinic) {
   final distanceKm =
       (clinic['distanceKm'] as num).toDouble();

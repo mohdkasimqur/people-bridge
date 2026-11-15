@@ -30,15 +30,6 @@ class _RentalNearbyScreenState
   bool _loading = true;
   bool _locationError = false;
 
- // Position? _userPosition;
-
-  // double _paidRadiusKm = 5.0;
-
-  // List<_RentalResult> _rentals = [];
-  // ============================================================
-// SUBSCRIPTION AND PAGINATION
-// ============================================================
-
 static const double freeRadiusKm = 1.0;
 
 static const int rentalsPerPage = 10;
@@ -92,15 +83,6 @@ List<_RentalResult> get _currentPageRentals {
 
         return;
       }
-
-     // _userPosition = position;
-
-      // --------------------------------------------------------
-      // IMPORTANT:
-      //
-      // Replace this function later with your existing paid-radius
-      // storage if its Hive/SharedPreferences key is different.
-      // --------------------------------------------------------
 
       _paidRadiusKm = await _getPaidRadiusKm();
 
@@ -407,33 +389,6 @@ List<_RentalResult> get _currentPageRentals {
     return null;
   }
 
-  // ============================================================
-  // PAID RADIUS
-  // ============================================================
-
-  // Future<double> _getPaidRadiusKm() async {
-  //   /*
-  //    * ----------------------------------------------------------
-  //    * IMPORTANT
-  //    *
-  //    * Your app already has a paid-radius system.
-  //    *
-  //    * Put your existing Hive/SharedPreferences reading code here.
-  //    *
-  //    * For now this returns 5 km.
-  //    *
-  //    * This means:
-  //    *
-  //    * 0 - 5 km  = accessible
-  //    * 5 - 50 km = asks for extra distance payment
-  //    *
-  //    * Change ONLY this function when connecting your existing
-  //    * payment storage.
-  //    * ----------------------------------------------------------
-  //    */
-
-  //   return 5.0;
-  // }
   Future<double> _getPaidRadiusKm() async {
   final box = Hive.box('settings');
 
@@ -1093,25 +1048,6 @@ List<_RentalResult> get _currentPageRentals {
           _buildInformationHeader(),
           const SizedBox(height: 14),
 
-          // ...List.generate(
-          //   _rentals.length,
-          //   (index) {
-          //     final rental =
-          //         _rentals[index];
-
-          //     return Padding(
-          //       padding:
-          //           const EdgeInsets.only(
-          //         bottom: 12,
-          //       ),
-          //       child:
-          //           _buildRentalCard(
-          //         rental,
-          //         index,
-          //       ),
-          //     );
-          //   },
-          // ),
           ..._currentPageRentals.map((rental) {
   return Padding(
     padding: const EdgeInsets.only(

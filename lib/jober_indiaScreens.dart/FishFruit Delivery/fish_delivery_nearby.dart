@@ -313,11 +313,6 @@ class _ScreenFishDeliveryNearbyState
             .get(),
       ]);
 
-      // final profileSnapshot =
-      //     results[0] as QuerySnapshot<Map<String, dynamic>>;
-
-      // final liveSnapshot =
-      //     results[1] as QuerySnapshot<Map<String, dynamic>>;
       final profileSnapshot = results[0];
 
 final liveSnapshot = results[1];
@@ -416,7 +411,6 @@ final liveSnapshot = results[1];
         final Map<String, dynamic> combined = {
           ...registered,
           ...live,
-         // ...registered,
           'uid': uid,
           'latitude': latitude,
           'longitude': longitude,

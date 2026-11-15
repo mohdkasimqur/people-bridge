@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-// IMPORTANT:
-// Change this import to the exact location of your message screen.
-// Example:
-// import 'package:jober_india/.../screen_message.dart';
-
 class ScreenAutoSparePartsShopProfile extends StatefulWidget {
   final Map<String, dynamic> shop;
 
@@ -32,7 +27,6 @@ class _ScreenAutoSparePartsShopProfileState
   // ============================================================
 
   static const Color green =
-     //      Color(0xFF138808);
  Color(0xFF198B35);
 
   static const Color darkGreen =

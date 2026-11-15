@@ -25,11 +25,7 @@ class _ScreenGroceryCategoriesState
   // ==========================================================
 
   static const Color darkGreen =
-     // Color(0xFF12652F);
       Color(0xFF138808);
-
-  // static const Color green =
-  //     Color(0xFF198B35);
 
   static const Color orange =
       Color(0xFFED801D);

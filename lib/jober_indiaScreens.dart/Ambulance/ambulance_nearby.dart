@@ -242,26 +242,6 @@ class _AmbulanceNearbyPageState
        * orderBy latitude is important for pagination.
        */
 
-      // Query<Map<String, dynamic>> query =
-      //     _firestore
-      //         .collection('ambulances')
-      //         .where(
-      //           'ambulanceCategory',
-      //           isEqualTo:
-      //               widget.ambulanceCategory,
-      //         )
-      //         .where(
-      //           'latitude',
-      //           isGreaterThanOrEqualTo:
-      //               bounds.minLat,
-      //         )
-      //         .where(
-      //           'latitude',
-      //           isLessThanOrEqualTo:
-      //               bounds.maxLat,
-      //         )
-      //         .orderBy('latitude')
-      //         .limit(_pageSize);
       Query<Map<String, dynamic>> query =
     _firestore
         .collection('ambulances')
@@ -489,54 +469,6 @@ class _AmbulanceNearbyPageState
     );
   }
 
-  // ============================================================
-  // CALL AMBULANCE
-  // ============================================================
-
-  // Future<void> _callAmbulance(
-  //   String phone,
-  // ) async {
-  //   if (phone.trim().isEmpty) {
-  //     _showMessage(
-  //       'No secondary mobile number available.',
-  //       error: true,
-  //     );
-
-  //     return;
-  //   }
-
-  //   final String cleanNumber =
-  //       phone.replaceAll(
-  //     RegExp(r'\D'),
-  //     '',
-  //   );
-
-  //   final String number =
-  //       cleanNumber.length == 10
-  //           ? '+91$cleanNumber'
-  //           : cleanNumber;
-
-  //   final Uri uri = Uri(
-  //     scheme: 'tel',
-  //     path: number,
-  //   );
-
-  //   try {
-  //     if (await canLaunchUrl(uri)) {
-  //       await launchUrl(uri);
-  //     } else {
-  //       _showMessage(
-  //         'Unable to make the call.',
-  //         error: true,
-  //       );
-  //     }
-  //   } catch (e) {
-  //     _showMessage(
-  //       'Unable to make the call.',
-  //       error: true,
-  //     );
-  //   }
-  // }
   Future<void> _callAmbulance(String phone) async {
   try {
     // Remove spaces, brackets, hyphens and other characters.
@@ -636,26 +568,6 @@ class _AmbulanceNearbyPageState
       );
   }
 
-  // ============================================================
-  // DISTANCE TEXT
-  // ============================================================
-
-  // String _distanceText(
-  //   double distanceMeters,
-  // ) {
-  //   if (distanceMeters < 1000) {
-  //     return '${distanceMeters.round()} m away';
-  //   }
-
-  //   final double km =
-  //       distanceMeters / 1000;
-
-  //   if (km < 10) {
-  //     return '${km.toStringAsFixed(1)} km away';
-  //   }
-
-  //   return '${km.toStringAsFixed(0)} km away';
-  // }
   String _distanceText(double distanceMeters) {
   if (distanceMeters < 1000) {
     return '${distanceMeters.round()} meters away';
@@ -683,10 +595,6 @@ class _AmbulanceNearbyPageState
   Widget _buildAmbulanceCard(
     AmbulanceNearbyData ambulance,
   ) {
-    // final bool hasImage =
-    //     ambulance.profilePhotoUrl
-    //             .trim()
-    //             .isNotEmpty;
 
     return GestureDetector(
       onTap: () {
@@ -720,35 +628,7 @@ class _AmbulanceNearbyPageState
           crossAxisAlignment:
               CrossAxisAlignment.start,
           children: [
-            // ==================================================
-            // IMAGE
-            // ==================================================
 
-            // ClipRRect(
-            //   borderRadius:
-            //       BorderRadius.circular(16),
-            //   child: Container(
-            //     width: 105,
-            //     height: 105,
-            //     color:
-            //         const Color(0xFFF4F4F4),
-            //     child: hasImage
-            //         ? Image.network(
-            //             ambulance
-            //                 .profilePhotoUrl,
-            //             fit: BoxFit.cover,
-            //             errorBuilder:
-            //                 (
-            //               context,
-            //               error,
-            //               stackTrace,
-            //             ) {
-            //               return _defaultImage();
-            //             },
-            //           )
-            //         : _defaultImage(),
-            //   ),
-            // ),
             ClipRRect(
   borderRadius: BorderRadius.circular(16),
   child: Container(
@@ -933,20 +813,6 @@ class _AmbulanceNearbyPageState
       ),
     );
   }
-
-  // Widget _defaultImage() {
-  //   return const Center(
-  //     child: Icon(
-  //       Icons.local_hospital_outlined,
-  //       size: 52,
-  //       color: Color(0xFF16803C),
-  //     ),
-  //   );
-  // }
-
-  // ============================================================
-  // BUILD
-  // ============================================================
 
   @override
   Widget build(BuildContext context) {

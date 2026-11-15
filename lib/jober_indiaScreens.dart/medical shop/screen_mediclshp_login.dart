@@ -152,33 +152,17 @@ int? resendToken;
    Timer? timer;
 
   bool isCategoryDropdownOpen = false;
-  //  bool isStateDropdownOpen = false;
-
 
   bool privacyPolicyAccepted = false;
   String? privacyPolicyError;
 
-  // ==========================================================
-  // SUBMIT
-  // ==========================================================
-
-//  bool isSubmitting = false;
-
-  // ==========================================================
-  // ERRORS
-  // ==========================================================
-
   String? nameError;
-//String? phoneError;
 bool mobileError = false;
 String? shopNameError;
-//String? genderError;
-//String? otpError;
   bool locationError = false;
 
 String? secondaryPhoneError;
 String? shopTimingError;
-//String? locationError;
 
   // ==========================================================
   // LOCATION
@@ -234,7 +218,6 @@ Future<void> sendOTP({bool isResend = false}) async {
 
   if (!RegExp(r'^[6-9][0-9]{9}$').hasMatch(phone)) {
     showMessage( AppLocalizations.of(context)!.enteradigitmobilenumber,
-    //  'Enter a valid 10-digit mobile number.'
       );
     return;
   }
@@ -837,8 +820,6 @@ isCompletingPhoneAuth = false;
   }
 
      Widget mobileSection() {
-    // final bool verified =
-    //     otpVerified;
 
     return Column(
       crossAxisAlignment:
@@ -1094,7 +1075,6 @@ isCompletingPhoneAuth = false;
    Padding(
     padding: EdgeInsets.only(left: 12, top: 5),
     child: Text( AppLocalizations.of(context)!.enteradigitmobilenumber,
-     // 'Enter a valid 10-digit mobile number.',
       style: TextStyle(
         color: Colors.red,
         fontSize: 12,
@@ -1259,8 +1239,6 @@ isCompletingPhoneAuth = false;
             autofillHints: const [
   AutofillHints.oneTimeCode,
 ],
-            // enabled:
-            //     !isVerifying,
             enabled: !isVerifying &&
     !isSendingOtp &&
     secondsRemaining > 0,
@@ -1726,7 +1704,6 @@ Future<void> loadDistricts() async {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       sectionTitle( AppLocalizations.of(context)!.state
-       // 'State',
       ),
 
       AnimatedContainer(
@@ -1791,9 +1768,7 @@ Future<void> loadDistricts() async {
                         selectedState == null ||
                                 selectedState!.isEmpty
                             ? AppLocalizations.of(context)!.selectyourState
-                            // 'Select your State'
                             : localizedState(selectedState!, languageCode),
-                            //selectedState!,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -1845,7 +1820,6 @@ Future<void> loadDistricts() async {
                       controller: stateSearchController,
                       onChanged: filterStates,
                       decoration: InputDecoration(
-                       // hintText: 'Search state...',
                        hintText: AppLocalizations.of(context)!.searchState,
                         prefixIcon: const Icon(
                           Icons.search,
@@ -1900,7 +1874,6 @@ Future<void> loadDistricts() async {
                       child: filteredStates.isEmpty
                           ? Center(
                               child: Text( AppLocalizations.of(context)!.nostatefound,
-                              //  'No state found',
                                 style: TextStyle(
                                   color:
                                       Colors.grey.shade600,
@@ -1924,23 +1897,7 @@ Future<void> loadDistricts() async {
                                     10,
                                   ),
                                   onTap: () {
-                                    // setState(() {
-                                    //   selectedState = state;
 
-                                    //   categoryError =
-                                    //       false;
-
-                                    //   isCategoryDropdownOpen =
-                                    //       false;
-
-                                    //   stateSearchController
-                                    //       .clear();
-
-                                    //   filteredStates =
-                                    //       List<String>.from(
-                                    //     indiaStates,
-                                    //   );
-                                    // });
                                     setState(() {
   final bool stateChanged = selectedState != state;
 
@@ -2010,14 +1967,6 @@ Future<void> loadDistricts() async {
 
                                         Expanded(
                                           child:
-                                          //  Text(
-                                          //   state,
-                                          //   style:
-                                          //       const TextStyle(
-                                          //     color: darkText,
-                                          //     fontSize: 14,
-                                          //   ),
-                                          // ),
                                           Text(localizedState(state, languageCode) ,
                                           style:
                                                 const TextStyle(
@@ -2051,7 +2000,6 @@ Future<void> loadDistricts() async {
             top: 5,
           ),
           child: Text( AppLocalizations.of(context)!.pleaseSelectyourState,
-            //'Please select your state.',
             style: TextStyle(
               color: Colors.red,
               fontSize: 12,
@@ -2063,13 +2011,11 @@ Future<void> loadDistricts() async {
   );
 }
 
-//Widget districtSection() {
 Widget districtSection() {
   final languageCode = currentLanguageCode(context);
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      //sectionTitle('District'),
       sectionTitle(AppLocalizations.of(context)!.district),
 
       AnimatedContainer(
@@ -2137,8 +2083,6 @@ Widget districtSection() {
                       child: Text(
                         selectedDistrict == null ||
                                 selectedDistrict!.isEmpty
-                            // ? 'Select your District'
-                            // : selectedDistrict!,
                             ? AppLocalizations.of(context)!.selectyourDistrict
 : localizedDistrict(selectedDistrict!, languageCode),
                         maxLines: 1,
@@ -2201,8 +2145,6 @@ Widget districtSection() {
 
                       decoration:
                           InputDecoration(
-                        // hintText:
-                        //     'Search district...',
                         hintText: AppLocalizations.of(context)!.searchdistrict,
 
                         prefixIcon:
@@ -2386,16 +2328,6 @@ Widget districtSection() {
                                         ),
 
                                         Expanded(
-                                          // child: Text(
-                                          //   district,
-                                          //   style:
-                                          //       const TextStyle(
-                                          //     color:
-                                          //         darkText,
-                                          //     fontSize:
-                                          //         14,
-                                          //   ),
-                                          // ),
                                           child: Text(
   localizedDistrict(district, languageCode),
   style: const TextStyle(
@@ -2429,7 +2361,6 @@ Widget districtSection() {
             top: 5,
           ),
           child: Text( AppLocalizations.of(context)!.pleaseselectyourdistrict,
-          //  'Please select your district.',
             style: TextStyle(
               color: Colors.red,
               fontSize: 12,
@@ -2444,7 +2375,6 @@ Widget districtSection() {
 
   @override
   void dispose() {
-   // Timer?.cancel();
        timer?.cancel();
 
     nameController.dispose();
@@ -3473,13 +3403,6 @@ Future<String?> _processManualGarageLocation(
       value.contains('maps.app.goo.gl') ||
       value.contains('goo.gl/maps');
 
-  // ==========================================================
-  // NORMAL TEXT
-  // ==========================================================
-
-  // if (!isGoogleMapsLink) {
-  //   return value;
-  // }
   if (!isGoogleMapsLink) {
   try {
     final locations =
@@ -3948,10 +3871,8 @@ bool validateFields() {
     shopNameError = null;
 mobileError = false;
     secondaryPhoneError = null;
-  //  genderError = null;
     otpError = false;
     shopTimingError = null;
-    //locationError = null;
     privacyPolicyError = null;
     categoryError = false;
   });
@@ -4003,7 +3924,6 @@ if (!otpVerified) {
   } else if (!RegExp(r'^[0-9]{10}$')
       .hasMatch(secondaryPhone)) {
     secondaryPhoneError = AppLocalizations.of(context)!.enteradigitmobilenumber;
-       // 'Enter a valid 10-digit mobile number.';
     valid = false;
   }
 
@@ -4038,10 +3958,6 @@ if (!otpVerified) {
       valid = false;
     }
   }
-
-  // // ==========================================================
-  // // LOCATION - REQUIRED
-  // // ==========================================================
 
 if (currentLocation == null) {
   locationError = true;
@@ -4489,12 +4405,6 @@ final savedOpeningTime =
 final savedClosingTime =
     box.get('medicalShop_closingTime');
 
-      // final savedShopAge =
-      //     box.get('medicalShop_shopAge');
-
-      // final savedGender =
-      //     box.get('medicalShop_gender');
-
       final savedLocation =
           box.get('medicalShop_currentLocation');
 
@@ -4539,11 +4449,6 @@ if (savedNearestTown != null) {
               List<String>.from(savedCategories);
         }
 
-        // if (savedShopAge != null) {
-        //   selectedShopAge =
-        //       savedShopAge.toString();
-        // }
-
         if (savedIsOpen24Hours != null) {
   isOpen24Hours =
       savedIsOpen24Hours == true;
@@ -4564,11 +4469,6 @@ if (savedClosingTime != null &&
     savedClosingTime.toString(),
   );
 }
-
-        // if (savedGender != null) {
-        //   selectedGender =
-        //       savedGender.toString();
-        // }
 
         if (savedLocation is Map) {
           currentLocation =
@@ -4673,24 +4573,6 @@ Future<void> saveMedicalShopProfileToFirestore(
       phoneController.text.trim(),
     );
 
-//       // State
-// await box.put(
-//   'ambulanceState',
-//   selectedState!.trim(),
-// );
-
-// // District
-// await box.put(
-//   'ambulanceDistrict',
-//   selectedDistrict!.trim(),
-// );
-
-// // Nearest town or city
-// await box.put(
-//   'ambulanceNearestTown',
-//   nearestCityController.text.trim(),
-// );
-
     await box.put(
       'medicalShop_shopName',
       shopNameController.text.trim(),
@@ -4700,16 +4582,6 @@ Future<void> saveMedicalShopProfileToFirestore(
       'medicalShop_categories',
       selectedCategories,
     );
-
-    // await box.put(
-    //   'medicalShop_shopAge',
-    //   selectedShopAge,
-    // );
-
-    // await box.put(
-    //   'medicalShop_gender',
-    //   selectedGender,
-    // );
 
     if (currentLocation != null) {
       await box.put(
@@ -4793,15 +4665,6 @@ await box.put(
       : timeToString(closingTime!),
 );
 
-    // await box.put(
-    //   'shopAge',
-    //   selectedShopAge,
-    // );
-
-    // await box.put(
-    //   'gender',
-    //   selectedGender,
-    // );
   }
 
 Future<void> saveMedicalShopCategories({
@@ -4893,9 +4756,7 @@ Future<void> saveMedicalShopCategories({
       'mobileNumber': phoneController.text.trim(),
       'secondaryMobileNumber':
     secondaryPhoneController.text.trim(),
-   //   'gender': selectedGender,
       'categories': List<String>.from(selectedCategories),
-     // 'shopAge': selectedShopAge,
      'isOpen24Hours':
       isOpen24Hours,
 
@@ -5214,7 +5075,6 @@ Future<String?> uploadProfilePhoto(
               ),
               TextSpan(
                 text:  AppLocalizations.of(context)!.registration,
-                //'Registration',
                 style: TextStyle(
                   color:
                       Colors.red,
@@ -5485,928 +5345,3 @@ if (nearestCityError.isNotEmpty)
     );
   }
 }
- // const SizedBox(height: 22),
-
-                // ==================================================
-                // SHOP AGE
-                // ==================================================
-
-               // shopAgeSection(),
-
-               //  Widget shopTimingSection() {
-//     return Column(
-//       crossAxisAlignment:
-//           CrossAxisAlignment.start,
-//       children: [
-//         sectionTitle(
-//           'Shop Timing',
-//         ),
-
-//         const SizedBox(height: 10),
-
-//         Row(
-//           children: [
-//             Expanded(
-//               child: InkWell(
-//                 onTap:
-//                     selectOpeningTime,
-//                 borderRadius:
-//                     BorderRadius.circular(20),
-//                 child: Container(
-//                   height: 62,
-//                   padding:
-//                       const EdgeInsets.symmetric(
-//                     horizontal: 16,
-//                   ),
-//                   decoration:
-//                       BoxDecoration(
-//                     color:
-//                         const Color(0xFFF9F9F9),
-//                     borderRadius:
-//                         BorderRadius.circular(
-//                       20,
-//                     ),
-//                     border: Border.all(
-//                       color:
-//                           Colors.grey.shade300,
-//                       width: 1.5,
-//                     ),
-//                   ),
-//                   child: Row(
-//                     children: [
-//                       const Icon(
-//                         Icons.access_time,
-//                         color:
-//                             Color(0xFF16803C),
-//                       ),
-
-//                       const SizedBox(
-//                         width: 10,
-//                       ),
-
-//                       Expanded(
-//                         child: Text(
-//                           openingTime == null
-//                               ? 'Opening Time'
-//                               : timeToString(
-//                                   openingTime!,
-//                                 ),
-//                           style: TextStyle(
-//                             fontSize: 15,
-//                             color:
-//                                 openingTime ==
-//                                         null
-//                                     ? Colors.grey
-//                                     : Colors.black,
-//                           ),
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//             ),
-
-//             const SizedBox(width: 12),
-
-//             Expanded(
-//               child: InkWell(
-//                 onTap:
-//                     selectClosingTime,
-//                 borderRadius:
-//                     BorderRadius.circular(20),
-//                 child: Container(
-//                   height: 62,
-//                   padding:
-//                       const EdgeInsets.symmetric(
-//                     horizontal: 16,
-//                   ),
-//                   decoration:
-//                       BoxDecoration(
-//                     color:
-//                         const Color(0xFFF9F9F9),
-//                     borderRadius:
-//                         BorderRadius.circular(
-//                       20,
-//                     ),
-//                     border: Border.all(
-//                       color:
-//                           Colors.grey.shade300,
-//                       width: 1.5,
-//                     ),
-//                   ),
-//                   child: Row(
-//                     children: [
-//                       const Icon(
-//                         Icons.access_time,
-//                         color:
-//                             Color(0xFF16803C),
-//                       ),
-
-//                       const SizedBox(
-//                         width: 10,
-//                       ),
-
-//                       Expanded(
-//                         child: Text(
-//                           closingTime == null
-//                               ? 'Closing Time'
-//                               : timeToString(
-//                                   closingTime!,
-//                                 ),
-//                           style: TextStyle(
-//                             fontSize: 15,
-//                             color:
-//                                 closingTime ==
-//                                         null
-//                                     ? Colors.grey
-//                                     : Colors.black,
-//                           ),
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ],
-//     );
-//   }
-
-
-  // ==========================================================
-  // VALIDATE
-  // ==========================================================
-
-//   bool validateFields() {
-//     bool valid = true;
-
-//     final name =
-//         nameController.text.trim();
-
-//     final shopName =
-//         shopNameController.text.trim();
-
-//     final phone =
-//         phoneController.text.trim();
-
-//     setState(() {
-//       nameError = null;
-//       shopNameError = null;
-//       phoneError = null;
-//       genderError = null;
-//     });
-
-//     if (name.isEmpty) {
-//       nameError = 'Please enter your name.';
-//       valid = false;
-//     }
-
-//     if (shopName.isEmpty) {
-//       shopNameError =
-//           'Please enter your medical shop name.';
-//       valid = false;
-//     }
-
-//     if (!RegExp(r'^[0-9]{10}$')
-//         .hasMatch(phone)) {
-//       phoneError =
-//           'Enter a valid 10-digit mobile number.';
-//       valid = false;
-//     }
-
-//     if (selectedGender == null) {
-//       genderError =
-//           'Please select your gender.';
-//       valid = false;
-//     }
-
-//     if (selectedCategories.isEmpty) {
-//       showMessage(
-//         'Please select at least one medical shop category.',
-//         error: true,
-//       );
-//       valid = false;
-//     }
-
-//     if (selectedShopAge == null) {
-//       showMessage(
-//         'Please select shop experience.',
-//         error: true,
-//       );
-//       valid = false;
-//     }
-
-//     if (currentLocation == null) {
-//       showMessage(
-//         'Please add your current shop location.',
-//         error: true,
-//       );
-//       valid = false;
-//     }
-
-//     if (!otpVerified) {
-//       showMessage(
-//         'Please verify your mobile number.',
-//         error: true,
-//       );
-//       valid = false;
-//     }
-
-//     setState(() {});
-
-// // ============================================================
-//   // TERMS & CONDITION / PRIVACY POLICY
-//   // ============================================================
-//   if (!privacyPolicyAccepted) {
-//   setState(() {
-//     privacyPolicyError =
-//         'Please accept the Privacy Policy and Terms & Conditions.';
-//   });
-
-//   showMessage(
-//     'Please accept the Privacy Policy and Terms & Conditions.',
-//   );
-
-//  // return;
-// }
-//     return valid;
-//   }
-// ==========================================================
-// VALIDATE
-// ==========================================================
-
-
-//   Future<void> saveMedicalShopProfileToFirestore(
-//   String uid,
-//   Map<String, dynamic> medicalShopData,
-//    String? openingTime,
-//     String? closingTime
-// ) async {
-//   try {
-//     debugPrint('========================================');
-//     debugPrint('MEDICAL SHOP FIRESTORE SAVE START');
-//     debugPrint('UID: $uid');
-//     debugPrint('========================================');
-
-//     await _firestore
-//         .collection('medicalShops')
-//         .doc(uid)
-//         .set(
-//           medicalShopData,
-//           SetOptions(merge: true),
-//         );
-
-//     debugPrint('========================================');
-//     debugPrint('MEDICAL SHOP FIRESTORE SAVE SUCCESS');
-//     debugPrint('UID: $uid');
-//     debugPrint('========================================');
-//   } on FirebaseException catch (e) {
-//     debugPrint('========================================');
-//     debugPrint('MEDICAL SHOP FIRESTORE ERROR');
-//     debugPrint('CODE: ${e.code}');
-//     debugPrint('MESSAGE: ${e.message}');
-//     debugPrint('========================================');
-
-//     rethrow;
-//   } catch (e) {
-//     debugPrint('========================================');
-//     debugPrint('MEDICAL SHOP FIRESTORE UNKNOWN ERROR');
-//     debugPrint('$e');
-//     debugPrint('========================================');
-
-//     rethrow;
-//   }
-// }
-
-
-  // ==========================================================
-  // GENDER SECTION
-  // ==========================================================
-
-  // Widget genderSection() {
-  //   return Column(
-  //     crossAxisAlignment:
-  //         CrossAxisAlignment.start,
-  //     children: [
-  //       const Text(
-  //         'Gender',
-  //         style: TextStyle(
-  //           color: Color(0xFF222222),
-  //           fontSize: 16,
-  //           fontWeight: FontWeight.w600,
-  //         ),
-  //       ),
-
-  //       const SizedBox(height: 10),
-
-  //       Row(
-  //         children: [
-  //           Expanded(
-  //             child: _genderButton(
-  //               title: 'Male',
-  //               value: 'Male',
-  //             ),
-  //           ),
-
-  //           const SizedBox(width: 12),
-
-  //           Expanded(
-  //             child: _genderButton(
-  //               title: 'Female',
-  //               value: 'Female',
-  //             ),
-  //           ),
-  //         ],
-  //       ),
-
-  //       if (genderError != null) ...[
-  //         const SizedBox(height: 6),
-  //         Padding(
-  //           padding:
-  //               const EdgeInsets.only(left: 8),
-  //           child: Text(
-  //             genderError!,
-  //             style: const TextStyle(
-  //               color: Colors.red,
-  //               fontSize: 13,
-  //             ),
-  //           ),
-  //         ),
-  //       ],
-  //     ],
-  //   );
-  // }
-
-  // Widget _genderButton({
-  //   required String title,
-  //   required String value,
-  // }) {
-  //   final bool selected =
-  //       selectedGender == value;
-
-  //   return InkWell(
-  //     borderRadius:
-  //         BorderRadius.circular(18),
-
-  //     onTap: () {
-  //       setState(() {
-  //         selectedGender = value;
-  //         genderError = null;
-  //       });
-  //     },
-
-  //     child: AnimatedContainer(
-  //       duration:
-  //           const Duration(milliseconds: 180),
-
-  //       height: 58,
-
-  //       decoration: BoxDecoration(
-  //         color: selected
-  //             ? const Color(0xFFEAF7EF)
-  //             : const Color(0xFFF7F7F7),
-
-  //         borderRadius:
-  //             BorderRadius.circular(18),
-
-  //         border: Border.all(
-  //           color: selected
-  //               ? const Color(0xFF16803C)
-  //               : const Color(0xFFE0E0E0),
-  //           width: selected ? 2 : 1.5,
-  //         ),
-  //       ),
-
-  //       alignment: Alignment.center,
-
-  //       child: Text(
-  //         title,
-  //         style: TextStyle(
-  //           fontSize: 16,
-  //           fontWeight: selected
-  //               ? FontWeight.bold
-  //               : FontWeight.w500,
-  //           color: selected
-  //               ? const Color(0xFF12652F)
-  //               : const Color(0xFF333333),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // ==========================================================
-  // MOBILE + OTP
-  // ==========================================================
-
-  // Widget mobileNumberSection() {
-  //   return Column(
-  //     crossAxisAlignment:
-  //         CrossAxisAlignment.start,
-  //     children: [
-  //       const Text(
-  //         'Mobile Number',
-  //         style: TextStyle(
-  //           fontSize: 16,
-  //           fontWeight: FontWeight.w600,
-  //           color: Color(0xFF222222),
-  //         ),
-  //       ),
-
-  //       const SizedBox(height: 8),
-
-  //       Container(
-  //         height: 62,
-
-  //         decoration: BoxDecoration(
-  //           color: const Color(0xFFF9F9F9),
-  //           borderRadius:
-  //               BorderRadius.circular(20),
-
-  //           border: Border.all(
-  //             color: phoneError != null
-  //                 ? Colors.red
-  //                 : const Color(0xFFE0E0E0),
-  //             width:
-  //                 phoneError != null ? 2 : 1.5,
-  //           ),
-  //         ),
-
-  //         child: Row(
-  //           children: [
-  //             const SizedBox(width: 16),
-
-  //             const Icon(
-  //               Icons.phone_outlined,
-  //               color: Color(0xFF08744F),
-  //               size: 27,
-  //             ),
-
-  //             const SizedBox(width: 10),
-
-  //             const Text(
-  //               '+91',
-  //               style: TextStyle(
-  //                 fontSize: 16,
-  //                 fontWeight: FontWeight.w600,
-  //                 color: Color(0xFF333333),
-  //               ),
-  //             ),
-
-  //             const SizedBox(width: 6),
-
-  //             Expanded(
-  //               child: TextField(
-  //                 controller:
-  //                     phoneController,
-
-  //                 enabled: !otpVerified,
-
-  //                 keyboardType:
-  //                     TextInputType.phone,
-
-  //                 maxLength: 10,
-
-  //                 inputFormatters: [
-  //                   FilteringTextInputFormatter
-  //                       .digitsOnly,
-  //                 ],
-
-  //                 decoration:
-  //                     const InputDecoration(
-  //                   hintText:
-  //                       'Enter mobile number',
-  //                   counterText: '',
-  //                   border: InputBorder.none,
-  //                   contentPadding:
-  //                       EdgeInsets.zero,
-  //                 ),
-
-  //                 onChanged: (_) {
-  //                   if (phoneError != null) {
-  //                     setState(() {
-  //                       phoneError = null;
-  //                     });
-  //                   }
-  //                 },
-  //               ),
-  //             ),
-
-  //             const SizedBox(width: 5),
-
-  //             Padding(
-  //               padding:
-  //                   const EdgeInsets.only(
-  //                 right: 7,
-  //               ),
-  //               child: SizedBox(
-  //                 height: 48,
-  //                 child: ElevatedButton(
-  //                   onPressed:
-  //                       isSendingOtp ||
-  //                               otpVerified
-  //                           ? null
-  //                           : sendOTP,
-
-  //                   style:
-  //                       ElevatedButton.styleFrom(
-  //                     backgroundColor:
-  //                         const Color(
-  //                       0xFF16803C,
-  //                     ),
-  //                     disabledBackgroundColor:
-  //                         Colors.grey.shade300,
-  //                     foregroundColor:
-  //                         Colors.white,
-  //                     elevation: 0,
-  //                     padding:
-  //                         const EdgeInsets.symmetric(
-  //                       horizontal: 15,
-  //                     ),
-  //                     shape:
-  //                         RoundedRectangleBorder(
-  //                       borderRadius:
-  //                           BorderRadius.circular(
-  //                         24,
-  //                       ),
-  //                     ),
-  //                   ),
-
-  //                   child: isSendingOtp
-  //                       ? const SizedBox(
-  //                           width: 20,
-  //                           height: 20,
-  //                           child:
-  //                               CircularProgressIndicator(
-  //                             strokeWidth: 2,
-  //                             color:
-  //                                 Colors.white,
-  //                           ),
-  //                         )
-  //                       : Text(
-  //                           otpVerified
-  //                               ? 'Verified'
-  //                               : 'Send OTP',
-  //                           style:
-  //                               const TextStyle(
-  //                             fontWeight:
-  //                                 FontWeight.bold,
-  //                             fontSize: 13,
-  //                           ),
-  //                         ),
-  //                 ),
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-
-  //       if (phoneError != null) ...[
-  //         const SizedBox(height: 6),
-  //         Padding(
-  //           padding:
-  //               const EdgeInsets.only(left: 8),
-  //           child: Text(
-  //             phoneError!,
-  //             style: const TextStyle(
-  //               color: Colors.red,
-  //               fontSize: 13,
-  //             ),
-  //           ),
-  //         ),
-  //       ],
-
-  //       // ======================================================
-  //       // OTP CARD
-  //       // ======================================================
-
-  //       if (otpSent && !otpVerified)
-  //         Padding(
-  //           padding:
-  //               const EdgeInsets.only(top: 14),
-  //           child: Container(
-  //             width: double.infinity,
-
-  //             padding:
-  //                 const EdgeInsets.fromLTRB(
-  //               16,
-  //               16,
-  //               16,
-  //               15,
-  //             ),
-
-  //             decoration: BoxDecoration(
-  //               color:
-  //                   const Color(0xFFEAF7EF),
-  //               borderRadius:
-  //                   BorderRadius.circular(18),
-  //               border: Border.all(
-  //                 color:
-  //                     const Color(0xFF16803C)
-  //                         .withValues(alpha: 0.35),
-  //               ),
-  //             ),
-
-  //             child: Column(
-  //               children: [
-  //                 Row(
-  //                   children: [
-  //                     const Icon(
-  //                       Icons.lock_outline,
-  //                       color:
-  //                           Color(0xFF12652F),
-  //                       size: 22,
-  //                     ),
-
-  //                     const SizedBox(width: 8),
-
-  //                     const Expanded(
-  //                       child: Text(
-  //                         'Enter 6-digit OTP',
-  //                         style: TextStyle(
-  //                           fontSize: 16,
-  //                           fontWeight:
-  //                               FontWeight.bold,
-  //                           color:
-  //                               Color(0xFF12652F),
-  //                         ),
-  //                       ),
-  //                     ),
-
-  //                     Text(
-  //                       '${secondsRemaining}s',
-  //                       style: const TextStyle(
-  //                         color:
-  //                             Color(0xFF12652F),
-  //                         fontWeight:
-  //                             FontWeight.bold,
-  //                       ),
-  //                     ),
-  //                   ],
-  //                 ),
-
-  //                 const SizedBox(height: 14),
-
-  //                 TextField(
-  //                   controller:
-  //                       otpController,
-
-  //                   autofocus: true,
-
-  //                   keyboardType:
-  //                       TextInputType.number,
-
-  //                   maxLength: 6,
-
-  //                   textAlign:
-  //                       TextAlign.center,
-
-  //                   inputFormatters: [
-  //                     FilteringTextInputFormatter
-  //                         .digitsOnly,
-  //                   ],
-
-  //                   style: const TextStyle(
-  //                     fontSize: 22,
-  //                     fontWeight:
-  //                         FontWeight.bold,
-  //                     letterSpacing: 8,
-  //                   ),
-
-  //                   decoration:
-  //                       InputDecoration(
-  //                     hintText: '------',
-  //                     counterText: '',
-
-  //                     filled: true,
-  //                     fillColor: Colors.white,
-
-  //                     contentPadding:
-  //                         const EdgeInsets
-  //                             .symmetric(
-  //                       vertical: 15,
-  //                     ),
-
-  //                     enabledBorder:
-  //                         OutlineInputBorder(
-  //                       borderRadius:
-  //                           BorderRadius
-  //                               .circular(
-  //                         16,
-  //                       ),
-  //                       borderSide:
-  //                           BorderSide(
-  //                         color: otpError !=
-  //                                 null
-  //                             ? Colors.red
-  //                             : const Color(
-  //                                 0xFFD7E9DC,
-  //                               ),
-  //                         width: 1.5,
-  //                       ),
-  //                     ),
-
-  //                     focusedBorder:
-  //                         OutlineInputBorder(
-  //                       borderRadius:
-  //                           BorderRadius
-  //                               .circular(
-  //                         16,
-  //                       ),
-  //                       borderSide:
-  //                           BorderSide(
-  //                         color: otpError !=
-  //                                 null
-  //                             ? Colors.red
-  //                             : const Color(
-  //                                 0xFF16803C,
-  //                               ),
-  //                         width: 2,
-  //                       ),
-  //                     ),
-  //                   ),
-
-  //                   onChanged: (value) {
-  //                     if (otpError != null) {
-  //                       setState(() {
-  //                         otpError = null;
-  //                       });
-  //                     }
-
-  //                     if (value.length == 6 &&
-  //                         !isVerifyingOtp) {
-  //                       verifyOTP();
-  //                     }
-  //                   },
-  //                 ),
-
-  //                 if (otpError != null) ...[
-  //                   const SizedBox(height: 6),
-  //                   Text(
-  //                     otpError!,
-  //                     textAlign:
-  //                         TextAlign.center,
-  //                     style:
-  //                         const TextStyle(
-  //                       color: Colors.red,
-  //                       fontSize: 13,
-  //                     ),
-  //                   ),
-  //                 ],
-
-  //                 const SizedBox(height: 12),
-
-  //                 SizedBox(
-  //                   width: double.infinity,
-  //                   height: 50,
-  //                   child: ElevatedButton(
-  //                     onPressed:
-  //                         isVerifyingOtp
-  //                             ? null
-  //                             : verifyOTP,
-
-  //                     style:
-  //                         ElevatedButton.styleFrom(
-  //                       backgroundColor:
-  //                           const Color(
-  //                         0xFF16803C,
-  //                       ),
-  //                       foregroundColor:
-  //                           Colors.white,
-  //                       elevation: 0,
-  //                       shape:
-  //                           RoundedRectangleBorder(
-  //                         borderRadius:
-  //                             BorderRadius.circular(
-  //                           25,
-  //                         ),
-  //                       ),
-  //                     ),
-
-  //                     child:
-  //                         isVerifyingOtp
-  //                             ? const SizedBox(
-  //                                 width: 22,
-  //                                 height: 22,
-  //                                 child:
-  //                                     CircularProgressIndicator(
-  //                                   strokeWidth:
-  //                                       2,
-  //                                   color:
-  //                                       Colors.white,
-  //                                 ),
-  //                               )
-  //                             : const Text(
-  //                                 'Verify OTP',
-  //                                 style:
-  //                                     TextStyle(
-  //                                   fontSize: 15,
-  //                                   fontWeight:
-  //                                       FontWeight
-  //                                           .bold,
-  //                                 ),
-  //                               ),
-  //                   ),
-  //                 ),
-
-  //                 if (secondsRemaining == 0)
-  //                   Padding(
-  //                     padding:
-  //                         const EdgeInsets.only(
-  //                       top: 10,
-  //                     ),
-  //                     child: TextButton(
-  //                       onPressed:
-  //                           isSendingOtp
-  //                               ? null
-  //                               : sendOTP,
-  //                       child: const Text(
-  //                         'Resend OTP',
-  //                         style: TextStyle(
-  //                           color:
-  //                               Color(0xFF12652F),
-  //                           fontWeight:
-  //                               FontWeight.bold,
-  //                         ),
-  //                       ),
-  //                     ),
-  //                   ),
-  //               ],
-  //             ),
-  //           ),
-  //         ),
-
-  //       // ======================================================
-  //       // VERIFIED
-  //       // ======================================================
-
-  //       if (otpVerified)
-  //         Padding(
-  //           padding:
-  //               const EdgeInsets.only(top: 12),
-  //           child: Container(
-  //             width: double.infinity,
-
-  //             padding:
-  //                 const EdgeInsets.symmetric(
-  //               horizontal: 15,
-  //               vertical: 13,
-  //             ),
-
-  //             decoration: BoxDecoration(
-  //               color:
-  //                   const Color(0xFFEAF7EF),
-  //               borderRadius:
-  //                   BorderRadius.circular(16),
-  //               border: Border.all(
-  //                 color:
-  //                     const Color(0xFFB9DEC5),
-  //               ),
-  //             ),
-
-  //             child: Row(
-  //               children: [
-  //                 const Icon(
-  //                   Icons.verified,
-  //                   color:
-  //                       Color(0xFF16803C),
-  //                   size: 23,
-  //                 ),
-
-  //                 const SizedBox(width: 9),
-
-  //                 const Expanded(
-  //                   child: Text(
-  //                     'Phone number verified',
-  //                     style: TextStyle(
-  //                       color:
-  //                           Color(0xFF12652F),
-  //                       fontWeight:
-  //                           FontWeight.w600,
-  //                     ),
-  //                   ),
-  //                 ),
-
-  //                 TextButton(
-  //                   onPressed:
-  //                       changeMobileNumber,
-  //                   child: const Text(
-  //                     'Change',
-  //                     style: TextStyle(
-  //                       color:
-  //                           Color(0xFF16803C),
-  //                       fontWeight:
-  //                           FontWeight.bold,
-  //                     ),
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //         ),
-  //     ],
-  //   );
- // }

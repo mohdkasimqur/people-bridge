@@ -51,9 +51,6 @@ DateTime? subscriptionExpiry;
 bool subscriptionIsActive = false;
   DocumentSnapshot? lastDocument;
 
- // static const int pageSize = 20;
-//  static const double maximumSearchRadius = 50.0;
-
   @override
   void initState() {
     super.initState();
@@ -799,16 +796,11 @@ Future<void> _openLaboratory(
               ),
               sliver:
                   SliverList.builder(
-                // itemCount:
-                //     laboratories.length +
-                //         (isLoadingMore ? 1 : 0),
                 itemCount:
     displayedLaboratoryCount +
         (isLoadingMore ? 1 : 0),
                 itemBuilder:
                     (context, index) {
-                  // if (index >=
-                  //     laboratories.length) {
                   if (index >= displayedLaboratoryCount) {
                     return const Padding(
                       padding:
@@ -963,17 +955,6 @@ Future<void> _openLaboratory(
             ) ??
             0;
 
-    // final openingTime =
-    //     _timeText(
-    //   laboratory,
-    //   'openingTime',
-    // );
-
-    // final closingTime =
-    //     _timeText(
-    //   laboratory,
-    //   'closingTime',
-    // );
     final bool isOpen24Hours =
     laboratory['isOpen24Hours'] == true;
 
@@ -1110,33 +1091,6 @@ if (isOpen24Hours) {
 
                     const SizedBox(height: 7),
 
-                    // Row(
-                    //   children: [
-                    //     const Icon(
-                    //       Icons.access_time,
-                    //       color:
-                    //           Colors.grey,
-                    //       size: 17,
-                    //     ),
-                    //     const SizedBox(
-                    //       width: 5,
-                    //     ),
-                    //     Expanded(
-                    //       child: Text(
-                    //         '$openingTime - '
-                    //         '$closingTime',
-                    //         overflow:
-                    //             TextOverflow.ellipsis,
-                    //         style:
-                    //             const TextStyle(
-                    //           color:
-                    //               Colors.grey,
-                    //           fontSize: 12,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
                     Row(
   children: [
     Icon(
@@ -1211,10 +1165,6 @@ if (isOpen24Hours) {
   Widget _laboratoryImage(
     Map<String, dynamic> laboratory,
   ) {
-    // final photoUrl =
-    //     laboratory['photoUrl']
-    //         ?.toString()
-    //         .trim();
     final photoUrl =
     (laboratory['profilePhotoUrl'] ??
             laboratory['photoUrl'])

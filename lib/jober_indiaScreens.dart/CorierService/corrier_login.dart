@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
-//import 'package:jober_india/jober_indiaScreens.dart/CorierService/corrier_categories.dart';
 import 'package:jober_india/jober_indiaScreens.dart/Privacy&Terms/privacy_terms_section.dart';
 import 'package:jober_india/jober_indiaScreens.dart/common_profile_services.dart';
 import 'package:jober_india/jober_indiaScreens.dart/screen_camera_capture.dart';
@@ -112,12 +111,6 @@ class _ScreenCourierLoginState
   static const Color lightFill =
       Color(0xFFF9F9F9);
   bool isCategoryDropdownOpen = false;
- // bool isStateDropdownOpen = false;
-
-
- // ============================================================
-  // SHOP TIMINGS
-  // ============================================================
 
   TimeOfDay? openingTime;
   TimeOfDay? closingTime;
@@ -141,26 +134,6 @@ bool categoryError = false;
   String? profilePhotoUrl;
 bool isUploadingPhoto = false;
   final ImagePicker _imagePicker = ImagePicker();
-  // ============================================================
-  // OTP
-  // ============================================================
-
-  // String? verificationId;
-
-  // bool otpSent = false;
-  // bool otpVerified = false;
-
-  // bool isSendingOtp = false;
-  // bool isVerifying = false;
-  // bool isSubmitting = false;
-
-  // bool otpError = false;
-
-  // String otpErrorMessage = '';
-
-  // int secondsRemaining = 30;
-
-  // Timer? timer;
 
   String? verificationId;
 
@@ -248,12 +221,6 @@ bool vehicleCategoryError = false;
 
   bool loadingVehicleCategories = false;
 
- // bool vehicleCategoryError = false;
-
-  // ============================================================
-  // DEFAULT VEHICLE CATEGORIES
-  // ============================================================
-
   final List<CourierVehicleCategory>
       defaultVehicleCategories = const [
 
@@ -331,7 +298,6 @@ bool vehicleCategoryError = false;
       final snapshot = await _firestore
           .collection('courierVehicleCategories')
           .orderBy('name')
-         // .limit(100)
           .get();
 
       final List<CourierVehicleCategory>
@@ -789,7 +755,6 @@ Widget _vehicleCategorySection() {
     children: [
       sectionTitle(
         'Vehicle Category',
-       // required: true,
       ),
 
       const SizedBox(height: 6),
@@ -1520,8 +1485,6 @@ void showMessage(
   // MOBILE OTP SECTION
   // ============================================================
    Widget mobileSection() {
-    // final bool verified =
-    //     otpVerified;
 
     return Column(
       crossAxisAlignment:
@@ -1777,7 +1740,6 @@ void showMessage(
    Padding(
     padding: EdgeInsets.only(left: 12, top: 5),
     child: Text( AppLocalizations.of(context)!.enteradigitmobilenumber,
-    //  'Enter a valid 10-digit mobile number.',
       style: TextStyle(
         color: Colors.red,
         fontSize: 12,
@@ -1942,8 +1904,6 @@ void showMessage(
             autofillHints: const [
   AutofillHints.oneTimeCode,
 ],
-            // enabled:
-            //     !isVerifying,
             enabled: !isVerifying &&
     !isSendingOtp &&
     secondsRemaining > 0,
@@ -2398,7 +2358,6 @@ Future<void> loadDistricts() async {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       sectionTitle( AppLocalizations.of(context)!.state
-       // 'State',
       ),
 
       AnimatedContainer(
@@ -2463,9 +2422,7 @@ Future<void> loadDistricts() async {
                         selectedState == null ||
                                 selectedState!.isEmpty
                             ? AppLocalizations.of(context)!.selectyourState
-                            // 'Select your State'
                             : localizedState(selectedState!, languageCode),
-                            //selectedState!,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -2517,7 +2474,6 @@ Future<void> loadDistricts() async {
                       controller: stateSearchController,
                       onChanged: filterStates,
                       decoration: InputDecoration(
-                       // hintText: 'Search state...',
                        hintText: AppLocalizations.of(context)!.searchState,
                         prefixIcon: const Icon(
                           Icons.search,
@@ -2572,7 +2528,6 @@ Future<void> loadDistricts() async {
                       child: filteredStates.isEmpty
                           ? Center(
                               child: Text( AppLocalizations.of(context)!.nostatefound,
-                              //  'No state found',
                                 style: TextStyle(
                                   color:
                                       Colors.grey.shade600,
@@ -2596,23 +2551,7 @@ Future<void> loadDistricts() async {
                                     10,
                                   ),
                                   onTap: () {
-                                    // setState(() {
-                                    //   selectedState = state;
 
-                                    //   categoryError =
-                                    //       false;
-
-                                    //   isCategoryDropdownOpen =
-                                    //       false;
-
-                                    //   stateSearchController
-                                    //       .clear();
-
-                                    //   filteredStates =
-                                    //       List<String>.from(
-                                    //     indiaStates,
-                                    //   );
-                                    // });
                                     setState(() {
   final bool stateChanged = selectedState != state;
 
@@ -2682,14 +2621,6 @@ Future<void> loadDistricts() async {
 
                                         Expanded(
                                           child:
-                                          //  Text(
-                                          //   state,
-                                          //   style:
-                                          //       const TextStyle(
-                                          //     color: darkText,
-                                          //     fontSize: 14,
-                                          //   ),
-                                          // ),
                                           Text(localizedState(state, languageCode) ,
                                           style:
                                                 const TextStyle(
@@ -2723,7 +2654,6 @@ Future<void> loadDistricts() async {
             top: 5,
           ),
           child: Text( AppLocalizations.of(context)!.pleaseSelectyourState,
-            //'Please select your state.',
             style: TextStyle(
               color: Colors.red,
               fontSize: 12,
@@ -2735,13 +2665,11 @@ Future<void> loadDistricts() async {
   );
 }
 
-//Widget districtSection() {
 Widget districtSection() {
   final languageCode = currentLanguageCode(context);
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      //sectionTitle('District'),
       sectionTitle(AppLocalizations.of(context)!.district),
 
       AnimatedContainer(
@@ -2809,8 +2737,6 @@ Widget districtSection() {
                       child: Text(
                         selectedDistrict == null ||
                                 selectedDistrict!.isEmpty
-                            // ? 'Select your District'
-                            // : selectedDistrict!,
                             ? AppLocalizations.of(context)!.selectyourDistrict
 : localizedDistrict(selectedDistrict!, languageCode),
                         maxLines: 1,
@@ -2873,8 +2799,6 @@ Widget districtSection() {
 
                       decoration:
                           InputDecoration(
-                        // hintText:
-                        //     'Search district...',
                         hintText: AppLocalizations.of(context)!.searchdistrict,
 
                         prefixIcon:
@@ -3058,16 +2982,6 @@ Widget districtSection() {
                                         ),
 
                                         Expanded(
-                                          // child: Text(
-                                          //   district,
-                                          //   style:
-                                          //       const TextStyle(
-                                          //     color:
-                                          //         darkText,
-                                          //     fontSize:
-                                          //         14,
-                                          //   ),
-                                          // ),
                                           child: Text(
   localizedDistrict(district, languageCode),
   style: const TextStyle(
@@ -3101,7 +3015,6 @@ Widget districtSection() {
             top: 5,
           ),
           child: Text( AppLocalizations.of(context)!.pleaseselectyourdistrict,
-          //  'Please select your district.',
             style: TextStyle(
               color: Colors.red,
               fontSize: 12,
@@ -3201,7 +3114,6 @@ Future<void> sendOTP({bool isResend = false}) async {
 
   if (!RegExp(r'^[6-9][0-9]{9}$').hasMatch(phone)) {
     showMessage(AppLocalizations.of(context)!.enteradigitmobilenumber,
-    //  'Enter a valid 10-digit mobile number.'
       );
     return;
   }
@@ -4285,7 +4197,6 @@ Future<void> _saveCourierFirestoreInBackground({
       'Courier Firestore sync completed.',
     );
   } catch (e) {
-    // Keep pending = true so it can be synced later.
     debugPrint(
       'Courier Firestore background sync failed: $e',
     );
@@ -4681,7 +4592,6 @@ _finishSubmitState();
 
               TextSpan(
                 text: AppLocalizations.of(context)!.registration,
-                   // 'Registration',
                 style:
                     TextStyle(
                  color: Colors.red,
@@ -4766,8 +4676,6 @@ if (nameError)
     ),
   ),
 
-               // _usernameSection(),
-
                 const SizedBox(height: 17),
  sectionTitle('Mobile Number'),
               const SizedBox(height: 6),
@@ -4797,7 +4705,6 @@ if (nameError)
                     ),
 
                     child: Text(
-                    //  'Enter a valid 10-digit number',
 AppLocalizations.of(context)!.enteradigitmobilenumber,
                       style:
                           TextStyle(
@@ -4981,1168 +4888,3 @@ void _finishSubmitState() {
   });
 }
 }
-
-// ============================================================
-// ADD OWN VEHICLE CATEGORY
-// ============================================================
-
-// Future<void>
-//     _showAddVehicleCategoryDialog() async {
-//   final TextEditingController
-//       categoryController =
-//       TextEditingController();
-
-//   bool isSaving = false;
-
-//   await showDialog<void>(
-//     context: context,
-
-//     barrierDismissible:
-//         !isSaving,
-
-//     builder: (dialogContext) {
-//       return StatefulBuilder(
-//         builder: (
-//           context,
-//           setDialogState,
-//         ) {
-//          Future<void> saveCategory() async {
-//   if (isSaving) return;
-
-//   final name = categoryController.text.trim();
-
-//   if (name.isEmpty) {
-//     showMessage('Please enter a vehicle category.');
-//     return;
-//   }
-
-//   if (name.length > 50) {
-//     showMessage('Category name is too long.');
-//     return;
-//   }
-
-//   final duplicate = allVehicleCategories.any(
-//     (item) =>
-//         item.name.trim().toLowerCase() ==
-//         name.toLowerCase(),
-//   );
-
-//   if (duplicate) {
-//     showMessage('This vehicle category already exists.');
-//     return;
-//   }
-
-//   setDialogState(() {
-//     isSaving = true;
-//   });
-
-//   try {
-//     final categoryId = _makeCategoryId(name);
-
-//     final categoryRef = _firestore
-//         .collection('courierVehicleCategories')
-//         .doc(categoryId);
-
-//     await categoryRef.set({
-//       'name': name,
-//       'iconType': 'default',
-//       'isCustom': true,
-//       'createdBy': _auth.currentUser?.uid,
-//       'createdAt': FieldValue.serverTimestamp(),
-//     });
-
-//     final newCategory = CourierVehicleCategory(
-//       id: categoryId,
-//       name: name,
-//       iconType: 'default',
-//       isCustom: true,
-//     );
-
-//     if (!mounted) return;
-
-//     setState(() {
-//       final exists = allVehicleCategories.any(
-//         (item) => item.id == newCategory.id,
-//       );
-
-//       if (!exists) {
-//         allVehicleCategories.add(newCategory);
-//       }
-
-//       selectedVehicleCategoryIds.add(
-//         newCategory.id,
-//       );
-
-//       vehicleCategoryError = false;
-//     });
-
-//     _filterVehicleCategories();
-// if(!mounted) return;
-//     Navigator.of(this.context).pop();
-
-//     showMessage(
-//       'Vehicle category added successfully.',
-//     );
-//   } catch (e) {
-//     debugPrint(
-//       'ADD COURIER CATEGORY ERROR: $e',
-//     );
-
-//     if (mounted) {
-//       showMessage(
-//         'Unable to add vehicle category. Please try again later.',
-//       );
-//     }
-//   } finally {
-//     if (mounted) {
-//       setDialogState(() {
-//         isSaving = false;
-//       });
-//     }
-//   }
-// }
-//           return AlertDialog(
-//             title: const Text(
-//               'Add Vehicle Category',
-//               style: TextStyle(
-//                 fontWeight:
-//                     FontWeight.w700,
-//               ),
-//             ),
-
-//             content: TextField(
-//               controller:
-//                   categoryController,
-
-//               autofocus: true,
-
-//               enabled: !isSaving,
-
-//               textCapitalization:
-//                   TextCapitalization.words,
-
-//               maxLength: 50,
-
-//               decoration:
-//                   const InputDecoration(
-//                 hintText:
-//                     'Example: Electric Cargo Bike',
-//                 prefixIcon: Icon(
-//                   Icons.local_shipping_outlined,
-//                 ),
-//               ),
-//             ),
-
-//             actions: [
-
-//               TextButton(
-//                 onPressed: isSaving
-//                     ? null
-//                     : () {
-//                         Navigator.of(
-//                           dialogContext,
-//                         ).pop();
-//                       },
-
-//                 child:
-//                     const Text('Cancel'),
-//               ),
-
-//               ElevatedButton(
-//                 onPressed:
-//                     isSaving
-//                         ? null
-//                         : saveCategory,
-
-//                 style:
-//                     ElevatedButton.styleFrom(
-//                   backgroundColor:
-//                       const Color(
-//                     0xFFE53935,
-//                   ),
-//                   foregroundColor:
-//                       Colors.white,
-//                 ),
-
-//                 child: isSaving
-//                     ? const SizedBox(
-//                         width: 18,
-//                         height: 18,
-//                         child:
-//                             CircularProgressIndicator(
-//                           strokeWidth: 2,
-//                           color:
-//                               Colors.white,
-//                         ),
-//                       )
-//                     : const Text(
-//                         'Add',
-//                       ),
-//               ),
-//             ],
-//           );
-//         },
-//       );
-//     },
-//   );
-
-//   categoryController.dispose();
-// }
- // ============================================================
-  // USERNAME SECTION
-  // ============================================================
-
-//  Widget _usernameSection() {
-//   return Column(
-//     crossAxisAlignment: CrossAxisAlignment.start,
-//     children: [
-//       sectionTitle(
-//         'Username',
-//         required: true,
-//       ),
-
-//       const SizedBox(height: 8),
-
-//       TextField(
-//         controller: usernameController,
-//         textCapitalization: TextCapitalization.words,
-//         decoration: InputDecoration(
-//           hintText: 'Enter your name',
-//           icon: Icon(Icons.person_outline),
-//           errorText: usernameError,
-//         ),
-//         onChanged: (value) {
-//           if (usernameError != null) {
-//             setState(() {
-//               usernameError = null;
-//             });
-//           }
-//         },
-//       ),
-//     ],
-//   );
-// }
-
-
-  // Widget sectionTitle(
-  //   String title, {
-  //   bool required = false,
-  // }) {
-  //   return RichText(
-  //     text: TextSpan(
-  //       children: [
-  //         TextSpan(
-  //           text: title,
-  //           style: const TextStyle(
-  //             color: Color(0xFF222222),
-  //             fontSize: 15,
-  //             fontWeight: FontWeight.w700,
-  //           ),
-  //         ),
-
-  //         if (required)
-  //           const TextSpan(
-  //             text: ' *',
-  //             style: TextStyle(
-  //               color: Colors.red,
-  //               fontWeight:
-  //                   FontWeight.w700,
-  //             ),
-  //           ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
-
-// ============================================================
-// PROFILE PHOTO UPLOAD
-// ============================================================
-
-// Future<String?> _uploadCourierProfilePhoto({
-//   required String uid,
-// }) async {
-//   final file =
-//       selectedProfileImage;
-
-//   if (file == null) {
-//     return null;
-//   }
-
-//   try {
-//     /*
-//      * One fixed location per courier.
-//      *
-//      * This avoids creating unlimited image files
-//      * every time the user edits the profile.
-//      */
-
-//     final storageRef =
-//         FirebaseStorage.instance
-//             .ref()
-//             .child(
-//               'courier_profiles',
-//             )
-//             .child(
-//               '$uid.jpg',
-//             );
-
-//     final metadata =
-//         SettableMetadata(
-//       contentType: 'image/jpeg',
-//       cacheControl:
-//           'public,max-age=86400',
-//     );
-
-//     final uploadTask =
-//         storageRef.putFile(
-//       file,
-//       metadata,
-//     );
-
-//     final snapshot =
-//         await uploadTask.timeout(
-//       const Duration(seconds: 30),
-//     );
-
-//     final url =
-//         await snapshot.ref
-//             .getDownloadURL()
-//             .timeout(
-//       const Duration(seconds: 15),
-//     );
-
-//     return url;
-//   } on TimeoutException {
-//     throw TimeoutException(
-//       'Profile photo upload timed out.',
-//     );
-//   } catch (e) {
-//     debugPrint(
-//       'Courier photo upload error: $e',
-//     );
-
-//     rethrow;
-//   }
-// }
-
-
-// ==========================================================  
-// PROFILE PHOTO  
-// ==========================================================  
-
-// String? profilePhotoUrl;  
-
-// /*  
-//  * If a new image was selected,  
-//  * upload the new image.  
-//  */  
-
-// if (selectedProfileImage != null) {  
-//   profilePhotoUrl =  
-//       await _uploadCourierProfilePhoto(  
-//     uid: uid,  
-//   );  
-// } else {  
-//   /*  
-//    * No new image selected.  
-//    *  
-//    * Preserve the old profile photo.  
-//    */  
-
-//   final oldPhoto =  
-//       existingData?[  
-//               'profilePhotoUrl']  
-//           ?.toString();  
-
-//   if (oldPhoto != null &&  
-//       oldPhoto.trim().isNotEmpty) {  
-//     profilePhotoUrl =  
-//         oldPhoto.trim();  
-//   }  
-// }  
-
-
-// ============================================================
-// SUBMIT COURIER
-// ============================================================
-
-// SUBMIT COURIER
-// ============================================================
-
-// Future<void> _submitCourier() async {
-// /*
-
-// VERY IMPORTANT:
-
-// Prevent two fast taps from creating
-
-// duplicate courier submissions.
-// */
-
-
-// if (_submitLocked || isSubmitting) {
-// return;
-// }
-
-// _submitLocked = true;
-
-// if (!mounted) {
-// _submitLocked = false;
-// return;
-// }
-
-// setState(() {
-// isSubmitting = true;
-// });
-
-// try {
-// // ==========================================================
-// // FORM VALIDATION
-// // ==========================================================
-
-// final valid =  
-//     _formKey.currentState?.validate() ?? false;  
-
-// if (!valid) {  
-//   _finishSubmitState();  
-//   return;  
-// }  
-// final description =
-//     descriptionController.text.trim();
-// // ==========================================================  
-// // OTP VALIDATION  
-// // ==========================================================  
-
-// if (!otpVerified) {  
-//   showMessage(  
-//     'Please verify your mobile number first.',  
-//   );  
-
-//   _finishSubmitState();  
-//   return;  
-// }
-
-// // ============================================================
-// // TERMS & CONDITION / PRIVACY POLICY
-// // ============================================================
-// if (!privacyPolicyAccepted) {
-// setState(() {
-// privacyPolicyError =
-// 'Please accept the Privacy Policy and Terms & Conditions.';
-// });
-
-// showMessage(
-// 'Please accept the Privacy Policy and Terms & Conditions.',
-// );
-// _finishSubmitState();
-// return;
-// }
-
-// // ==========================================================  
-// // VEHICLE CATEGORY VALIDATION  
-// // ==========================================================  
-
-// if (selectedVehicleCategoryIds.isEmpty) {  
-//   if (mounted) {  
-//     setState(() {  
-//       vehicleCategoryError = true;  
-//       isVehicleCategoryDropdownOpen = true;  
-//     });  
-//   }  
-
-//   showMessage(  
-//     'Please select at least one vehicle category.',  
-//   );  
-
-//   _finishSubmitState();  
-//   return;  
-// }  
-
-// // ==========================================================  
-// // USER DATA  
-// // ==========================================================  
-
-// final username =  
-//     usernameController.text.trim();  
-
-// final primaryMobile =  
-//     _normalizedMobile(  
-//   mobileController.text,  
-// );  
-
-// final secondaryMobile =  
-//     _normalizedMobile(  
-//   secondaryMobileController.text,  
-// );  
-
-// // ==========================================================  
-// // PRIMARY MOBILE VALIDATION  
-// // ==========================================================  
-
-// if (!RegExp(  
-//   r'^[6-9][0-9]{9}$',  
-// ).hasMatch(primaryMobile)) {  
-//   showMessage(  
-//     'Please enter a valid primary mobile number.',  
-//   );  
-
-//   _finishSubmitState();  
-//   return;  
-// }  
-
-// // ==========================================================  
-// // SECONDARY MOBILE VALIDATION  
-// //  
-// // Secondary mobile is OPTIONAL.  
-// // Validate it only when the user entered something.  
-// // ==========================================================  
-
-// if (secondaryMobile.isNotEmpty &&  
-//     !RegExp(  
-//       r'^[6-9][0-9]{9}$',  
-//     ).hasMatch(secondaryMobile)) {  
-//   showMessage(  
-//     'Please enter a valid secondary mobile number.',  
-//   );  
-
-//   _finishSubmitState();  
-//   return;  
-// }  
-
-// // ==========================================================  
-// // OTP USER CHECK  
-// // ==========================================================  
-
-// final currentUser =  
-//     _auth.currentUser;  
-
-// if (currentUser == null) {  
-//   showMessage(  
-//     'Mobile verification session expired. Please verify OTP again.',  
-//   );  
-
-//   if (mounted) {  
-//     setState(() {  
-//       otpVerified = false;  
-//     });  
-//   }  
-
-//   _finishSubmitState();  
-//   return;  
-// }  
-
-// // ==========================================================  
-// // VERIFY AUTH PHONE  
-// // ==========================================================  
-
-// final authPhone =  
-//     currentUser.phoneNumber ?? '';  
-
-// if (authPhone.isNotEmpty) {  
-//   final expectedPhone =  
-//       '+91$primaryMobile';  
-
-//   if (authPhone != expectedPhone) {  
-//     showMessage(  
-//       'Verified mobile number does not match the entered number.',  
-//     );  
-
-//     if (mounted) {  
-//       setState(() {  
-//         otpVerified = false;  
-//       });  
-//     }  
-
-//     _finishSubmitState();  
-//     return;  
-//   }  
-// }  
-
-// // ==========================================================  
-// // UID  
-// // ==========================================================  
-
-// final uid =  
-//     currentUser.uid;  
-
-// // ==========================================================  
-// // CHECK EXISTING COURIER DOCUMENT  
-// // ==========================================================  
-
-// final courierRef =  
-//     _firestore  
-//         .collection('couriers')  
-//         .doc(uid);  
-
-// final existingCourier =  
-//     await courierRef.get();  
-
-// final existingData =  
-//     existingCourier.data();  
-
-// String? profilePhotoUrl;
-
-// /*
-//  * If a new image was selected,
-//  * upload the new image.
-//  */
-// if (profilePhoto != null) {
-//   profilePhotoUrl = await uploadProfilePhoto(uid);
-// } else {
-//   /*
-//    * No new image selected.
-//    * Preserve the old profile photo.
-//    */
-//   final oldPhoto =
-//       existingData?['profilePhotoUrl']?.toString();
-
-//   if (oldPhoto != null &&
-//       oldPhoto.trim().isNotEmpty) {
-//     profilePhotoUrl = oldPhoto.trim();
-//   }
-// }
-
-// // ==========================================================  
-// // CATEGORY IDS  
-// // ==========================================================  
-
-// final vehicleCategoryIds =  
-//     selectedVehicleCategoryIds.toList();  
-
-// // ==========================================================  
-// // FIRESTORE DATA  
-// // ==========================================================  
-
-// final Map<String, dynamic> courierData = {
-//   'uid': uid,
-
-//   'username': username,
-
-//   'primaryMobile':
-//       primaryMobile,
-
-//   'secondaryMobile':
-//       secondaryMobile,
-
-//   'vehicleCategoryIds':
-//       vehicleCategoryIds,
-
-//   // ========================================================
-//   // VEHICLE NUMBER
-//   // ========================================================
-
-//   // 'vehicleNumber':
-//   //     vehicleNumber,
-
-//   // ========================================================
-//   // SHOP / BUSINESS TIMING
-//   // OPTIONAL
-//   // ========================================================
-
-//   'openingTime':
-//       openingTime == null
-//           ? null
-//           : timeToString(openingTime!),
-
-//   'closingTime':
-//       closingTime == null
-//           ? null
-//           : timeToString(closingTime!),
-
-//   'isOpen24Hours':
-//       isOpen24Hours,
-
-//   // ========================================================
-//   // DESCRIPTION
-//   // OPTIONAL
-//   // ========================================================
-
-//   'description':
-//       description.isEmpty
-//           ? null
-//           : description,
-
-//   // ========================================================
-//   // LIVE LOCATION
-//   // ========================================================
-
-//   'isLive':
-//       existingData?['isLive'] ??
-//           false,
-
-//   'latitude':
-//       existingData?['latitude'],
-
-//   'longitude':
-//       existingData?['longitude'],
-
-//   // ========================================================
-//   // ROLE
-//   // ========================================================
-
-//   'role':
-//       'courier',
-
-//   'serviceType':
-//       'courier',
-
-//   // ========================================================
-//   // SEARCH
-//   // ========================================================
-
-//   'searchKeywords':
-//       _buildCourierSearchKeywords(
-//     username: username,
-//     vehicleCategoryIds:
-//         vehicleCategoryIds,
-//   ),
-
-//   // ========================================================
-//   // TIMESTAMPS
-//   // ========================================================
-
-//   'updatedAt':
-//       FieldValue.serverTimestamp(),
-
-//   'createdAt':
-//       existingData?['createdAt'] ??
-//           FieldValue.serverTimestamp(),
-// };
-
-// // ==========================================================  
-// // PROFILE PHOTO  
-// // ==========================================================  
-
-// if (profilePhotoUrl != null &&  
-//     profilePhotoUrl.trim().isNotEmpty) {  
-//   courierData[  
-//           'profilePhotoUrl'] =  
-//       profilePhotoUrl;  
-// }  
-
-// // ==========================================================  
-// // SAVE TO FIRESTORE  
-// // ==========================================================  
-
-// /*  
-//  * merge:true  
-//  *  
-//  * Prevents us from accidentally removing  
-//  * live-location or future courier fields.  
-//  */  
-
-// await courierRef  
-//     .set(  
-//       courierData,  
-//       SetOptions(  
-//         merge: true,  
-//       ),  
-//     )  
-//     .timeout(  
-//   const Duration(  
-//     seconds: 20,  
-//   ),  
-// );  
-
-// // ==========================================================  
-// // SUCCESS  
-// // ==========================================================  
-
-// if (!mounted) {  
-//   return;  
-// }  
-
-// showMessage(  
-//   'Courier profile saved successfully.',  
-// );  
-
-// // ==========================================================  
-// // SMALL DELAY  
-// // ==========================================================  
-
-// await Future<void>.delayed(  
-//   const Duration(  
-//     milliseconds: 300,  
-//   ),  
-// );  
-
-// if (!mounted) {  
-//   return;  
-// }  
-
-// // ==========================================================  
-// // GO TO COURIER CATEGORIES  
-// // ==========================================================  
-
-// Navigator.pushAndRemoveUntil(  
-//   context,  
-//   MaterialPageRoute(  
-//     builder: (_) =>  
-//         const ScreenCourierCategories(),  
-//   ),  
-//   (route) => false,  
-// );
-
-// } on FirebaseException catch (e) {
-// debugPrint(
-// 'Courier Firestore error: '
-// '${e.code} ${e.message}',
-// );
-
-// if (!mounted) {  
-//   return;  
-// }  
-
-// String message =  
-//     'Unable to save courier profile.';  
-
-// if (e.code ==  
-//     'permission-denied') {  
-//   message =  
-//       'You do not have permission to save this profile.';  
-// } else if (e.code ==  
-//     'unavailable') {  
-//   message =  
-//       'Network is unavailable. Please try again.';  
-// } else if (e.code ==  
-//     'deadline-exceeded') {  
-//   message =  
-//       'Saving took too long. Please try again.';  
-// } else if (e.message != null &&  
-//     e.message!.trim().isNotEmpty) {  
-//   message =  
-//       e.message!;  
-// }  
-
-// showMessage(message);
-
-// } on TimeoutException {
-// if (!mounted) {
-// return;
-// }
-
-// showMessage(  
-//   'Saving took too long. Please check your internet connection and try again.',  
-// );
-
-// } catch (e) {
-// debugPrint(
-// 'Courier submit error: $e',
-// );
-
-// if (!mounted) {  
-//   return;  
-// }  
-
-// showMessage(  
-//   'Unable to save courier profile. Please try again.',  
-// );
-
-// } finally {
-// _finishSubmitState();
-// }
-// }
-
-
-// Future<void> _submitCourier() async {
-//   // ==========================================================
-//   // PREVENT DOUBLE SUBMISSION
-//   // ==========================================================
-
-//   if (_submitLocked || isSubmitting) {
-//     return;
-//   }
-
-//   _submitLocked = true;
-
-//   if (!mounted) {
-//     _submitLocked = false;
-//     return;
-//   }
-
-//   setState(() {
-//     isSubmitting = true;
-//   });
-
-//   try {
-//     // ========================================================
-//     // FORM VALIDATION
-//     // ========================================================
-
-//     final bool valid =
-//         _formKey.currentState?.validate() ?? false;
-
-//     if (!valid) {
-//       _finishSubmitState();
-//       return;
-//     }
-
-//     // ========================================================
-//     // DESCRIPTION
-//     // ========================================================
-
-//     final String description =
-//         descriptionController.text.trim();
-
-//     // ========================================================
-//     // OTP VALIDATION
-//     // ========================================================
-
-//     if (!otpVerified) {
-//       showMessage(
-//         'Please verify your mobile number first.',
-//         isError: true,
-//       );
-
-//       _finishSubmitState();
-//       return;
-//     }
-
-//     // ========================================================
-//     // PRIVACY / TERMS
-//     // ========================================================
-
-//     if (!privacyPolicyAccepted) {
-//       if (mounted) {
-//         setState(() {
-//           privacyPolicyError =
-//               'Please accept the Privacy Policy and Terms & Conditions.';
-//         });
-//       }
-
-//       _finishSubmitState();
-//       return;
-//     }
-
-//     // ========================================================
-//     // VEHICLE CATEGORY
-//     // ========================================================
-
-//     if (selectedVehicleCategoryIds.isEmpty) {
-//       if (mounted) {
-//         setState(() {
-//           vehicleCategoryError = true;
-//           isVehicleCategoryDropdownOpen = true;
-//         });
-//       }
-
-//       _finishSubmitState();
-//       return;
-//     }
-
-//     // ========================================================
-//     // USER DATA
-//     // ========================================================
-
-//     final String username =
-//         usernameController.text.trim();
-
-//     final String primaryMobile =
-//         _normalizedMobile(
-//       mobileController.text,
-//     );
-
-//     final String secondaryMobile =
-//         _normalizedMobile(
-//       secondaryMobileController.text,
-//     );
-
-//     // ========================================================
-//     // PRIMARY MOBILE VALIDATION
-//     // ========================================================
-
-//     if (!RegExp(
-//       r'^[6-9][0-9]{9}$',
-//     ).hasMatch(primaryMobile)) {
-//       if (mounted) {
-//         setState(() {
-//           mobileError = true;
-//         });
-//       }
-
-//       _finishSubmitState();
-//       return;
-//     }
-
-//     // ========================================================
-//     // SECONDARY MOBILE VALIDATION
-//     // MANDATORY
-//     // ========================================================
-
-//     if (!RegExp(
-//       r'^[6-9][0-9]{9}$',
-//     ).hasMatch(secondaryMobile)) {
-//       if (mounted) {
-//         setState(() {
-//           secondaryMobileError = true;
-//         });
-//       }
-
-//       _finishSubmitState();
-//       return;
-//     }
-
-//     // ========================================================
-//     // FIREBASE USER
-//     // ========================================================
-
-//     final User? currentUser =
-//         _auth.currentUser;
-
-//     if (currentUser == null) {
-//       showMessage(
-//         'Mobile verification session expired. Please verify OTP again.',
-//         isError: true,
-//       );
-
-//       if (mounted) {
-//         setState(() {
-//           otpVerified = false;
-//         });
-//       }
-
-//       _finishSubmitState();
-//       return;
-//     }
-
-//     // ========================================================
-//     // VERIFY AUTH PHONE
-//     // ========================================================
-
-//     final String authPhone =
-//         currentUser.phoneNumber ?? '';
-
-//     if (authPhone.isNotEmpty) {
-//       final String expectedPhone =
-//           '+91$primaryMobile';
-
-//       if (authPhone != expectedPhone) {
-//         showMessage(
-//           'Verified mobile number does not match the entered number.',
-//           isError: true,
-//         );
-
-//         if (mounted) {
-//           setState(() {
-//             otpVerified = false;
-//           });
-//         }
-
-//         _finishSubmitState();
-//         return;
-//       }
-//     }
-
-//     // ========================================================
-//     // UID
-//     // ========================================================
-
-//     final String uid =
-//         currentUser.uid;
-
-//     // ========================================================
-//     // VEHICLE CATEGORIES
-//     // ========================================================
-
-//     final List<String> vehicleCategoryIds =
-//         selectedVehicleCategoryIds.toList();
-
-//     // ========================================================
-//     // SAVE TO HIVE FIRST
-//     // ========================================================
-
-//     await saveCourierLocally(
-//       uid: uid,
-//       username: username,
-//       primaryMobile: primaryMobile,
-//       secondaryMobile: secondaryMobile,
-//       vehicleCategoryIds:
-//           vehicleCategoryIds,
-//       openingTime:
-//           openingTime == null
-//               ? null
-//               : timeToString(openingTime!),
-//       closingTime:
-//           closingTime == null
-//               ? null
-//               : timeToString(closingTime!),
-//       description:
-//           description.isEmpty
-//               ? null
-//               : description,
-//       profilePhotoUrl:
-//           null,
-//     );
-
-//     // ========================================================
-//     // SAVE COMMON LOGIN PROFILE
-//     // ========================================================
-
-//     await CommonProfileService.saveLogin(
-//       uid: uid,
-//       name: username,
-//       mobile: primaryMobile,
-//       role: 'courier',
-//     );
-
-//     // ========================================================
-//     // FIRESTORE IN BACKGROUND
-//     // ========================================================
-
-//     _saveCourierFirestoreInBackground(
-//       uid: uid,
-//       username: username,
-//       primaryMobile: primaryMobile,
-//       secondaryMobile: secondaryMobile,
-//       vehicleCategoryIds:
-//           vehicleCategoryIds,
-//       description: description,
-//     );
-
-//     // ========================================================
-//     // WAIT 2 SECONDS
-//     // ========================================================
-
-//     await Future<void>.delayed(
-//       const Duration(seconds: 2),
-//     );
-
-//     if (!mounted) {
-//       return;
-//     }
-
-//     // ========================================================
-//     // GO TO HOME
-//     // ========================================================
-
-//     setState(() {
-//       isSubmitting = false;
-//     });
-
-//     _submitLocked = false;
-
-//     Navigator.pushAndRemoveUntil(
-//       context,
-//       MaterialPageRoute(
-//         builder: (_) => const ScreenHome(),
-//       ),
-//       (route) => false,
-//     );
-//   } catch (e) {
-//     debugPrint(
-//       'Courier submit error: $e',
-//     );
-
-//     if (!mounted) {
-//       return;
-//     }
-
-//     showMessage(
-//       'Unable to save courier profile. Please try again.',
-//       isError: true,
-//     );
-
-//     _finishSubmitState();
-//   }
-// }

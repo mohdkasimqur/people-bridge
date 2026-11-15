@@ -1,175 +1,4 @@
 
-//   try {
-//     // ===========================================================
-//     // GET CURRENT LOCATION
-//     // ===========================================================
-
-//     // if (currentPosition == null) {
-//     //   final bool locationSuccess =
-//     //       await getCurrentLocation();
-
-//     //   if (!locationSuccess ||
-//     //       currentPosition == null) {
-//     //     if (mounted) {
-//     //       setState(() {
-//     //         isSubmitting = false;
-//     //       });
-//     //     }
-
-//     //     return;
-//     //   }
-//     // }
-
-//     // ===========================================================
-//     // CURRENT FIREBASE USER
-//     // ===========================================================
-
-//     final User? user =
-//         _auth.currentUser;
-
-//     if (user == null) {
-//       if (mounted) {
-//         setState(() {
-//           isSubmitting = false;
-//         });
-//       }
-
-//       showMessage(
-//         'Authentication failed. Please verify OTP again.',
-//         isError: true,
-//       );
-
-//       return;
-//     }
-
-//     // ===========================================================
-//     // FINAL VALUES
-//     // ===========================================================
-
-//     final String finalCategory =
-//         selectedCategories.first;
-
-//     final String? finalExperience =
-//         selectedExperience;
-
-//     // ===========================================================
-//     // 1. SAVE COMMON PROFILE / LOCAL PROFILE FIRST
-//     // ===========================================================
-//     //
-//     // Keep this because ScreenHome/profile uses the common
-//     // profile information.
-//     //
-//     // ===========================================================
-
-//     await CommonProfileService.saveLogin(
-//       uid: user.uid,
-//       name: name,
-//       mobile: mobile,
-//       role: 'self_employee',
-//       profilePhotoUrl: profilePhotoUrl,
-//     );
-
-//     // SAVE SELF EMPLOYEE PROFILE TO HIVE
-// await saveSelfEmployeeToHive(
-//   user: user,
-//   name: name,
-//   mobile: mobile,
-//   finalCategory: finalCategory,
-//   experience: finalExperience,
-// );
-
-//     // ===========================================================
-//     // 2. START FIRESTORE SAVE IN BACKGROUND
-//     // ===========================================================
-//     //
-//     // IMPORTANT:
-//     // There is NO "await" here.
-//     //
-//     // Firestore starts saving while we prepare to go to Home.
-//     //
-//     // ===========================================================
-
-//     saveSelfEmployeeToFirestore(
-//       position: currentPosition!,
-//       user: user,
-//       name: name,
-//       mobile: mobile,
-//       finalCategory: finalCategory,
-//       experience: finalExperience,
-//     ).then((_) {
-//       debugPrint(
-//         'Self Employee Firestore sync completed successfully.',
-//       );
-//     }).catchError((error) {
-//       debugPrint(
-//         'Self Employee Firestore background sync failed: $error',
-//       );
-//     });
-
-//     // ===========================================================
-//     // 3. GIVE THE USER A SHORT 2 SECOND TRANSITION
-//     // ===========================================================
-
-//     await Future.delayed(
-//       const Duration(seconds: 2),
-//     );
-
-//     // ===========================================================
-//     // 4. GO TO HOME
-//     // ===========================================================
-
-//     if (!mounted) {
-//       return;
-//     }
-
-//     setState(() {
-//       isSubmitting = false;
-//     });
-
-//     Navigator.of(context).pushAndRemoveUntil(
-//       MaterialPageRoute(
-//         builder: (context) =>
-//             const ScreenHome(),
-//       ),
-//       (route) => false,
-//     );
-//   } on FirebaseException catch (error) {
-//     // -----------------------------------------------------------
-//     // FIREBASE ERROR
-//     // -----------------------------------------------------------
-
-//     if (!mounted) {
-//       return;
-//     }
-
-//     setState(() {
-//       isSubmitting = false;
-//     });
-
-//     showMessage(
-//       error.message ??
-//           'Unable to create your profile. Please try again.',
-//       isError: true,
-//     );
-//   } catch (error) {
-//     // -----------------------------------------------------------
-//     // GENERAL ERROR
-//     // -----------------------------------------------------------
-
-//     if (!mounted) {
-//       return;
-//     }
-
-//     setState(() {
-//       isSubmitting = false;
-//     });
-
-//     showMessage(
-//       'Something went wrong. Please try again.',
-//       isError: true,
-//     );
-//   }
-
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -189,7 +18,6 @@ import 'package:jober_india/jober_indiaScreens.dart/screen_camera_capture.dart';
 import 'package:jober_india/jober_indiaScreens.dart/screen_home.dart';
 import 'package:jober_india/l10n/app_localizations.dart';
 import 'package:jober_india/screens/location_localization.dart';
-//import 'package:jober_india/jober_indiaScreens.dart/screen_home.dart';
 
 import '../Privacy&Terms/privacy_terms_section.dart';
 
@@ -281,11 +109,7 @@ class _ScreenSelfEmployeesLoginState
        FirebaseFirestore.instance;
 
   static const Color green =
-     // Color(0xFF16803C);
       Color(0xFF138808);
-
-  // static const Color submitGreen =
-  //     Color(0xFF159B16);
 
   static const Color darkText =
       Color(0xFF202124);
@@ -309,10 +133,6 @@ int _locationRequestId = 0;
   bool privacyPolicyAccepted = false;
   String? privacyPolicyError;
 
-//    File? profilePhoto;
-//   String? profilePhotoUrl;
-// bool isUploadingPhoto = false;
-//   final ImagePicker _imagePicker = ImagePicker();
 File? profilePhoto;
 String? profilePhotoUrl;
 
@@ -384,29 +204,10 @@ int? resendToken;
 
   bool showCustomCategory = false;
   bool isCategoryDropdownOpen = false;
-   // bool isStateDropdownOpen = false;
-
-
-  // ===============================================================
-  // LOCATION
-  // ===============================================================
 
   Position? currentPosition;
 
-//  bool isGettingLocation = false;
-
-
-  // ===============================================================
-  // ERROR MESSAGE
-  // ===============================================================
-
   String? errorMessage;
-//bool mobileError = false;
-
-
-  // ===============================================================
-  // SELF EMPLOYEE CATEGORIES
-  // ===============================================================
 
   final List<String> selfEmployeeCategories = [
 
@@ -505,149 +306,8 @@ int? resendToken;
      filteredStates = List<String>.from(indiaStates);
 
   loadDistricts();
-    // -------------------------------------------------------------
-    // CATEGORY SEARCH LISTENER
-    // -------------------------------------------------------------
 
-    // categorySearchController
-    //     .addListener(
-    //   _refreshCategorySearch,
-    // );
   }
-
-//         final TextEditingController nearestCityController =
-//     TextEditingController();
-
-// String stateError = '';
-// String districtError = '';
-// String nearestCityError = '';
-// String? selectedState;
-
-// final TextEditingController stateSearchController =
-//     TextEditingController();
-
-// List<String> filteredStates = [];
-
-// static const List<String> indiaStates = [
-//   'Andhra Pradesh',
-//   'Arunachal Pradesh',
-//   'Assam',
-//   'Bihar',
-//   'Chhattisgarh',
-//   'Goa',
-//   'Gujarat',
-//   'Haryana',
-//   'Himachal Pradesh',
-//   'Jharkhand',
-//   'Karnataka',
-//   'Keralam',
-//   'Madhya Pradesh',
-//   'Maharashtra',
-//   'Manipur',
-//   'Meghalaya',
-//   'Mizoram',
-//   'Nagaland',
-//   'Odisha',
-//   'Punjab',
-//   'Rajasthan',
-//   'Sikkim',
-//   'Tamil Nadu',
-//   'Telangana',
-//   'Tripura',
-//   'Uttar Pradesh',
-//   'Uttarakhand',
-//   'West Bengal',
-// ];
-
-// void filterStates(String value) {
-//   final String search = value.trim().toLowerCase();
-
-//   final List<String> result = indiaStates.where((state) {
-//     return search.isEmpty ||
-//         state.toLowerCase().contains(search);
-//   }).toList();
-
-//   if (!mounted) return;
-
-//   setState(() {
-//     filteredStates = result;
-//   });
-// }
-
-// String? selectedDistrict;
-
-// bool isDistrictDropdownOpen = false;
-
-// final TextEditingController districtSearchController =
-//     TextEditingController();
-
-// List<String> filteredDistricts = [];
-
-// Map<String, List<String>> indiaDistricts = {};
-
-// List<String> get availableDistricts {
-//   if (selectedState == null ||
-//       selectedState!.trim().isEmpty) {
-//     return indiaDistricts.values
-//         .expand((districts) => districts)
-//         .toSet()
-//         .toList();
-//   }
-
-//   return List<String>.from(
-//     indiaDistricts[selectedState!] ?? [],
-//   );
-// }
-
-// void filterDistricts(String value) {
-//   final search = value.trim().toLowerCase();
-
-//   final result = availableDistricts.where((district) {
-//     return search.isEmpty ||
-//         district.toLowerCase().contains(search);
-//   }).toList();
-
-//   if (!mounted) return;
-
-//   setState(() {
-//     filteredDistricts = result;
-//   });
-// }
-
-// Future<void> loadDistricts() async {
-//   final String jsonString = await rootBundle.loadString(
-//     'assets/data/india_districts.json',
-//   );
-
-//   final Map<String, dynamic> data =
-//       json.decode(jsonString);
-
-//   if (!mounted) return;
-
-//   setState(() {
-//     indiaDistricts = data.map(
-//       (key, value) => MapEntry(
-//         key,
-//         List<String>.from(value),
-//       ),
-//     );
-
-//     filteredDistricts =
-//         List<String>.from(availableDistricts);
-//   });
-// }
-
-
-  // ===============================================================
-  // REFRESH CATEGORY SEARCH
-  // ===============================================================
-
-  // void _refreshCategorySearch() {
-
-  //   if (!mounted) return;
-
-  //   setState(() {});
-  // }
 
    List<String> get allCategories {
 
@@ -967,7 +627,6 @@ Future<void> sendOTP({bool isResend = false}) async {
 
   if (!RegExp(r'^[6-9][0-9]{9}$').hasMatch(phone)) {
     showMessage(AppLocalizations.of(context)!.enteradigitmobilenumber,
-    //  'Enter a valid 10-digit mobile number.'
       );
     return;
   }
@@ -1764,22 +1423,6 @@ try {
       experience: finalExperience,
     );
 
-    // 4. Start Firestore sync without blocking navigation.
-    // saveSelfEmployeeToFirestore(
-    //   user: user,
-    //   name: name,
-    //   mobile: mobile,
-    //   finalCategory: finalCategory,
-    //   experience: finalExperience,
-    // ).then((_) {
-    //   debugPrint(
-    //     'Self-employed Firestore save successful: ${user.uid}',
-    //   );
-    // }).catchError((Object error, StackTrace stackTrace) {
-    //   debugPrint('Self-employed Firestore save failed: $error');
-    //   debugPrintStack(stackTrace: stackTrace);
-    // });
-    // 4. Save the Firestore profile and WAIT for completion.
 await saveSelfEmployeeToFirestore(
   user: user,
   name: name,
@@ -1842,8 +1485,6 @@ debugPrint(
 }
 
      Widget mobileSection() {
-    // final bool verified =
-    //     otpVerified;
 
     return Column(
       crossAxisAlignment:
@@ -2099,7 +1740,6 @@ debugPrint(
    Padding(
     padding: EdgeInsets.only(left: 12, top: 5),
     child: Text( AppLocalizations.of(context)!.enteradigitmobilenumber,
-    //  'Enter a valid 10-digit mobile number.',
       style: TextStyle(
         color: Colors.red,
         fontSize: 12,
@@ -2264,8 +1904,6 @@ debugPrint(
             autofillHints: const [
   AutofillHints.oneTimeCode,
 ],
-            // enabled:
-            //     !isVerifying,
             enabled: !isVerifying &&
     !isSendingOtp &&
     secondsRemaining > 0,
@@ -2803,7 +2441,6 @@ Future<void> loadDistricts() async {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       sectionTitle( AppLocalizations.of(context)!.state
-       // 'State',
       ),
 
       AnimatedContainer(
@@ -2868,9 +2505,7 @@ Future<void> loadDistricts() async {
                         selectedState == null ||
                                 selectedState!.isEmpty
                             ? AppLocalizations.of(context)!.selectyourState
-                            // 'Select your State'
                             : localizedState(selectedState!, languageCode),
-                            //selectedState!,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -2922,7 +2557,6 @@ Future<void> loadDistricts() async {
                       controller: stateSearchController,
                       onChanged: filterStates,
                       decoration: InputDecoration(
-                       // hintText: 'Search state...',
                        hintText: AppLocalizations.of(context)!.searchState,
                         prefixIcon: const Icon(
                           Icons.search,
@@ -2977,7 +2611,6 @@ Future<void> loadDistricts() async {
                       child: filteredStates.isEmpty
                           ? Center(
                               child: Text( AppLocalizations.of(context)!.nostatefound,
-                              //  'No state found',
                                 style: TextStyle(
                                   color:
                                       Colors.grey.shade600,
@@ -3001,23 +2634,7 @@ Future<void> loadDistricts() async {
                                     10,
                                   ),
                                   onTap: () {
-                                    // setState(() {
-                                    //   selectedState = state;
 
-                                    //   categoryError =
-                                    //       false;
-
-                                    //   isCategoryDropdownOpen =
-                                    //       false;
-
-                                    //   stateSearchController
-                                    //       .clear();
-
-                                    //   filteredStates =
-                                    //       List<String>.from(
-                                    //     indiaStates,
-                                    //   );
-                                    // });
                                     setState(() {
   final bool stateChanged = selectedState != state;
 
@@ -3087,14 +2704,6 @@ Future<void> loadDistricts() async {
 
                                         Expanded(
                                           child:
-                                          //  Text(
-                                          //   state,
-                                          //   style:
-                                          //       const TextStyle(
-                                          //     color: darkText,
-                                          //     fontSize: 14,
-                                          //   ),
-                                          // ),
                                           Text(localizedState(state, languageCode) ,
                                           style:
                                                 const TextStyle(
@@ -3128,7 +2737,6 @@ Future<void> loadDistricts() async {
             top: 5,
           ),
           child: Text( AppLocalizations.of(context)!.pleaseSelectyourState,
-            //'Please select your state.',
             style: TextStyle(
               color: Colors.red,
               fontSize: 12,
@@ -3140,13 +2748,11 @@ Future<void> loadDistricts() async {
   );
 }
 
-//Widget districtSection() {
 Widget districtSection() {
   final languageCode = currentLanguageCode(context);
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      //sectionTitle('District'),
       sectionTitle(AppLocalizations.of(context)!.district),
 
       AnimatedContainer(
@@ -3214,8 +2820,6 @@ Widget districtSection() {
                       child: Text(
                         selectedDistrict == null ||
                                 selectedDistrict!.isEmpty
-                            // ? 'Select your District'
-                            // : selectedDistrict!,
                             ? AppLocalizations.of(context)!.selectyourDistrict
 : localizedDistrict(selectedDistrict!, languageCode),
                         maxLines: 1,
@@ -3278,8 +2882,6 @@ Widget districtSection() {
 
                       decoration:
                           InputDecoration(
-                        // hintText:
-                        //     'Search district...',
                         hintText: AppLocalizations.of(context)!.searchdistrict,
 
                         prefixIcon:
@@ -3463,16 +3065,6 @@ Widget districtSection() {
                                         ),
 
                                         Expanded(
-                                          // child: Text(
-                                          //   district,
-                                          //   style:
-                                          //       const TextStyle(
-                                          //     color:
-                                          //         darkText,
-                                          //     fontSize:
-                                          //         14,
-                                          //   ),
-                                          // ),
                                           child: Text(
   localizedDistrict(district, languageCode),
   style: const TextStyle(
@@ -3506,7 +3098,6 @@ Widget districtSection() {
             top: 5,
           ),
           child: Text( AppLocalizations.of(context)!.pleaseselectyourdistrict,
-          //  'Please select your district.',
             style: TextStyle(
               color: Colors.red,
               fontSize: 12,
@@ -3570,7 +3161,6 @@ Widget districtSection() {
                     isCategoryDropdownOpen =
                         !isCategoryDropdownOpen;
 
-                   // categoryError = false;
                   });
                 },
                 child: Padding(
@@ -4357,13 +3947,6 @@ Future<String?> _processManualGarageLocation(
       value.contains('maps.app.goo.gl') ||
       value.contains('goo.gl/maps');
 
-  // ==========================================================
-  // NORMAL TEXT
-  // ==========================================================
-
-  // if (!isGoogleMapsLink) {
-  //   return value;
-  // }
   if (!isGoogleMapsLink) {
   try {
     final locations =
@@ -5200,7 +4783,6 @@ Future<void> _uploadProfilePhotoInBackground(
 
               TextSpan(
                 text: AppLocalizations.of(context)!.registration,
-                  //  ' Registration',
                 style:
                     TextStyle(
                  color: Colors.red,
@@ -5234,10 +4816,6 @@ Future<void> _uploadProfilePhotoInBackground(
 
             children: [
 
-
-              // // ===================================================
-              // // HEADER
-              // // ===================================================
 
               const SizedBox(
                 height: 6,
@@ -5342,7 +4920,6 @@ if (nameError)
                     ),
 
                     child: Text(AppLocalizations.of(context)!.enteradigitmobilenumber,
-                    //  'Enter a valid 10-digit number',
 
                       style:
                           TextStyle(
@@ -5545,823 +5122,3 @@ const SizedBox(height: 20),
   }
 
 }
-
-
-// Future<void> submitSelfEmployee() async {
-//   if (isSubmitting) return;
-
-//   bool hasError = false;
-
-//   // ============================================================
-//   // NAME VALIDATION
-//   // ============================================================
-
-//   final String name = nameController.text.trim();
-
-
-//   if (name.isEmpty || name.length < 2) {
-//   nameError = true;
-//   hasError = true;
-// } else {
-//   nameError = false;
-// }
-
-//   // ============================================================
-//   // MOBILE VALIDATION
-//   // ============================================================
-
-//   final String mobile = mobileController.text.trim();
-
-//   if (mobile.length != 10 ||
-//       !_isValidIndianMobile(mobile)) {
-//     mobileError = true;
-//     hasError = true;
-//   } else {
-//     mobileError = false;
-//   }
-
-//   // ============================================================
-//   // OTP VALIDATION
-//   // ============================================================
-
-//   if (!otpVerified) {
-//     showMessage(
-//       'Please verify your mobile number first',
-//       isError: true,
-//     );
-//     return;
-//   }
-
-//   // ============================================================
-//   // SECONDARY MOBILE VALIDATION
-//   // ============================================================
-
-//   final String secondaryMobile =
-//       secondaryPhoneController.text.trim();
-
-
-//  if (secondaryMobile.isEmpty ||
-//     !_isValidIndianMobile(secondaryMobile)) {
-//   secondaryMobileError = true;
-//   hasError = true;
-// } else {
-//   secondaryMobileError = false;
-// }
-//   // ============================================================
-//   // CATEGORY VALIDATION
-//   // ============================================================
-// if (selectedCategories.isEmpty) {
-//   categoryError = true;
-//   hasError = true;
-// } else {
-//   categoryError = false;
-// }
-
-//   // ============================================================
-//   // PRIVACY / TERMS
-//   // ============================================================
-
-//   if (!privacyPolicyAccepted) {
-//     privacyPolicyError =
-//         'Please accept the Privacy Policy and Terms & Conditions.';
-//     hasError = true;
-//   } else {
-//     privacyPolicyError = null;
-//   }
-
-//   // ============================================================
-//   // UPDATE ALL VALIDATION UI
-//   // ============================================================
-
-//   if (mounted) {
-//     setState(() {});
-//   }
-
-//   // ============================================================
-//   // STOP IF VALIDATION FAILED
-//   // ============================================================
-
-//   if (hasError) {
-//     return;
-//   }
-
-//   // ============================================================
-//   // START SUBMISSION
-//   // ============================================================
-
-//   if (!mounted) return;
-
-//   setState(() {
-//     isSubmitting = true;
-//   });
-
-//   try {
-//     // Your existing submission code continues here...
-
-      // ===========================================================
-      // SAVE TO FIRESTORE
-      //
-      // Document ID = Firebase UID
-      //
-      // This prevents duplicate profiles and is safer for
-      // large numbers of users.
-      // ===========================================================
-
-      // final DocumentReference<Map<String, dynamic>>
-      //     employeeRef =
-
-      //     _firestore
-      //         .collection(
-      //           'selfEmployees',
-      //         )
-      //         .doc(
-      //           user.uid,
-      //         );
-
-
-      // await employeeRef.set(
-
-      //   {
-
-      //     // -------------------------------------------------------
-      //     // BASIC DETAILS
-      //     // -------------------------------------------------------
-
-      //     'uid':
-      //         user.uid,
-
-      //     'name':
-      //         name,
-
-      //     'mobile':
-      //         mobile,
-
-      //     'category':
-      //         finalCategory,
-
-
-      //     // -------------------------------------------------------
-      //     // SEARCH
-      //     // -------------------------------------------------------
-
-      //     'nameKeywords':
-      //         createSearchKeywords(
-      //       name,
-      //     ),
-
-      //     'categoryKeywords':
-      //         createSearchKeywords(
-      //       finalCategory,
-      //     ),
-
-
-      //     // -------------------------------------------------------
-      //     // LOCATION
-      //     // -------------------------------------------------------
-
-      //     'latitude':
-      //         currentPosition!.latitude,
-
-      //     'longitude':
-      //         currentPosition!.longitude,
-
-
-      //     // -------------------------------------------------------
-      //     // LOCATION MAP
-      //     //
-      //     // Useful for future map queries.
-      //     // -------------------------------------------------------
-
-      //     'location':
-      //         GeoPoint(
-      //       currentPosition!.latitude,
-      //       currentPosition!.longitude,
-      //     ),
-
-
-      //     // -------------------------------------------------------
-      //     // STATUS
-      //     // -------------------------------------------------------
-
-      //     'isActive':
-      //         true,
-
-      //     'role': 'self_employee',
-
-
-      //     // -------------------------------------------------------
-      //     // TIME
-      //     // -------------------------------------------------------
-
-      //     'createdAt':
-      //         FieldValue.serverTimestamp(),
-
-      //     'updatedAt':
-      //         FieldValue.serverTimestamp(),
-
-      //   },
-
-      //   SetOptions(
-      //     merge: true,
-      //   ),
-
-      // );
-
-
-//   Future<void> submitSelfEmployee() async {
-
-//   bool hasError = false;
-
-//     // -------------------------------------------------------------
-//     // PREVENT DOUBLE SUBMISSION
-//     // -------------------------------------------------------------
-
-//     if (isSubmitting) {
-//       return;
-//     }
-
-
-//     //_clearError();
-
-
-//     // -------------------------------------------------------------
-//     // NAME
-//     // -------------------------------------------------------------
-
-//     final String name =
-//         nameController.text
-//             .trim();
-
-
-//     if (name.isEmpty) {
-
-//       showMessage(
-//         'Please enter your name',
-//         isError: true,
-//       );
-
-//       return;
-//     }
-
-
-//     if (name.length < 2) {
-
-//       showMessage(
-//         'Please enter a valid name',
-//         isError: true,
-//       );
-
-//       return;
-//     }
-
-
-//     // -------------------------------------------------------------
-//     // MOBILE
-//     // -------------------------------------------------------------
-
-//     // final String mobile =
-//     //     mobileController.text
-//     //         .trim();
-
-
-//     // if (!_isValidIndianMobile(
-//     //   mobile,
-//     // )) {
-
-//     //   showMessage(
-//     //     'Please enter a valid mobile number',
-//     //     isError: true,
-//     //   );
-
-//     //   return;
-//     // }
-    
-//   final String mobile =
-//       mobileController.text.trim();
-// if (mobile.length != 10) {
-//   mobileError = true;
-//   hasError = true;
-// } else {
-//   mobileError = false;
-// }
-
-//     // -------------------------------------------------------------
-//     // OTP VERIFICATION
-//     // -------------------------------------------------------------
-
-//     if (!otpVerified) {
-
-//       showMessage(
-//         'Please verify your mobile number first',
-//         isError: true,
-//       );
-
-//       return;
-//     }
-
-//     // -------------------------------------------------------------
-// // SECONDARY MOBILE
-// // -------------------------------------------------------------
-
-// final String secondaryMobile =
-//     secondaryPhoneController.text.trim();
-
-// if (secondaryMobile.isEmpty) {
-//   showMessage(
-//     'Please enter your secondary mobile number',
-//     isError: true,
-//   );
-//   return;
-// }
-
-// if (!_isValidIndianMobile(secondaryMobile)) {
-//   showMessage(
-//     'Please enter a valid secondary mobile number',
-//     isError: true,
-//   );
-//   return;
-// }
-
-//     // -------------------------------------------------------------
-//     // CATEGORY
-//     // -------------------------------------------------------------
-
-//     final String? finalCategory =
-//         getFinalCategory();
-
-
-//     if (finalCategory == null ||
-//         finalCategory.isEmpty) {
-
-//       showMessage(
-//         'Please select or add a category',
-//         isError: true,
-//       );
-
-//       return;
-//     }
-
-// //     if (selectedCategories.isEmpty) {
-// //   setState(() {
-// //     categoryError = true;
-// //   });
-
-// //   showMessage(
-// //     'Please select at least one category',
-// //     isError: true,
-// //   );
-
-// //   return;
-// // }
-
-//   // ============================================================
-//   // TERMS & CONDITION / PRIVACY POLICY
-//   // ============================================================
-//   if (!privacyPolicyAccepted) {
-//   setState(() {
-//     privacyPolicyError =
-//         'Please accept the Privacy Policy and Terms & Conditions.';
-//   });
-
-//   showMessage(
-//     'Please accept the Privacy Policy and Terms & Conditions.',
-//   );
-
-//   return;
-// }
-
-//     // -------------------------------------------------------------
-//     // START SUBMISSION
-//     // -------------------------------------------------------------
-
-//     if (mounted) return;
-
-//       setState(() {
-
-//         isSubmitting = true;
-
-//       });
-    
-//      if (hasError) {
-//     showMessage(
-//       'Please complete all required fields.',
-//       isError: true,
-//     );
-
-//     return;
-//   } 
-
-
-
-//     try {
-
-//       // ===========================================================
-//       // GET CURRENT LOCATION
-//       // ===========================================================
-
-//       if (currentPosition == null) {
-
-//         final bool locationSuccess =
-//             await getCurrentLocation();
-
-
-//         if (!locationSuccess) {
-
-//           if (mounted) {
-
-//             setState(() {
-
-//               isSubmitting = false;
-
-//             });
-//           }
-
-//           return;
-//         }
-//       }
-
-
-//       // -----------------------------------------------------------
-//       // SAFETY CHECK
-//       // -----------------------------------------------------------
-
-//       if (currentPosition == null) {
-
-//         if (mounted) {
-
-//           setState(() {
-
-//             isSubmitting = false;
-
-//           });
-//         }
-
-//         return;
-//       }
-
-
-//       // ===========================================================
-//       // CURRENT FIREBASE USER
-//       // ===========================================================
-
-//       final User? user =
-//           _auth.currentUser;
-
-
-//       if (user == null) {
-
-//         if (!mounted) {
-
-//           setState(() {
-
-//             isSubmitting = false;
-
-//           });
-//         }
-
-
-//         showMessage(
-//           'Authentication failed. Please verify OTP again.',
-//           isError: true,
-//         );
-
-//         return;
-//       }
-
-
-//        final String? finalExperience =
-//         selectedExperience;
-//         final String finalCategory =
-//     selectedCategories.isNotEmpty
-//         ? selectedCategories.first
-//         : '';
-//       await saveSelfEmployeeToFirestore(
-//   position: currentPosition!,
-//   user: user,
-//   name: name,
-//   mobile: mobile,
-//   finalCategory: finalCategory,
-//   experience: finalExperience,
-
-// );
-
-// await CommonProfileService.saveLogin(
-//   uid: user.uid,
-//   name: name,
-//   mobile: mobile,
-//   role: 'self_employee',
-//   profilePhotoUrl: profilePhotoUrl,
-// );
-
-//       // ===========================================================
-//       // SUCCESS
-//       // ===========================================================
-
-//       if (!mounted) {
-//         return;
-//       }
-
-
-//       setState(() {
-
-//         isSubmitting = false;
-
-//       });
-
-
-//       showMessage(
-//         'SELF EMPLOYEE profile created successfully',
-//       );
-
-
-//       // ===========================================================
-//       // RETURN / NEXT SCREEN
-//       //
-//       // You can later replace this with ScreenHome navigation.
-//       // ===========================================================
-
-//       await Future.delayed(
-//         const Duration(
-//           milliseconds: 500,
-//         ),
-//       );
-
-
-//       if (!mounted) {
-//         return;
-//       }
-
-
-//       Navigator.of(context)
-//           .pop(
-//         true,
-//       );
-
-
-//     } on FirebaseException catch (error) {
-
-
-//       if (!mounted) {
-//         return;
-//       }
-
-
-//       setState(() {
-
-//         isSubmitting = false;
-
-//       });
-
-
-//       showMessage(
-//         error.message ??
-//             'Unable to save your profile. Please try again.',
-//         isError: true,
-//       );
-
-
-//     } catch (error) {
-
-
-//       if (!mounted) {
-//         return;
-//       }
-
-
-//       setState(() {
-
-//         isSubmitting = false;
-
-//       });
-
-
-//       showMessage(
-//         'Something went wrong. Please try again.',
-//         isError: true,
-//       );
-
-//     }
-//   }
-// // ===============================================================
-  // // GET CURRENT LOCATION
-  // // ===============================================================
-
-  // Future<bool> getCurrentLocation() async {
-
-  //   // -------------------------------------------------------------
-  //   // PREVENT MULTIPLE LOCATION REQUESTS
-  //   // -------------------------------------------------------------
-
-  //   if (isGettingLocation) {
-  //     return false;
-  //   }
-
-
-  //   if (mounted) {
-
-  //     setState(() {
-
-  //       isGettingLocation = true;
-
-  //     });
-  //   }
-
-
-  //   try {
-
-  //     // -----------------------------------------------------------
-  //     // CHECK LOCATION SERVICE
-  //     // -----------------------------------------------------------
-
-  //     bool serviceEnabled =
-  //         await Geolocator
-  //             .isLocationServiceEnabled();
-
-
-  //     if (!serviceEnabled) {
-
-  //       showMessage(
-  //         'Please turn on your phone location service.',
-  //         isError: true,
-  //       );
-
-
-  //       if (mounted) {
-
-  //         setState(() {
-
-  //           isGettingLocation = false;
-
-  //         });
-  //       }
-
-
-  //       return false;
-  //     }
-
-
-  //     // -----------------------------------------------------------
-  //     // CHECK PERMISSION
-  //     // -----------------------------------------------------------
-
-  //     LocationPermission permission =
-  //         await Geolocator
-  //             .checkPermission();
-
-
-  //     // -----------------------------------------------------------
-  //     // REQUEST PERMISSION
-  //     // -----------------------------------------------------------
-
-  //     if (permission ==
-  //         LocationPermission.denied) {
-
-  //       permission =
-  //           await Geolocator
-  //               .requestPermission();
-  //     }
-
-
-  //     // -----------------------------------------------------------
-  //     // PERMISSION DENIED
-  //     // -----------------------------------------------------------
-
-  //     if (permission ==
-  //         LocationPermission.denied) {
-
-  //       showMessage(
-  //         'Location permission is required to show nearby SELF EMPLOYEES.',
-  //         isError: true,
-  //       );
-
-
-  //       if (mounted) {
-
-  //         setState(() {
-
-  //           isGettingLocation = false;
-
-  //         });
-  //       }
-
-
-  //       return false;
-  //     }
-
-
-  //     // -----------------------------------------------------------
-  //     // PERMISSION PERMANENTLY DENIED
-  //     // -----------------------------------------------------------
-
-  //     if (permission ==
-  //         LocationPermission.deniedForever) {
-
-  //       showMessage(
-  //         'Location permission is permanently denied. Enable it from Settings.',
-  //         isError: true,
-  //       );
-
-
-  //       if (mounted) {
-
-  //         setState(() {
-
-  //           isGettingLocation = false;
-
-  //         });
-  //       }
-
-
-  //       return false;
-  //     }
-
-
-  //     // -----------------------------------------------------------
-  //     // GET LOCATION
-  //     // -----------------------------------------------------------
-
-  //     final Position position =
-  //         await Geolocator
-  //             .getCurrentPosition(
-
-  //       locationSettings:
-  //           const LocationSettings(
-
-  //         accuracy:
-  //             LocationAccuracy.high,
-
-  //       ),
-
-  //     );
-
-
-  //     if (!mounted) {
-  //       return false;
-  //     }
-
-
-  //     setState(() {
-
-  //       currentPosition =
-  //           position;
-
-  //       isGettingLocation =
-  //           false;
-
-  //     });
-
-
-  //     return true;
-
-  //   } catch (error) {
-
-  //     if (!mounted) {
-  //       return false;
-  //     }
-
-
-  //     setState(() {
-
-  //       isGettingLocation =
-  //           false;
-
-  //     });
-
-
-  //     showMessage(
-  //       'Unable to get your current location. Please try again.',
-  //       isError: true,
-  //     );
-
-
-  //     return false;
-  //   }
-  // }
-
-  // ===============================================================
-  // GET FINAL CATEGORY
-  // ===============================================================
-
-  // String? getFinalCategory() {
-
-  //   if (selectedCategory == null) {
-  //     return null;
-  //   }
-
-
-  //   if (selectedCategory == 'Other') {
-
-  //     final String customCategory =
-  //         customCategoryController.text
-  //             .trim();
-
-  //     if (customCategory.isEmpty) {
-  //       return null;
-  //     }
-
-  //     return customCategory;
-  //   }
-
-
-  //   return selectedCategory;
-  // }

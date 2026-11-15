@@ -42,7 +42,6 @@ class _ScreenTeaShopListState
       Color(0xFF12652F);
 
   static const Color green =
-     // Color(0xFF198B35);
       Color(0xFF138808);
 
   static const Color orange =
@@ -186,20 +185,6 @@ bool get hasActiveSubscription {
   }
 
 
-  // ==========================================================
-  // INITIALIZE SCREEN
-  // ==========================================================
-
-  // Future<void> initializeScreen() async {
-
-  //   await getCurrentLocation();
-
-
-  //   if (currentPosition != null) {
-
-  //     await loadShops();
-  //   }
-  // }
   Future<void> initializeScreen() async {
   await loadPaymentData();
 
@@ -690,17 +675,7 @@ if (!shopCategories.contains(
 )) {
   continue;
 }
-        // ----------------------------------------------------
-        // GET LOCATION
-        // ----------------------------------------------------
 
-        // final latitude =
-        //     (data['latitude'] as num?)
-        //         ?.toDouble();
-
-        // final longitude =
-        //     (data['longitude'] as num?)
-        //         ?.toDouble();
         final dynamic savedLocation = data['location'];
 
 double? latitude =
@@ -933,104 +908,6 @@ if (savedLocation is GeoPoint) {
   }
 
 
-  // ==========================================================
-  // OPEN SHOP
-  //
-  // PART 3 WILL CONNECT THIS TO:
-  //
-  // screen_tea_shop_profile.dart
-  // ==========================================================
-
-  // void openShop(
-  //   Map<String, dynamic> shop,
-  // ) {
-
-  //   debugPrint(
-  //     'Opening shop: '
-  //     '${shop['shopName']}',
-  //   );
-
-
-  //   // --------------------------------------------------------
-  //   // NEXT SCREEN WILL BE ADDED LATER
-  //   //
-  //   // Navigator.push(
-  //   //   context,
-  //   //   MaterialPageRoute(
-  //   //     builder: (_) =>
-  //   //         ScreenTeaShopProfile(
-  //   //       shopData: shop,
-  //   //     ),
-  //   //   ),
-  //   // );
-  //   // --------------------------------------------------------
-  // }
-  // ==========================================================
-// OPEN SHOP WITH DISTANCE ACCESS CHECK
-// ==========================================================
-
-// void openShop(Map<String, dynamic> shop) {
-//   final double distanceKm =
-//       (shop['distanceKm'] as num).toDouble();
-
-//   final double allowedRadius = profileRadiusKm;
-
-//   // Do not allow profile access outside the paid radius.
-//   if (distanceKm > allowedRadius) {
-//     showDialog<void>(
-//       context: context,
-//       builder: (dialogContext) {
-//         return AlertDialog(
-//           shape: RoundedRectangleBorder(
-//             borderRadius: BorderRadius.circular(18),
-//           ),
-//           title: const Text(
-//             'Distance limit',
-//             style: TextStyle(
-//               fontWeight: FontWeight.bold,
-//             ),
-//           ),
-//           content: Text(
-//             hasActiveSubscription
-//                 ? 'Your active subscription allows you '
-//                     'to open shop profiles within '
-//                     '${allowedRadius.toStringAsFixed(0)} km. '
-//                     'This shop is ${distanceKm.toStringAsFixed(1)} km away.'
-//                 : 'Your free access allows you to open '
-//                     'shop profiles within 1 km. '
-//                     'This shop is ${distanceKm.toStringAsFixed(1)} km away. '
-//                     'Unlock a distance plan to access shops farther away.',
-//           ),
-//           actions: [
-//             TextButton(
-//               onPressed: () {
-//                 Navigator.pop(dialogContext);
-//               },
-//               child: const Text('OK'),
-//             ),
-//           ],
-//         );
-//       },
-//     );
-
-//     return;
-//   }
-
-//   // The shop is within the user's permitted radius.
-//   debugPrint('Opening shop: ${shop['shopName']}');
-
-//   // Add your profile navigation here when the profile screen
-//   // is ready:
-//   //
-//   // Navigator.push(
-//   //   context,
-//   //   MaterialPageRoute(
-//   //     builder: (_) => ScreenTeaShopProfile(
-//   //       shopData: shop,
-//   //     ),
-//   //   ),
-//   // );
-// }
 Future<void> openShop(
   Map<String, dynamic> shop,
 ) async {

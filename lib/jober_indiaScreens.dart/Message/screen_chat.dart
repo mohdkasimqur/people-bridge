@@ -156,17 +156,6 @@ class _ScreenChatState extends State<ScreenChat> {
     }
   }
 
-  // String _otherUid(Map<String, dynamic> data) {
-  //   final participants = (data['participants'] as List?)
-  //           ?.map((e) => e.toString())
-  //           .toList() ??
-  //       [];
-
-  //   return participants.firstWhere(
-  //     (id) => id != _uid,
-  //     orElse: () => '',
-  //   );
-  // }
   String _otherUid(Map<String, dynamic> data) {
   final participants = (data['participants'] as List?)
           ?.map((e) => e.toString())
@@ -202,29 +191,6 @@ class _ScreenChatState extends State<ScreenChat> {
     return {};
   }
 
-  // String _contactName(
-  //   Map<String, dynamic> data,
-  //   String otherUid,
-  // ) {
-  //   final details = _participantDetails(data, otherUid);
-
-  //   final detailName =
-  //       (details['name'] ?? '').toString().trim();
-
-  //   if (detailName.isNotEmpty) return detailName;
-
-  //   final names = data['participantNames'];
-
-  //   if (names is Map) {
-  //     final name = (names[otherUid] ?? '').toString().trim();
-
-  //     if (name.isNotEmpty && name.toLowerCase() != 'me') {
-  //       return name;
-  //     }
-  //   }
-
-  //   return 'Contact';
-  // }
   String _contactName(
   Map<String, dynamic> data,
   String otherUid,
@@ -534,9 +500,6 @@ class _ScreenChatState extends State<ScreenChat> {
                                     .toString()
                                     .trim();
 
-                            // final subtitle = category.isEmpty
-                            //     ? preview
-                            //     : '$category · $preview';
                             final isSelfChat = otherUid == _uid;
 
 final subtitle = isSelfChat || category.isEmpty

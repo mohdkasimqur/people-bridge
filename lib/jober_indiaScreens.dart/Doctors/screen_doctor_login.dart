@@ -91,128 +91,6 @@ class _ScreenDoctorLoginState extends State<ScreenDoctorLogin> {
   final TextEditingController specializedSearchController =
       TextEditingController();
 
-//       final TextEditingController nearestCityController =
-//     TextEditingController();
-// String stateError = '';
-// String districtError = '';
-// String nearestCityError = '';
-
-// String? selectedState;
-
-// final TextEditingController stateSearchController =
-//     TextEditingController();
-
-// List<String> filteredStates = [];
-
-// static const List<String> indiaStates = [
-//   'Andhra Pradesh',
-//   'Arunachal Pradesh',
-//   'Assam',
-//   'Bihar',
-//   'Chhattisgarh',
-//   'Goa',
-//   'Gujarat',
-//   'Haryana',
-//   'Himachal Pradesh',
-//   'Jharkhand',
-//   'Karnataka',
-//   'Keralam',
-//   'Madhya Pradesh',
-//   'Maharashtra',
-//   'Manipur',
-//   'Meghalaya',
-//   'Mizoram',
-//   'Nagaland',
-//   'Odisha',
-//   'Punjab',
-//   'Rajasthan',
-//   'Sikkim',
-//   'Tamil Nadu',
-//   'Telangana',
-//   'Tripura',
-//   'Uttar Pradesh',
-//   'Uttarakhand',
-//   'West Bengal',
-// ];
-
-// void filterStates(String value) {
-//   final String search = value.trim().toLowerCase();
-
-//   final List<String> result = indiaStates.where((state) {
-//     return search.isEmpty ||
-//         state.toLowerCase().contains(search);
-//   }).toList();
-
-//   if (!mounted) return;
-
-//   setState(() {
-//     filteredStates = result;
-//   });
-// }
-
-// String? selectedDistrict;
-
-// bool isDistrictDropdownOpen = false;
-
-// final TextEditingController districtSearchController =
-//     TextEditingController();
-
-// List<String> filteredDistricts = [];
-
-// Map<String, List<String>> indiaDistricts = {};
-
-// List<String> get availableDistricts {
-//   if (selectedState == null ||
-//       selectedState!.trim().isEmpty) {
-//     return indiaDistricts.values
-//         .expand((districts) => districts)
-//         .toSet()
-//         .toList();
-//   }
-
-//   return List<String>.from(
-//     indiaDistricts[selectedState!] ?? [],
-//   );
-// }
-
-// void filterDistricts(String value) {
-//   final search = value.trim().toLowerCase();
-
-//   final result = availableDistricts.where((district) {
-//     return search.isEmpty ||
-//         district.toLowerCase().contains(search);
-//   }).toList();
-
-//   if (!mounted) return;
-
-//   setState(() {
-//     filteredDistricts = result;
-//   });
-// }
-
-// Future<void> loadDistricts() async {
-//   final String jsonString = await rootBundle.loadString(
-//     'assets/data/india_districts.json',
-//   );
-
-//   final Map<String, dynamic> data =
-//       json.decode(jsonString);
-
-//   if (!mounted) return;
-
-//   setState(() {
-//     indiaDistricts = data.map(
-//       (key, value) => MapEntry(
-//         key,
-//         List<String>.from(value),
-//       ),
-//     );
-
-//     filteredDistricts =
-//         List<String>.from(availableDistricts);
-//   });
-// }
-
   final List<String> customSpecializations = [];
 
 List<String> filteredSpecializations = [];
@@ -249,29 +127,8 @@ final TextEditingController customSpecializationController =
 bool isUploadingPhoto = false;
   final ImagePicker _imagePicker = ImagePicker();
 
-  //String? verificationId;
-
   bool privacyPolicyAccepted = false;
 
-
-  // ============================================================
-  // OTP STATE
-  // ============================================================
-
-//  bool otpSent = false;
-//   bool otpVerified = false;
-
-//   bool isSendingOtp = false;
-//   bool isVerifying = false;
-//   bool isSubmitting = false;
-
-//   bool otpError = false;
-
-//  String otpErrorMessage = '';
-
-//   int secondsRemaining = 30;
-
-//   Timer? timer;
 
   String? verificationId;
 
@@ -318,8 +175,6 @@ String genderError = '';
 String experienceError = '';
 bool categoryError = false;
 
-//bool districtError = false;
-
     String? privacyPolicyError;
 
 
@@ -342,44 +197,9 @@ bool categoryError = false;
 
   List<String> selectedCategories = [];
   bool isCategoryDropdownOpen = false;
- // bool isStateDropdownOpen = false;
 
   final List<String> customCategories = [];
   List<String> filteredCategories = [];
-
-  // ============================================================
-  // SPECIALIZATIONS
-  // ============================================================
-
-  // final List<String> specializations = [
-  //   'Cardiology',
-  //   'Neurology',
-  //   'Nephrology',
-  //   'Dermatology',
-  //   'Pediatrics',
-  //   'Gynecology',
-  //   'Obstetrics',
-  //   'Orthopedics',
-  //   'Psychiatry',
-  //   'Psychology',
-  //   'ENT',
-  //   'Ophthalmology',
-  //   'Dentistry',
-  //   'Urology',
-  //   'Gastroenterology',
-  //   'Pulmonology',
-  //   'Endocrinology',
-  //   'Oncology',
-  //   'Radiology',
-  //   'Pathology',
-   
-  // 'Anesthesiology',
-  //   'General Surgery',
-  //   'Plastic Surgery',
-  //   'Neurosurgery',
-  //   'Cardiac Surgery',
-  //   'Diabetology',
-  // ];
 
   List<String> selectedSpecialCategories = [];
 
@@ -691,15 +511,6 @@ Future<void> addCustomCategory() async {
     final String categoryKey =
         Uri.encodeComponent(category.toLowerCase());
 
-    // Save globally in Firestore.
-    // await FirebaseFirestore.instance
-    //     .collection('doctorCategories')
-    //     .doc(categoryKey)
-    //     .set({
-    //   'name': category,
-    //   'isUserAdded': true,
-    //   'createdAt': FieldValue.serverTimestamp(),
-    // });
     await FirebaseFirestore.instance
     .collection('doctorCategories')
     .doc(categoryKey)
@@ -707,7 +518,6 @@ Future<void> addCustomCategory() async {
   'name': category,
   'isUserAdded': true,
 
-  // NEW: Record who created this category.
   'createdByUid': FirebaseAuth.instance.currentUser?.uid,
 
   'createdAt': FieldValue.serverTimestamp(),
@@ -1230,16 +1040,6 @@ final documentId = Uri.encodeComponent(
 '${categoryKey}__${actualSpecialization.toLowerCase()}',
 );
 
-// await FirebaseFirestore.instance
-//     .collection('doctorSpecializations')
-//     .doc(documentId)
-//     .set({
-//   'name': actualSpecialization,
-//   'categoryName': category,
-//   'categoryId': Uri.encodeComponent(categoryKey),
-//   'isUserAdded': true,
-//   'createdAt': FieldValue.serverTimestamp(),
-// }, SetOptions(merge: true));
 await FirebaseFirestore.instance
     .collection('doctorSpecializations')
     .doc(documentId)
@@ -1249,7 +1049,6 @@ await FirebaseFirestore.instance
   'categoryId': Uri.encodeComponent(categoryKey),
   'isUserAdded': true,
 
-  // NEW: Record who created this specialization.
   'createdByUid': FirebaseAuth.instance.currentUser?.uid,
 
   'createdAt': FieldValue.serverTimestamp(),
@@ -1457,7 +1256,6 @@ Future<void> sendOTP({bool isResend = false}) async {
 
   if (!RegExp(r'^[6-9][0-9]{9}$').hasMatch(phone)) {
     showMessage(AppLocalizations.of(context)!.enteradigitmobilenumber,
-    //  'Enter a valid 10-digit mobile number.'
       );
     return;
   }
@@ -1867,7 +1665,6 @@ isCompletingPhoneAuth = false;
     stateError = '';
     districtError = '';
     nearestCityError = '';
-    //genderError = '';
     experienceError = '';
     otpErrorMessage = '';
     consultationTimeError = '';
@@ -1899,7 +1696,6 @@ isCompletingPhoneAuth = false;
   if (phone.length != 10 ||
       !RegExp(r'^[0-9]{10}$').hasMatch(phone)) {
     phoneErrorMessage =AppLocalizations.of(context)!.enteradigitmobilenumber;
-      //  'Enter a valid 10-digit mobile number';
     valid = false;
   }
 
@@ -1911,7 +1707,6 @@ isCompletingPhoneAuth = false;
       !RegExp(r'^[0-9]{10}$')
           .hasMatch(secondaryPhone)) {
     secondaryPhoneError =AppLocalizations.of(context)!.enteradigitmobilenumber;
-      //  'Enter a valid 10-digit mobile number';
     valid = false;
   }
 
@@ -1994,14 +1789,6 @@ if (nearestCityController.text.trim().isEmpty) {
         'Select consultation end time';
     valid = false;
   }
-
-  // ============================================================
-  // CURRENT LOCATION - REQUIRED
-  // ============================================================
-
-  // if (currentLocation == null) {
-  //   valid = false;
-  // }
 
   if (currentLocation == null) {
     locationError = true;
@@ -2234,7 +2021,6 @@ Future<void> loadDistricts() async {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       sectionTitle( AppLocalizations.of(context)!.state
-       // 'State',
       ),
 
       AnimatedContainer(
@@ -2299,9 +2085,7 @@ Future<void> loadDistricts() async {
                         selectedState == null ||
                                 selectedState!.isEmpty
                             ? AppLocalizations.of(context)!.selectyourState
-                            // 'Select your State'
                             : localizedState(selectedState!, languageCode),
-                            //selectedState!,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -2353,7 +2137,6 @@ Future<void> loadDistricts() async {
                       controller: stateSearchController,
                       onChanged: filterStates,
                       decoration: InputDecoration(
-                       // hintText: 'Search state...',
                        hintText: AppLocalizations.of(context)!.searchState,
                         prefixIcon: const Icon(
                           Icons.search,
@@ -2408,7 +2191,6 @@ Future<void> loadDistricts() async {
                       child: filteredStates.isEmpty
                           ? Center(
                               child: Text( AppLocalizations.of(context)!.nostatefound,
-                              //  'No state found',
                                 style: TextStyle(
                                   color:
                                       Colors.grey.shade600,
@@ -2432,23 +2214,7 @@ Future<void> loadDistricts() async {
                                     10,
                                   ),
                                   onTap: () {
-                                    // setState(() {
-                                    //   selectedState = state;
 
-                                    //   categoryError =
-                                    //       false;
-
-                                    //   isCategoryDropdownOpen =
-                                    //       false;
-
-                                    //   stateSearchController
-                                    //       .clear();
-
-                                    //   filteredStates =
-                                    //       List<String>.from(
-                                    //     indiaStates,
-                                    //   );
-                                    // });
                                     setState(() {
   final bool stateChanged = selectedState != state;
 
@@ -2518,14 +2284,6 @@ Future<void> loadDistricts() async {
 
                                         Expanded(
                                           child:
-                                          //  Text(
-                                          //   state,
-                                          //   style:
-                                          //       const TextStyle(
-                                          //     color: darkText,
-                                          //     fontSize: 14,
-                                          //   ),
-                                          // ),
                                           Text(localizedState(state, languageCode) ,
                                           style:
                                                 const TextStyle(
@@ -2559,7 +2317,6 @@ Future<void> loadDistricts() async {
             top: 5,
           ),
           child: Text( AppLocalizations.of(context)!.pleaseSelectyourState,
-            //'Please select your state.',
             style: TextStyle(
               color: Colors.red,
               fontSize: 12,
@@ -2571,13 +2328,11 @@ Future<void> loadDistricts() async {
   );
 }
 
-//Widget districtSection() {
 Widget districtSection() {
   final languageCode = currentLanguageCode(context);
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      //sectionTitle('District'),
       sectionTitle(AppLocalizations.of(context)!.district),
 
       AnimatedContainer(
@@ -2645,8 +2400,6 @@ Widget districtSection() {
                       child: Text(
                         selectedDistrict == null ||
                                 selectedDistrict!.isEmpty
-                            // ? 'Select your District'
-                            // : selectedDistrict!,
                             ? AppLocalizations.of(context)!.selectyourDistrict
 : localizedDistrict(selectedDistrict!, languageCode),
                         maxLines: 1,
@@ -2709,8 +2462,6 @@ Widget districtSection() {
 
                       decoration:
                           InputDecoration(
-                        // hintText:
-                        //     'Search district...',
                         hintText: AppLocalizations.of(context)!.searchdistrict,
 
                         prefixIcon:
@@ -2894,16 +2645,6 @@ Widget districtSection() {
                                         ),
 
                                         Expanded(
-                                          // child: Text(
-                                          //   district,
-                                          //   style:
-                                          //       const TextStyle(
-                                          //     color:
-                                          //         darkText,
-                                          //     fontSize:
-                                          //         14,
-                                          //   ),
-                                          // ),
                                           child: Text(
   localizedDistrict(district, languageCode),
   style: const TextStyle(
@@ -2937,7 +2678,6 @@ Widget districtSection() {
             top: 5,
           ),
           child: Text( AppLocalizations.of(context)!.pleaseselectyourdistrict,
-          //  'Please select your district.',
             style: TextStyle(
               color: Colors.red,
               fontSize: 12,
@@ -3310,11 +3050,6 @@ return {
     selectedDays,
   ),
 
-  // 'isActive': true,
-
-  // 'updatedAt':
-  //     FieldValue.serverTimestamp(),
-
   // 'profileCompleted':
   //     true,
   'isActive': true,
@@ -3382,9 +3117,6 @@ return {
   Future<void> saveDoctorLocallyinHive() async {
     try {
       final box = Hive.box('appBox');
-
-      // final experience =
-      //     getExperienceYears();
 
       await box.put(
         'doctorName',
@@ -3543,15 +3275,6 @@ nearestCityError = '';
   final String phone =
       phoneController.text.trim();
 
-  // if (phone.isEmpty ||
-  //     phone.length != 10 ||
-  //     !RegExp(r'^[0-9]{10}$')
-  //         .hasMatch(phone)) {
-  //   phoneErrorMessage =
-  //       'Enter a valid 10-digit mobile number';
-  //   hasError = true;
-  // }
-
   mobileError =
       !_isValidIndianMobile(phone);
 
@@ -3645,22 +3368,6 @@ if (stateError.isNotEmpty ||
     nearestCityError.isNotEmpty) {
   hasError = true;
 }
-
-  // ============================================================
-  // CURRENT LOCATION - REQUIRED
-  // ============================================================
-
-  // if (currentLocation == null) {
-  //   hasError = true;
-  // }
-
-  // if (currentLocation == null) {
-  //   locationError = true;
-  //   hasError = true;
-  // }
-// ==========================================================
-// GARAGE LOCATION
-// ==========================================================
 
 if (currentLocation == null) {
   locationError = true;
@@ -3996,7 +3703,6 @@ if (currentLocation == null) {
    Widget _genderButton({
     required String title,
     required String value,
-    // required IconData icon,
   }) {
     final bool selected =
         selectedGender == value;
@@ -4005,7 +3711,6 @@ if (currentLocation == null) {
       onTap: () {
         setState(() {
           selectedGender = value;
-         // genderError = false;
         });
       },
 
@@ -4049,15 +3754,6 @@ if (currentLocation == null) {
               MainAxisAlignment.center,
 
           children: [
-            // Icon(
-            //   icon,
-
-            //   color: selected
-            //       ? const Color(
-            //           0xFF159B16,
-            //         )
-            //       : Colors.grey.shade700,
-            // ),
 
             const SizedBox(width: 8),
 
@@ -4453,13 +4149,6 @@ Future<String?> _processManualGarageLocation(
       value.contains('maps.app.goo.gl') ||
       value.contains('goo.gl/maps');
 
-  // ==========================================================
-  // NORMAL TEXT
-  // ==========================================================
-
-  // if (!isGoogleMapsLink) {
-  //   return value;
-  // }
   if (!isGoogleMapsLink) {
   try {
     final locations =
@@ -4910,9 +4599,6 @@ if (!locationMatches) {
       crossAxisAlignment:
           CrossAxisAlignment.start,
       children: [
-        // sectionTitle(
-        //   'Freelancer Categories',
-        // ),
 
         AnimatedContainer(
           duration:
@@ -5252,21 +4938,6 @@ deleteCustomDoctorCategory(category);
 ),
 );
 
-          // return RadioListTile<String>(
-          //   value: category,
-          //   dense: true,
-          //   contentPadding: const EdgeInsets.symmetric(
-          //     horizontal: 2,
-          //   ),
-          //   activeColor: green,
-          //   title: Text(
-          //     category,
-          //     style: const TextStyle(
-          //       color: darkText,
-          //       fontSize: 14,
-          //     ),
-          //   ),
-          // );
         },
       ),
     ),
@@ -5775,8 +5446,6 @@ setState(() {
   // ============================================================
 
        Widget mobileSection() {
-    // final bool verified =
-    //     otpVerified;
 
     return Column(
       crossAxisAlignment:
@@ -6032,7 +5701,6 @@ setState(() {
    Padding(
     padding: EdgeInsets.only(left: 12, top: 5),
     child: Text(AppLocalizations.of(context)!.enteradigitmobilenumber,
-    //  'Enter a valid 10-digit mobile number.',
       style: TextStyle(
         color: Colors.red,
         fontSize: 12,
@@ -6197,8 +5865,6 @@ setState(() {
             autofillHints: const [
   AutofillHints.oneTimeCode,
 ],
-            // enabled:
-            //     !isVerifying,
             enabled: !isVerifying &&
     !isSendingOtp &&
     secondsRemaining > 0,
@@ -6718,7 +6384,6 @@ setState(() {
 
               TextSpan(
                 text: AppLocalizations.of(context)!.registration,
-                  //  'Registration',
                 style:
                     TextStyle(
                  color: Colors.red,
@@ -6774,19 +6439,12 @@ setState(() {
 
               const SizedBox(height: 16),
 
-              // --------------------------------------------------
-              // GENDER
-              // --------------------------------------------------
-
-             // genderButton(),
                Row(
                 children: [
                   Expanded(
                     child:
                         _genderButton(
                       title: 'Male',
-                      // icon:
-                      //     Icons.male,
                       value: 'Male',
                     ),
                   ),
@@ -6799,20 +6457,12 @@ setState(() {
                     child:
                         _genderButton(
                       title: 'Female',
-                      // icon:
-                      //     Icons.female,
                       value:
                           'Female',
                     ),
                   ),
                 ],
               ),
-
-              // --------------------------------------------------
-              // EXPERIENCE
-              // --------------------------------------------------
-
-            // experienceSection(),
 
               const SizedBox(height: 16),
  sectionTitle('Mobile Number'),
@@ -6842,7 +6492,6 @@ setState(() {
                     ),
 
                     child: Text(
-                    //  'Enter a valid 10-digit number',
 AppLocalizations.of(context)!.enteradigitmobilenumber,
                       style:
                           TextStyle(
@@ -6852,12 +6501,6 @@ AppLocalizations.of(context)!.enteradigitmobilenumber,
                       ),
                     ),
                   ),
-
-              // const SizedBox(height: 16),
-
-              // --------------------------------------------------
-              // OTP
-              // --------------------------------------------------
 
               otpSection(),
 
@@ -7015,768 +6658,3 @@ if (nearestCityError.isNotEmpty)
     );
   }
 }
-
-
-//   Widget locationSection() {
-//     return Column(
-//       crossAxisAlignment:
-//           CrossAxisAlignment.start,
-//       children: [
-//         const Text(
-//           "Tea Shop's Location",
-//           style: TextStyle(
-//             fontSize: 16,
-//             fontWeight: FontWeight.w600,
-//             color: Color(0xFF222222),
-//           ),
-//         ),
-
-//         const SizedBox(height: 8),
-
-//         Container(
-//           width: double.infinity,
-
-//           padding:
-//               const EdgeInsets.all(16),
-
-//           decoration: BoxDecoration(
-//             color:
-//                 const Color(0xFFF9F9F9),
-//             borderRadius:
-//                 BorderRadius.circular(20),
-//             border: Border.all(
-//   color: locationError
-//       ? Colors.red
-//       : const Color(0xFFE0E0E0),
-//   width: locationError ? 2 : 1.5,
-// ),
-//           ),
-
-//           child: currentLocation == null
-//               ? Column(
-//                   children: [
-//                     const Icon(
-//                       Icons.location_on_outlined,
-//                       color:
-//                           Color(0xFF08744F),
-//                       size: 38,
-//                     ),
-
-//                     const SizedBox(height: 8),
-
-//                     const Text(
-//                       'Add your current shop location',
-//                       textAlign:
-//                           TextAlign.center,
-//                       style: TextStyle(
-//                         fontSize: 15,
-//                         color:
-//                             Color(0xFF666666),
-//                       ),
-//                     ),
-
-//                     const SizedBox(height: 12),
-
-//                     SizedBox(
-//                       width:
-//                           double.infinity,
-//                       height: 48,
-//                       child:
-//                           ElevatedButton.icon(
-//                         onPressed:
-//                             isGettingLocation
-//                                 ? null
-//                                 : _getCurrentLocation,
-
-//                         icon:
-//                             isGettingLocation
-//                                 ? const SizedBox(
-//                                     width: 19,
-//                                     height: 19,
-//                                     child:
-//                                         CircularProgressIndicator(
-//                                       strokeWidth:
-//                                           2,
-//                                       color:
-//                                           Colors.white,
-//                                     ),
-//                                   )
-//                                 : const Icon(
-//                                     Icons.my_location,
-//                                   ),
-
-//                         label: Text(
-//                           isGettingLocation
-//                               ? 'Getting Location...'
-//                               : 'Use Current Location',
-//                         ),
-
-//                         style:
-//                             ElevatedButton.styleFrom(
-//                           backgroundColor:
-//                               const Color(
-//                             0xFF16803C,
-//                           ),
-//                           foregroundColor:
-//                               Colors.white,
-//                           elevation: 0,
-//                           shape:
-//                               RoundedRectangleBorder(
-//                             borderRadius:
-//                                 BorderRadius
-//                                     .circular(
-//                               24,
-//                             ),
-//                           ),
-//                         ),
-//                       ),
-//                     ),
-//                   ],
-//                 )
-//               : Column(
-//                   crossAxisAlignment:
-//                       CrossAxisAlignment.start,
-//                   children: [
-//                     Row(
-//                       crossAxisAlignment:
-//                           CrossAxisAlignment.start,
-//                       children: [
-//                         const Icon(
-//                           Icons.location_on,
-//                           color:
-//                               Color(0xFF16803C),
-//                           size: 28,
-//                         ),
-
-//                         const SizedBox(
-//                           width: 10,
-//                         ),
-
-//                         Expanded(
-//                           child: Column(
-//                             crossAxisAlignment:
-//                                 CrossAxisAlignment
-//                                     .start,
-//                             children: [
-//                               const Text(
-//                                 'Shop Location',
-//                                 style:
-//                                     TextStyle(
-//                                   fontWeight:
-//                                       FontWeight
-//                                           .bold,
-//                                   color:
-//                                       Color(
-//                                     0xFF12652F,
-//                                   ),
-//                                 ),
-//                               ),
-
-//                               const SizedBox(
-//                                 height: 4,
-//                               ),
-
-//                               Text(
-//                                 currentLocation!
-//                                     .placeName,
-//                                 style:
-//                                     const TextStyle(
-//                                   fontSize: 14,
-//                                   color:
-//                                       Color(
-//                                     0xFF555555,
-//                                   ),
-//                                 ),
-//                               ),
-//                             ],
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-
-//                     const SizedBox(height: 12),
-
-//                     Row(
-//                       children: [
-//                         const SizedBox(
-//                           width: 10,
-//                         ),
-
-//                         Expanded(
-//                           child:
-//                             OutlinedButton.icon(
-//   onPressed: () {
-//     // Immediately invalidate any running location request.
-//     _locationRequestId++;
-
-//     // Immediately update the UI.
-//     setState(() {
-//       currentLocation = null;
-//       isGettingLocation = false;
-//       isSearchingLocation = false;
-//       locationError = false;
-//     });
-//   },
-//   icon: const Icon(
-//     Icons.delete_outline,
-//   ),
-//   label: const Text(
-//     'Remove',
-//   ),
-//   style: OutlinedButton.styleFrom(
-//     foregroundColor: Colors.red,
-//     side: const BorderSide(
-//       color: Colors.red,
-//     ),
-//     shape: RoundedRectangleBorder(
-//       borderRadius: BorderRadius.circular(18),
-//     ),
-//   ),
-// ),
-//                         ),
-//                       ],
-//                     ),
-//                   ],
-//                 ),
-//         ),
-//       ],
-//     );
-//   }
-
-//  Future<void> _getCurrentLocation() async {
-//   if (isGettingLocation) return;
-
-//   final int requestId = ++_locationRequestId;
-
-//   if (!mounted) return;
-
-//   setState(() {
-//     isGettingLocation = true;
-//   });
-
-//   try {
-//     // ----------------------------------------------------------
-//     // CHECK LOCATION SERVICE
-//     // ----------------------------------------------------------
-
-//     final serviceEnabled =
-//         await Geolocator.isLocationServiceEnabled();
-
-//     if (!mounted || requestId != _locationRequestId) return;
-
-//     // Location is OFF on the phone
-//     // if (!serviceEnabled) {
-//     //   setState(() {
-//     //     isGettingLocation = false;
-//     //   });
-
-//     //   // Open phone Location Settings
-//     //   await Geolocator.openLocationSettings();
-
-//     //   return;
-//     // }
-//     if (!serviceEnabled) {
-//   if (mounted) {
-//     setState(() {
-//       isGettingLocation = false;
-//     });
-//   }
-
-//   showMessage(
-//     'Please turn on location services.',
-//     error: true,
-//   );
-
-//   return;
-// }
-
-//     // ----------------------------------------------------------
-//     // CHECK PERMISSION
-//     // ----------------------------------------------------------
-
-//     LocationPermission permission =
-//         await Geolocator.checkPermission();
-
-//     if (!mounted || requestId != _locationRequestId) return;
-
-//     if (permission == LocationPermission.denied) {
-//       permission =
-//           await Geolocator.requestPermission();
-//     }
-
-//     if (!mounted || requestId != _locationRequestId) return;
-
-//     if (permission == LocationPermission.denied ||
-//         permission == LocationPermission.deniedForever) {
-//       setState(() {
-//         isGettingLocation = false;
-//       });
-
-//       showMessage(
-//         'Location permission is required.',
-//         error: true,
-//       );
-
-//       return;
-//     }
-
-//     // ----------------------------------------------------------
-//     // GET CURRENT LOCATION
-//     // ----------------------------------------------------------
-
-//     final position =
-//         await Geolocator.getCurrentPosition(
-//       locationSettings: const LocationSettings(
-//         accuracy: LocationAccuracy.high,
-//       ),
-//     );
-
-//     if (!mounted || requestId != _locationRequestId) return;
-
-//     // ----------------------------------------------------------
-//     // DEFAULT LOCATION NAME
-//     // ----------------------------------------------------------
-
-//     String placeName =
-//         '${position.latitude}, ${position.longitude}';
-
-//     // ----------------------------------------------------------
-//     // REVERSE GEOCODING
-//     // ----------------------------------------------------------
-
-//     try {
-//       final placemarks =
-//           await geo.placemarkFromCoordinates(
-//         position.latitude,
-//         position.longitude,
-//       );
-
-//       if (!mounted || requestId != _locationRequestId) return;
-
-//       if (placemarks.isNotEmpty) {
-//         final place = placemarks.first;
-
-//         final parts = <String>[
-//           if ((place.name ?? '').trim().isNotEmpty)
-//             place.name!.trim(),
-
-//           if ((place.locality ?? '').trim().isNotEmpty)
-//             place.locality!.trim(),
-
-//           if ((place.administrativeArea ?? '')
-//               .trim()
-//               .isNotEmpty)
-//             place.administrativeArea!.trim(),
-//         ];
-
-//         if (parts.isNotEmpty) {
-//           placeName = parts.join(', ');
-//         }
-//       }
-//     } catch (e) {
-//       debugPrint(
-//         'Reverse geocoding error: $e',
-//       );
-//     }
-
-//     // ----------------------------------------------------------
-//     // SAVE LOCATION
-//     // ----------------------------------------------------------
-
-//     if (!mounted || requestId != _locationRequestId) return;
-
-//    setState(() {
-//   currentLocation = DoctorLocation(
-//     placeName: placeName,
-//     latitude: position.latitude,
-//     longitude: position.longitude,
-//   );
-
-//   locationError = false;
-  
-//   isGettingLocation = false;
-// });
-
-//     showMessage(
-//       'Tea Shop location added.',
-//     );
-//   } catch (e) {
-//     if (!mounted || requestId != _locationRequestId) return;
-
-//     showMessage(
-//       'Unable to get your location.',
-//       error: true,
-//     );
-//   } finally {
-//     if (mounted &&
-//         requestId == _locationRequestId) {
-//       setState(() {
-//         isGettingLocation = false;
-//       });
-//     }
-//   }
-// }
-
-  // final experience = getExperienceYears();
-
-//     return {
-//       'uid': user.uid,
-
-//       'doctorName':
-//           nameController.text.trim(),
-
-//       'phone':
-//           phoneController.text.trim(),
-
-//       'gender':
-//           selectedGender,
-
-//       'categories':
-//           List<String>.from(selectedCategories),
-
-//       'specializations':
-//           List<String>.from(
-//         selectedSpecialCategories,
-//       ),
-      
-//       'profilePhotoUrl': profilePhotoUrl,
-//      'location': {
-//   'latitude': currentLocation!.latitude,
-//   'longitude': currentLocation!.longitude,
-//   'address': currentLocation!.placeName,
-// },
-
-//       'consultationTime': {
-//   'from': formatConsultationTime(
-//     consultationFrom,
-//   ),
-//   'to': formatConsultationTime(
-//     consultationTo,
-//   ),
-// },
-
-//       'workingDays':
-//           List<String>.from(selectedDays),
-
-//       'isActive':true,
-
-//       'updatedAt':
-//           FieldValue.serverTimestamp(),
-
-//       'profileCompleted':
-//           true,
-//     };
-
-// class DoctorLocation {
-//   final String placeName;
-//   final double latitude;
-//   final double longitude;
-
-//   DoctorLocation({
-//     required this.placeName,
-//     required this.latitude,
-//     required this.longitude,
-//   });
-
-//   Map<String, dynamic> toMap() {
-//     return {
-//       'placeName': placeName,
-//       'latitude': latitude,
-//       'longitude': longitude,
-//     };
-//   }
-
-//   factory DoctorLocation.fromMap(Map<String, dynamic> map) {
-//     return DoctorLocation(
-//       placeName: map['placeName'] ?? '',
-//       latitude: (map['latitude'] ?? 0).toDouble(),
-//       longitude: (map['longitude'] ?? 0).toDouble(),
-//     );}
-// }
-
-
-//   Future<void> verifyOTP() async {
-//     if (isVerifying) return;
-
-//     final otp =
-//         otpController.text.trim();
-
-//     // ----------------------------------------------------------
-//     // OTP SESSION
-//     // ----------------------------------------------------------
-
-//     if (verificationId == null ||
-//         verificationId!.isEmpty) {
-//       setState(() {
-//         otpError = true;
-//         otpErrorMessage =
-//             'Please send OTP first.';
-//       });
-//       return;
-//     }
-
-//     // ----------------------------------------------------------
-//     // OTP LENGTH
-//     // ----------------------------------------------------------
-
-//     if (otp.length != 6) {
-//       setState(() {
-//         otpError = true;
-//         otpErrorMessage =
-//             'Enter the complete 6-digit OTP.';
-//       });
-//       return;
-//     }
-
-//     // ----------------------------------------------------------
-//     // EXPIRED OTP
-//     // ----------------------------------------------------------
-
-//     if (secondsRemaining <= 0) {
-//       setState(() {
-//         otpError = true;
-//         otpErrorMessage =
-//             'OTP expired. Please resend OTP.';
-//       });
-//       return;
-//     }
-
-//     FocusScope.of(context).unfocus();
-
-//     setState(() {
-//       isVerifying = true;
-//       otpError = false;
-//       otpErrorMessage = '';
-//     });
-
-//     try {
-//       final credential =
-//           PhoneAuthProvider.credential(
-//         verificationId:
-//             verificationId!,
-//         smsCode: otp,
-//       );
-
-//       // await auth.signInWithCredential(
-//       //   credential,
-//       // );
-
-//       // if (!mounted) return;
-//       final userCredential =
-//     await auth.signInWithCredential(
-//   credential,
-// );
-
-// final signedInUser = userCredential.user;
-
-// if (signedInUser != null) {
-//   await markExistingDoctorOnline(
-//     signedInUser.uid,
-//   );
-// }
-
-// if (!mounted) return;
-
-//       timer?.cancel();
-
-//       setState(() {
-//         isVerifying = false;
-//         otpVerified = true;
-//         otpSent = false;
-//         otpError = false;
-//         otpErrorMessage = '';
-//       });
-
-//       otpController.clear();
-
-//       showMessage(
-//         'Mobile number verified successfully.',
-//       );
-//     } on FirebaseAuthException catch (e) {
-//       if (!mounted) return;
-
-//       setState(() {
-//         isVerifying = false;
-//         otpError = true;
-//       });
-
-//       switch (e.code) {
-//         case 'invalid-verification-code':
-//           otpErrorMessage =
-//               'Incorrect OTP. Please check and try again.';
-//           break;
-
-//         case 'session-expired':
-//           otpErrorMessage =
-//               'OTP expired. Please request a new OTP.';
-//           break;
-
-//         case 'invalid-verification-id':
-//           otpErrorMessage =
-//               'Verification session expired. Please send OTP again.';
-//           break;
-
-//         case 'credential-already-in-use':
-//           otpErrorMessage =
-//               'This mobile number is already registered.';
-//           break;
-
-//         case 'network-request-failed':
-//           otpErrorMessage =
-//               'Network error. Check your internet connection.';
-//           break;
-
-//         default:
-//           otpErrorMessage =
-//               e.message ??
-//               'OTP verification failed.';
-//       }
-
-//       setState(() {});
-
-//     } catch (e) {
-//       if (!mounted) return;
-
-//       setState(() {
-//         isVerifying = false;
-//         otpError = true;
-//         otpErrorMessage =
-//             'OTP verification failed. Please try again.';
-//       });
-
-//       debugPrint(
-//         'verifyOTP error: $e',
-//       );
-//     }
-//   }
-
-//  void addCustomCategory() {
-//     final String category =
-//         customCategoryController.text.trim();
-
-//     if (category.isEmpty) {
-//       showMessage(
-//         'Please enter a category.',
-//       );
-//       return;
-//     }
-
-//     final int existingIndex =
-//         allCategories.indexWhere(
-//       (item) =>
-//           item.toLowerCase() ==
-//           category.toLowerCase(),
-//     );
-
-//     String actualCategory;
-
-//     if (existingIndex != -1) {
-
-//       actualCategory =
-//           allCategories[existingIndex];
-
-//     } else {
-
-//       customCategories.add(
-//         category,
-//       );
-//       actualCategory = category;
-//     }
-
-//     if (!selectedCategories.contains(
-//       actualCategory,
-//     )) {
-
-//       selectedCategories.add(
-//         actualCategory,
-//       );
-
-//     }
-
-//     customCategoryController.clear();
-//     categorySearchController.clear();
-
-// filterCategories(categorySearchController.text);
-
-//     if (mounted) {
-
-//       setState(() {
-//         categoryError = false;
-//       });
-
-//     }
-
-//     Navigator.of(context).pop();
-
-//     showMessage(
-//       '$actualCategory added.',
-//     );
-
-//   }
-
-
-//   void addCustomCategory() {
-//     final String category =
-//         customCategoryController.text.trim();
-
-//     if (category.isEmpty) {
-//       showMessage(
-//         'Please enter a category.',
-//       );
-//       return;
-//     }
-
-//     final int existingIndex =
-//         allCategories.indexWhere(
-//       (item) =>
-//           item.toLowerCase() ==
-//           category.toLowerCase(),
-//     );
-
-//     String actualCategory;
-
-//     if (existingIndex != -1) {
-
-//       actualCategory =
-//           allCategories[existingIndex];
-
-//     } else {
-
-//       customCategories.add(
-//         category,
-//       );
-//       actualCategory = category;
-//     }
-
-//     if (!selectedCategories.contains(
-//       actualCategory,
-//     )) {
-
-//       selectedCategories.add(
-//         actualCategory,
-//       );
-
-//     }
-
-//     customCategoryController.clear();
-//     categorySearchController.clear();
-
-// filterCategories(categorySearchController.text);
-
-//     if (mounted) {
-
-//       setState(() {
-
-//         categoryError = false;
-
-//       });
-
-//     }
-
-//     Navigator.of(context).pop();
-
-//     showMessage(
-//       '$actualCategory added.',
-//     );
-
-//   }

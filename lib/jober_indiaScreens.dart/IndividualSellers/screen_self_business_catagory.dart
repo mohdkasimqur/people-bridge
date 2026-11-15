@@ -37,9 +37,6 @@ class _ScreenIndividualSellerCategoriesState
   static const Color green =
       Color(0xFF138808);
 
-  // static const Color orange =
-  //     Color(0xFFED801D);
-
   static const Color background =
       Color(0xFFF7F8F7);
 
@@ -253,26 +250,6 @@ class _ScreenIndividualSellerCategoriesState
   }
 
 
-  // =============================================================
-  // SELECT CATEGORY
-  // =============================================================
-
-  // void selectCategory(
-  //   String category,
-  // ) {
-
-  //   // -----------------------------------------------------------
-  //   // PART 2:
-  //   // NAVIGATION TO NEARBY BUSINESS SCREEN
-  //   // -----------------------------------------------------------
-
-  // }
-
-
-  // =============================================================
-  // GET CATEGORY ICON
-  // =============================================================
-
   IconData getCategoryIcon(
     String category,
   ) {
@@ -335,10 +312,6 @@ class _ScreenIndividualSellerCategoriesState
       case 'Vegetable Seller':
         return Icons
             .eco;
-
-      // case 'Fruit Seller':
-      //   return Icons
-      //       .nutrition;
 
       case 'Fish Seller':
         return Icons
