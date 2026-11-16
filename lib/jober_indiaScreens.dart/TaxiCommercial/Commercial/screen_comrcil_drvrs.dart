@@ -1326,7 +1326,7 @@ class _ScreenCommercialDriversState
                     ? Image.network(
                         photo,
                         fit: BoxFit.cover,
-                        errorBuilder: (_, __, ___) => Icon(
+                        errorBuilder: (_, _, _) => Icon(
                           Icons.local_shipping,
                           color: sectionColor,
                           size: 30,

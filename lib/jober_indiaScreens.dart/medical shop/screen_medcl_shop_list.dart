@@ -159,7 +159,7 @@ class MedicalShopCategoryScreen extends StatelessWidget {
 
             itemCount: displayCategories.length,
 
-            separatorBuilder: (_, __) =>
+            separatorBuilder: (_, _) =>
                 const SizedBox(height: 10),
 
             itemBuilder: (context, index) {

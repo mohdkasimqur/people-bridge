@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:jober_india/jober_indiaScreens.dart/spareparts/screen_spare_parts_shoplist.dart';
 
@@ -242,7 +241,7 @@ class ScreenAutoSparePartsCategory extends StatelessWidget {
 
                 itemCount: displayCategories.length,
 
-                separatorBuilder: (_, __) =>
+                separatorBuilder: (_, _) =>
                     const SizedBox(height: 10),
 
                 itemBuilder: (context, index) {

@@ -230,7 +230,7 @@ class ScreenCommercialDriverProfile extends StatelessWidget {
                     ? Image.network(
                         photo,
                         fit: BoxFit.cover,
-                        errorBuilder: (_, __, ___) {
+                        errorBuilder: (_, _, _) {
                           return const Icon(
                             Icons.person,
                             size: 55,

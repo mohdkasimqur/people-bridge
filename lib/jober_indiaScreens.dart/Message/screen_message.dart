@@ -2368,7 +2368,7 @@ Widget _buildImageMessage(ChatMessage message) {
             width: 240,
             height: 260,
             fit: BoxFit.cover,
-            errorBuilder: (_, __, ___) {
+            errorBuilder: (_, _, _) {
               return const Icon(Icons.broken_image);
             },
           ),

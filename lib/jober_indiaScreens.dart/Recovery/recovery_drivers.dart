@@ -1577,7 +1577,7 @@ if (!acceptedRecoveryRoles.contains(role) &&
                     ? Image.network(
                         photo,
                         fit: BoxFit.cover,
-                        errorBuilder: (_, __, ___) {
+                        errorBuilder: (_, _, _) {
                           return Icon(
                             Icons.local_shipping,
                             color: sectionColor,
