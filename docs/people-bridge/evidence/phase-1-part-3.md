@@ -2,7 +2,7 @@
 
 Date: 2026-11-16. Machine: Windows 11, Flutter 3.50.0 (Dart 3.14.0). No device or emulator used.
 
-**Phase 1 cannot be marked complete.** The gate needs a signed release build installed on a phone and the standard regression set run. No Android build is possible on this machine, and the owner-blocked items are still open. See "Blockers".
+**Phase 1 cannot be marked complete.** The gate needs a signed release build installed on a phone and the standard regression set run. A debug build now succeeds on this machine (section 7), but the app has not been started on any device or emulator, and the owner-blocked items are still open. See "Blockers".
 
 ## 1. Git
 
@@ -49,25 +49,47 @@ Also seen, not changed (open, owner to decide): the second mobile number is mand
 
 `git grep -i` over all tracked files except docs and the graph, for `screen_call`, `ScreenCall`, `webrtc`, `collection('calls')`, `VoiceCall`, `IncomingCall`, `firebase_messaging`, `flutter_background_service`, `flutter_overlay_window`, `google_places_flutter`, `permission_handler`: **0 matches**. This covers Dart code, `pubspec.yaml`, `pubspec.lock`, the Android manifest and the generated plugin registrants. No call icon remains in the chat folder. Phone-dialler buttons (`tel:` links) remain by design.
 
-## 7. Android build configuration
+## 7. Android build
 
-| Item | Value |
-|---|---|
-| Gradle wrapper | 8.14 |
-| Android Gradle Plugin | 8.11.1 |
-| Kotlin | 2.2.20 |
-| Java source/target | 17 |
-| Application ID | `com.example.jober_india` (placeholder) |
-| Release signing | debug key (placeholder) |
+**Result: `flutter build apk --debug` succeeds** from a clean state (`flutter clean` first): "Built build\app\outputs\flutter-apk\app-debug.apk", 216 s, 175.5 MB. `flutter analyze` (0 errors, 0 warnings, 114 infos) and `flutter test` (3 passed) were re-run after it.
 
-**Java requirement: JDK 17 or JDK 21.** Gradle 8.14 does not run on Java 25, and the Android Gradle Plugin needs at least 17.
+### What had to change
 
-State of this machine:
-- The only JDK is Android Studio's bundled one, version 25.0.4. No JDK 17 or 21 is installed.
-- Android SDK 36 is at `C:\Users\mohdk\AppData\Local\Android\sdk`; the command-line tools are missing and the SDK licences are not accepted.
-- `android/local.properties` holds a Linux `sdk.dir` (file is not in git).
+| Problem found | Fix | Where |
+|---|---|---|
+| Only JDK on the machine was 25; the project's Gradle 8.14 cannot run on it | Temurin JDK 21.0.13 unpacked to `C:\Users\mohdk\jdks` (checksum verified); `flutter config --jdk-dir` points to it | machine, user folder only; owner approved |
+| Flutter 3.50 rejects Gradle 8.14 ("lower than Flutter's minimum supported version of 9.3.1") and its plugin does not work with Android Gradle Plugin 8.11.1 | Gradle 8.14 → 9.5.0, Android Gradle Plugin 8.11.1 → 9.3.1, Kotlin 2.2.20 → 2.4.20: the versions in Flutter 3.50's own project template | `gradle-wrapper.properties`, `settings.gradle.kts` |
+| `kotlinOptions` is the old syntax | Replaced by `kotlin { compilerOptions { jvmTarget = JVM_17 } }`, as in the template; still Java 17 | `app/build.gradle.kts` |
+| `overlay_pop_up` 1.0.6+6 is compiled against Android API 31; its AndroidX libraries need 33–34 (`:overlay_pop_up:checkDebugAarMetadata`, 20 issues) | One block that raises `compileSdk` of any plugin below the app's level to the app's level. `targetSdk`, `minSdk` and plugin versions are untouched | `android/build.gradle.kts`; owner approved |
+| Kotlin "Could not close incremental caches" in plugin modules | `kotlin.incremental=false` | `android/gradle.properties` |
 
-Nothing was changed. To build here, the owner would approve: install JDK 17 or 21 and point Flutter at it (`flutter config --jdk-dir=<path>`), install the SDK command-line tools, accept the licences. Upgrading the project to Gradle 9.1+ instead is not recommended without testing it against plugin 8.11.1.
+`kotlin.incremental=false` is proven necessary here: a clean build without it failed with that error in four plugin modules; the same clean build with it succeeded. The project is on D: and the package cache on C:, the known trigger.
+
+### Plugin compatibility
+
+All 25 Android plugins configured and compiled under the new versions. Only `overlay_pop_up` needed the override. It is in use (`main.dart`, `screen_home.dart`, the LIVE overlay), so it was not removed.
+
+Warning from the build, not an error today: "Future versions of Flutter will fail to build if your app uses plugins that apply KGP", naming `firebase_storage`, `flutter_image_compress_common`, `image_picker_android`, `overlay_pop_up`, `shared_preferences_android`, `speech_to_text`, `video_compress`, and the app itself. Recommended: plan plugin upgrades before the next Flutter upgrade.
+
+### Build attempts, in order
+
+| # | Configuration | Result |
+|---|---|---|
+| 1 | JDK 21, Gradle 8.14 | failed: Gradle below Flutter's minimum |
+| 2 | same, with Flutter's skip-validation flag | failed: plugin incompatible with Android Gradle Plugin 8.11.1 |
+| 3 | Gradle 9.5.0 / AGP 9.3.1 / Kotlin 2.4.20 | failed after 23m 52s: Kotlin incremental cache error (first run also downloaded Gradle, NDK 28.2 and platforms 31, 34, 35, 36) |
+| 4 | + incremental off | failed: `overlay_pop_up` API 31 conflict |
+| 5 | + `compileSdk` override | **succeeded** |
+| 6 | clean build without incremental off | failed: Kotlin incremental cache error |
+| 7 | clean build, final configuration | **succeeded**, 216 s |
+
+### Emulator
+
+Not run. The installed emulator `Medium_Phone_API_37.0` refused to start: "Not enough space to create userdata partition. Available: 9307 MB ... need 12288 MB" on drive C:. It also warns that it wants 16 GB of memory; the machine has 12 GB. Nothing was deleted to make room. No phone was connected.
+
+Other machine facts: Android SDK at `C:\Users\mohdk\AppData\Local\Android\sdk`, licences already accepted; `android/local.properties` is not in git.
+
+Still placeholders, not changed: application ID `com.example.jober_india`; release build signed with the debug key.
 
 ## 8. iOS configuration (needs a Mac)
 
@@ -96,7 +118,7 @@ Executed here: only the automated checks.
 | A3 | Subscription price calculation (`distance_plan_test.dart`, 2 tests) | passed |
 | A4 | No call or removed-package reference left | passed |
 
-Not run — need an Android phone and a debug build:
+Not run — need an Android phone or a working emulator:
 
 | # | Area | Steps | Expected |
 |---|---|---|---|
@@ -115,9 +137,9 @@ Not run — need an Android phone and a debug build:
 
 | Blocker | Who |
 |---|---|
-| No Android build on this machine (JDK 17/21, SDK tools, licences) | owner approval to change the machine, or another machine |
-| Manual regression M1–M10 not run | needs the build and a phone |
+| App never started on a device: emulator needs 12.3 GB free on C: (9.3 GB available), no phone connected | owner: free disk space or connect a phone |
+| Manual regression M1–M10 not run | needs a phone or the emulator |
 | Brand name, app IDs, release keystore | owner |
 | Firebase rules and Firestore export; whether live data exists | owner |
 | Crashlytics, release-log clean-up, check script | not started; next Phase 1 work |
-| Cold-start time and app size baseline | needs the build |
+| Cold-start time and release app size baseline | needs a device and a release build |
