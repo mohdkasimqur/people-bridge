@@ -6,11 +6,13 @@
 
 - Git: private repository `mohdkasimqur/people-bridge`, branch `main`; baseline commit `912d74b`.
 - Phase 1 items still blocked on the owner: brand name and app IDs; Firebase console access or exports; whether live user data exists.
+- 2026-11-17: the development environment was rebuilt after a Windows reinstall and the Android debug build verified at `825a847` (results in the roadmap's Phase 1 section). This is environment recovery only: Phase 1 stays open and Phase 2 must not start.
 
 ## Documents
 
 - [docs/people-bridge/03-master-blueprint.md](docs/people-bridge/03-master-blueprint.md) — requirements, architecture, data plan, modules, security, roadmap, open decisions, acceptance criteria. The source of truth for planning.
 - [docs/people-bridge/04-final-phase-roadmap.md](docs/people-bridge/04-final-phase-roadmap.md) — the only roadmap: phases 1–11 with scope, tests, gates and blocking decisions. Approved.
+- [docs/people-bridge/05-development-environment.md](docs/people-bridge/05-development-environment.md) — tool inventory with verified status, Claude configuration map, re-verification steps and the mandatory onboarding standard for any new tool, agent, skill, plugin or MCP server.
 - [docs/people-bridge/01-audit-report.md](docs/people-bridge/01-audit-report.md) — full read-only audit of the code, preserved verbatim.
 - [docs/people-bridge/02-architecture-roadmap-v1.md](docs/people-bridge/02-architecture-roadmap-v1.md) — first blueprint, superseded.
 
@@ -42,12 +44,20 @@ Read only the section needed for the task at hand.
 - Version control is mandatory: a phase is complete only after its commit is pushed to the approved private GitHub repository and verified. Never commit secrets, never force-push, never make the repository public without approval. Full rule in the roadmap.
 - Never invent findings or decisions; mark each item as confirmed, recommended or open.
 
-## Tooling (verified 2026-11-14)
+## Tooling and environment (verified 2026-11-17 and 2026-11-18, after a Windows reinstall)
 
-- Ponytail 5.3.3: enabled, default mode `full`, webhook off, status line not configured.
-- Agent Skills: 25 from `addyosmani/agent-skills` in `.agents/skills`, linked in `.claude/skills`.
-- Graphify 0.9.108: installed as a uv tool (Python 3.12); skill in `.claude/skills/graphify`; hooks in `.claude/settings.json`; code-only graph in `graphify-out/` (Dart supported).
-- OmniRoute 3.8.53: installed globally with npm; started once for a test and stopped, not running; no providers or keys configured, not connected to Claude Code; model routing unchanged.
+- Windows user `welcome`; project `E:\MyWork\jober_india`.
+- Flutter 3.50.0 (Dart 3.14.0, commit `ab2912035e160d9cad6306df307576da6128ebdb`) in `C:\dev\flutter`; Temurin JDK 21.0.13+9 in `C:\Users\welcome\jdks` (`JAVA_HOME`).
+- Android SDK in `C:\Android\Sdk` (`ANDROID_HOME`, `ANDROID_SDK_ROOT`): platforms 31, 34, 35, 36; build-tools 36.0.0; NDK 28.2.13676358; CMake 3.22.1; licences accepted. Command-line tools only: no Android Studio, emulator or connected device.
+- Caches outside `AppData`: `PUB_CACHE` is `C:\dev\pub-cache`; `UV_CACHE_DIR`, `UV_PYTHON_INSTALL_DIR` and `UV_TOOL_DIR` are under `C:\dev\uv\`.
+- Claude Desktop is a packaged Windows app: anything it, or a command it runs, writes under `%LOCALAPPDATA%` or `%APPDATA%` is redirected into its private storage and is invisible to other programs. Install tools and caches outside `AppData`, and run interactive steps (licences, sign-ins) in a PowerShell opened from the Start menu.
+- If Gradle cannot download its distribution because IPv6 DNS for GitHub fails, set `JAVA_TOOL_OPTIONS=-Djava.net.preferIPv4Stack=true` in that terminal only; it is not set permanently.
+- Agent Skills: 25 from `addyosmani/agent-skills` in `.agents/skills`; copied (not linked) into `.claude/skills`.
+- Graphify 0.9.108 (uv tool, Python 3.12.16): skill in `.claude/skills/graphify`, hooks in `.claude/settings.json`, code-only graph in `graphify-out/` (git-ignored; rebuilt 2026-11-18). Hooks verified in a fresh session.
+- Also installed and verified 2026-11-18: uv 0.13.6, Node.js 24.22.2 / npm 11.19.1, GitHub CLI 2.103.3 and Firebase CLI 15.34.2 (both not signed in), FlutterFire CLI 1.4.1 (answer `n` to its update prompt).
+- OmniRoute 3.8.53 runs on `127.0.0.1:20128` only, started by a user-level SessionStart hook; config in `C:\Users\welcome\.omniroute\.env` (never print it); no providers; not used for Claude model routing.
+- Ponytail 5.3.3 and the former OmniRoute status panel: not restored; original source unknown. Do not install the unrelated npm package `ponytail`.
+- Full inventory, statuses and the onboarding standard: `docs/people-bridge/05-development-environment.md`. No tool is ready until it passes that standard.
 
 ## graphify
 

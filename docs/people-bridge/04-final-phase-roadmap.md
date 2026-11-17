@@ -87,6 +87,15 @@ Decision numbers refer to "Genuinely blocking decisions" in blueprint section 11
 
 **Blocking decisions:** 1 (brand and IDs), 2 (console access and whether live data exists).
 
+**Environment recovery, 2026-11-17 (not a phase deliverable).** After a Windows reinstall the toolchain was rebuilt (versions and locations in `CLAUDE.md`, "Tooling and environment") on `main` at `825a847`. No additional source, dependency, Firebase, database or build-configuration changes were made during this environment recovery.
+
+- Verified: `flutter pub get --enforce-lockfile` succeeded; `flutter test` ran 3 tests, all passed; `flutter build apk --debug` succeeded with exit code 0 (Gradle wrapper 9.5.0; `JAVA_TOOL_OPTIONS=-Djava.net.preferIPv4Stack=true` set for that run only, because IPv6 DNS for GitHub failed during the Gradle download). APK `build/app/outputs/flutter-apk/app-debug.apk`: 184,018,169 bytes, 2026-11-17 23:24:33, SHA-256 `7A38F402828B34F7C27B777C0597F68F9DFA13EDC97BFC0A223839F1A40957CA`. Working tree clean afterwards.
+- 2026-11-18: `flutter analyze --no-fatal-infos` exited 0 with 0 errors, 0 warnings and 114 infos (113 `deprecated_member_use`, 1 `use_build_context_synchronously`); this is the baseline for the Phase 1 gate "warnings no higher than before". Details in `05-development-environment.md`.
+- Not verified: installing or running the app (no device or emulator available); iOS build; release build. The APK is a debug build, not store-ready.
+- Warning, not acted on: Flutter reports that the project and several plugins use the Kotlin Gradle Plugin integration, and later Flutter versions may require migrating to built-in Kotlin.
+- No Firebase write, sign-in, OTP, registration, message, booking, LIVE, subscription or remote user-data read was performed. Firebase data safety and staging remain unverified.
+- Phase 1 stays open: no deliverable or gate item above changes status, decisions 1 and 2 still block it, and Phase 2 must not start.
+
 ---
 
 ## Phase 2 — Accounts, session, roles
