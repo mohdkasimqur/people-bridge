@@ -1,6 +1,10 @@
 # People Bridge — Master Blueprint
 
-Version 3, 2026-11-14. **Status: PLANNING. Not approved. No implementation may start until the owner approves this document.**
+Version 3, 2026-11-14. ~~Status: PLANNING. Not approved.~~ **Status (corrected 2026-11-18): requirements baseline for the roadmap the owner approved on 2026-11-15.**
+- The fresh-rebuild amendment [06-fresh-rebuild-amendment.md](06-fresh-rebuild-amendment.md) (proposal, not yet approved, decision D1) would amend the architecture and phases.
+- Where 06 or the decision report [08-consolidated-decision-report.md](08-consolidated-decision-report.md) marks a section here as superseded, that marking is noted in place.
+- Requirements, labels and history stay as written.
+- Decision numbers in §11 now carry their authoritative IDs (B3–B7, D2, D5, D16; see 06 §11).
 
 Changes in version 3 (scope lock):
 
@@ -218,6 +222,8 @@ All new collections are **[Recommended]**. Field-level schemas are written per m
 
 ### 4.2 Migration
 
+> **Superseded (2026-11-18), kept for history.** The verified Firebase inventory ([07](07-legacy-firebase-verification.md)) found no Firestore database or Storage bucket in `citizen-india`, and the owner confirmed there were never real production users or data (D16). No migration or back-fill is planned; the items below apply only as a contingency if contrary evidence appears ([06](06-fresh-rebuild-amendment.md) §5).
+
 - **[Recommended]** No bulk migration. Existing profile documents stay where they are; new fields are added by a one-time back-fill script run from a Cloud Function or admin tool, after a full export.
 - **[Recommended]** Category ownership arrays are replaced by counters, back-filled once.
 - **[Recommended]** On first launch of the new app version, old Hive boxes are read, mapped to the two new boxes and removed.
@@ -352,7 +358,7 @@ Moved to [04-final-phase-roadmap.md](04-final-phase-roadmap.md). That document i
 | Background location review | Play rejection | Disclosure, declaration, minimal permissions |
 | iOS has no equivalent of the Android bubble and service | Separate LIVE design | iOS phase designs it explicitly |
 | Large files and dead code | High AI cost, slow changes | Dead-code removal in the Foundation phase |
-| No knowledge of production data | Migration surprises | Export and inspect in the Foundation phase |
+| No knowledge of production data | Migration surprises | ~~Export and inspect in the Foundation phase~~ **Resolved 2026-11-18:** inspected (07); none exists (D16) |
 | Reversing who pays for radius | Existing subscription screens are discarded | Confirm before the subscription phase |
 
 ### Confirmed (no longer open)
@@ -366,15 +372,17 @@ Moved to [04-final-phase-roadmap.md](04-final-phase-roadmap.md). That document i
 
 ### Genuinely blocking decisions
 
-| # | Decision | Blocks |
-|---|---|---|
-| 1 | Brand name, Android package ID, iOS bundle ID | Foundation |
-| 2 | Firebase console access or exports: rules, indexes, billing plan, region, usage; whether live user data exists | Foundation |
-| 3 | Privacy policy and terms text, and the legal entity publishing them | Security and privacy |
-| 4 | Plans, prices, durations; payment gateway; position on Apple and Google billing; confirmation that the plan sets the partner's visibility radius | Subscriptions |
-| 5 | Verification documents required per category | Trust |
-| 6 | Apple Developer and Google Play accounts | iOS and release |
-| 7 | Launch state | Release |
+Authoritative IDs (2026-11-18) are listed in [06](06-fresh-rebuild-amendment.md) §11. The old numbers 1–7 remain valid aliases.
+
+| # (alias) | ID | Decision | Blocks | State (2026-11-18) |
+|---|---|---|---|---|
+| 1 | D5 | Brand name, Android package ID, iOS bundle ID | Foundation | OPEN |
+| 2 | D2 + D16 | Firebase console access or exports: rules, indexes, billing plan, region, usage; whether live user data exists | Foundation | Access **verified** (07). D16 **owner-confirmed**: no data. Region (D2), billing, App Check and keys OPEN |
+| 3 | B3 | Privacy policy and terms text, and the legal entity publishing them | Security and privacy | OPEN |
+| 4 | B4 | Plans, prices, durations; payment gateway; position on Apple and Google billing; confirmation that the plan sets the partner's visibility radius | Subscriptions | OPEN |
+| 5 | B5 | Verification documents required per category | Trust | OPEN |
+| 6 | B6 | Apple Developer and Google Play accounts | iOS and release | OPEN |
+| 7 | B7 | Launch state | Release | OPEN |
 
 ### Non-blocking decisions with defaults
 
@@ -386,7 +394,7 @@ These proceed on the default unless the owner changes it before the phase starts
 | `student`, `houseOwner`, `company` | Treated as listing-type partner profiles |
 | Floating bubble | Dropped; the ongoing notification is used |
 | Phone number and exact location | Hidden from the public; shown to signed-in users after a confirmed booking or accepted request |
-| Job request rules | Sent to the nearest eligible partners up to a configurable cap; open for a configurable time; the customer chooses among responses |
+| Job request rules | ~~Sent to the nearest eligible partners up to a configurable cap; open for a configurable time; the customer chooses among responses~~ **Superseded (2026-11-18)** by the owner-stated rules in 06 §4.6 and 08 D13: all eligible partners; the first server-side acceptance wins; radius expansion without duplicates; open until accepted, cancelled or closed. The remaining details are OPEN under D13 |
 | Quotations | Optional on every category |
 | Cancellation | Either side may cancel before the job starts; no penalties in the first version |
 | Job payment | Not handled by the app in the first version |

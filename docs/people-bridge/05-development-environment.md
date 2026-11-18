@@ -1,6 +1,6 @@
 # People Bridge — development environment and tool onboarding
 
-Living document. Last full verification: **2026-11-18** on Windows 11 Pro (user `welcome`), project `E:\MyWork\jober_india`, branch `main` at `825a847`.
+Living document. Last full verification: **2026-11-18** on Windows 11 Pro (user `welcome`), project `E:\MyWork\jober_india`, branch `main` at `825a847`. Updated 2026-11-18 (later the same day): Ponytail, Firebase plugin and Firebase CLI sign-in rows.
 Status key: **PASS** tested and working · **PARTIAL** installed, function or integration not fully verified · **FAIL** broken · **BLOCKED** needs owner sign-in, permission, hardware or information · **N/A** not needed now.
 
 ## 1. Inventory and verification
@@ -27,7 +27,7 @@ Status key: **PASS** tested and working · **PARTIAL** installed, function or in
 | Git | 2.56.1.windows.1 | `C:\Program Files\Git` | PASS | `git ls-remote origin` reaches the private repo through Git Credential Manager; `fsck` clean |
 | GitHub CLI | 2.103.3 | `C:\dev\gh\bin` | BLOCKED | runs; not signed in (`gh auth login` is the owner's step) |
 | Node.js / npm | 24.22.2 / 11.19.1 | `C:\dev\node`; globals `C:\dev\npm-global`, cache `C:\dev\npm-cache` | PASS | script run; `npm ping` OK. npm 11 only *warns* about install scripts; it does not block them |
-| Firebase CLI | 15.34.2 | `C:\dev\npm-global` | BLOCKED | `--version`, `--help` and `login:list` work; no account signed in; no `.firebaserc` |
+| Firebase CLI | 15.34.2 | `C:\dev\npm-global` | PASS (read-only use) | "PASS (read-only use)" means **tested only for read-only use**. The CLI is **not** technically read-only: the signed-in account can write. Signed in by the owner on 2026-11-18. Commands run against `citizen-india`:<br>- `login:list`, `projects:list`, `apps:list`, `apps:list ANDROID`, `apps:android:sha:list`;<br>- `firestore:databases:list`, `firestore:databases:get "(default)"` (404), `firestore:indexes` (404);<br>- `database:instances:list`, `functions:list`, `hosting:sites:list`;<br>- `ext:list`, **which enabled an API**.<br>Read-only REST calls were also made with the CLI's sign-in. The complete command and call inventory, with times, is in 07 §2–§4 and §14. No `.firebaserc`. **Being signed in is not permission to write:** the signed-in account is the project's sole Owner, so every create, change, enable, deploy or delete command needs the owner's explicit approval first. `firebase ext:list` enabled an API by itself (07 §3), so read commands are checked before they are run |
 | FlutterFire CLI | 1.4.1 | `C:\dev\pub-cache\bin` | PASS | `--help` works. Every run asks to update to 1.5.0: answer `n` |
 | uv | 0.13.6 | `C:\dev\uv\bin` | PASS | `uv run --python 3.12` works |
 | Python | 3.12.16 (uv-managed) | `C:\dev\uv\python`; launcher `python3.12.exe` in `C:\Users\welcome\.local\bin` | PASS | `python3.12` with ssl/sqlite. Plain `python` opens the Microsoft Store alias |
@@ -43,10 +43,11 @@ Status key: **PASS** tested and working · **PARTIAL** installed, function or in
 | OmniRoute 3.8.53 | PASS | runs on `127.0.0.1:20128` (plus internal 20131/20132), loopback only, login required, no providers or keys. Config `C:\Users\welcome\.omniroute\.env` (private ACL; holds the password and the storage encryption key: back it up, never print it) |
 | OmniRoute session-start hook (user `~/.claude/settings.json` → `~/.claude/hooks/omniroute-session-start.ps1`) | PASS | fresh session ran it; it starts OmniRoute through WMI only when unhealthy, uses a mutex against duplicates, refuses if the port is taken or the loopback setting is missing, and stays silent when healthy |
 | OmniRoute model routing for Claude Code (`omniroute setup-claude`) | N/A | deliberately not configured |
-| OmniRoute status panel in Claude | BLOCKED | original component unidentified; not in the official plugin marketplace or local files |
-| Ponytail 5.3.3 | BLOCKED | original source unknown; the npm package `ponytail` is unrelated and must not be installed |
+| OmniRoute status panel in Claude | PARTIAL | not verified as restored. Ponytail ships a band above the prompt (`hooks/band/register.tsx`) that may be it; unconfirmed |
+| Ponytail 5.3.3 (Claude plugin `ponytail@ponytail`) | PASS | enabled in `~/.claude/settings.json`; marketplace `github.com/DietrichGebert/ponytail`; cached version 5.3.3, commit `96608e0`; `/ponytail:ponytail full` activated it and its hook reported "level: full"; no `PONYTAIL_DEFAULT_MODE` or config file, so the default is `full`. Installed by the owner. The npm package `ponytail` is unrelated and must not be installed |
+| Firebase plugin (`firebase@firebase` 1.0.0, MCP server) | PARTIAL | enabled in `~/.claude/settings.json` (marketplace `firebase/firebase-tools`, commit `c90a812`). `firebase_get_environment` works; other tools need an active project, which is not set (setting one changes local configuration). It exposes **write tools** (`deploy`, `create_*`, `init`, `update_environment`, `login`, `logout`): these are never used without explicit owner approval |
 | MCP / connectors: Claude Docs, scheduled-tasks | PARTIAL | reported "connected" by the session connector status; no functional test run. No project `.mcp.json` and no user MCP servers. The built-in browser and Chrome extension were not tested |
-| Official plugin marketplace (`claude-plugins-official`) | PARTIAL | registered in `~/.claude/settings.json`; no plugins installed |
+| Official plugin marketplace (`claude-plugins-official`) | PARTIAL | registered in `~/.claude/settings.json`; no plugins installed from it |
 
 ### Security, audit and performance tooling
 
@@ -59,7 +60,8 @@ Status key: **PASS** tested and working · **PARTIAL** installed, function or in
 
 ## 2. Claude configuration map
 
-- User: `~/.claude/settings.json` (official marketplace; OmniRoute SessionStart hook) — backup `settings.json.bak-2026-11-18`; `~/.claude/hooks/omniroute-session-start.ps1`.
+- User: `~/.claude/settings.json` (marketplaces: official, `ponytail`, `firebase`; enabled plugins `ponytail@ponytail` and `firebase@firebase`; OmniRoute SessionStart hook) — backup `settings.json.bak-2026-11-18` (taken before the plugins were added); `~/.claude/hooks/omniroute-session-start.ps1`.
+- Firebase CLI sign-in: stored by firebase-tools under `~/.config/configstore/` (not in the repository; never print it).
 - Project: `.claude/settings.json` (Graphify hooks), `.claude/skills/` (26 skills), `.agents/skills/` (25 source copies), `CLAUDE.md`.
 - Claude Desktop is a packaged app: anything it (or a command it runs) writes under `%APPDATA%`/`%LOCALAPPDATA%` is redirected to its private storage. Keep tools, caches and data outside `AppData`.
 
@@ -78,7 +80,9 @@ Expected: the versions in section 1, `healthy`, only `127.0.0.1`, analyze exit 0
 
 ## 4. Onboarding standard for any new tool, agent, skill, plugin or MCP server
 
-**[Recommended]** — proposed 2026-11-18; becomes confirmed when the owner approves it.
+**[Recommended]** — proposed 2026-11-18; becomes confirmed when the owner approves it. Until then it is best practice, not a binding rule.
+
+Already mandatory, independent of this proposal: the rules in `CLAUDE.md`, including the Engineering rules, the Firebase write-approval rule, and owner approval for installs, sign-ins and paid services.
 
 A component is **not ready** because it installed. It is ready only when every step below is done and recorded in section 1.
 
