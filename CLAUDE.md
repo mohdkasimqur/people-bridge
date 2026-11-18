@@ -7,7 +7,7 @@
 - Git: private repository `mohdkasimqur/people-bridge`, branch `main`; baseline commit `912d74b`.
 - Phase 1 items still blocked on the owner: brand name and app IDs (D5); region, billing, staging (D2–D4); the existing Auth test user (D15) and the Extensions API (D17). Decision IDs are listed in `06` §11.
 - 2026-11-18: authenticated read-only access to `citizen-india` verified. The project has no Firestore database, Storage bucket, rules or Functions, and 1 Auth user (a test number). The owner confirmed there were never production users or data (D16). The read-only check unintentionally enabled the Firebase Extensions API; it stays unchanged until the owner decides (D17).
-- A fresh-rebuild amendment (`06`, proposal v0.5) is **not approved** (D1). Phase 1 stays OPEN; Phase 2 is NOT approved and blocked.
+- 2026-11-18: the owner approved the fresh-rebuild amendment `06` v0.5 (D1), built-in Flutter state management for the initial build (D9) and the documentation corrections (D11). This is **not** Phase 1 sign-off: Phase 1 stays OPEN; Phase 2 is NOT approved and blocked.
 - 2026-11-17: the development environment was rebuilt after a Windows reinstall and the Android debug build verified at `825a847` (results in the roadmap's Phase 1 section). This is environment recovery only: Phase 1 stays open and Phase 2 must not start.
 
 ## Documents
@@ -15,9 +15,9 @@
 - [docs/people-bridge/03-master-blueprint.md](docs/people-bridge/03-master-blueprint.md) — requirements, architecture, data plan, modules, security, roadmap, open decisions, acceptance criteria. The source of truth for planning.
 - [docs/people-bridge/04-final-phase-roadmap.md](docs/people-bridge/04-final-phase-roadmap.md) — the only roadmap: phases 1–11 with scope, tests, gates and blocking decisions. Approved.
 - [docs/people-bridge/05-development-environment.md](docs/people-bridge/05-development-environment.md) — tool inventory with verified status, Claude configuration map, re-verification steps and a **proposed** onboarding standard for any new tool, agent, skill, plugin or MCP server ([Recommended], awaiting owner approval).
-- [docs/people-bridge/06-fresh-rebuild-amendment.md](docs/people-bridge/06-fresh-rebuild-amendment.md) — fresh-rebuild roadmap amendment; proposal, not approved; the authoritative decision IDs (D1–D17, B3–B7).
+- [docs/people-bridge/06-fresh-rebuild-amendment.md](docs/people-bridge/06-fresh-rebuild-amendment.md) — fresh-rebuild roadmap amendment, v0.5, approved 2026-11-18 (D1); replaces roadmap Phases 2–11 and revises Phase 1; the authoritative decision register (D1–D17, B3–B7).
 - [docs/people-bridge/07-legacy-firebase-verification.md](docs/people-bridge/07-legacy-firebase-verification.md) — verified read-only inventory of the `citizen-india` Firebase project.
-- [docs/people-bridge/08-consolidated-decision-report.md](docs/people-bridge/08-consolidated-decision-report.md) — recommendations for every open decision, a cost model and official sources; nothing approved.
+- [docs/people-bridge/08-consolidated-decision-report.md](docs/people-bridge/08-consolidated-decision-report.md) — recommendations for every open decision, a cost model and official sources; only D1, D9 and D11 approved (2026-11-18).
 - [docs/people-bridge/01-audit-report.md](docs/people-bridge/01-audit-report.md) — full read-only audit of the code, preserved verbatim.
 - [docs/people-bridge/02-architecture-roadmap-v1.md](docs/people-bridge/02-architecture-roadmap-v1.md) — first blueprint, superseded.
 

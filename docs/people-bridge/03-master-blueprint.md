@@ -1,7 +1,7 @@
 # People Bridge — Master Blueprint
 
 Version 3, 2026-11-14. ~~Status: PLANNING. Not approved.~~ **Status (corrected 2026-11-18): requirements baseline for the roadmap the owner approved on 2026-11-15.**
-- The fresh-rebuild amendment [06-fresh-rebuild-amendment.md](06-fresh-rebuild-amendment.md) (proposal, not yet approved, decision D1) would amend the architecture and phases.
+- The fresh-rebuild amendment [06-fresh-rebuild-amendment.md](06-fresh-rebuild-amendment.md) (v0.5, approved by the owner on 2026-11-18, decision D1) amends the architecture and phases.
 - Where 06 or the decision report [08-consolidated-decision-report.md](08-consolidated-decision-report.md) marks a section here as superseded, that marking is noted in place.
 - Requirements, labels and history stay as written.
 - Decision numbers in §11 now carry their authoritative IDs (B3–B7, D2, D5, D16; see 06 §11).

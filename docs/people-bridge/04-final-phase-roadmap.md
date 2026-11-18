@@ -2,7 +2,9 @@
 
 Version 1, 2026-11-14. **Status: APPROVED by the owner on 2026-11-15. Current phase: 1 (Foundation).** Baseline commit `912d74b` is on the private GitHub repository `mohdkasimqur/people-bridge`.
 
-**Pending amendment (2026-11-18).** The fresh-rebuild amendment [06-fresh-rebuild-amendment.md](06-fresh-rebuild-amendment.md) (v0.5, proposal) would replace Phases 2–11 below and revise Phase 1. It is **not approved** (decision D1). Until it is, the phases below stand, except for the Phase 1 corrections marked in place.
+**Amended (2026-11-18).** The fresh-rebuild amendment [06-fresh-rebuild-amendment.md](06-fresh-rebuild-amendment.md) v0.5 was **approved by the owner on 2026-11-18** (decision D1).
+- **Phases 2–11 below are superseded** by 06 §8 and kept for history.
+- **Phase 1 follows the revised list in 06 §8**, together with this roadmap's rules for every phase.
 - Phase 1 remains OPEN. Phase 2 is NOT approved and is blocked.
 - Verified Firebase state: [07-legacy-firebase-verification.md](07-legacy-firebase-verification.md).
 - Recommendations: [08-consolidated-decision-report.md](08-consolidated-decision-report.md).
@@ -86,7 +88,7 @@ Session counts are estimates for planning AI use, not commitments.
 - [ ] Crashlytics added; coordinates and UIDs removed from release logs.
 - [ ] Failing default test replaced by a smoke test; a single check script runs analyse, test and build. *Smoke tests exist (`test/app_compiles_test.dart`, `test/distance_plan_test.dart`); no check script yet.*
 
-**If amendment 06 is approved (D1),** the Phase 1 scope becomes the revised list in 06 §8. The items above that only concern shipping the old code (comment removal, regression on the old app) are then dropped, and these are added:
+**Amendment 06 approved (D1, 2026-11-18):** the Phase 1 scope is the revised list in 06 §8. The items above that only concern shipping the old code (comment removal, regression on the old app) are then dropped, and these are added:
 - remaining console checks: billing, App Check, API keys;
 - region (D2), staging (D3), billing plan (D4);
 - final IDs (D5) registered with SHA fingerprints, after approval;

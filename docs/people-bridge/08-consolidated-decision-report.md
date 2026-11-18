@@ -1,12 +1,13 @@
 # People Bridge — Consolidated Architecture, Firebase, Budget and Product Decision Report
 
-Version 1.2, 2026-11-18. **Status: RECOMMENDATIONS for owner review. Nothing here is approved or implemented. Phase 1 is OPEN; Phase 2 is NOT approved.**
+Version 1.3, 2026-11-18. **Status: RECOMMENDATIONS for owner review.** Only D1, D9 and D11 have been approved by the owner (2026-11-18; §10). Nothing is implemented. Phase 1 is OPEN; Phase 2 is NOT approved.
 
 Change history:
 - **v1.1:** the §9 D11 corrections were drafted in the documents, awaiting owner review; decision IDs follow the authoritative register in 06 v0.5 §11. The recommendations in this report did not change. *(Clarified in v1.2: v1.1's "no recommendation changed" refers only to this report. 06 v0.5 did change two decision rows from v0.4; see below.)*
 - **v1.2:**
   - Records that 06 v0.5 changed **D4** ("Needed by": Phase 3 → Phase 1, before any resource is created) and **D10** (scope: SMS fallback for critical notifications → OTP delivery and SMS fallback; Phase 7 → 4), and reworded D13 and D14 without changing their meaning (06, "Changes in v0.5"). These changes align 06 with this report's §3 recommendations; none is an owner approval.
   - Current references to 06 now point to v0.5.
+- **v1.3 (2026-11-18):** records the owner's approvals of **D1** (06 v0.5), **D9** (built-in Flutter state management, initially) and **D11** (documentation corrections). Every other status is unchanged. This is not Phase 1 sign-off; Phase 2 stays blocked.
 Inputs: `CLAUDE.md`, documents 01, 03, 04, 05, 06 (v0.4) and 07 (v3), one read-only Auth metadata query, and the official sources in §13.
 Labels: **VERIFIED** (official source or live read) · **ESTIMATE** · **RECOMMENDED** · **OPEN** · **OWNER APPROVAL REQUIRED**.
 
@@ -151,7 +152,7 @@ Labels: **VERIFIED** (official source or live read) · **ESTIMATE** · **RECOMME
 
 Aadhaar numbers must not be stored. Masking and verification options need legal advice.
 
-### D9 — State management: RECOMMENDED built-in `ChangeNotifier`/`ValueNotifier` with constructor injection
+### D9 — State management: RECOMMENDED built-in `ChangeNotifier`/`ValueNotifier` with constructor injection (OWNER APPROVED 2026-11-18, initially)
 
 | Option | Fit |
 |---|---|
@@ -317,13 +318,13 @@ Start with the built-ins and adopt Riverpod only if a measured need appears (app
 | Documentation inconsistencies | wrong guidance to sessions | D11 corrections | D11 |
 | Extensions API enabled | none functional | D17 | D17 |
 
-**D11 — inconsistencies found.** Corrections were **drafted on 2026-11-18 on the owner's instruction** in 03, 04, 05, 06 and `CLAUDE.md`, and are awaiting owner review. Numbering is unified in 06 §11.
+**D11 — inconsistencies found.** Corrections were **drafted on 2026-11-18 on the owner's instruction** in 03, 04, 05, 06 and `CLAUDE.md`, and were **approved by the owner on 2026-11-18** (committed `5a5cadd`). Numbering is unified in 06 §11.
 1. **Blueprint status:** it says "PLANNING. Not approved", but the roadmap was approved on 2026-11-15. Set it to "Approved; amended by 06 when approved".
 2. **Blueprint content now superseded:**
    - §4.2 migration and §11 "existing data" (D16: none).
    - §11 request defaults ("cap" and "customer chooses"), now replaced by D13.
    - §3.6 "admin in the same repository" (keep; consistent).
-3. **Roadmap Phase 1:** "rules/indexes export from console" and "full Firestore export" are moot (nothing exists). Replace them with the 06 v0.5 Phase 1 list (06 §8; unchanged from v0.4). *(Drafted in 04 on 2026-11-18; awaiting owner review.)*
+3. **Roadmap Phase 1:** "rules/indexes export from console" and "full Firestore export" are moot (nothing exists). Replace them with the 06 v0.5 Phase 1 list (06 §8; unchanged from v0.4). *(Drafted in 04 on 2026-11-18; approved by the owner on 2026-11-18, D11.)*
 4. **CLAUDE.md:**
    - "Phase 1 items still blocked on … Firebase console access" is resolved (access verified 2026-11-18).
    - "Ponytail … not restored, source unknown" is wrong: the `ponytail@ponytail` 5.3.3 plugin is now installed from `github.com/DietrichGebert/ponytail`.
@@ -338,7 +339,7 @@ Start with the built-ins and adopt Riverpod only if a measured need appears (app
 
 | ID | Topic | Recommended choice | Reason | Cost impact | Risk if deferred | Owner approval | Depends on | Acceptance criteria | Status |
 |---|---|---|---|---|---|---|---|---|---|
-| D1 | Amendment 06 | approve v0.5 (v0.4 content plus the register; D4 and D10 changed and D13/D14 reworded, per 06 "Changes in v0.5") with this report | basis for Phase 2 | — | no rebuild start | YES | this report | approval recorded | OWNER APPROVAL REQUIRED |
+| D1 | Amendment 06 | approve v0.5 (v0.4 content plus the register; D4 and D10 changed and D13/D14 reworded, per 06 "Changes in v0.5") with this report | basis for Phase 2 | — | no rebuild start | YES | this report | approval recorded | OWNER APPROVED 2026-11-18 |
 | D2 | Region | `asia-south1`; backups to `asia-south2` | supported; established; DR pair | regional prices TBC | blocks database creation | YES | D4 | price and Scheduler check recorded; database created there | RECOMMENDED |
 | D3 | Staging | separate Blaze project plus emulator | real-device and App Check tests | ₹0–500 a month | untested production | YES | D4, D5 | staging project exists; CI deploys there | RECOMMENDED |
 | D4 | Billing | Blaze on both projects; alerts at 50/90/100%; Functions spend cap | required services (verified) | variable; §6 | nothing runs | YES | — | budgets active; ceiling recorded | OWNER APPROVAL REQUIRED |
@@ -346,9 +347,9 @@ Start with the built-ins and adopt Riverpod only if a measured need appears (app
 | D6 | Old app hotfix | none (D16) | no data | — | — | NO | D16 | — | VERIFIED (closed) |
 | D7 | Retention | §3 D7 table | DPDP and stores | small | non-compliance | YES | legal | policy published; TTL and deletion jobs tested | RECOMMENDED |
 | D8 | Legacy import | none (D16) | no data | — | — | NO | D16 | — | VERIFIED (closed) |
-| D9 | State management | built-in notifiers plus constructor injection | no dependency; simple | none | inconsistent code | YES | — | architecture note; tests use injected services | RECOMMENDED |
+| D9 | State management | built-in notifiers plus constructor injection | no dependency; simple | none | inconsistent code | YES | — | architecture note; tests use injected services | OWNER APPROVED 2026-11-18 (initially) |
 | D10 | OTP | Firebase Phone Auth now; DLT route before a state launch | security now, cost later | SMS dominates (§6) | budget overrun | YES | D5 entity | OTP cost per sign-in measured; limits enforced | RECOMMENDED |
-| D11 | Documentation | §9 corrections | consistency | none | conflicting guidance | YES | — | documents consistent | DRAFTED, OWNER APPROVAL REQUIRED |
+| D11 | Documentation | §9 corrections | consistency | none | conflicting guidance | YES | — | documents consistent | OWNER APPROVED 2026-11-18 (committed `5a5cadd`) |
 | D12 | Database | default database | free quota; simplest | lowest | — | YES | D2 | database `(default)` in the chosen region | RECOMMENDED |
 | D13 | Requests | §3 D13 semantics | owner requirements; race-free | Functions minor | wrong matching | YES (OPEN points) | D12 | the 5 tests in §3 D13 pass | RECOMMENDED |
 | D14 | Number recycling | dormancy guard plus audited recovery | prevents takeover | none | takeover | YES | D7 | recycled-number test cannot see old data | RECOMMENDED |
@@ -363,7 +364,7 @@ Start with the built-ins and adopt Riverpod only if a measured need appears (app
 
 ## 11. Questions that genuinely need your approval
 
-1. **D1, D11:** approve the amendment (v0.5) and review the drafted documentation corrections (§9).
+1. ~~**D1, D11:** approve the amendment (v0.5) and review the drafted documentation corrections (§9).~~ **Done:** approved 2026-11-18 (together with D9).
 2. **D4:** approve Blaze on `citizen-india` and a staging project, plus a monthly ceiling for alerts.
 3. **D2, D12:** approve `asia-south1` and the default database, after the price and Scheduler check.
 4. **D5, B6:** brand name, legal entity, owned domain, and who holds the store accounts.
@@ -376,7 +377,7 @@ Start with the built-ins and adopt Riverpod only if a measured need appears (app
 
 1. Answer §11 items 1–4 (blocking).
 2. Check regional prices and Scheduler availability in the console; record them in 07.
-3. Correct the documents per D11 (with your approval); record the decisions in 06.
+3. Correct the documents per D11 (with your approval); record the decisions in 06. *Done 2026-11-18 (`5a5cadd`, plus the approval record in 06).*
 4. Upgrade to Blaze, set budgets, create the staging project. **Only after approval;** each step recorded as evidence.
 5. Register the final app IDs (staging, then production) with SHA fingerprints, after approval.
 6. Phase 1 evidence file, then commit, push and verify, then your sign-off. Only then may Phase 2 be approved.

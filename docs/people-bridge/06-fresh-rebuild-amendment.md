@@ -1,6 +1,12 @@
 # People Bridge — Fresh Rebuild Roadmap Amendment
 
-Version 0.5, 2026-11-18. **Status: PROPOSAL for owner review. Not approved. Nothing here is implemented, and Phase 1 is not complete.**
+Version 0.5, 2026-11-18. **Status: APPROVED by the owner on 2026-11-18 (D1).** Nothing here is implemented. Phase 1 is OPEN (not signed off), and Phase 2 is blocked until Phase 1 is signed off.
+
+Approval record (2026-11-18, owner):
+- **D1:** amendment 06 v0.5 approved. It replaces roadmap Phases 2–11 and revises Phase 1.
+- **D9:** built-in Flutter state management approved for the initial build.
+- **D11:** the drafted documentation corrections approved, and committed in `5a5cadd`.
+- Every other decision keeps its status in §11. **This is not Phase 1 sign-off.**
 
 Changes in v0.5 (documentation consistency pass, 2026-11-18; recorded so every difference from v0.4 is traceable):
 - §11 is now the authoritative decision register, with alias and status columns. References elsewhere in 06 now use those IDs, aligned with 07 v3 and 08.
@@ -65,7 +71,7 @@ On approval this document amends [04-final-phase-roadmap.md](04-final-phase-road
 | Phase 10 (consolidation of categories) | **Dropped**: the generic category design is built in from the start |
 | Phase 11 (release) | **Kept** as new Phase 11. Migration and coexistence are **not routine work** (D16). Their gates apply only as a contingency, if contrary evidence reopens D6 or D8 (§5) |
 | Blueprint "Firebase and Hive stay until a migration decision" | Firebase stays. Hive is used only as a local cache in the new app **[Recommended]** |
-| Blueprint status line "PLANNING. Not approved" | Inconsistent with the approved roadmap. A correction was **drafted** in 03 on 2026-11-18 on the owner's instruction (D11); it awaits owner review and is not approved |
+| Blueprint status line "PLANNING. Not approved" | Inconsistent with the approved roadmap. A correction was **drafted** in 03 on 2026-11-18 on the owner's instruction, and approved by the owner on 2026-11-18 (D11) |
 
 ## 3. Locked requirements carried forward
 
@@ -313,7 +319,7 @@ Each phase follows the roadmap rules: tests actually run, evidence saved, commit
   - D16 answered: no historical production users or data (owner, 2026-11-18).
   - The existing Auth configuration and Firebase app registrations recorded in the repository, as documented in 07 §4 and §8: sign-in providers, SMS region policy, test-number count, authorized domains, the three app IDs, Analytics link, Hosting site and IAM roles. No user data or secrets; the one Auth user stays untouched (D15).
   - Staging project created, **only if D3 and D4 are approved**.
-  - This amendment approved (D1).
+  - This amendment approved (D1). *Done 2026-11-18.*
 - Acceptance: the configuration record matches a fresh read-only inventory taken the same day, saved in the evidence file; inspection results recorded in the evidence file.
 - *Contingency only, not Phase 1 deliverables:*
   - legacy rules export, full legacy export and a legacy hotfix decision;
@@ -405,11 +411,11 @@ One module per session. The old code is used only as a reference for behaviour a
 This table is the **single authoritative list** of People Bridge decision IDs (since 2026-11-18).
 - Old numbers in the roadmap and blueprint ("decision 1–7") are aliases, shown in the second column.
 - Recommendations for each decision are in [08](08-consolidated-decision-report.md) §3 and §10.
-- **No decision here is owner-approved unless its status says OWNER CONFIRMED.**
+- **No decision here is owner-approved unless its status says OWNER CONFIRMED or OWNER APPROVED.**
 
 | ID | Alias | Decision | Status | Needed by |
 |---|---|---|---|---|
-| D1 | — | Approve this amendment (replaces roadmap Phases 2–11; revises Phase 1) | OPEN: owner approval required | now |
+| D1 | — | Approve this amendment (replaces roadmap Phases 2–11; revises Phase 1) | **OWNER APPROVED 2026-11-18** (v0.5) | done |
 | D2 | old 2 (part) | Firestore and Storage region (none set; permanent once chosen; `asia-south1` or `asia-south2`); console checks of billing, App Check and API keys | OPEN (08 recommends `asia-south1`) | Phase 1 |
 | D3 | — | Separate staging Firebase project (Blaze likely needed; §4.2). Nothing is created until you approve | OPEN (08 recommends yes) | Phase 1 |
 | D4 | — | Blaze on `citizen-india` (and staging) with a budget ceiling and alerts (alerts do not cap spending) | OPEN: owner approval required | Phase 1 (before any resource is created) |
@@ -417,9 +423,9 @@ This table is the **single authoritative list** of People Bridge decision IDs (s
 | D6 | — | Legacy app hotfix: **not needed** (D16; deny-by-default rules plus App Check lock old builds out). Reopen only on contrary evidence | closed unless reopened | — |
 | D7 | — | Data retention and deletion policy (DPDP Act, store rules; legal input). Legacy data: none (D16) | OPEN (08 proposes defaults) | Phase 4 |
 | D8 | — | Legacy profile import: **not required** (D16). Contingency only | closed unless reopened | — |
-| D9 | — | State management (built-in `ChangeNotifier`/`ValueNotifier` by default, or a named framework) | OPEN (08 recommends built-in) | Phase 2 |
+| D9 | — | State management (built-in `ChangeNotifier`/`ValueNotifier` by default, or a named framework) | **OWNER APPROVED 2026-11-18:** built-in Flutter state management for the initial build; a framework only by a later owner decision | Phase 2 |
 | D10 | — | OTP delivery and SMS fallback (Firebase Phone Auth; possible DLT route; voice or WhatsApp fallback) | OPEN (08 recommends Firebase now, DLT route before a state launch) | Phase 4 |
-| D11 | — | Documentation consistency (blueprint status; superseded sections; CLAUDE.md; numbering) | corrections **drafted 2026-11-18 on the owner's instruction**; awaiting owner review | now |
+| D11 | — | Documentation consistency (blueprint status; superseded sections; CLAUDE.md; numbering) | **OWNER APPROVED 2026-11-18** (corrections drafted on the owner's instruction and committed in `5a5cadd`) | done |
 | D12 | — | Default database or a named database | OPEN (08 recommends default) | Phase 3 |
 | D13 | — | Request rules in §4.6 (OPEN points: late-eligible partners; who may close a request and whether a time limit exists; quotations under first-accept-wins; request caps) | OPEN | Phase 6 |
 | D14 | — | Number recycling and change-number policy (07 §7.1; 08 D14) | OPEN | Phase 4 |
