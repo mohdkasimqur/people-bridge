@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check-and-build:
+    name: Format, analyze, test, build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+          cache-dependency-path: |
+            apps/mobile/android/**/*.gradle*
+            apps/mobile/android/gradle/wrapper/gradle-wrapper.properties
+
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          channel: stable
+          flutter-version: 3.50.0
+          cache: true
+
+      - name: Check Flutter revision
+        run: |
+          flutter --version
+          test "$(flutter --version --machine | jq -r .frameworkRevision)" = ab2912035e160d9cad6306df307576da6128ebdb
+
+      - name: Resolve workspace dependencies
+        run: flutter pub get --enforce-lockfile
+
+      - name: Check formatting
+        run: dart format --output=none --set-exit-if-changed apps packages
+
+      - name: Analyze (zero issues, infos included)
+        run: flutter analyze --fatal-infos --fatal-warnings
+
+      - name: Test core
+        working-directory: packages/core
+        run: flutter test
+
+      - name: Test mobile
+        working-directory: apps/mobile
+        run: flutter test
+
+      - name: Test admin
+        working-directory: apps/admin
+        run: flutter test
+
+      - name: Build Android debug APK
+        working-directory: apps/mobile
+        run: flutter build apk --debug
+
+      - name: Build admin web
+        working-directory: apps/admin
+        run: flutter build web
