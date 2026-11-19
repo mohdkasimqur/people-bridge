@@ -110,3 +110,25 @@ Firebase client configuration identifies the project and ships inside every app;
 
 1. **API-key restrictions:** restrict the 3 keys by application (Android package plus signing fingerprint, iOS bundle ID, allowed websites for the web key) and by API (only the Firebase APIs the app needs). Part of the deferred P2a checks (06 amendment B).
 2. **Auth abuse exposure:** check which sign-in providers are enabled, the billing plan, and the SMS region policy (India only). With a public key, an enabled Phone provider on the Blaze plan is open to paid-SMS abuse.
+
+## Module 2.2 — CI (2026-11-19)
+
+Workflow `.github/workflows/ci.yml`, committed and pushed on the owner's authorisation as `e1f7256bb33342c1c9db61982b52c0abfce276f5` (parent `d7b5a61`). Triggers: pull requests and pushes to `main`, and manual dispatch. One job on `ubuntu-24.04`, 30-minute timeout, `permissions: contents: read`, no secrets, checkout without persisted credentials. Actions pinned to full commit SHAs: `actions/checkout` v7.0.1 (`3d3c42e…`), `actions/setup-java` v6.2.0 (`77dd5b2…`, Temurin 21, Gradle cache), `subosito/flutter-action` v2.23.0 (`1a44944…`, stable 3.50.0, cache on).
+
+### Local verification before commit (Windows)
+
+YAML parsed with Dart `yaml` 3.1.4 (offline): 3 triggers, 12 steps. Every workflow command was run locally and exited 0: revision `ab2912035e…`, `flutter pub get --enforce-lockfile` (lockfile unchanged), format (8 files, 0 changed), `flutter analyze --fatal-infos --fatal-warnings` (no issues), tests (core 5, mobile 1, admin 1), `flutter build apk --debug` (50 s, local IPv4 workaround only), `flutter build web` (81 s).
+
+### GitHub Actions runs
+
+| Run | Event / ref / commit | Result | Duration |
+|---|---|---|---|
+| [44577261801](https://github.com/mohdkasimqur/people-bridge/actions/runs/44577261801) | `push`, `main`, `e1f7256` | **success**: all 12 steps passed; revision `ab2912035e`; format 8 files, 0 changed; "No issues found!"; tests core 5, mobile 1, admin 1; APK and web built; no annotations | 5 min 24 s job (17:26:54–17:32:18 UTC); cold caches (Flutter and pub cache not found). Steps: Flutter setup 51 s, analyze 7 s, tests 8 + 10 + 10 s, APK 2 min 39 s, web 35 s |
+| [44578452460](https://github.com/mohdkasimqur/people-bridge/actions/runs/44578452460) | `workflow_dispatch`, temporary branch `ci-deliberate-failure-test`, `b62a836` (one deliberately unformatted file added) | **failure, as intended**: "Check formatting" failed (`Changed packages/core/lib/ci_failure_probe.dart`, exit code 1); analyze, tests and builds skipped | 48 s (17:33:27–17:34:15 UTC) |
+
+The push of the temporary branch triggered no run (as designed: push runs only on `main`); the test used manual dispatch, so no pull request was opened. The branch was never merged (`b62a836` is not an ancestor of `main`), then deleted from `origin` and locally; `origin` now has only `main` at `e1f7256`. Commit `b62a836` may stay reachable on GitHub by its SHA through the run record; it contains only the unformatted test function.
+
+### Not verified
+
+- Pull-request trigger: not exercised (no pull request opened).
+- Cache reuse on a later run: not measured.
