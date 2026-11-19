@@ -1,6 +1,6 @@
 # People Bridge — Fresh Rebuild Roadmap Amendment
 
-Version 0.5, 2026-11-18. **Status: APPROVED by the owner on 2026-11-18 (D1).** Nothing here is implemented. Phase 1 was signed off by the owner on 2026-11-19; Phase 2 starts only on the owner's explicit instruction.
+Version 0.5, 2026-11-18. **Status: APPROVED by the owner on 2026-11-18 (D1).** Nothing here is implemented. Phase 1 was signed off by the owner on 2026-11-19; Phase 2 started on the owner's instruction on 2026-11-19.
 
 Approval record (2026-11-18, owner):
 - **D1:** amendment 06 v0.5 approved. It replaces roadmap Phases 2–11 and revises Phase 1.
@@ -24,6 +24,13 @@ Approval record (2026-11-18, owner):
 - **Amendments A and B (owner-approved 2026-11-18, applied to §8 and §11):**
   - **A:** the D5 ID approach, (a) or (b), is due **before any Phase 2 app registration** and is not a Phase 1 closure criterion. The D5 identifiers stay OPEN.
   - **B:** the billing, App Check and API-key console checks are OWNER-APPROVED DEFERRED (not verified). They are to be recorded in 07 before Phase 3 creates any resource, and are not a Phase 1 closure criterion.
+- **Phase 2 decisions (owner, 2026-11-19):**
+  - **Q1:** tag `legacy-app-final` at `6b5ec4e` (created, pushed and recovery-verified), then retire the old app from `main`. Translations, district data and the category list are preserved.
+  - **O1:** D5 identifiers stay OPEN until before any Firebase app registration or store publication.
+  - **O2:** staging Firebase app registration is deferred until the staging project exists (Phase 3). No staging project in Phase 2. Production registration stays gated by D5 and owner approval.
+  - **O3:** App Check stays gated in Phase 2; no API enabling; no silent move.
+  - **O4:** no hardware purchase. Android real-device and iOS build/signing acceptance are BLOCKED until hardware and signing access are available.
+  - Amendments **C** (staging registration to Phase 3, required by O2) and **D** (App Check gating) are **proposed, not applied**. Their exact text is in [evidence/phase-2.md](evidence/phase-2.md).
 
 Changes in v0.5 (documentation consistency pass, 2026-11-18; recorded so every difference from v0.4 is traceable):
 - §11 is now the authoritative decision register, with alias and status columns. References elsewhere in 06 now use those IDs, aligned with 07 v3 and 08.

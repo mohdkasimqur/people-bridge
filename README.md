@@ -1,17 +1,31 @@
-# jober_india
+# People Bridge
 
-A new Flutter project.
+Working name, provisional. A Flutter app for India connecting customers with service partners, plus a separate Super Admin web dashboard.
 
-## Getting Started
+## Repository layout (Dart pub workspace)
 
-This project is a starting point for a Flutter application.
+| Path | Package | Purpose |
+|---|---|---|
+| `apps/mobile` | `app_mobile` | Android and iOS app |
+| `apps/admin` | `app_admin` | Super Admin web app |
+| `packages/core` | `app_core` | Shared models and services |
+| `firebase/` | — | Local emulator config and deny-all rules; never deployed from Phase 2 |
+| `docs/people-bridge/` | — | Requirements, roadmap, decisions and evidence |
 
-A few resources to get you started if this is your first Flutter project:
+App IDs are still Flutter's `com.example.*` placeholders (decision D5 is open). `packages/core/assets/data/india_districts.json` is for development only: its reuse rights are unverified, and it is not bundled into any app.
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+The old app is retired from `main`. It stays recoverable from the tag `legacy-app-final`:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```
+git worktree add <folder> legacy-app-final
+```
+
+## Common commands (from the repository root)
+
+```
+flutter pub get
+dart format --output=none --set-exit-if-changed apps packages
+flutter analyze
+```
+
+Run `flutter test` inside each of `packages/core`, `apps/mobile` and `apps/admin`.

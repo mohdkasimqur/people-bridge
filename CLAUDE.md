@@ -2,7 +2,7 @@
 
 ## Status
 
-**Roadmap approved by the owner on 2026-11-15. Phase 1 (Foundation) was signed off by the owner on 2026-11-19 (`docs/people-bridge/evidence/phase-1-closing-report.md`). Phase 2 has not started; it starts only on the owner's explicit instruction.** Work proceeds one phase at a time, in roadmap order; a phase is complete only when its gate is met, its commit is pushed and the owner has signed it off. Do not start a later phase early, and do not change Firebase, the database or production data without the step being in the current phase.
+**Roadmap approved by the owner on 2026-11-15. Phase 1 (Foundation) was signed off by the owner on 2026-11-19 (`docs/people-bridge/evidence/phase-1-closing-report.md`). Phase 2 (fresh rebuild) started on the owner's instruction on 2026-11-19; Module 2.1 (workspace skeleton) is implemented and awaiting owner review (`docs/people-bridge/evidence/phase-2.md`).** Work proceeds one phase at a time, in roadmap order; a phase is complete only when its gate is met, its commit is pushed and the owner has signed it off. Do not start a later phase early, and do not change Firebase, the database or production data without the step being in the current phase.
 
 - Git: private repository `mohdkasimqur/people-bridge`, branch `main`; baseline commit `912d74b`.
 - Working app name: **People Bridge (provisional)**. The final brand is confirmed at the final branding and release stage.
@@ -30,7 +30,15 @@ Read only the section needed for the task at hand.
 
 ## Project
 
-- Flutter/Dart app for Android and iOS; folder and package are still named `jober_india`; Firebase project `citizen-india`.
+- Dart pub workspace (root `pubspec.yaml`, one lockfile):
+  - `apps/mobile` (`app_mobile`, Android and iOS);
+  - `apps/admin` (`app_admin`, web);
+  - `packages/core` (`app_core`);
+  - `firebase/` (local emulator config, deny-all rules, never deployed in Phase 2).
+
+  App IDs are `com.example.*` placeholders until D5. Firebase project `citizen-india`.
+- The old app is retired from `main`. It is recoverable from the tag `legacy-app-final` (`6b5ec4e`). `packages/core/assets/data/india_districts.json` is development-only: reuse rights are OPEN and it is not bundled.
+- State management (D9): built-in `ValueNotifier`/`ChangeNotifier` with constructor injection; no state-management package.
 - Customers and partners; phone OTP sign-in; launch in one state, then nationwide across India.
 
 ## Confirmed decisions

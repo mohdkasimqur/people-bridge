@@ -1,0 +1,10 @@
+rules_version = '2';
+
+// Deny everything until Phase 3 writes real rules. Local emulator use only; never deployed in Phase 2.
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
