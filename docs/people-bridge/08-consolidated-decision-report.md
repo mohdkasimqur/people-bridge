@@ -1,6 +1,6 @@
 # People Bridge — Consolidated Architecture, Firebase, Budget and Product Decision Report
 
-Version 1.3, 2026-11-18. **Status: RECOMMENDATIONS for owner review.** Only D1, D9 and D11 have been approved by the owner (2026-11-18; §10). Nothing is implemented. Phase 1 is OPEN; Phase 2 is NOT approved.
+Version 1.6, 2026-11-18. **Status: RECOMMENDATIONS for owner review.** Only D1, D9 and D11 have been approved by the owner (2026-11-18; §10). Nothing is implemented. Phase 1 is OPEN; Phase 2 is NOT approved.
 
 Change history:
 - **v1.1:** the §9 D11 corrections were drafted in the documents, awaiting owner review; decision IDs follow the authoritative register in 06 v0.5 §11. The recommendations in this report did not change. *(Clarified in v1.2: v1.1's "no recommendation changed" refers only to this report. 06 v0.5 did change two decision rows from v0.4; see below.)*
@@ -8,6 +8,18 @@ Change history:
   - Records that 06 v0.5 changed **D4** ("Needed by": Phase 3 → Phase 1, before any resource is created) and **D10** (scope: SMS fallback for critical notifications → OTP delivery and SMS fallback; Phase 7 → 4), and reworded D13 and D14 without changing their meaning (06, "Changes in v0.5"). These changes align 06 with this report's §3 recommendations; none is an owner approval.
   - Current references to 06 now point to v0.5.
 - **v1.3 (2026-11-18):** records the owner's approvals of **D1** (06 v0.5), **D9** (built-in Flutter state management, initially) and **D11** (documentation corrections). Every other status is unchanged. This is not Phase 1 sign-off; Phase 2 stays blocked.
+- **v1.4 (2026-11-18):** records the owner's D5 clarification (working name People Bridge, provisional) in §3 D5, §9 and §10–§11. The earlier `.peoplebridge` ID pattern is replaced by a neutral illustrative format, because no identifier strategy is approved. D5 stays OPEN, and the ID sub-question (a)/(b) is OPEN. No other status changed.
+- **v1.5 (2026-11-18):** records the owner's Phase 1 closure decisions in §10:
+  - D2, D3 and D4 deferred to Phase 3;
+  - D15: leave untouched;
+  - D17: leave enabled and assess before Phase 3.
+
+  Recommendations unchanged; D5 still OPEN.
+- **v1.6 (2026-11-18):** records the owner-approved 06 amendments.
+  - **A:** the D5 ID approach is due before Phase 2 app registration, not at Phase 1 closure.
+  - **B:** the billing, App Check and API-key console checks are deferred, to be recorded in 07 before Phase 3.
+
+  No other change.
 Inputs: `CLAUDE.md`, documents 01, 03, 04, 05, 06 (v0.4) and 07 (v3), one read-only Auth metadata query, and the official sources in §13.
 Labels: **VERIFIED** (official source or live read) · **ESTIMATE** · **RECOMMENDED** · **OPEN** · **OWNER APPROVAL REQUIRED**.
 
@@ -115,19 +127,28 @@ Labels: **VERIFIED** (official source or live read) · **ESTIMATE** · **RECOMME
   4. Re-run `firebase ext:list` only if you accept that it re-enables the API.
 - **OWNER APPROVAL REQUIRED** for either option. No action has been taken.
 
-### D5 — Brand and identifiers: OPEN (inputs needed), pattern RECOMMENDED
+### D5 — Brand and identifiers: OPEN (inputs needed; no identifier strategy approved)
 
 - **Brand:** "People Bridge" is used in the project documents. "Citizen India" (Firebase display name) and "Jober India" (current app label) also appear.
-- **Recommendation:** one brand everywhere. If it is "People Bridge":
-  - Android package and iOS bundle ID: `<reverse-domain-you-own>.peoplebridge`, identical on both platforms, all lowercase. For example, `in.<yourcompany>.peoplebridge` if you own `<yourcompany>.in`.
+- **Recommendation:** one brand everywhere, and one identifier form for both platforms.
+  - *Illustrative format only, not an approved ID:* `<approved-reverse-domain>.<stable-app-identifier>`, identical on Android and iOS, all lowercase.
   - Staging: the same ID with `.staging` appended.
   - Admin web: a Hosting site with a custom domain.
+  - No package ID, bundle ID, domain or legal entity is proposed here.
 - **Rules:**
   - Both IDs are permanent once published.
   - Avoid `com.example` (Play rejects it).
   - Use a domain you control.
   - Check availability in Play Console and App Store Connect before committing.
-- **Needed from you:** brand name, legal entity, and an owned domain. Nothing is registered.
+- **Owner clarification (2026-11-18):**
+  - Working app name: **People Bridge (provisional)**. The final app and brand name may change and will be confirmed at the final branding and release stage.
+  - D5 stays OPEN. This clarification approves no other decision or recommendation.
+  - The identifier strategy is not approved. Whether IDs are brand-independent now or provisional until registration is the OPEN sub-question below.
+- **Needed from you:**
+  - legal entity, owned domain, Android package ID and iOS bundle ID;
+  - the OPEN sub-question, due **before any Phase 2 app registration** (06 amendment A): (a) choose brand-independent final IDs, or (b) use provisional IDs and finalise them before store or production registration.
+
+  Nothing is registered.
 
 ### D7 — Data retention: RECOMMENDED defaults, legal review REQUIRED
 
@@ -314,7 +335,7 @@ Start with the built-ins and adopt Riverpod only if a measured need appears (app
 | Store billing classification | rejection or redesign | treat as digital; policy check | §4 |
 | DPDP obligations from May 2027 | legal exposure | D7, consent, grievance officer, lawyer | legal |
 | Number recycling | account takeover | D14 | D14 |
-| Brand and IDs undecided | blocks Phase 2 | D5 | D5 |
+| App IDs undecided (working name People Bridge is provisional) | blocks app registration and Phase 2 | D5, including the (a)/(b) ID sub-question | D5 |
 | Documentation inconsistencies | wrong guidance to sessions | D11 corrections | D11 |
 | Extensions API enabled | none functional | D17 | D17 |
 
@@ -340,10 +361,10 @@ Start with the built-ins and adopt Riverpod only if a measured need appears (app
 | ID | Topic | Recommended choice | Reason | Cost impact | Risk if deferred | Owner approval | Depends on | Acceptance criteria | Status |
 |---|---|---|---|---|---|---|---|---|---|
 | D1 | Amendment 06 | approve v0.5 (v0.4 content plus the register; D4 and D10 changed and D13/D14 reworded, per 06 "Changes in v0.5") with this report | basis for Phase 2 | — | no rebuild start | YES | this report | approval recorded | OWNER APPROVED 2026-11-18 |
-| D2 | Region | `asia-south1`; backups to `asia-south2` | supported; established; DR pair | regional prices TBC | blocks database creation | YES | D4 | price and Scheduler check recorded; database created there | RECOMMENDED |
-| D3 | Staging | separate Blaze project plus emulator | real-device and App Check tests | ₹0–500 a month | untested production | YES | D4, D5 | staging project exists; CI deploys there | RECOMMENDED |
-| D4 | Billing | Blaze on both projects; alerts at 50/90/100%; Functions spend cap | required services (verified) | variable; §6 | nothing runs | YES | — | budgets active; ceiling recorded | OWNER APPROVAL REQUIRED |
-| D5 | Brand and IDs | one brand; `<owned-domain>.peoplebridge`; `.staging` | store-permanent IDs | — | blocks Phase 2 | YES | entity, domain | IDs registered in both projects | OPEN |
+| D2 | Region | `asia-south1`; backups to `asia-south2` | supported; established; DR pair | regional prices TBC | blocks database creation | YES | D4 | price and Scheduler check recorded; database created there | RECOMMENDED; owner deferred to Phase 3 (2026-11-18) |
+| D3 | Staging | separate Blaze project plus emulator | real-device and App Check tests | ₹0–500 a month | untested production | YES | D4, D5 | staging project exists; CI deploys there | RECOMMENDED; owner deferred to Phase 3 (2026-11-18) |
+| D4 | Billing | Blaze on both projects; alerts at 50/90/100%; Functions spend cap | required services (verified) | variable; §6 | nothing runs | YES | — | budgets active; ceiling recorded | OWNER APPROVAL REQUIRED; deferred to Phase 3 (2026-11-18) |
+| D5 | Brand and IDs | working name People Bridge (provisional, owner 2026-11-18); identifier strategy OPEN (illustrative format only: `<approved-reverse-domain>.<stable-app-identifier>` plus `.staging`); brand-independent or provisional IDs is OPEN | store-permanent IDs | — | blocks app registration and Phase 2 | YES | entity, domain | IDs registered in both projects | OPEN (partly clarified) |
 | D6 | Old app hotfix | none (D16) | no data | — | — | NO | D16 | — | VERIFIED (closed) |
 | D7 | Retention | §3 D7 table | DPDP and stores | small | non-compliance | YES | legal | policy published; TTL and deletion jobs tested | RECOMMENDED |
 | D8 | Legacy import | none (D16) | no data | — | — | NO | D16 | — | VERIFIED (closed) |
@@ -353,9 +374,9 @@ Start with the built-ins and adopt Riverpod only if a measured need appears (app
 | D12 | Database | default database | free quota; simplest | lowest | — | YES | D2 | database `(default)` in the chosen region | RECOMMENDED |
 | D13 | Requests | §3 D13 semantics | owner requirements; race-free | Functions minor | wrong matching | YES (OPEN points) | D12 | the 5 tests in §3 D13 pass | RECOMMENDED |
 | D14 | Number recycling | dormancy guard plus audited recovery | prevents takeover | none | takeover | YES | D7 | recycled-number test cannot see old data | RECOMMENDED |
-| D15 | Auth user | retain as a test account | test-number user | none | — | YES (confirm) | — | unchanged | VERIFIED (metadata) / RECOMMENDED |
+| D15 | Auth user | retain as a test account | test-number user | none | — | YES (confirm) | — | unchanged | VERIFIED (metadata); OWNER DECISION 2026-11-18: leave untouched, identification deferred |
 | D16 | Legacy data | none | owner-confirmed | — | — | — | — | — | VERIFIED (owner) |
-| D17 | Extensions API | leave enabled (A) or disable (B) | no extensions; no cost | none | none | YES | — | state recorded in 07 | OWNER APPROVAL REQUIRED |
+| D17 | Extensions API | leave enabled (A) or disable (B) | no extensions; no cost | none | none | YES | — | state recorded in 07 | OWNER DECISION 2026-11-18: leave enabled and unchanged; assess before Phase 3 |
 | B3 | Policy and terms | DPDP notice, lawyer | stores and law | lawyer fee | store rejection | YES | entity | links live | OPEN |
 | B4 | Plans and billing | in-app subscription via Play/Apple | store rules | store fee share | redesign | YES | policy check | test purchase evidence | OPEN |
 | B5 | Verification documents | per-category list (§4) | trust | review effort | unverified partners | YES | — | list approved | OPEN |
@@ -367,7 +388,12 @@ Start with the built-ins and adopt Riverpod only if a measured need appears (app
 1. ~~**D1, D11:** approve the amendment (v0.5) and review the drafted documentation corrections (§9).~~ **Done:** approved 2026-11-18 (together with D9).
 2. **D4:** approve Blaze on `citizen-india` and a staging project, plus a monthly ceiling for alerts.
 3. **D2, D12:** approve `asia-south1` and the default database, after the price and Scheduler check.
-4. **D5, B6:** brand name, legal entity, owned domain, and who holds the store accounts.
+4. **D5, B6:**
+   - legal entity, owned domain, package ID and bundle ID;
+   - ID approach, (a) brand-independent or (b) provisional and finalised before registration, due before Phase 2 app registration (06 amendment A);
+   - who holds the store accounts.
+
+   The working name People Bridge is provisional; the final brand is confirmed at release.
 5. **D10:** start on Firebase SMS; approve preparing a DLT route before a one-state launch (needs the entity).
 6. **D13:** answer the OPEN points: late-eligible partners, closing rule, quotations, request caps.
 7. **D7, D14, B3:** approve the retention defaults and recovery policy for legal review.

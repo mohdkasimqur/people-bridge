@@ -7,6 +7,23 @@ Approval record (2026-11-18, owner):
 - **D9:** built-in Flutter state management approved for the initial build.
 - **D11:** the drafted documentation corrections approved, and committed in `5a5cadd`.
 - Every other decision keeps its status in §11. **This is not Phase 1 sign-off.**
+- **D5 clarification (owner, 2026-11-18; not an approval of D5):**
+  - Working app name: **People Bridge (provisional)**. The final app and brand name may change and will be confirmed at the final branding and release stage.
+  - Still undecided: Android package ID, iOS bundle ID, legal entity, owned domain.
+  - D5 stays OPEN.
+- **Phase 1 closure rulings (owner, 2026-11-18):**
+  - Keystore, Crashlytics and the CI check script belong to **Phase 2**.
+  - Old-app manual regression (M1–M10): **not applicable**.
+  - Release-mode build: **not required for Phase 1**; verified in Phase 2.
+  - 07 v3 (2026-11-18) is accepted as the Phase 1 Firebase inventory.
+  - D2, D3 and D4 are **deferred to Phase 3**, before any database or resource is created; any billing change still needs explicit owner approval.
+  - D15: the Auth user stays untouched; identification is deferred.
+  - D17: the Extensions API stays enabled and unchanged; it is assessed before Phase 3.
+  - Billing, App Check and API-key console checks: **OWNER-APPROVED DEFERRED / NOT VERIFIED**. No API is enabled to inspect them.
+  - None of these is Phase 1 sign-off.
+- **Amendments A and B (owner-approved 2026-11-18, applied to §8 and §11):**
+  - **A:** the D5 ID approach, (a) or (b), is due **before any Phase 2 app registration** and is not a Phase 1 closure criterion. The D5 identifiers stay OPEN.
+  - **B:** the billing, App Check and API-key console checks are OWNER-APPROVED DEFERRED (not verified). They are to be recorded in 07 before Phase 3 creates any resource, and are not a Phase 1 closure criterion.
 
 Changes in v0.5 (documentation consistency pass, 2026-11-18; recorded so every difference from v0.4 is traceable):
 - §11 is now the authoritative decision register, with alias and status columns. References elsewhere in 06 now use those IDs, aligned with 07 v3 and 08.
@@ -63,7 +80,7 @@ On approval this document amends [04-final-phase-roadmap.md](04-final-phase-road
 |---|---|
 | Rules for every phase; mandatory version control; evidence files | **Kept unchanged** |
 | Phase 1 done so far: git, baseline, private repo, comment and calls removal, build repair, environment recovery | **Kept as history.** The old app is frozen at `1ca3e2e` as the legacy reference |
-| Phase 1 open: brand and IDs, keystore, rules/indexes export, full export, Crashlytics, check script | Brand and IDs, keystore, Crashlytics and check script are **kept in the new Phase 1**, applied to the new app where relevant (section 8). The **rules/indexes export and full export are obsolete**: no Firestore database, rules, indexes or Storage bucket exist (07 §4; D16). They are replaced by recording the existing Auth and app-registration configuration (07 §8) |
+| Phase 1 open: brand and IDs, keystore, rules/indexes export, full export, Crashlytics, check script | Brand and IDs stay in Phase 1 (D5). Keystore, Crashlytics and the check script **move to Phase 2** (owner ruling, 2026-11-18), matching section 8. The **rules/indexes export and full export are obsolete**: no Firestore database, rules, indexes or Storage bucket exist (07 §4; D16). They are replaced by recording the existing Auth and app-registration configuration (07 §8) |
 | Phase 1 "regression on the old app" and "comment removal" | **Dropped**: the old code is not shipped again |
 | Phase 2 (accounts) to Phase 7 (payments) | **Replaced** by new Phases 3–8, designed fresh with the same requirements |
 | Phase 8 (Super Admin) | **Replaced** by new Phase 9, a separate web app from the start |
@@ -300,9 +317,9 @@ Each phase follows the roadmap rules: tests actually run, evidence saved, commit
 
 | Phase | Name (modules) | Depends on | Priority |
 |---|---|---|---|
-| 1 | Foundation and data safety (revised) | D2, D3, D4, D5, D15, D17 | Critical |
-| 2 | New project skeleton and platform | 1 | Critical |
-| 3 | Backend core: rules, Functions, accounts, backup | 2 | Critical |
+| 1 | Foundation and data safety (revised) | D5 (working name only; D2, D3, D4, D15 and D17 deferred by the owner on 2026-11-18; see §11) | Critical |
+| 2 | New project skeleton and platform | 1; D5 (ID approach and IDs) | Critical |
+| 3 | Backend core: rules, Functions, accounts, backup | 2; D2, D3, D4, D17 (deferred to here) | Critical |
 | 4 | Auth, roles, account lifecycle | 3 | Critical |
 | 5 | Categories, partner profiles, media | 4 | High |
 | 6 | LIVE, presence, discovery | 5 | High |
@@ -314,11 +331,14 @@ Each phase follows the roadmap rules: tests actually run, evidence saved, commit
 
 **Phase 1: Foundation and data safety (revised)**
 - Deliverables:
-  - Brand, package ID and bundle ID decided.
-  - Read-only inspection of the Firebase project completed with authenticated access (done 2026-11-18, 07 v2). Billing, App Check and API-key restrictions remain to be checked in the console.
+  - D5:
+    - Working app name recorded: People Bridge (provisional). The final brand is confirmed at the final branding and release stage.
+    - The Android package ID and iOS bundle ID must be decided **before any app registration or store/production release**.
+    - **OPEN, owner approval required before any Phase 2 app registration:** whether (a) brand-independent final IDs are chosen, or (b) provisional IDs are used and finalised before store or production registration. Not a Phase 1 closure criterion.
+  - Read-only inspection of the Firebase project completed with authenticated access (done 2026-11-18, 07 v2). Billing, App Check and API-key restrictions: OWNER-APPROVED DEFERRED (2026-11-18), not verified; to be checked by the owner in the console and recorded in 07 before Phase 3 creates any resource. Not a Phase 1 closure criterion.
   - D16 answered: no historical production users or data (owner, 2026-11-18).
   - The existing Auth configuration and Firebase app registrations recorded in the repository, as documented in 07 §4 and §8: sign-in providers, SMS region policy, test-number count, authorized domains, the three app IDs, Analytics link, Hosting site and IAM roles. No user data or secrets; the one Auth user stays untouched (D15).
-  - Staging project created, **only if D3 and D4 are approved**.
+  - Staging project created, **only if D3 and D4 are approved**. *(Deferred to Phase 3 by the owner, 2026-11-18.)*
   - This amendment approved (D1). *Done 2026-11-18.*
 - Acceptance: the configuration record matches a fresh read-only inventory taken the same day, saved in the evidence file; inspection results recorded in the evidence file.
 - *Contingency only, not Phase 1 deliverables:*
@@ -411,15 +431,15 @@ One module per session. The old code is used only as a reference for behaviour a
 This table is the **single authoritative list** of People Bridge decision IDs (since 2026-11-18).
 - Old numbers in the roadmap and blueprint ("decision 1–7") are aliases, shown in the second column.
 - Recommendations for each decision are in [08](08-consolidated-decision-report.md) §3 and §10.
-- **No decision here is owner-approved unless its status says OWNER CONFIRMED or OWNER APPROVED.**
+- **No decision here is owner-approved unless its status says OWNER CONFIRMED, OWNER APPROVED or OWNER DECISION.** "Deferred by the owner" means the decision is still OPEN, with a later deadline.
 
 | ID | Alias | Decision | Status | Needed by |
 |---|---|---|---|---|
 | D1 | — | Approve this amendment (replaces roadmap Phases 2–11; revises Phase 1) | **OWNER APPROVED 2026-11-18** (v0.5) | done |
-| D2 | old 2 (part) | Firestore and Storage region (none set; permanent once chosen; `asia-south1` or `asia-south2`); console checks of billing, App Check and API keys | OPEN (08 recommends `asia-south1`) | Phase 1 |
-| D3 | — | Separate staging Firebase project (Blaze likely needed; §4.2). Nothing is created until you approve | OPEN (08 recommends yes) | Phase 1 |
-| D4 | — | Blaze on `citizen-india` (and staging) with a budget ceiling and alerts (alerts do not cap spending) | OPEN: owner approval required | Phase 1 (before any resource is created) |
-| D5 | old 1 | Brand name, Android package ID, iOS bundle ID | OPEN | Phase 1 |
+| D2 | old 2 (part) | Firestore and Storage region (none set; permanent once chosen; `asia-south1` or `asia-south2`); console checks of billing, App Check and API keys | OPEN, **deferred by the owner (2026-11-18) to Phase 3, before database creation** (08 recommends `asia-south1`). The console checks are OWNER-APPROVED DEFERRED / NOT VERIFIED | Phase 3 |
+| D3 | — | Separate staging Firebase project (Blaze likely needed; §4.2). Nothing is created until you approve | OPEN, **deferred by the owner (2026-11-18) to Phase 3** (08 recommends yes) | Phase 3 |
+| D4 | — | Blaze on `citizen-india` (and staging) with a budget ceiling and alerts (alerts do not cap spending) | OPEN, **deferred by the owner (2026-11-18) to Phase 3**; any billing change needs explicit owner approval | Phase 3, before any resource is created |
+| D5 | old 1 | Brand name, Android package ID, iOS bundle ID.<br>Working name **People Bridge (provisional)** (owner, 2026-11-18); the final brand is confirmed at the final branding and release stage.<br>Undecided: package ID, bundle ID, legal entity, owned domain.<br>Sub-question OPEN: (a) brand-independent final IDs in Phase 1, or (b) provisional IDs finalised before store or production registration | OPEN (partly clarified 2026-11-18) | before Phase 2 app registration for the ID approach; IDs before any app registration or release; brand at the release stage |
 | D6 | — | Legacy app hotfix: **not needed** (D16; deny-by-default rules plus App Check lock old builds out). Reopen only on contrary evidence | closed unless reopened | — |
 | D7 | — | Data retention and deletion policy (DPDP Act, store rules; legal input). Legacy data: none (D16) | OPEN (08 proposes defaults) | Phase 4 |
 | D8 | — | Legacy profile import: **not required** (D16). Contingency only | closed unless reopened | — |
@@ -429,9 +449,9 @@ This table is the **single authoritative list** of People Bridge decision IDs (s
 | D12 | — | Default database or a named database | OPEN (08 recommends default) | Phase 3 |
 | D13 | — | Request rules in §4.6 (OPEN points: late-eligible partners; who may close a request and whether a time limit exists; quotations under first-accept-wins; request caps) | OPEN | Phase 6 |
 | D14 | — | Number recycling and change-number policy (07 §7.1; 08 D14) | OPEN | Phase 4 |
-| D15 | — | The one existing Auth user. Metadata verified read-only (08 D15): phone provider, a configured **test** number, no email or name, created 2026-08-10. It stays untouched (no export, edit or deletion) until you decide | OPEN: owner confirmation required | Phase 1 |
+| D15 | — | The one existing Auth user. Metadata verified read-only (08 D15): phone provider, a configured **test** number, no email or name, created 2026-08-10. It stays untouched (no export, edit or deletion) until you decide | **OWNER DECISION 2026-11-18:** leave untouched; identification deferred until a justified review | at a justified review |
 | D16 | old 2 (part) | Historical production users or data | **OWNER CONFIRMED 2026-11-18:** none. Revisit only on contrary evidence | closed |
-| D17 | — | Firebase Extensions API enabled during the read-only check (07 §3): keep (option A) or disable (option B, 08 D17). It stays unchanged until you explicitly approve | OPEN: owner approval required | before Phase 3 |
+| D17 | — | Firebase Extensions API enabled during the read-only check (07 §3): keep (option A) or disable (option B, 08 D17). It stays unchanged until you explicitly approve | **OWNER DECISION 2026-11-18:** leave enabled and unchanged; assessment (option A or B) before Phase 3 | before Phase 3 |
 | B3 | old 3 | Privacy policy and terms text; the publishing legal entity | OPEN | Phase 3 of the old roadmap / Phase 4 here |
 | B4 | old 4 | Plans, prices, durations; payment path (Play Billing / Apple IAP or a gateway); per-profile or per-account subscription; radius meaning | OPEN | Phase 10 |
 | B5 | old 5 | Verification documents per category | OPEN | Phase 8 |

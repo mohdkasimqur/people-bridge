@@ -302,7 +302,7 @@ Each module is one unit of development with its own tests and acceptance check.
 - **[Recommended]** One shared set of screens per type; categories differ by configuration, not by copied code.
 - **[Recommended]** All user-facing text comes from the language files; hard-coded English strings are moved as each screen is rebuilt.
 - **[Recommended]** Lists are paginated and lazily built; images are cached and sized; no screen holds more than one large listener.
-- **[Open]** Brand name, colours and whether the current visual design stays.
+- **[Open]** Brand name, colours and whether the current visual design stays. *(Update 2026-11-18: working name **People Bridge (provisional)**; the final brand is confirmed at the final branding and release stage; D5.)*
 
 ---
 
@@ -376,7 +376,7 @@ Authoritative IDs (2026-11-18) are listed in [06](06-fresh-rebuild-amendment.md)
 
 | # (alias) | ID | Decision | Blocks | State (2026-11-18) |
 |---|---|---|---|---|
-| 1 | D5 | Brand name, Android package ID, iOS bundle ID | Foundation | OPEN |
+| 1 | D5 | Brand name, Android package ID, iOS bundle ID | Foundation | OPEN. Working name People Bridge (provisional), final brand at release; package ID, bundle ID, legal entity and domain undecided |
 | 2 | D2 + D16 | Firebase console access or exports: rules, indexes, billing plan, region, usage; whether live user data exists | Foundation | Access **verified** (07). D16 **owner-confirmed**: no data. Region (D2), billing, App Check and keys OPEN |
 | 3 | B3 | Privacy policy and terms text, and the legal entity publishing them | Security and privacy | OPEN |
 | 4 | B4 | Plans, prices, durations; payment gateway; position on Apple and Google billing; confirmation that the plan sets the partner's visibility radius | Subscriptions | OPEN |

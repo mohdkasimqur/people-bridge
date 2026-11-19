@@ -5,7 +5,12 @@
 **Roadmap approved by the owner on 2026-11-15. Phase 1 (Foundation) is the current phase.** Work proceeds one phase at a time, in roadmap order; a phase is complete only when its gate is met, its commit is pushed and the owner has signed it off. Do not start a later phase early, and do not change Firebase, the database or production data without the step being in the current phase.
 
 - Git: private repository `mohdkasimqur/people-bridge`, branch `main`; baseline commit `912d74b`.
-- Phase 1 items still blocked on the owner: brand name and app IDs (D5); region, billing, staging (D2–D4); the existing Auth test user (D15) and the Extensions API (D17). Decision IDs are listed in `06` §11.
+- Working app name: **People Bridge (provisional)**. The final brand is confirmed at the final branding and release stage.
+- Phase 1 is blocked only on the owner's sign-off (and the commit of its evidence).
+  - D5 identifiers (package ID, bundle ID, legal entity, owned domain, and the ID approach) stay OPEN. They are due **before any Phase 2 app registration** (06 amendment A, owner-approved 2026-11-18).
+  - Deferred by the owner (2026-11-18): region, staging and billing (D2–D4) to Phase 3, before any resource is created; the Auth test user stays untouched (D15); the Extensions API stays enabled and unchanged, assessed before Phase 3 (D17).
+  - Billing, App Check and API-key console checks: OWNER-APPROVED DEFERRED / NOT VERIFIED. They are recorded in 07 before Phase 3 creates any resource (06 amendment B).
+  - Decision IDs are listed in `06` §11; the closing evidence is in `docs/people-bridge/evidence/phase-1-closing-report.md`.
 - 2026-11-18: authenticated read-only access to `citizen-india` verified. The project has no Firestore database, Storage bucket, rules or Functions, and 1 Auth user (a test number). The owner confirmed there were never production users or data (D16). The read-only check unintentionally enabled the Firebase Extensions API; it stays unchanged until the owner decides (D17).
 - 2026-11-18: the owner approved the fresh-rebuild amendment `06` v0.5 (D1), built-in Flutter state management for the initial build (D9) and the documentation corrections (D11). This is **not** Phase 1 sign-off: Phase 1 stays OPEN; Phase 2 is NOT approved and blocked.
 - 2026-11-17: the development environment was rebuilt after a Windows reinstall and the Android debug build verified at `825a847` (results in the roadmap's Phase 1 section). This is environment recovery only: Phase 1 stays open and Phase 2 must not start.

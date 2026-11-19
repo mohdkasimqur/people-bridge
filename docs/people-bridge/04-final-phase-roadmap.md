@@ -78,21 +78,21 @@ Session counts are estimates for planning AI use, not commitments.
 **Scope and deliverables**
 
 - [ ] Git setup, first step of the phase: initialise git; extend `.gitignore` for Flutter, Dart, Firebase, Android, iOS and local tools (build output, `.gradle`, keystores, `key.properties`, `.env*`, `local.properties`, service-account files, `graphify-out/cache`, tool caches); scan for secrets; baseline commit of the code as it is today; connect the owner-approved **private** GitHub repository; verify remote, branch and push. A repository is created only with the owner's approval.
-- [ ] Final app name, Android package ID and iOS bundle ID; one brand name everywhere.
-- [ ] Release keystore outside the repo; release build no longer uses the debug key.
+- [ ] Final app name, Android package ID and iOS bundle ID; one brand name everywhere. *(Update 2026-11-18, D5: working name People Bridge (provisional); the final brand may be deferred to the final branding and release stage. Package ID and bundle ID must be decided before any app registration or release. The approach, (a) brand-independent or (b) provisional until registration, is OPEN and due **before any Phase 2 app registration**; it is not a Phase 1 closure criterion (06 amendment A, owner-approved 2026-11-18).)*
+- [ ] Release keystore outside the repo; release build no longer uses the debug key. *(Moved to Phase 2 by owner ruling, 2026-11-18.)*
 - ~~Firestore rules, Storage rules and indexes exported from the console into the repo, unchanged.~~ **Obsolete (2026-11-18):** no Firestore database, rules or Storage bucket exists in `citizen-india` (07 §4).
 - ~~Full Firestore export taken and stored before any later data change.~~ **Obsolete:** there is no data (07 §4; D16 owner-confirmed). It is replaced by recording the Auth and app-registration configuration (07 §8).
 - [ ] Commented-out code removed (about 47% of lines); no behaviour change. *Work committed in `50b917e`; the phase gate is not yet signed off.*
 - [ ] Calls removed: call screen, call entry points, `flutter_webrtc`, after a usage search. *Work committed in `50b917e` (0 references remain).*
 - [ ] Unused packages and the unused overlay service declaration removed (audit section 2). *Work committed in `50b917e` (no overlay declaration in the manifest).*
-- [ ] Crashlytics added; coordinates and UIDs removed from release logs.
-- [ ] Failing default test replaced by a smoke test; a single check script runs analyse, test and build. *Smoke tests exist (`test/app_compiles_test.dart`, `test/distance_plan_test.dart`); no check script yet.*
+- [ ] Crashlytics added; coordinates and UIDs removed from release logs. *(Moved to Phase 2 by owner ruling, 2026-11-18.)*
+- [ ] Failing default test replaced by a smoke test; a single check script runs analyse, test and build. *Smoke tests exist (`test/app_compiles_test.dart`, `test/distance_plan_test.dart`). The check script moved to Phase 2 by owner ruling, 2026-11-18.*
 
-**Amendment 06 approved (D1, 2026-11-18):** the Phase 1 scope is the revised list in 06 §8. The items above that only concern shipping the old code (comment removal, regression on the old app) are then dropped, and these are added:
-- remaining console checks: billing, App Check, API keys;
-- region (D2), staging (D3), billing plan (D4);
-- final IDs (D5) registered with SHA fingerprints, after approval;
-- D15 and D17 decided.
+**Amendment 06 approved (D1, 2026-11-18):** the Phase 1 scope is the revised list in 06 §8 (with amendments A and B). The items above that only concern shipping the old code (comment removal, regression on the old app) are dropped. Not Phase 1 items (owner rulings, 2026-11-18):
+- D5 ID approach and final IDs (registered with SHA fingerprints): before any Phase 2 app registration (amendment A);
+- billing, App Check and API-key console checks: OWNER-APPROVED DEFERRED, recorded in 07 before Phase 3 (amendment B);
+- region (D2), staging (D3), billing (D4): deferred to Phase 3;
+- D15 and D17: decided as "leave as is" (06 §11).
 
 **Files likely affected:** `pubspec.yaml`, `lib/main.dart`, every file under `lib/` (comment removal only), `lib/jober_indiaScreens.dart/Message/screen_call.dart` and its callers, `android/app/build.gradle.kts`, `AndroidManifest.xml`, `ios/Runner/Info.plist`, `firebase.json`, `test/`; new `firestore.rules`, `storage.rules`, `firestore.indexes.json`.
 
@@ -107,7 +107,15 @@ Session counts are estimates for planning AI use, not commitments.
 
 **Gate:** signed release build installs under the final ID; `flutter analyze` warnings no higher than before; smoke test passes; ~~rules in repo equal the console export~~ (obsolete: no rules exist; 07); baseline numbers recorded.
 
-**Blocking decisions:** 1 = D5 (brand and IDs: OPEN); 2 = D2 + D16 (console access: **verified** 2026-11-18; live data: **none**, owner-confirmed; region, billing, App Check and keys: OPEN).
+**Blocking decisions:** 1 = D5 (OPEN: working name People Bridge provisional, recorded; package ID, bundle ID, legal entity, domain and the ID approach undecided, due before Phase 2 app registration under 06 amendment A, so not blocking Phase 1 closure); 2 = D2 + D16 (console access: **verified** 2026-11-18; live data: **none**, owner-confirmed; region (D2), staging (D3) and billing (D4): **deferred to Phase 3** by the owner, 2026-11-18; billing, App Check and key console checks: OWNER-APPROVED DEFERRED / NOT VERIFIED, to be recorded in 07 before Phase 3 creates any resource (06 amendment B)).
+
+**Owner rulings for Phase 1 closure (2026-11-18):**
+- old-app manual regression M1–M10: not applicable;
+- release-mode build: not required for Phase 1 (verified in Phase 2);
+- inventory: 07 v3 accepted;
+- D15 and D17: deferred, as recorded in 06 §11.
+
+Details: `evidence/phase-1-closing-report.md`.
 
 **Environment recovery, 2026-11-17 (not a phase deliverable).** After a Windows reinstall the toolchain was rebuilt (versions and locations in `CLAUDE.md`, "Tooling and environment") on `main` at `825a847`. No additional source, dependency, Firebase, database or build-configuration changes were made during this environment recovery.
 
@@ -116,7 +124,7 @@ Session counts are estimates for planning AI use, not commitments.
 - Not verified: installing or running the app (no device or emulator available); iOS build; release build. The APK is a debug build, not store-ready.
 - Warning, not acted on: Flutter reports that the project and several plugins use the Kotlin Gradle Plugin integration, and later Flutter versions may require migrating to built-in Kotlin.
 - No Firebase write, sign-in, OTP, registration, message, booking, LIVE, subscription or remote user-data read was performed. Firebase data safety and staging remain unverified.
-- Phase 1 stays open: no deliverable or gate item above changes status, decisions 1 and 2 still block it, and Phase 2 must not start. *(Update 2026-11-18: decision 2 is now only partly open; see the Blocking decisions line above. Phase 1 is still OPEN and Phase 2 is NOT approved.)*
+- Phase 1 stays open: no deliverable or gate item above changes status, decisions 1 and 2 still block it, and Phase 2 must not start. *(Update 2026-11-18: decision 2 is now only partly open; see the Blocking decisions line above. Phase 1 is still OPEN and Phase 2 is NOT approved.)* *(Update 2026-11-19: under 06 amendments A and B, neither decision 1 (D5) nor decision 2 blocks Phase 1 closure; only commit and owner sign-off remain.)*
 
 ---
 
