@@ -123,12 +123,27 @@ YAML parsed with Dart `yaml` 3.1.4 (offline): 3 triggers, 12 steps. Every workfl
 
 | Run | Event / ref / commit | Result | Duration |
 |---|---|---|---|
-| [44577261801](https://github.com/mohdkasimqur/people-bridge/actions/runs/44577261801) | `push`, `main`, `e1f7256` | **success**: all 12 steps passed; revision `ab2912035e`; format 8 files, 0 changed; "No issues found!"; tests core 5, mobile 1, admin 1; APK and web built; no annotations | 5 min 24 s job (17:26:54–17:32:18 UTC); cold caches (Flutter and pub cache not found). Steps: Flutter setup 51 s, analyze 7 s, tests 8 + 10 + 10 s, APK 2 min 39 s, web 35 s |
-| [44578452460](https://github.com/mohdkasimqur/people-bridge/actions/runs/44578452460) | `workflow_dispatch`, temporary branch `ci-deliberate-failure-test`, `b62a836` (one deliberately unformatted file added) | **failure, as intended**: "Check formatting" failed (`Changed packages/core/lib/ci_failure_probe.dart`, exit code 1); analyze, tests and builds skipped | 48 s (17:33:27–17:34:15 UTC) |
+| [44577261801](https://github.com/mohdkasimqur/people-bridge/actions/runs/44577261801) | `push`, `main`, `e1f7256` | **success**: all 12 steps passed; revision `ab2912035e`; format 8 files, 0 changed; "No issues found!"; tests core 5, mobile 1, admin 1; APK and web built; no annotations | job 5 min 26 s (17:26:53–17:32:19 UTC); run 5 min 30 s (17:26:50–17:32:20 UTC); cold caches (Flutter, pub, Gradle and Gradle-wrapper caches not found). Steps: Flutter setup 51 s, analyze 7 s, tests 8 + 10 + 10 s, APK 2 min 39 s, web 35 s |
+| [44578452460](https://github.com/mohdkasimqur/people-bridge/actions/runs/44578452460) | `workflow_dispatch`, temporary branch `ci-deliberate-failure-test`, `b62a836` (one deliberately unformatted file added) | **failure, as intended**: "Check formatting" failed (`Changed packages/core/lib/ci_failure_probe.dart`, exit code 1); analyze, tests and builds skipped | job 44 s (17:33:31–17:34:15 UTC); run 48 s (17:33:27–17:34:15 UTC) |
+| [44579241665](https://github.com/mohdkasimqur/people-bridge/actions/runs/44579241665) | `push`, `main`, `65a5b85ad11a0ea30ae575dc2888556200fdca93` (evidence commit) | **success**: all 12 steps passed | job 3 min 16 s (17:37:54–17:41:10 UTC); run 3 min 20 s (17:37:51–17:41:11 UTC); caches reused (see below) |
+
+Durations come from GitHub's timestamps: "job" is the job's start to completion, and "run" is the run's creation to its last update.
 
 The push of the temporary branch triggered no run (as designed: push runs only on `main`); the test used manual dispatch, so no pull request was opened. The branch was never merged (`b62a836` is not an ancestor of `main`), then deleted from `origin` and locally; `origin` now has only `main` at `e1f7256`. Commit `b62a836` may stay reachable on GitHub by its SHA through the run record; it contains only the unformatted test function.
 
+### Cache verification
+
+Run 44579241665 restored every cache that run 44577261801 had saved. The log shows a "Cache hit" and "Cache restored from key" for the Flutter SDK, pub and Gradle keys, and a cache hit on the Gradle wrapper. No new caches were saved ("not saving cache").
+
+| Measure (cold run 44577261801 → cached run 44579241665) | Before | After |
+|---|---|---|
+| Job (start → completion) | 5 min 26 s | 3 min 16 s |
+| Run (creation → last update) | 5 min 30 s | 3 min 20 s |
+| Flutter setup step | 51 s (17:27:03–17:27:54) | 27 s (17:38:27–17:38:54) |
+| Build Android debug APK step | 2 min 39 s (17:28:32–17:31:11) | 63 s (17:39:30–17:40:33) |
+
+These are two single runs on GitHub-hosted runners, not an average.
+
 ### Not verified
 
-- Pull-request trigger: not exercised (no pull request opened).
-- Cache reuse on a later run: not measured.
+- **Pull-request trigger: NOT VERIFIED** (not exercised; no pull request opened).
