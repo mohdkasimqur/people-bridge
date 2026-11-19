@@ -1,11 +1,11 @@
 # People Bridge — Final Phase Roadmap
 
-Version 1, 2026-11-14. **Status: APPROVED by the owner on 2026-11-15. Current phase: 1 (Foundation).** Baseline commit `912d74b` is on the private GitHub repository `mohdkasimqur/people-bridge`.
+Version 1, 2026-11-14. **Status: APPROVED by the owner on 2026-11-15. Phase 1 (Foundation) signed off by the owner on 2026-11-19; Phase 2 not started.** Baseline commit `912d74b` is on the private GitHub repository `mohdkasimqur/people-bridge`.
 
 **Amended (2026-11-18).** The fresh-rebuild amendment [06-fresh-rebuild-amendment.md](06-fresh-rebuild-amendment.md) v0.5 was **approved by the owner on 2026-11-18** (decision D1).
 - **Phases 2–11 below are superseded** by 06 §8 and kept for history.
 - **Phase 1 follows the revised list in 06 §8**, together with this roadmap's rules for every phase.
-- Phase 1 remains OPEN. Phase 2 is NOT approved and is blocked.
+- Phase 1 was signed off by the owner on 2026-11-19 ([closing report](evidence/phase-1-closing-report.md)). Phase 2 starts only on the owner's explicit instruction.
 - Verified Firebase state: [07-legacy-firebase-verification.md](07-legacy-firebase-verification.md).
 - Recommendations: [08-consolidated-decision-report.md](08-consolidated-decision-report.md).
 

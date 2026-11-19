@@ -1,13 +1,15 @@
 # Phase 1 (Foundation) — closing report
 
-Date: 2026-11-18 (updated 2026-11-19). Prepared for owner review. **Phase 1 is NOT closed.** This report does not sign off, approve any decision or start Phase 2.
+Date: 2026-11-18 (updated 2026-11-19). **Phase 1 SIGNED OFF by the owner on 2026-11-19 (§7).** This report does not approve any other decision or start Phase 2.
 Repository state reviewed: `main` at `5740fe9` (in sync with `origin/main`), plus the uncommitted documentation updates of 2026-11-18/19.
 Criteria source: [06 §8 Phase 1](../06-fresh-rebuild-amendment.md) (approved v0.5, D1, with owner-approved amendments A and B of 2026-11-18) and the roadmap's "Rules for every phase" ([04](../04-final-phase-roadmap.md)), which 06 keeps.
 Status labels: **VERIFIED** · **INCOMPLETE** · **NOT VERIFIED** · **NOT APPLICABLE** · **OWNER-APPROVED DEFERRED** (accepted by explicit owner ruling; the work happens later).
 
 ## 1. Executive summary
 
-**Verdict: READY FOR OWNER SIGN-OFF** (not closed).
+**Verdict: SIGNED OFF (owner, 2026-11-19).** Evidence committed and pushed in `f2585f7`; remote hash verified. The text below is the review record as it stood before sign-off.
+
+*Pre-sign-off verdict: READY FOR OWNER SIGN-OFF.*
 - Under 06 §8 as amended by A and B, every Phase 1 deliverable and acceptance criterion is VERIFIED, NOT APPLICABLE, or accepted by an explicit owner ruling (§2, §4).
 - Two procedural gates remain, and both are yours:
   1. Authorise the commit and push of these documents (R6, R7).
@@ -44,9 +46,9 @@ Status labels: **VERIFIED** · **INCOMPLETE** · **NOT VERIFIED** · **NOT APPLI
 | R3 | `flutter analyze`: no new warnings | **VERIFIED** | 0 errors, 0 warnings, 114 infos (2026-11-18) | — |
 | R4 | App builds in release mode | **OWNER-APPROVED DEFERRED** | Not required for Phase 1 (owner ruling 2026-11-18); only debug builds exist | Verify in Phase 2 |
 | R5 | Graphify graph rebuilt | **VERIFIED** | Rebuilt 2026-11-18 01:49, after the last code commit `825a847` | After Phase 2 code |
-| R6 | Evidence saved | **INCOMPLETE** (procedural) | Parts [1](phase-1-part-1.md), [2](phase-1-part-2.md), [3](phase-1-part-3.md) and this report, uncommitted | Commit, after your authorisation |
-| R7 | Commit pushed and verified | **INCOMPLETE** (procedural) | Earlier work: `5a5cadd`, `5740fe9` | Push and hash-verify these documents |
-| R8 | Owner sign-off | **INCOMPLETE** | §7, unsigned | Owner |
+| R6 | Evidence saved | **VERIFIED** | Parts [1](phase-1-part-1.md), [2](phase-1-part-2.md), [3](phase-1-part-3.md) and this report, committed in `f2585f7` | — |
+| R7 | Commit pushed and verified | **VERIFIED** | `f2585f7` pushed to `origin/main`; local and remote hashes match (2026-11-19) | — |
+| R8 | Owner sign-off | **VERIFIED** | §7, signed off by the owner on 2026-11-19 | — |
 
 ## 3. Completed work (evidence index)
 
@@ -81,9 +83,9 @@ Still deferred to later phases (06 §11): D7, D10, D12, D13, D14 and B3–B7.
 ## 5. Remaining gates checklist
 
 - [x] Every 06 §8 Phase 1 criterion is VERIFIED, NOT APPLICABLE or accepted by ruling (amendments A and B applied)
-- [ ] Owner authorises the commit and push of the documentation updates and this report (R6, R7)
-- [ ] Commit pushed and remote hash verified
-- [ ] Owner signs §7 (R8)
+- [x] Owner authorises the commit and push of the documentation updates and this report (R6, R7): authorised 2026-11-19
+- [x] Commit pushed and remote hash verified: `f2585f7`
+- [x] Owner signs §7 (R8): signed off 2026-11-19
 
 **Carried forward:**
 - **Before Phase 2 app registration:** D5 ID approach, package ID, bundle ID, legal entity and domain.
@@ -101,15 +103,17 @@ Still deferred to later phases (06 §11): D7, D10, D12, D13, D14 and B3–B7.
 - **Hardware:** iOS needs a Mac or a macOS CI runner, and Phase 2's device-based acceptance needs an Android device or emulator.
 - **App IDs:** permanent once published. They are settled before any Phase 2 app registration (amendment A).
 
-## 7. Owner sign-off (unsigned)
+## 7. Owner sign-off
 
-Rulings recorded in §4. Sign-off is possible once the R6 and R7 gates in §5 are complete.
+Rulings recorded in §4. The R6 and R7 gates were completed by `f2585f7`.
 
-**Phase 1 sign-off:** ☐ Approved  ☐ Not approved
-Signed: ____________________  Date: __________
-Comments: ______________________________________________
+**Phase 1 sign-off:** ☑ Approved  ☐ Not approved
+Signed: the owner, by chat instruction "Sign off Phase 1"  Date: 2026-11-19
+Comments: Carried-forward items in §5 stay open:
+- D5 identifiers before any Phase 2 app registration;
+- P2a console checks, D2, D3, D4 and the D17 assessment before Phase 3 creates resources.
 
-Until signed, Phase 1 remains OPEN and Phase 2 remains blocked.
+Phase 1 is signed off. Phase 2 starts only on the owner's explicit instruction, under the roadmap rule "a phase starts only when the previous phase's gate is met and the owner has signed it off".
 
 ## 8. Acceptance-criteria amendments: APPROVED AND APPLIED (owner, 2026-11-18)
 

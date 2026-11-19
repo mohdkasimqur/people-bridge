@@ -1,6 +1,6 @@
 # People Bridge — Fresh Rebuild Roadmap Amendment
 
-Version 0.5, 2026-11-18. **Status: APPROVED by the owner on 2026-11-18 (D1).** Nothing here is implemented. Phase 1 is OPEN (not signed off), and Phase 2 is blocked until Phase 1 is signed off.
+Version 0.5, 2026-11-18. **Status: APPROVED by the owner on 2026-11-18 (D1).** Nothing here is implemented. Phase 1 was signed off by the owner on 2026-11-19; Phase 2 starts only on the owner's explicit instruction.
 
 Approval record (2026-11-18, owner):
 - **D1:** amendment 06 v0.5 approved. It replaces roadmap Phases 2–11 and revises Phase 1.

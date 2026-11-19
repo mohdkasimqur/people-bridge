@@ -2,11 +2,11 @@
 
 ## Status
 
-**Roadmap approved by the owner on 2026-11-15. Phase 1 (Foundation) is the current phase.** Work proceeds one phase at a time, in roadmap order; a phase is complete only when its gate is met, its commit is pushed and the owner has signed it off. Do not start a later phase early, and do not change Firebase, the database or production data without the step being in the current phase.
+**Roadmap approved by the owner on 2026-11-15. Phase 1 (Foundation) was signed off by the owner on 2026-11-19 (`docs/people-bridge/evidence/phase-1-closing-report.md`). Phase 2 has not started; it starts only on the owner's explicit instruction.** Work proceeds one phase at a time, in roadmap order; a phase is complete only when its gate is met, its commit is pushed and the owner has signed it off. Do not start a later phase early, and do not change Firebase, the database or production data without the step being in the current phase.
 
 - Git: private repository `mohdkasimqur/people-bridge`, branch `main`; baseline commit `912d74b`.
 - Working app name: **People Bridge (provisional)**. The final brand is confirmed at the final branding and release stage.
-- Phase 1 is blocked only on the owner's sign-off (and the commit of its evidence).
+- Phase 1 signed off 2026-11-19 (evidence committed in `f2585f7`). Items carried forward:
   - D5 identifiers (package ID, bundle ID, legal entity, owned domain, and the ID approach) stay OPEN. They are due **before any Phase 2 app registration** (06 amendment A, owner-approved 2026-11-18).
   - Deferred by the owner (2026-11-18): region, staging and billing (D2–D4) to Phase 3, before any resource is created; the Auth test user stays untouched (D15); the Extensions API stays enabled and unchanged, assessed before Phase 3 (D17).
   - Billing, App Check and API-key console checks: OWNER-APPROVED DEFERRED / NOT VERIFIED. They are recorded in 07 before Phase 3 creates any resource (06 amendment B).
