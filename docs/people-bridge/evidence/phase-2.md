@@ -84,4 +84,29 @@ Criteria: [06 §8 Phase 2](../06-fresh-rebuild-amendment.md). Phase 2 started on
 - **Install and run on a real Android device:** BLOCKED (no device or emulator; O4).
 - **App identifiers:** placeholders `com.example.app_mobile` (Android) and the iOS template default (D5 OPEN).
 - **District data reuse rights:** OPEN.
-- **Commit and push of Module 2.1:** not done; awaiting owner authorisation.
+- **Commit and push of Module 2.1:** done on the owner's authorisation: committed and pushed to `origin/main` as `053fed7af634611036efde3d722cae90516b1928`.
+
+## Repository security review (2026-11-19, read-only)
+
+Done before the Module 2.2 commit, on the owner's instruction. No GitHub setting, Firebase resource, credential or git history was changed.
+
+### Findings
+
+| Item | Result | Status |
+|---|---|---|
+| Visibility | **PUBLIC** (`gh api`: `visibility: public`). Public since creation on 2026-11-15 (repository event at 17:21 UTC, before the first push), so every pushed commit and the `legacy-app-final` tag have been public | CONFIRMED |
+| Forks, stars, watchers | 0, 0, 0 | CONFIRMED |
+| Traffic (14 days) | 14 clones by 11 unique cloners; 6 views by 1 unique visitor. Cloners not identifiable | CONFIRMED |
+| GitHub secret scanning and push protection | both disabled | CONFIRMED |
+| Firebase client configuration in history | added in `912d74b`, deleted in `053fed7`, still in history and the tag: `android/app/google-services.json` (project ID and number, storage bucket, Android app ID, package `com.example.jober_india`, 1 API key); `lib/firebase_options.dart` (Android, iOS, macOS, Windows-as-web options: API keys, app IDs, sender ID, auth domain, Analytics measurement ID); old root `firebase.json` (FlutterFire app IDs). 3 distinct `AIza…` API keys (Android, Apple, web). No `GoogleService-Info.plist` | CONFIRMED |
+| Genuine secrets in history | every blob of all 12 commits on `main`, `origin/main` and `legacy-app-final` scanned for private keys, service-account JSON, signing keystores and passwords, GitHub, Google OAuth, AWS, Slack, OpenAI-style and Anthropic tokens, `.env` and credential files, OAuth client IDs, password or token assignments: **none found**. Phone-number matches were all false positives (project number, Xcode IDs, lockfile hash, image bytes) | CONFIRMED |
+| Personal data | the owner's commit e-mail address is public in commit metadata | CONFIRMED |
+
+Firebase client configuration identifies the project and ships inside every app; it is not a secret. Protection comes from security rules, App Check and API-key restrictions. No history rewrite is needed: it would not remove existing copies, and there is no genuine secret to remove. Key rotation is optional; the retired apps' keys can be deleted or restricted when the D5 apps are registered.
+
+**Owner decision (2026-11-19):** keep the repository **public**. `CLAUDE.md` and 04 were corrected to match, and the CI-cost cell in 08 §5 was corrected (GitHub-hosted standard runners are free in public repositories). Historical records that describe the repository as private were left unchanged and are inaccurate on that point: `evidence/phase-1-closing-report.md` (Phase 1 table), 05 §1 (Git row) and 06 (Phase 1 history row).
+
+### Outstanding before Phase 3 (Firebase console checks, owner approval needed; NOT VERIFIED)
+
+1. **API-key restrictions:** restrict the 3 keys by application (Android package plus signing fingerprint, iOS bundle ID, allowed websites for the web key) and by API (only the Firebase APIs the app needs). Part of the deferred P2a checks (06 amendment B).
+2. **Auth abuse exposure:** check which sign-in providers are enabled, the billing plan, and the SMS region policy (India only). With a public key, an enabled Phone provider on the Blaze plan is open to paid-SMS abuse.

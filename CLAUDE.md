@@ -4,7 +4,7 @@
 
 **Roadmap approved by the owner on 2026-11-15. Phase 1 (Foundation) was signed off by the owner on 2026-11-19 (`docs/people-bridge/evidence/phase-1-closing-report.md`). Phase 2 (fresh rebuild) started on the owner's instruction on 2026-11-19; Module 2.1 (workspace skeleton) is implemented and awaiting owner review (`docs/people-bridge/evidence/phase-2.md`).** Work proceeds one phase at a time, in roadmap order; a phase is complete only when its gate is met, its commit is pushed and the owner has signed it off. Do not start a later phase early, and do not change Firebase, the database or production data without the step being in the current phase.
 
-- Git: private repository `mohdkasimqur/people-bridge`, branch `main`; baseline commit `912d74b`.
+- Git: **public** repository `mohdkasimqur/people-bridge` (public since its creation on 2026-11-15; the owner decided on 2026-11-19 to keep it public; security review in `docs/people-bridge/evidence/phase-2.md`), branch `main`; baseline commit `912d74b`.
 - Working app name: **People Bridge (provisional)**. The final brand is confirmed at the final branding and release stage.
 - Phase 1 signed off 2026-11-19 (evidence committed in `f2585f7`). Items carried forward:
   - D5 identifiers (package ID, bundle ID, legal entity, owned domain, and the ID approach) stay OPEN. They are due **before any Phase 2 app registration** (06 amendment A, owner-approved 2026-11-18).
@@ -59,7 +59,7 @@ Read only the section needed for the task at hand.
 - Fast startup, smooth scrolling, low latency, efficient queries.
 - Robust error handling; automated tests and regression prevention for every change.
 - Never trade away security, testing or reliability to save tokens.
-- Version control is mandatory: a phase is complete only after its commit is pushed to the approved private GitHub repository and verified. Never commit secrets, never force-push, never make the repository public without approval. Full rule in the roadmap.
+- Version control is mandatory: a phase is complete only after its commit is pushed to the approved GitHub repository and verified. The repository is public (owner decision, 2026-11-19), so everything pushed is public. Never commit secrets, never force-push, never change the repository's visibility without approval. Full rule in the roadmap.
 - Never invent findings or decisions; mark each item as confirmed, recommended or open.
 
 ## Tooling and environment (verified 2026-11-17 and 2026-11-18, after a Windows reinstall)

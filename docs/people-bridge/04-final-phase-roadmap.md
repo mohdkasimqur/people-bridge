@@ -1,6 +1,6 @@
 # People Bridge — Final Phase Roadmap
 
-Version 1, 2026-11-14. **Status: APPROVED by the owner on 2026-11-15. Phase 1 (Foundation) signed off by the owner on 2026-11-19; Phase 2 (06 §8) in progress since 2026-11-19.** Baseline commit `912d74b` is on the private GitHub repository `mohdkasimqur/people-bridge`.
+Version 1, 2026-11-14. **Status: APPROVED by the owner on 2026-11-15. Phase 1 (Foundation) signed off by the owner on 2026-11-19; Phase 2 (06 §8) in progress since 2026-11-19.** Baseline commit `912d74b` is on the GitHub repository `mohdkasimqur/people-bridge`, which is **public** (public since its creation on 2026-11-15; kept public by owner decision on 2026-11-19).
 
 **Amended (2026-11-18).** The fresh-rebuild amendment [06-fresh-rebuild-amendment.md](06-fresh-rebuild-amendment.md) v0.5 was **approved by the owner on 2026-11-18** (decision D1).
 - **Phases 2–11 below are superseded** by 06 §8 and kept for history.
@@ -39,7 +39,7 @@ Never:
 - Force-push, rewrite shared history or delete remote branches without explicit approval.
 - Commit API keys, credentials, signing keys, secrets, `.env` files or private user data.
 - Connect to or push over an existing remote without inspecting its history first.
-- Make the repository public without explicit approval.
+- Change the repository's visibility without explicit approval. (It is public by owner decision, 2026-11-19, so everything pushed is public.)
 
 Standard regression set (grows each phase): build and start on Android; sign in; register one mobile and one fixed-business partner; LIVE on and off; search; chat; logout and login.
 

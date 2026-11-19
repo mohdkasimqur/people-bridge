@@ -280,7 +280,7 @@ Start with the built-ins and adopt Riverpod only if a measured need appears (app
 | Analytics, Crashlytics, Cloud Monitoring | funnels, crashes, alerts | free tiers; logging volume to watch | — |
 | Backups | daily scheduled backups (7 days) plus weekly copy to an `asia-south2` bucket; restore drill | billed per GiB | PITR only |
 | Staging and production | separate projects (D3) | small | emulator only (insufficient) |
-| CI/CD | GitHub Actions: analyze, format, unit, widget, rules and Functions tests, build; deploy staging on merge; production manually with approval | free minutes for a private repo, limited (verify) | local scripts |
+| CI/CD | GitHub Actions: analyze, format, unit, widget, rules and Functions tests, build; deploy staging on merge; production manually with approval | free: standard GitHub-hosted runners cost nothing in a public repository; larger runners are billed (corrected 2026-11-19: the repository is public; GitHub "GitHub Actions billing" docs) | local scripts |
 
 ## 6. Budget and cost model (ESTIMATE, INR per month)
 
