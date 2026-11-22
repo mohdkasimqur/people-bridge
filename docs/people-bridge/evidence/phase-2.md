@@ -197,11 +197,90 @@ Flutter's own widget text is therefore **not** available in all 23 languages: fo
 | `flutter build web` (admin) | exit 0, 69 s |
 | ARB byte identity | SHA-256 23/23 identical to the baseline taken before any change (which matched `HEAD` and `legacy-app-final:lib/l10n`); also re-checked 23/23 against `legacy-app-final` |
 
+**Correction (2026-11-22, Module 2.4):** the debug APK measured above (182,563,668 bytes, "+24,694,186") contained 24,457,163 bytes of unreferenced data (no APK entry points to them). It was built in the main workspace on top of earlier builds; that the bytes are stale data left by an earlier build is a hypothesis, not a proven cause. Fresh builds of `cc74ac4` and `2f6bc51` with identical commands differ by **+244,244 bytes**. The original figures are kept as recorded; see "Module 2.4 — release build and app-size baseline" below for the fresh-build comparison.
+
 ### Limitations and not verified
 
 - **Flutter widget text is English for 9 languages** (brx, doi, kok, ks, mai, mni, sa, sat, sd), as decided by the owner.
 - **GitHub Actions run:** not run (needs a push).
 - **Real devices:** BLOCKED (O4). Santali uses the Ol Chiki script; whether phones render it, and how right-to-left screens look, is unverified. Widget tests do not render glyphs.
-- **Release APK size:** not measured; the debug size grew by about 24.7 MB.
+- **Release APK size:** not measured; the debug size grew by about 24.7 MB. *(Corrected in Module 2.4: the APK held 24,457,163 unreferenced bytes; the fresh-build increase is 244,244 bytes.)*
 - **Translation quality and provenance:** not reviewed. Some messages belong to old features (for example the "display over other apps" permission text).
 - **Not included:** language picker screen; saving the chosen language across restarts (the store is still in memory); bundled fonts; iOS `CFBundleLocalizations` in `Info.plist` (no Mac); admin localization.
+
+## Module 2.4 — release build and app-size baseline (2026-11-22)
+
+Measurement only, approved by the owner on 2026-11-22. No application code, dependency, signing, CI, Firebase or app-ID change. Release builds use the Flutter template's debug signing (`signingConfig = signingConfigs.getByName("debug")`, unchanged); they were for local measurement only and were never distributed, uploaded or committed. No signing key was created.
+
+### Method
+
+- Environment: Windows 11 Pro; Flutter 3.50.0 (framework `ab2912035e…`, engine `bf601093ad…`), Dart 3.14.0; Temurin JDK 21.0.13; Gradle 9.5.0; Android Gradle Plugin 9.3.1; Kotlin 2.4.20; `JAVA_TOOL_OPTIONS=-Djava.net.preferIPv4Stack=true` for every build.
+- Two temporary detached worktrees outside the repository: `a` at `cc74ac4` (before Module 2.3) and `b` at `2f6bc51` (Module 2.3). In each, `flutter pub get --enforce-lockfile` (lockfile unchanged), then the same commands in `apps/mobile`:
+  - `flutter build apk --debug`
+  - `flutter build apk --release --split-per-abi`
+  - `flutter build apk --release --analyze-size --target-platform android-<arm|arm64|x64> --code-size-directory=build/size-android-<…>` (all three in `b`; arm64 in `a`)
+  - `flutter build appbundle --release`
+- APK and AAB contents read from the ZIP central directory; unreferenced bytes = file size minus local headers, entry data, central directory and end record. The worktrees and their build outputs were deleted afterwards.
+
+### Finding: fresh builds do not reproduce the "+24.7 MB" debug APK increase (Module 2.3)
+
+| Debug APK | Size (bytes) | Unreferenced bytes |
+|---|---|---|
+| `cc74ac4`, fresh worktree | 157,869,518 | 4,096 |
+| `2f6bc51`, fresh worktree | 158,113,762 | 4,096 |
+| Module 2.3 measurement (main workspace, built over earlier builds) | 182,563,668 | **24,457,163** |
+
+- **Confirmed:** built the same way, Module 2.3 adds **244,244 bytes** to the debug APK. The only changed entry is `assets/flutter_assets/kernel_blob.bin` (compressed 24,453,039 → 24,697,283; uncompressed 74,549,952 → 75,242,856). The Module 2.3 APK has the same 147 entries but carries 24,457,163 bytes that no entry references.
+- **Confirmed:** the Module 2.3 figure of "+24,694,186 bytes" does not reflect app growth. The fresh-build increase is 244,244 bytes, and the Module 2.3 APK holds 24,457,163 unreferenced bytes. The Module 2.3 section keeps its original figures with a correction note pointing here.
+- **Hypothesis (cause not proven):** incremental APK packaging in the main workspace may have left the previous build's `kernel_blob.bin` data in the file as dead space. Supporting but not conclusive: the unreferenced 24,457,163 bytes are close to that entry's compressed size at `cc74ac4` (24,453,039). The packaging behaviour was not examined.
+
+### Release APKs (per architecture, debug-key signed, local only)
+
+| Architecture | `cc74ac4` (bytes) | `2f6bc51` (bytes) | Change |
+|---|---|---|---|
+| armeabi-v7a | 12,172,985 | 12,369,593 | +196,608 |
+| arm64-v8a | 14,716,865 | 14,913,473 | +196,608 |
+| x86_64 | 15,903,131 | 16,099,739 | +196,608 |
+
+- **Confirmed:** in every architecture the only changed entry is `lib/<abi>/libapp.so` (compiled Dart, stored uncompressed): arm64 2,950,104 → 3,146,712 bytes. `libflutter.so` is byte-identical. The `--analyze-size` builds produced APKs within 4 bytes of these.
+- **Largest contributors (arm64, 2f6bc51, confirmed):** `libflutter.so` (Flutter engine) is about 11.3 MB uncompressed; Dart code `libapp.so` 3.1 MB, of which `package:flutter` 973 KB, `package:material_ui` 270 KB, `dart:core` 246 KB, `dart:ui` 177 KB, `dart:typed_data` 180 KB; `classes.dex` 235 KB; `flutter_assets` 112 KB (Material icons font tree-shaken).
+
+### Localization contribution (arm64 release, `cc74ac4` → `2f6bc51`, from the size-analysis JSON)
+
+**Measured total:** `libapp.so` grows by 196,608 bytes (2,950,104 → 3,146,712). The size-analysis tree covers 167,136 bytes of that growth (2,890,112 → 3,057,248), split as follows.
+
+**A. Attributed to named packages (measured): +126,287 bytes**
+
+| Package | Change (bytes) | Notes |
+|---|---|---|
+| `package:intl` | +38,241 | new in the binary |
+| `package:flutter_localizations` | +26,014 | date (8,714) and widget (6,855) localizations; **its deprecated Material and Cupertino tables are not in the binary** (removed by tree shaking) |
+| `package:material_ui` | +22,113 | `generated_material_localizations.dart` 17,344 |
+| `package:cupertino_ui` | +20,982 | `generated_cupertino_localizations.dart` 17,325 |
+| `package:app_mobile` | +11,353 | includes generated `l10n` 10,387 |
+| Subtotal, the five localization-related packages | **+118,703** | |
+| Other named libraries | +7,584 | mostly `package:flutter` +3,084, `dart:core` +1,777, `dart:_compact_hash` +1,078 |
+
+**B. Unattributed (measured, but not assigned to any package by the tool): +70,321 bytes**
+
+| Bucket | Change (bytes) |
+|---|---|
+| `@shared` | +27,978 |
+| `@unknown` | +11,661 |
+| `@stubs` | +1,210 |
+| Outside the analysis tree (196,608 − 167,136) | +29,472 |
+
+- **Confirmed:** Module 2.3 adds 196,608 bytes (192 KiB) per architecture to the release APK, all in compiled Dart code; 118,703 bytes of it are attributed to the five localization-related packages.
+- **Hypothesis:** the 23 × 120 translated strings account for much of the unattributed amount; the tool does not name them.
+
+### Release App Bundle (all architectures, debug-key signed, local only)
+
+- `cc74ac4` 43,227,187 bytes → `2f6bc51` 43,589,107 bytes (**+361,920**). `base/lib/<abi>/libapp.so` grows as in the APKs.
+- About 21 MB of the bundle is `BUNDLE-METADATA/…/debugsymbols/*.sym` (native debug symbols kept by Google Play, not delivered to phones).
+
+### Limitations
+
+- Download and install size per device from the bundle was not measured: it needs `bundletool`, which is not installed (installing needs owner approval).
+- No phone (O4): cold start, install and on-device size not measured.
+- Release builds are signed with the template debug key; real signing is not configured (Phase 2 release-signing deliverable still open).
+- Single builds on one machine; no repeat runs.
