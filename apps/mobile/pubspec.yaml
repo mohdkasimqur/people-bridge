@@ -10,6 +10,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  cupertino_ui: ^1.0.0
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.20.2
   material_ui: ^1.1.0
   app_core:
     path: ../../packages/core
@@ -21,3 +25,4 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  generate: true

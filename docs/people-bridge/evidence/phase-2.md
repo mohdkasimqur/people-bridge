@@ -147,3 +147,61 @@ These are two single runs on GitHub-hosted runners, not an average.
 ### Not verified
 
 - **Pull-request trigger: NOT VERIFIED** (not exercised; no pull request opened).
+
+## Module 2.3 — localization (2026-11-20)
+
+Scope approved by the owner on 2026-11-20: connect the 23 preserved ARB files to `apps/mobile`. Owner decisions: (1) `flutter_localizations` and `intl` become direct mobile dependencies, later also `cupertino_ui` (approved after implementation showed it was needed, see below); (2) Flutter's own widget text falls back to English where the framework has no translation, while the app's text stays in the selected language; (3) the admin app stays English-only.
+
+### Changes (local; not committed)
+
+- `apps/mobile/pubspec.yaml`: direct dependencies `cupertino_ui: ^1.0.0`, `flutter_localizations` (SDK) and `intl: ^0.20.2`; `generate: true`. All three were already in `pubspec.lock` as dependencies of `material_ui` (`cupertino_ui` 1.1.7 and `intl` 0.20.3; `material_ui` and `cupertino_ui` published by `flutter.dev`), so **`pubspec.lock` is unchanged** and nothing new is downloaded.
+- `apps/mobile/l10n.yaml` (new): ARB directory `lib/l10n`, template `app_en.arb`, non-nullable getter, formatted output.
+- `apps/mobile/lib/l10n/localizations.dart` (new): the delegate list (app, `material_ui` Material, `cupertino_ui` Cupertino, Flutter widgets, then English fallbacks), and the supported-locale list with English first so that an unsupported language resolves to English rather than to the first language alphabetically.
+- `apps/mobile/lib/main.dart`: `MaterialApp` uses that delegate list and locale list.
+- `apps/mobile/analysis_options.yaml`: excludes the generated `lib/l10n/app_localizations*.dart` (its unused `localizationsDelegates` constant names `flutter_localizations` delegates that Flutter 3.50 deprecates).
+- `apps/mobile/.gitignore`: ignores the generated files.
+- `apps/mobile/test/localization_test.dart` (new): 27 tests.
+- The 23 ARB files are unchanged; no key or translation was corrected, renamed or removed.
+
+### Why `cupertino_ui` was needed
+
+`material_ui`'s `MaterialApp` always adds `cupertino_ui`'s default Cupertino delegate, which supports English only (`isSupported`: `languageCode == 'en'`). Without `cupertino_ui`'s `GlobalCupertinoLocalizations`, every non-English locale raised "This application's locale, … is not supported by all of its localization delegates" (22 locale tests and the runtime-switch test failed). The deprecated `flutter/cupertino` delegate is a different type and does not fix it.
+
+### Translation coverage (what is and is not translated)
+
+| Layer | Languages translated | Fallback |
+|---|---|---|
+| App text (the 120 ARB messages) | all 23 | none needed (untranslated-messages report `{}`) |
+| Material widget text (`material_ui` 1.11.1) | 14: as, bn, en, gu, hi, kn, ml, mr, ne, or, pa, ta, te, ur | **English** for brx, doi, kok, ks, mai, mni, sa, sat, sd |
+| Cupertino widget text (`cupertino_ui` 1.1.7) | the same 14 | **English** for the same 9 |
+| Widget text and text direction (`flutter_localizations`) | the same 14 | English for the same 9; **right to left kept for Kashmiri and Sindhi** (and Urdu through Flutter) |
+
+Flutter's own widget text is therefore **not** available in all 23 languages: for 9 languages it is English.
+
+### Code generation
+
+- Flutter 3.50's `flutter pub get` runs the localization generator for every workspace package with `generate: true` (`flutter_tools/lib/src/commands/packages.dart`, `GenerateLocalizationsTarget`). The generated files are not committed.
+- **Clean-checkout test:** fresh clone of `cc74ac4` with these changes applied (tree identical to the working copy apart from git-ignored files). Before `flutter pub get --enforce-lockfile`: 0 generated files. After: 24 (exit 0), none shown by `git status`, lockfile unchanged. Then, in the clone: format exit 0 (34 files, 0 changed); `flutter analyze --fatal-infos --fatal-warnings` "No issues found!"; tests core 5, mobile 28, admin 1, all passed. CI's existing first step therefore generates the code before analysis, tests and builds; **no CI change was needed**.
+- One-off generator run with an untranslated-messages report (option added to `l10n.yaml` for that run only, then removed): report `{}`.
+
+### Verification (Windows, Flutter 3.50.0, revision `ab2912035e…`)
+
+| Check | Result |
+|---|---|
+| `flutter pub get --enforce-lockfile` | exit 0; lockfile unchanged |
+| `dart format --output=none --set-exit-if-changed apps packages` | exit 0 (34 files, 0 changed) |
+| `flutter analyze --fatal-infos --fatal-warnings` | "No issues found!" |
+| `flutter test` core / mobile / admin | 5 / 28 / 1 passed |
+| Mobile tests in detail | the app's languages equal the 23 ARB `@@locale` values; exactly the 9 expected languages need the fallback; for each of the 23 languages the app starts with no exception or delegate warning, resolves to that language, shows `logout` and `home` exactly as in its ARB file, shows the Material and Cupertino text of that library's own translation (English for the 9), and has the expected text direction (RTL for ur, ks, sd); runtime switch English → Santali; French falls back to English; existing smoke test |
+| `flutter build apk --debug` (local IPv4 workaround) | exit 0, 51 s; 182,563,668 bytes (Module 2.1: 157,869,482; **+24,694,186 bytes**) |
+| `flutter build web` (admin) | exit 0, 69 s |
+| ARB byte identity | SHA-256 23/23 identical to the baseline taken before any change (which matched `HEAD` and `legacy-app-final:lib/l10n`); also re-checked 23/23 against `legacy-app-final` |
+
+### Limitations and not verified
+
+- **Flutter widget text is English for 9 languages** (brx, doi, kok, ks, mai, mni, sa, sat, sd), as decided by the owner.
+- **GitHub Actions run:** not run (needs a push).
+- **Real devices:** BLOCKED (O4). Santali uses the Ol Chiki script; whether phones render it, and how right-to-left screens look, is unverified. Widget tests do not render glyphs.
+- **Release APK size:** not measured; the debug size grew by about 24.7 MB.
+- **Translation quality and provenance:** not reviewed. Some messages belong to old features (for example the "display over other apps" permission text).
+- **Not included:** language picker screen; saving the chosen language across restarts (the store is still in memory); bundled fonts; iOS `CFBundleLocalizations` in `Info.plist` (no Mac); admin localization.

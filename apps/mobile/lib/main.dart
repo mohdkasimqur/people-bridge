@@ -1,6 +1,8 @@
 import 'package:app_core/app_core.dart';
 import 'package:material_ui/material_ui.dart';
 
+import 'l10n/localizations.dart';
+
 void main() {
   runApp(App(localeController: LocaleController(InMemoryLocaleStore())));
 }
@@ -17,6 +19,8 @@ class App extends StatelessWidget {
       builder: (context, locale, _) => MaterialApp(
         title: 'People Bridge',
         locale: locale,
+        localizationsDelegates: appLocalizationsDelegates,
+        supportedLocales: appSupportedLocales,
         home: const Scaffold(body: Center(child: Text('People Bridge'))),
       ),
     );
