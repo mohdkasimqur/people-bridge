@@ -15,11 +15,16 @@ dependencies:
     sdk: flutter
   intl: ^0.20.2
   material_ui: ^1.1.0
+  shared_preferences: ^2.5.5
   app_core:
     path: ../../packages/core
+  app_design:
+    path: ../../packages/design
 
 dev_dependencies:
   flutter_test:
+    sdk: flutter
+  integration_test:
     sdk: flutter
   flutter_lints: ^6.0.0
 

@@ -57,6 +57,10 @@ jobs:
         working-directory: packages/core
         run: flutter test
 
+      - name: Test design
+        working-directory: packages/design
+        run: flutter test
+
       - name: Test mobile
         working-directory: apps/mobile
         run: flutter test

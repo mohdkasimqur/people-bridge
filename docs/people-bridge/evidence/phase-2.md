@@ -284,3 +284,271 @@ Measurement only, approved by the owner on 2026-11-22. No application code, depe
 - No phone (O4): cold start, install and on-device size not measured.
 - Release builds are signed with the template debug key; real signing is not configured (Phase 2 release-signing deliverable still open).
 - Single builds on one machine; no repeat runs.
+
+## Module 2.5 — design system and first-run language chooser: E1 local implementation (2026-11-23)
+
+Owner decisions (2026-11-23): include a first-run language chooser; shared design system in `packages/design`; `shared_preferences` with `SharedPreferencesAsync`; provisional pastel look, system fonts, light and dark themes; RMX2040 for Android testing; `integration_test` approved. Authorised so far: **E1 only** (local implementation and verification), plus two build fixes. **Not authorised:** phone installation or testing (A, B), CI change (C), commit and push.
+
+### What was implemented (uncommitted)
+
+- **`packages/design` (`app_design`, new workspace member):** design values (`tokens.dart`: provisional pastel seed `0xFF9CD3C4`, spacing, corner radius) and `AppTheme.light()`/`.dark()` (`ColorScheme.fromSeed`, 48 dp tap targets, list-tile shape). No custom widgets.
+- **`packages/core` `LocaleController`:**
+  - `load(supported:, timeout: 2 s)` returns `saved`, `none`, `unsupported` or `failed`. A read still running at the timeout is ignored, so it cannot change the locale or the screen later. Read errors and timeouts go to `FlutterError.reportError`.
+  - `setLocale` switches at once and now **always saves**, notifying listeners only on a change. This changes Module 2.1 behaviour: a first-run choice of the current language must persist. It returns false on a failed or timed-out save, which is reported and does not undo the switch.
+- **`apps/mobile`:**
+  - `SharedPreferencesLocaleStore`: key `app.locale`; `SharedPreferencesAsync` injected through the constructor.
+  - `language_names.dart`: own-script and English names for the 23 languages. **None is verified**; Bodo, Dogri, Santali and Manipuri are flagged `needsReview` for native-speaker checking.
+  - `LanguageChooserScreen` (`RadioGroup` and `RadioListTile`): one choice per visit, further taps ignored. On first run it replaces itself with Home; opened from Home, it pops back.
+  - `HomeScreen`: the existing placeholder plus one language button. Its title and tooltip use the existing `home` and `languages` strings; no new strings.
+  - `main()`: reads the saved language once, before the first frame, and shows Home only for a `saved` result. After the review corrections this is done by `startApp` (see "Review corrections").
+- **`apps/admin`:** uses `AppTheme`; still English-only.
+- **Build fixes (owner-authorised 2026-11-23):**
+  - `kotlin.incremental=false` in `apps/mobile/android/gradle.properties`. Without it, `:shared_preferences_android:compileDebugKotlin` failed twice locally with "Could not close incremental caches". The stack trace showed `IllegalArgumentException: this and base files have different roots` (pub cache on `C:`, project on `E:`).
+  - `/android/` in the root `.gitignore`. `flutter pub get` at the workspace root now generates an untracked root `android/` folder (`GeneratedPluginRegistrant.java`, `local.properties`, `.gradle/`). The rule matches none of the 19 tracked files under `apps/mobile/android`. The folder was left in place.
+- **Unchanged:** the 23 ARB files, `l10n.yaml`, `lib/l10n/localizations.dart`, app IDs, signing, Firebase, `ci.yml`.
+
+### Dependencies
+
+- `apps/mobile`: `shared_preferences: ^2.5.5` (resolved 2.5.6) and `app_design` (path); dev: `integration_test` (Flutter SDK).
+- `apps/admin`: `app_design` (path). `packages/design`: `material_ui`.
+- `pubspec.lock` gains 35 packages, all brought in by these. Among them:
+  - `shared_preferences_android` 2.5.5, which uses `jni` 1.2.1 and AndroidX DataStore 1.1.7;
+  - `shared_preferences_foundation` 2.6.2, which uses `objective_c` 9.6.4, `hooks` and `code_assets`;
+  - `flutter_driver`.
+- `shared_preferences_platform_interface` is present only as an indirect dependency and is not declared. Tests use a private fake of `SharedPreferencesAsync` instead.
+
+### Verification (E1, before the review corrections)
+
+This table records the E1 run as it happened, before the corrections below; the mobile count of 44 applies to both the working copy and the fresh clone at that time. The latest results are under "Review corrections".
+
+| Check | Command | Result |
+|---|---|---|
+| Formatting | `dart format --output=none --set-exit-if-changed apps packages` | **PASSED** (45 files, 0 changed; working copy and fresh clone) |
+| Analysis, including `integration_test/` source | `flutter analyze --fatal-infos --fatal-warnings` | **PASSED** ("No issues found!"; working copy and fresh clone) |
+| Tests | `flutter test` in each package | **PASSED**: design 15, core 9, mobile 44 (28 existing + 16 new), admin 1 (working copy and fresh clone) |
+| Android debug build, working copy | `flutter build apk --debug` | **FAILED** twice before the Kotlin fix; **PASSED** after it (69 s) |
+| Android debug build, fresh clone | `flutter build apk --debug` | **PASSED** (126 s, 164,698,146 bytes) |
+| Android release builds, fresh clone (template debug signing, unchanged; local only) | `flutter build apk --release --split-per-abi` | **PASSED** (255 s); sizes below |
+| Admin web | `flutter build web` | **PASSED** (working copy 126 s; fresh clone 134 s) |
+| ARB byte identity | SHA-256 against the baseline taken before Module 2.5, and against `legacy-app-final` | **PASSED** 23/23 in the working copy. In the fresh clone the files differ only in line endings (`core.autocrlf=true` writes CRLF on checkout): with CR removed, 23/23 identical, and `git hash-object` equals the committed blob for 23/23 |
+| On-device test (`integration_test/language_flow_test.dart`) | — | **NOT RUN** (needs authorisation B) |
+| Phone checks (screenshots, rendering, cold start) | — | **NOT RUN** (needs authorisations A and B) |
+| CI (GitHub Actions) | — | **NOT RUN** (nothing pushed; the design tests need authorisation C to run in CI) |
+
+The new tests cover:
+- the load results and the timeout, including that a late read never changes the locale;
+- save failures: the switch is kept and the error reported;
+- the store, against a fake `SharedPreferencesAsync`;
+- first run: 23 rows, none selected; a choice switches, saves and replaces the chooser so Back cannot return; choosing English still saves;
+- repeated taps: one save, one navigation;
+- a failed save still switches and navigates;
+- a returning user goes straight to Home, and Home → chooser → Home works;
+- right-to-left layout for ur, ks and sd;
+- no overflow at 200% text on 320×640 and 360×800, for 5 of the 23 languages (en, ta, ml, sat, ur), not all;
+- `androidTapTargetGuideline`, `labeledTapTargetGuideline` and `textContrastGuideline` in light and dark;
+- theme contrast of at least 4.5:1 for the main text pairs.
+
+**Fresh-clone method:**
+- `git clone --no-local` of `080dcdd` into `E:\MyWork\pb-25-verify`, outside the repository.
+- The uncommitted tracked diff was applied with `git apply` and the 14 new files copied. All 24 were checked identical to the working copy, ignoring line endings.
+- Before `flutter pub get --enforce-lockfile`: 0 generated localization files. After: 24, exit 0, with the lockfile identical to the working copy.
+- No root `android/` folder appeared in the clone. This was checked after `pub get` and the tests, not after the builds.
+
+### Review corrections (2026-11-23)
+
+A read-only code review found no critical or high-severity bugs; the owner authorised these corrections.
+
+- **M1, startup path tested:** `main()` now only creates the real store and passes it to `startApp(LocaleStore Function() openStore)`, which opens the store, reads the saved language and returns the `App`. New `apps/mobile/test/startup_test.dart` (5 tests) calls the production `startApp` and pumps the result:
+
+  | Saved state | Result |
+  |---|---|
+  | a supported language (`hi`) | Home, in Hindi |
+  | nothing saved | chooser, English |
+  | an unsupported value (`xx`) | chooser, English |
+  | read failure | chooser, English; the error is reported |
+  | the store cannot be opened | chooser, English; the error is reported; choosing Tamil then works for the session |
+
+  Only the line in `main()` that constructs the real `SharedPreferencesAsync` remains untested; it needs the on-device test.
+- **M2, storage that fails to open:** if creating `SharedPreferencesAsync` fails, `startApp` reports the error to `FlutterError.reportError` (library `app_mobile`) and falls back to `InMemoryLocaleStore`. The app starts in English on the chooser, and the choice lasts for the session only. When the store opens normally, choices are saved on the device as before. No dependency added.
+- **L1:** removed the unused `AppTokens.spaceLarge`.
+- **L2:** both accessibility tests (light and dark) dispose their semantics handle in a `try`/`finally`; all assertions are unchanged. `addTearDown(handle.dispose)` was tried first and failed both tests ("A SemanticsHandle was active at the end of the test"), because `flutter_test` checks for live handles before tear-down callbacks run.
+- **Evidence wording:** the 200% text tests are stated as covering 5 of the 23 languages, and the root `android/` check as made after `pub get` and the tests.
+
+**Re-verification after the corrections (working copy, Windows, Flutter 3.50.0):**
+
+| Check | Command | Result |
+|---|---|---|
+| Formatting | `dart format --output=none --set-exit-if-changed apps packages` | **PASSED** (46 files, 0 changed) |
+| Analysis, including `integration_test/` source | `flutter analyze --fatal-infos --fatal-warnings` | **PASSED** ("No issues found!") |
+| Tests | `flutter test` in each package | **PASSED**: design 15, core 9, **mobile 49** (28 existing + 21 new), admin 1 |
+| Accessibility tests only | `flutter test test/language_chooser_test.dart --plain-name "accessibility guidelines"` | **PASSED** (2: light and dark) |
+| Android debug build | `flutter build apk --debug` | **PASSED** |
+| Android release builds | `flutter build apk --release --split-per-abi` | **PASSED**. Built in the working copy over earlier builds, so **not a size measurement**; the release-size figures below come from the fresh clone |
+| Admin web | `flutter build web` | **PASSED** |
+| ARB byte identity | SHA-256 against the pre-Module 2.5 baseline | **PASSED** 23/23 |
+| Whitespace | `git diff --check` for tracked files; a trailing-whitespace search of the 15 untracked files | **PASSED** (0 findings) |
+| Fresh clone | — | **NOT RE-RUN** after the corrections (the earlier fresh-clone run used the pre-correction code) |
+| On-device test, phone checks, CI | — | **NOT RUN** (not authorised) |
+
+### Release size (arm64 baseline 14,913,473 bytes, Module 2.4)
+
+**Method:** release APKs built once, from scratch, in the fresh clone with `flutter build apk --release --split-per-abi`, using the same toolchain as Module 2.4. They were compared entry by entry with the Module 2.4 listings of the `2f6bc51` APKs, whose app code is identical to `080dcdd`. Each new APK has 8,192 unreferenced bytes, the same as the Module 2.4 fresh builds, so none carries stale data.
+
+| Architecture | Module 2.4 (bytes) | Module 2.5 (bytes) | Change |
+|---|---|---|---|
+| arm64-v8a | 14,913,473 | 16,410,549 | **+1,497,076 (+10.0%)** |
+| armeabi-v7a | 12,369,593 | 13,899,441 | +1,529,848 |
+| x86_64 | 16,099,739 | 17,645,961 | +1,546,222 |
+
+**Measured, arm64 (compressed bytes in the APK):**
+
+| Entry | Change (bytes) |
+|---|---|
+| `lib/arm64-v8a/libapp.so` (compiled Dart) | +917,504 |
+| `classes.dex` | +155,746 |
+| new `lib/arm64-v8a/libdartjni.so` | +131,944 |
+| `resources.arsc` | +81,984 |
+| new `libdatastore_shared_counter.so` | +7,784 |
+| new AndroidX licence files and resources, and 301 smaller entries | the rest |
+
+**Dart code by package** (arm64 `--analyze-size` build, against the Module 2.4 analysis). The tree total goes from 3,057,248 to 3,969,952 bytes (+912,704):
+
+| Package | Change (bytes) |
+|---|---|
+| `package:flutter` | +413,803 |
+| `package:material_ui` | +155,390 |
+| `@unknown` | +85,619 |
+| `dart:mixin_deduplication` | +56,824 |
+| `package:jni` | +50,697 |
+| `package:shared_preferences_android` | +29,542 |
+| `dart:collection` | +20,177 |
+| `dart:ui` | +15,602 |
+| `package:path` | +13,797 |
+| `package:cupertino_ui` | +13,411 |
+| `package:app_mobile` | +12,691 |
+| `@shared` | +10,620 |
+| `package:ffi` | +6,507 |
+| others | smaller |
+
+- **Confirmed:** about 1.5 MB per architecture. The largest part is compiled Dart (+0.9 MB), then the Android storage stack (DataStore code and resources, `libdartjni.so`).
+- **Hypothesis:** most of the Flutter and Material growth is framework code the placeholder app didn't use before (navigation, page transitions, app bar, radio list tiles, icon button, tooltip), which tree shaking previously removed. Any first real screen would pay it.
+- **Unexplained:** this `--analyze-size` APK is 16,671,725 bytes, 261,176 more than the normal release build; in Module 2.4 the two matched within 4 bytes. The normal build is used for the size figures, and the analysis only for attribution.
+  - **Corrected (release startup comparison, below):** a single-target build without size analysis (`flutter build apk --release --target-platform android-arm64`) is also exactly 16,671,725 bytes, built twice with the same size. The gap is therefore between the single-target and `--split-per-abi` build modes, not caused by size analysis. In Module 2.4 the two modes matched within 4 bytes (14,913,469 and 14,913,473). **The cause is not established.**
+
+### Limitations and not verified
+
+- **Not verified on the RMX2040:** no phone validation has taken place. Script rendering on the device, right-to-left as drawn, real `SharedPreferencesAsync` storage, the on-device test and cold start are all unverified (authorisations A and B).
+- **Not verified with TalkBack:** whether native names are read with the right voice (the chooser sets no per-item locale), and whether long titles are visibly truncated at large text sizes. Widget tests catch overflow errors, not truncation.
+- **Not verified by CI:** CI has not run Module 2.5, and the new design tests are not yet in `ci.yml`. *Corrected (2026-11-24):* the design tests are now in `ci.yml` (step "Test design").
+- **Language names:** none of the 23 is verified. Bodo, Dogri, Santali and Manipuri are flagged for native-speaker review.
+- **Size (measured):** the arm64 release APK grows by 1,497,076 bytes (+10.0%), measured in the fresh clone before the review corrections. The corrections changed only startup code and tests, and the size was not re-measured.
+- **Size (hypothesis):** most of the Flutter and Material growth is framework code the placeholder app didn't use before.
+- **Size (unknown):** the 261,176-byte gap between the `--analyze-size` APK and the normal release APK is unexplained. *Corrected:* it is a gap between the single-target and `--split-per-abi` build modes, not caused by size analysis; the cause is still unknown (see the correction above).
+- **No production change:** release builds use the template debug key for local measurement only. No production signing, app ID, Firebase or backend change was made.
+- Single builds; no repeat runs.
+
+### RMX2040 device validation (2026-11-23, authorisations A and B)
+
+Phone: realme RMX2040, Android 11 (API 30), arm64-v8a, 720×1600 at 320 dpi, en-US, dark mode on. Only `com.example.app_mobile` was installed and launched; `com.example.jober_india` no longer appeared in the package list and was not touched. Builds were signed with the local debug key; no signing, app ID or Firebase change. Screenshots (status and navigation bars cropped off for privacy) are in [`module-2.5-device/`](module-2.5-device/).
+
+**A. Baseline (`080dcdd`, built in a temporary worktree outside the repository, since removed):** `flutter build apk --profile`, then `adb install -r` over the existing debug build. It launched without errors; the crash log was empty (the only error-level lines were system messages: an input channel closing on force-stop, and Realme's `oiface` service).
+
+**B. Module 2.5 (working copy):**
+
+| Check | Method | Result |
+|---|---|---|
+| On-device test | `flutter test integration_test/language_flow_test.dart -d RMX2040` | **PASSED** (1 test): Santali chosen, and a new controller read `sat` back from the phone's `SharedPreferencesAsync` storage. The storage plugin, `jni` and DataStore work on this device |
+| First launch | Profile build installed after the test (which uninstalls the app), so no saved data | **PASSED**: chooser, no language selected, title and instruction in English |
+| All 23 options and their scripts | Chooser scrolled; `uiautomator` dump and screenshots | **PASSED**: 23 radio buttons, each labelled "native name \| English name"; every script renders, including Ol Chiki (Santali), the Bengali-script Manipuri name and the Arabic-script names; no missing glyphs |
+| Switching, all 23 | From Home, open the chooser and choose each language in turn; compare Home's title and button label with each ARB file | **PASSED** 23/23: title (`home`) and button label (`languages`) exact for every language |
+| Right-to-left | Positions in the dump, plus screenshots | **PASSED**: Urdu, Kashmiri and Sindhi lay out right to left (chooser and Home); the other 20 left to right |
+| Saved after force-stop | Choose Santali, `am force-stop`, relaunch | **PASSED**: opens straight to Home in Santali |
+| Back from Home after first run | Android Back key | **PASSED**: leaves the app; does not return to the chooser |
+| Screen-reader labels | `uiautomator` dump (TalkBack itself not turned on) | **PASSED**: radio rows have "native \| English" labels and checked state; the language button carries the translated `languages` label; the back button is labelled in Urdu ("پیچھے") and in English ("Back") for Maithili, as designed |
+| Pronunciation with TalkBack | — | **NOT RUN**: needs a person listening with TalkBack on |
+| Light and dark themes | `cmd uimode night no`, then restored to `yes` | **PASSED**: both render correctly; the light surface is a very pale mint |
+| 200% text and small screen | `settings put system font_scale`, `wm density` | **BLOCKED**: ColorOS rejects both over ADB (`SecurityException`: `WRITE_SETTINGS`, `WRITE_SECURE_SETTINGS`). No change was applied; the settings were confirmed unchanged afterwards. The widget tests remain the only coverage |
+| Clearing app data | `pm clear com.example.app_mobile` | **BLOCKED** by ColorOS (`CLEAR_APP_USER_DATA`); not needed, because the on-device test uninstalls the app |
+| Crash log | `adb logcat -b crash -d` after each stage | **PASSED**: 0 entries for the app |
+
+**Cold start (profile builds; three runs each; `flutter run` reinstalls before every run, the same for both builds):**
+
+| Measure | Baseline `080dcdd` | Module 2.5 (English saved) |
+|---|---|---|
+| Android launch, `am start -S -W`, TotalTime | 2,091 / 933 / 839 ms, **median 933** | 2,017 / 1,125 / 1,054 ms, **median 1,125** |
+| Flutter time to first frame, `--trace-startup` | 356 / 365 / 830 ms, **median 365** | 3,330 / 3,389 / 2,316 ms, **median 3,330** |
+| First frame drawn on screen (rasterized) | 909 / 827 / 1,309 ms, median 909 | 3,547 / 3,510 / 2,408 ms, median 3,510 |
+| Flutter framework start | 344 / 344 / 819 ms, median 344 | 2,401 / 2,347 / 1,708 ms, median 2,347 |
+
+- **Measured:** Flutter's first frame moved from about 0.37 s to about 3.3 s, **above the 3-second target**. Android's TotalTime covers only the launch screen, so users would see the launch screen for roughly 3.3 s.
+- **Hypotheses (not verified):** most of the delay comes before the framework starts (+2.0 s), which points to plugin registration and `jni` start-up added by `shared_preferences_android`. A further 0.6–0.9 s between framework start and first frame is consistent with the app waiting for the saved-language read before its first frame.
+
+**Observation, not reproduced:** in the automated switching run, a scroll gesture on the chooser twice appeared to select a language (Hindi, then Malayalam) and return to Home. Five deliberate attempts to reproduce it with the same gesture and timing did not; it may be an artefact of `adb input swipe`. A manual check is advisable.
+
+**Other observations:** the chooser lists languages by code (for example Kashmiri `ks` after Konkani `kok`), not by English name. The 4 names flagged for native-speaker review render, but their correctness is still unverified.
+
+### Release startup comparison (RMX2040, after the device validation)
+
+The profile figures above came from debuggable profile builds that `flutter run` reinstalled before every run, so they do not represent the user-visible release startup. This comparison uses release builds; it is the measurement that counts against the 3-second target.
+
+**Method:**
+- Builds: `flutter build apk --release --target-platform android-arm64`, template debug key, local only.
+  - Baseline `080dcdd`, in a temporary worktree outside the repository, since removed: 14,913,469 bytes.
+  - Module 2.5 working copy: 16,671,725 bytes. `IntegrationTestPlugin` is not included.
+- Each build was installed with `adb install -r` over the existing app, keeping its data. Data was not cleared and nothing was uninstalled.
+- Five cold starts each with `am start -S -W`, reading TotalTime. Run 1 is the first launch straight after installing.
+- `FlutterActivity` delays Android's first draw until Flutter's first frame, so TotalTime is the time until the user sees the app.
+- Installed packages were not debuggable and were compiled at install (`speed-profile`).
+
+| Run | Baseline (ms) | Module 2.5 (ms) |
+|---|---|---|
+| 1 (first launch after install) | 3,052 | **6,582** |
+| 2 | 587 | 813 |
+| 3 | 451 | 421 |
+| 4 | 604 | 412 |
+| 5 | 457 | 399 |
+| **Median, all five** | **587** (range 451–3,052) | **421** (range 399–6,582) |
+| Median, runs 2–5 | 522 (451–604) | 416.5 (399–813) |
+
+**Measured:**
+- Normal cold starts show no regression, and they are well under the 3-second target.
+- The first launch after install took 6,582 ms for Module 2.5 against 3,052 ms for the baseline. Both are at or above the target.
+- There were no crash-log entries and no Flutter or `AndroidRuntime` errors for either build.
+- Module 2.5 opened straight to Home in English, the saved language.
+
+**Requires further verification:**
+- The first-launch figures come from **one sample per version**. They were taken at **6–7% battery**, charging over USB, with battery saver off, at 35.0–36.0 °C. The difference is not established as stable.
+- Builds were measured one after the other, baseline first, so the phone's file-cache state may differ between them.
+- The baseline ran with Module 2.5's saved-language file present, which it ignores.
+- Module 2.5 ran as a returning user, so the chooser path was not timed.
+
+**Hypothesis (not verified):** the first launch after install pays one-time costs, such as loading and verifying newly compiled code, the first `jni` library load and reading the larger Dart code from storage. Module 2.5 has more of each.
+
+**Not verified:** whether the language read before the first frame can exceed its 2-second limit on a first launch after an update. If it did, a returning user would see the chooser again for that launch.
+
+### Final device checks and chooser title fix (RMX2040, 2026-11-24)
+
+**Device checks** (installed Module 2.5 release build; plugged in, battery saver off; settings changed only through the phone's Settings screens and restored afterwards):
+
+| Check | Result |
+|---|---|
+| Chooser scrolling | **PASSED**: 12 swipes (200–3,000 ms, both directions, starting on rows); the chooser stayed open and English stayed the only selected row. The earlier accidental selection was not reproduced. A deliberate choice of Tamil switched Home to Tamil |
+| Large text | The phone's maximum is "Very large" = **1.6×**; 200% is not available, so 200% is covered by widget tests only. At 1.6× Home and all 23 rows were readable and reachable. **Defect found:** the chooser title was cut off with an ellipsis (Tamil at 360 dp; English and Tamil at 320 dp) |
+| Small screen | Display size "Large" = **320 dp** wide, combined with 1.6× text: layout held apart from the title defect |
+| TalkBack | **PARTIAL**: TalkBack turned on and off normally; focus started on the title or Back; Tab reached the Languages button and Enter opened the chooser; rows expose their selected state. **BLOCKED:** swipe navigation (TalkBack ignores swipes injected over ADB; injected taps bypass it). **NOT VERIFIED:** pronunciation (no listener). The speech log showed every utterance used the en-US voice, including on the Hindi screen, so native names are probably not read correctly |
+| Cold start (normal) | 693 / 403 / 398 / 443 / 382 ms, median 403 ms; opened Home in the saved language each time |
+| First launch after install | **BLOCKED** in that session: it requires reinstalling |
+
+**Title fix:**
+- **Root cause:** a Material `AppBar` title is limited to one line with an ellipsis, in a fixed-height toolbar.
+- **Fix** (`apps/mobile/lib/src/language/language_chooser_screen.dart`): the title moved from the app bar to the top of the scrolling list. It uses the theme's `headlineSmall` style, is marked as a heading for screen readers, and wraps. The app bar keeps only the Back button.
+- **Regression test** (`apps/mobile/test/language_chooser_test.dart`): checks all 23 languages, right-to-left included, at 200% text on 320 × 640, confirming the title is not truncated and fits the width. It failed before the fix (English first) and passes after it.
+- **Verification:** formatting 0 changes; `flutter analyze --fatal-infos --fatal-warnings` no issues; tests core 9, design 15, **mobile 50**, admin 1 (**75 passed**).
+
+**Device confirmation of the fix:**
+- Release arm64 APK (16,671,725 bytes) installed with `adb install -r`; app data kept (same first-install time; opened Home in the saved language). First launch after this update: 3,744 ms (one sample).
+- At 1.6× text and 320 dp: **PASSED** — the English title on 2 lines, Tamil on 4, and Urdu right-aligned on 2, all shown in full. One very long Tamil word breaks mid-word because it is wider than the screen on its own.
+- Scrolling, choosing a language (Tamil, Urdu, English), the on-screen Back arrow and the phone's Back key: **PASSED**. No crash-log entries.
+- Settings restored: font 1.0, density 320 with no override, dark mode on, accessibility services unchanged, saved language English.
+
+**CI:** the design tests are in `ci.yml` (step "Test design"). The first CI run of Module 2.5 happens on the push of this commit, so its result is not recorded here.

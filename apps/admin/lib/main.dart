@@ -1,3 +1,4 @@
+import 'package:app_design/app_design.dart';
 import 'package:material_ui/material_ui.dart';
 
 void main() {
@@ -9,9 +10,11 @@ class AdminApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'People Bridge Admin',
-      home: Scaffold(body: Center(child: Text('People Bridge Admin'))),
+      theme: AppTheme.light(),
+      darkTheme: AppTheme.dark(),
+      home: const Scaffold(body: Center(child: Text('People Bridge Admin'))),
     );
   }
 }

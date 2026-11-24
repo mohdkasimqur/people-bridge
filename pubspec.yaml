@@ -8,3 +8,4 @@ workspace:
   - apps/mobile
   - apps/admin
   - packages/core
+  - packages/design
